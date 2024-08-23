@@ -1,0 +1,213 @@
+
+*{
+
+    padding: 0%;
+    margin: 0%;
+}
+body{
+    background-color: #111;
+}
+.pai{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.imagem{
+    height: 100%;
+    width: 40%;
+    background-size: cover;   
+}
+.content-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 70%; 
+    transform: translateX(-50%); 
+}
+.escrita{
+    color: #FFF;
+    text-align: center;
+    font-family: Lato;
+    font-size: 46px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+.box {
+    font-size: larger;
+    height: 531px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-style: solid;
+    border-color: #7853E1;
+    background-color: #7853E1;
+    border-radius: 3%;
+    align-items: center;
+    flex-direction: column;
+    position: relative; 
+    
+} 
+.top{
+    height: 20%;
+    width: 90%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+    left: 5%;
+    position: relative;
+    font-family: Ubuntu;
+    color: white;
+    font-size: 24px;
+
+}
+.mid{
+    height: 30%;
+    width: 100%;
+}
+.nome{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    flex-direction: row;
+    font-family: Ubuntu;
+}
+.email{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.low{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+}
+.btn{
+    width: 15%;
+    height: 15%;
+    border-radius: 5px;
+    color: #000000;
+    background-color: #FFF;
+    border-color: #FFF;
+    border: 1px;    
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100px;
+    height: 30px;
+}
+.desc{
+    width: 86%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    text-align: left;
+    color: white;
+    font-family: Ubuntu;
+    gap: 3%;
+    font-size: 14px;
+}
+#area{
+    width: 353px;
+    height: 172px;
+    border-radius: 10px;
+    outline: none;
+    padding: 2%;
+}
+.input_nome{
+    color: rgb(255, 255, 255);
+    width: 159px;
+    height: 4vh;
+    border: none;
+    border-bottom: 1px solid white;
+    background: transparent;
+}
+.input_email{
+    color: rgb(255, 255, 255);
+    width: 366px;
+    height: 4vh;
+    border: none;
+    border-bottom: 1px solid white;
+    background: transparent;
+}
+.input_nome, .input_email:focus{
+    outline: none;
+}
+input::placeholder {
+    color: rgb(255, 253, 253);
+    font-family: Ubuntu;
+  }
+.main-footer{
+    background-color: #111;
+}
+.icons-footer{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    gap: 50px;
+}
+.foote-title{
+    color: var(--Primaria-3-Brilho-87, #D5D6E6);
+font-family: Ubuntu;
+font-size: 36px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-align: center;
+}
+.logo-quantum{
+    width: 93px;
+height: 95px;
+flex-shrink: 0;
+}
+
+/*
+.btn{
+    border-radius: 5px;
+    color: #000000;
+    background-color: #FFF;
+    border-color: #FFF;
+    border: 1px;    
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100px;
+    height: 30px;
+}
+.box-branca{
+    width: 366px;
+    height: 172px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #FFF;
+    justify-content: center;
+    text-align: center;
+} */
