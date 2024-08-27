@@ -55,7 +55,7 @@
                 <h3>Seja bem vindo, Usuario!</h3>
                 <p>Monitoramento dia DD/MM/AAAA</p>
             </div>
-            <button class="btnNewServidor">Novo Servidor</button>
+            <button class="btnNewServidor" onclick="aparecer()">Novo Servidor</button>
 
         </div>
         <div class="midDash">
@@ -172,7 +172,80 @@
         </div>
 
 
+
     </Section>
+    <div class="boxCadastroServidor" id="aparecerBoxServidor">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Cadastre um Servidor</h2>
+            
+        </div>
+        <div class="nomeServidor">
+            <div class="divNomeServidor">
+                <p>Nome do Servidor</p>
+            </div>
+            
+            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor">
+        </div>
+        <button class="botaoAvancar" onclick="avancarServidor()" >Avançar</button>
+    </div>
+    <div class="filtro"></div>
+
+    <div class="boxSelecionarComponentes" id="aparecerSelecionarComponentes">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Selecione os componentes que deseje monitorar</h2>
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="checkbox"> 
+                <p class="btProcessador">Processador</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Processadores" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="checkbox"> 
+                <p class="btProcessador">Memória</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Memória Ram(GB)" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="checkbox"> 
+                <p class="btProcessador">SSD</p>
+                <input type="checkbox"> 
+                <p class="btProcessador">HD</p>
+            </div>
+
+            <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
+        </div>
+
+        <button class="botaoAvancar" onclick="avancarServidor()" >Avançar</button>
+    </div>
+
 </body>
 
 </html>
+<script>
+function aparecer(){
+    var mostrar = document.getElementById("aparecerBoxServidor")
+    if(mostrar.style.display === "none"){
+        mostrar.style.display = "flex"
+    } else {
+        mostrar.style.display = "none"
+    }
+}
+
+function avancarServidor(){
+    var mostrarServidor = document.getElementById("aparecerSelecionarComponentes")
+    if(mostrarServidor.style.display === "none"){
+        mostrarServidor.style.display = "flex"
+    } else {
+        mostrarServidor.style.display = "none"
+    }
+}
+</script>
