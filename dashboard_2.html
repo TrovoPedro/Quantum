@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quantum</title>
+
+      <!-- Icone  -->
+      <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+
+    <!-- Links Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/Navbar.css">
+    <link rel="stylesheet" href="css/dashboard_2.css">
+</head>
+<body>
+
+    <!--NAV BAR-->
+    <div class="navBar">
+        <div class="CaixalogoNav">
+            <img src="img/Logo Quantum.svg" class="logoNav" alt="">
+        </div>
+        <div class="linksNav">
+            <div class="botoesNav">
+                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p>Home</p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
+                <p>Graficos</p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p>Perfil</p>
+            </div>
+        </div>
+        <div class="exitNav">
+            <div class="botoesNav">
+
+                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
+                <P>Logout</P>
+            </div>
+            <div class="borrar">
+
+            </div>
+        </div>
+    </div>
+
+    <!--Informações-->
+    <div class="espaço">
+        <div class="card">
+            <!--select-->
+            <select></select>
+
+            <!--informações-->
+            <div class="infos">
+                <!--lado esquerdo-->
+                <div class="infosE">
+                    <div class="cards">
+                        <b class="title">Desempenho</b>
+                        <div id="CPU">
+                            <button class="detalhe">
+                                <div class="quadrante">
+                                    <img src="img/Group 22.svg" alt="">
+                                </div>
+                                <div class="text">
+                                    <b>CPU</b>
+                                    <div class="inside">
+                                        <div id="porcentagemCPU">
+                                            8% 
+                                        </div>
+                                        <div id="GHzCPU">
+                                            3,16 GHz 
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div id="MEMORIA">
+                            <button>
+                                <div class="quadrante">
+                                    <img src="img/Vector.svg" alt="">
+                                </div>
+                                <div class="text">
+                                    <b>Memória</b>
+                                    <div class="inside">
+                                        <div id="GBMemoria">
+                                            29,5/32.0 GB 
+                                        </div>
+                                        <div id="porcentagemMemoria">
+                                            (72%)
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div id="DISCO">
+                            <button>
+                                <div class="quadrante">
+                                    <img src="img/Mask group.svg" alt="">
+                                </div>
+                                <div class="text">
+                                    <b>Disco 0 (C:)</b>
+                                    <div class="inside">
+                                        <div id="porcentagemDISCO">
+                                            ssd - 2%
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="logo">
+                        <img src="img/Logo Quantum.svg" alt="">
+                    </div>
+                </div>
+                <!--lado direito-->
+                <div class="infosD"></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
