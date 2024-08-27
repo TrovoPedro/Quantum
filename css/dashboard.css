@@ -1,0 +1,254 @@
+* {
+    padding: 0;
+    margin: 0;
+
+}
+
+html {
+    width: 100%;
+    height: 100%;
+
+}
+
+body {
+    width: 100%;
+    height: 100%;
+
+}
+
+.Dashboard {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E1E1E;
+
+}
+
+
+.topDash {
+    height: 20%;
+    width: 83%;
+
+    position: relative;
+    left: 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.boxUser-data {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: first baseline;
+    flex-direction: column;
+
+    color: white;
+    font-family: Ubuntu;
+
+}
+
+.boxUser-data h3 {
+    font-size: 2rem;
+    font-weight: 400;
+
+}
+
+.boxUser-data p {
+    font-size: 1rem;
+
+}
+
+.btnNewServidor {
+    width: 12.5%;
+    height: 25%;
+    border-radius: 5px;
+    border: none;
+    background-color: #7449EB;
+    color: white;
+    font-family: Ubuntu
+}
+
+.midDash {
+    height: 30%;
+    width: 83%;
+
+    position: relative;
+    left: 4%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.monitoramentoGeral {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    font-family: Ubuntu;
+    color: white;
+    font-size: 1rem;
+}
+
+.itensMonitorados {
+    height: 90%;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    font-family: Ubuntu;
+
+}
+
+.cardMonitorados {
+    width: 31%;
+    height: 90%;
+    background-color: #7449EB;
+    border-radius: 10px;
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    flex-direction: column;
+}
+
+.item {
+    height: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+
+.item h2 {
+    font-weight: 400;
+}
+
+.descricao {
+    height: 55%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.item h2 {
+    font-weight: 700;
+}
+
+.lowDash {
+    height: 45%;
+    width: 83%;
+
+    position: relative;
+    left: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 2%;
+}
+
+.tituloLow {
+    position: relative;
+    top: 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    width: 100%;
+    height: 10%;
+}
+
+.box1low {
+    width: 45%;
+    height: 90%;
+
+    border-radius: 20px;
+    font-family: Ubuntu;
+    color: white;
+    font-size: 1-rem;
+
+}
+
+.box2low {
+    width: 45%;
+    height: 90%;
+
+    border-radius: 20px;
+    font-family: Ubuntu;
+    color: white;
+    font-size: 1rem;
+}
+
+.cardServidor {
+    margin-top: 2.5%;
+    height: 87%;
+    width: 95%;
+    background-color: #7449EB;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    
+}
+.boxServidores{
+    height: 25%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 3%;
+
+}
+.status{
+    display: flex;
+    justify-content: right;
+    width: 40%;
+    height: 80%;
+    align-items: center;
+    gap: 10%;
+    
+}
+.serverImgName{
+    width: 40%;
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    
+   
+
+}
+.TextServidorFuncionalidade{
+    width: 50%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.imgServer{
+    width: 25%;
+}
+.alert{
+    width: 10%;
+}
+/* .borrar{
+    display: none;
+width: 100%;
+height: 100%;
+background-color: #11111143;
+
+
+
+} */

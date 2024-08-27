@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quantum</title>
+
+    <!-- Links Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/Navbar.css">
+</head>
+
+<body>
+
+    <div class="navBar">
+        <div class="CaixalogoNav">
+            <img src="img/Logo Quantum.svg" class="logoNav" alt="">
+        </div>
+        <div class="linksNav">
+            <div class="botoesNav">
+                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p>Home</p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
+                <p>Graficos</p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p>Perfil</p>
+            </div>
+        </div>
+        <div class="exitNav">
+            <div class="botoesNav">
+
+                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
+                <P>Logout</P>
+            </div>
+            <div class="borrar">
+
+            </div>
+        </div>
+    </div>
+
+    <Section class="Dashboard">
+        <div class="topDash">
+            <div class="boxUser-data">
+                <h3>Seja bem vindo, Usuario!</h3>
+                <p>Monitoramento dia DD/MM/AAAA</p>
+            </div>
+            <button class="btnNewServidor">Novo Servidor</button>
+
+        </div>
+        <div class="midDash">
+            <div class="monitoramentoGeral">
+                Monitoramento Geral
+            </div>
+            <div class="itensMonitorados">
+                <div class="cardMonitorados">
+                    <div class="item">
+                        <h2>CPU</h2>
+                    </div>
+                    <div class="descricao">
+                        <h1>
+                            20%
+                        </h1>
+                    </div>
+
+                </div>
+                <div class="cardMonitorados">
+                    <div class="item">
+
+                        <h2>Momória RAM</h2>
+                    </div>
+                    <div class="descricao">
+                        <h1>5,5/15,7 GB</h1>
+                    </div>
+
+                </div>
+                <div class="cardMonitorados">
+                    <div class="item">
+                        <h2>SSD / Hard Disk</h2>
+                    </div>
+                    <div class="descricao">
+                        <h1>40%</h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="lowDash">
+
+            <div class="box1low">
+                <div class="tituloLow">
+                    Servidor Estado Critico
+                </div>
+                <div class="cardServidor">
+                    <div class="boxServidores">
+                        <div class="serverImgName">
+                            <img src="img/servidor.svg" alt="" class="imgServer">
+                            <p>Servidor 1</p>
+                        </div>
+                        <div class="status">
+                            <p>Critico</p>
+                            <img src="img/alert.svg" alt="" class="alert">
+                        </div>
+                    </div>
+                    <div class="boxServidores">
+                        <div class="serverImgName">
+                            <img src="img/servidor.svg" alt="" class="imgServer">
+                            <p>Servidor 2</p>
+                        </div>
+                        <div class="status">
+                            <p>Critico</p>
+                            <img src="img/alert.svg" alt="" class="alert">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="box2low">
+                <div class="tituloLow">
+                    Serviços em Atividade
+                </div>
+                <div class="cardServidor">
+                    <div class="boxServidores">
+                        <div class="serverImgName">
+                            <img src="img/servidor.svg" alt="" class="imgServer">
+                            <div class="TextServidorFuncionalidade"><p>PEP</p></div>
+                           
+                        </div>
+                        <div class="status">
+                            <p>Ativo</p>
+                            <img src="img/circuloGreen.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="boxServidores">
+                        <div class="serverImgName">
+                            <img src="img/servidor.svg" alt="" class="imgServer">
+
+                            <div class="TextServidorFuncionalidade"><p>Exames</p></div>
+                         
+                        </div>
+                        <div class="status">
+                            <p>Desativado</p>
+                            <img src="img/circuloRed.svg" alt="">
+                            
+                        </div>
+                    </div>
+
+                    <div class="boxServidores">
+                        <div class="serverImgName">
+                            <img src="img/servidor.svg" alt="" class="imgServer">
+                            <div class="TextServidorFuncionalidade"><p>Exames</p></div>
+
+                        </div>
+                        <div class="status">
+                            <p>Ativo</p>
+                            <img src="img/circuloGreen.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </Section>
+</body>
+
+</html>
