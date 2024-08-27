@@ -17,8 +17,8 @@ body{
 }
 .imagem{
     height: 100%;
-    width: 40%;
-    background-size: cover;   
+    width: 790px;
+    background-size: contain;   
 }
 .content-main {
     display: flex;
@@ -167,11 +167,12 @@ input::placeholder {
 }
 .icons-footer{
     width: 100%;
-    height: 200px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left: 15px;
+    margin-top: 30px;
     gap: 50px;
 }
 .foote-title{
