@@ -30,7 +30,7 @@ overflow-x: hidden;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: rgb(255, 127, 127);
+
 }
 .imgBemVindo{
     width: 50%;
@@ -43,7 +43,7 @@ overflow-x: hidden;
 .conteudoBemVindo{
     height: 100%;
     width: 50%;
-    background-color: #111111;
+   
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -51,7 +51,7 @@ overflow-x: hidden;
 .titulosBemVindo{
     height: 30%;
     width: 100%;
-    background-color: #111111;
+   
     display: flex;
     justify-content: end;
     align-items: center;
@@ -89,7 +89,7 @@ overflow-x: hidden;
 .textosBemVindo{
     height: 40%;
     width: 100%;
-    background-color: #111111;
+  
     top: 8%;
     position: relative;
     display: flex;
@@ -117,14 +117,53 @@ overflow-x: hidden;
     left: 95%;
     
 }
-
-@media only screen and (max-device-width: 900px) {
+@media (max-width: 1041px) {
+    .TituloBemVindos{
+        width: 80%;
+        font-size: 1rem;
+  
+    }
+    .nomeDaEmpresaBemVindos{
+    
+        font-size: 1rem;
+  
+    }
+    .boxTextosBemVindos{
+        font-size: 1.3rem;
+    }
     .imgBemVindo{
-    display: none;
+        width: 35%;
+    }
+    .conteudoBemVindo{
+        width: 65%;
+    }
+
+}
+
+
+@media (max-width: 1212px) {
+    .TituloBemVindos{
+    
+        font-size: 3rem;
+  
+    }
+    .nomeDaEmpresaBemVindos{
+    
+        font-size: 2.5rem;
+  
+    }
+   
+
+}
+
+@media only screen and (max-device-width: 1366px) {
+    .imgBemVindo{
+    width: 50%;
+    background-image: url(../img/Noise\ &\ TextureimgBemVindoTablet.png);
     }
     .conteudoBemVindo{
         height: 100%;
-        width: 100%;
+        width: 50%;
      
     }
     .Elementos{
@@ -132,7 +171,7 @@ overflow-x: hidden;
         display: flex;
         position: absolute;
         top: 180vh;
-        left: 85%;
+        left: 95%;
         
     }
     .boxTextosBemVindos{
@@ -141,7 +180,7 @@ overflow-x: hidden;
         font-family: "Lato", sans-serif;
         font-weight: 300;
         font-style: normal; 
-        font-size: 1.6rem;
+        font-size: 1.7rem;
         color: white;
       
     }
@@ -154,9 +193,24 @@ overflow-x: hidden;
         align-items: center;
         font-family: "Lato", sans-serif;
         color: white;
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         font-weight: 300;
         font-style: normal;
         position: relative;
     }
+}
+@media only screen and (max-device-width:430px) {
+    .imgBemVindo{
+        display: none;
+        }
+        .conteudoBemVindo{
+          width: 100%;
+         
+        }
+        .boxTextosBemVindos{
+            font-size: 1.5rem;
+        }
+        .Elementos{
+            left: 85%;
+        }
 }

@@ -68,9 +68,8 @@
     width: 50%;
     height: 100vh;
     background-color: #111111;
-    background-image: url(../img/fundo-cadastro.svg);
+    background-image: url(../img/Group3.svg);
     background-size: cover;
-    background-repeat: no-repeat;
 }
 
 .container-inputs {

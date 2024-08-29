@@ -41,10 +41,10 @@
 .backgroundCarrossel{
     position: absolute;
     top: 200%;
-    left: 53%;
+    right: -3%;
     width: 50%;
     height: 100vh;
-    background-image: url(../img/Banner\ sessao\ beneficios.svg);
+    background-image: url(../img/Banner\ sessao\ beneficiosbackgroundS3.svg);
     background-repeat: no-repeat;
     z-index: 1;
 
@@ -152,7 +152,10 @@
     animation: bordas infinite 10s linear; */
 
 }
+.card:hover .conteudoCard p{
+display: flex;
 
+}
 
 
 /* @keyframes bordas {
@@ -209,7 +212,7 @@
 }
 
 .conteudoCard p{
-
+ display: none;
     margin-top: 5% ;
     font-family: "Lato", sans-serif;
     padding: 5%;
@@ -220,7 +223,7 @@
 .conteudoCard:hover{
    transform: rotateY('angle');
    transition: 1S;
-    height: 100%;
+    height: auto;
     width: 100%;
     background-color: #2999C7;
   left: 20%;
@@ -235,6 +238,9 @@
 
     
 
+}
+.cardCelular{
+    display: none;
 }
 
 .imgCard{
@@ -283,6 +289,9 @@
     animation: bordas infinite 10s linear; */
 
 }
+.card:hover .conteudoCard:hover{
+    height: auto;
+}
 .imgCard{
     width: 15%;
 }
@@ -317,4 +326,136 @@
     display: none;
 
 }
+}
+@media (max-width:1366px) {
+   .tituloBeneficiosCarrossel{
+    font-size: 3rem;
+
+   }
+.nomeEmpresaCarrossel{
+    font-size: 2.5rem;
+}
+.card{
+    height: 60%;
+}
+.card H3{
+    font-size: 1rem;
+    
+}
+}
+
+
+/* Celular */
+@media only screen and (max-device-width:430px) {
+  .divisao1{
+    top: 100vh;
+  }
+  .divisao2{
+top: 200vh;
+  }
+  .divisao3{
+top: 300vh;
+  }
+  .boxLogoCarrossel{
+    display: none;
+  }
+  .boxTopCarrossel{
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 5%;
+  }
+  .boxTituloCarrossel{
+   
+width: 80%;
+display: flex;
+justify-content: center;
+align-items: center;
+  }
+  .tituloBeneficiosCarrossel{
+    width: auto;
+
+  }
+  .nomeEmpresaCarrossel{
+ width: auto;
+  }
+  .boxCarrossel{
+    width: 80%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 60%;
+    position: relative;
+    top: 5%;
+ 
+  }
+  .cardCelular{
+    width: 35%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s ease;
+    background-color: #2999C7;
+    font-family: Lato;
+    border-radius: 5px;
+  }
+  .imgCardCelular{
+    width: 30px;
+    display: flex;
+   
+  }
+  .ilustracaoCelular{
+background-image: url(../img/Gradient.svg);
+background-repeat: no-repeat;
+background-size: cover;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 5px;
+
+  }
+  .cardCelular:hover{
+    transition: 0.2s;
+    justify-content: space-around;
+    width: 80%;
+    height: 50%;
+    gap: 5%;
+  }
+  .conteudoCelular{
+    display: none;
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    padding-right: 5px;
+    padding-top: 5px;
+    overflow: hidden;
+  }
+  .conteudoCard p{
+    font-size: 2rem;
+  }
+  .cardCelular:hover .conteudoCelular{
+    display: flex;
+
+  }
+  .cardCelular:hover .ilustracaoCelular{
+    width: 20%;
+    border-radius: 0;
+  }
+  .card{
+   display: none;
+  }
+  .conteudoCard{
+    overflow: hidden;
+
+  }
+  .conteudoCard p{
+display: none;
+  }
 }
