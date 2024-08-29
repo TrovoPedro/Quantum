@@ -283,4 +283,7 @@ flex-shrink: 0;
         .box{
             width: 80%;
         }
+        .logo-quantum{
+            width: 8%;
+        }
     }
