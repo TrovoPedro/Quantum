@@ -273,4 +273,8 @@ header button:hover {
    
 
 }
+.btn-login{
+    width: 35%;
+    margin-right: 10%;
+}
 }

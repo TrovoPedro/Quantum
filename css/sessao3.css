@@ -360,7 +360,7 @@ top: 300vh;
     display: none;
   }
   .boxTopCarrossel{
-    height: 10%;
+    height: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -388,7 +388,7 @@ align-items: center;
     align-items: center;
     height: 60%;
     position: relative;
-    top: 5%;
+    top: 10%;
  
   }
   .cardCelular{
@@ -436,10 +436,12 @@ border-radius: 5px;
     padding-right: 5px;
     padding-top: 5px;
     overflow: hidden;
+    gap: 5%;
   }
   .conteudoCard p{
     font-size: 2rem;
   }
+  
   .cardCelular:hover .conteudoCelular{
     display: flex;
 
