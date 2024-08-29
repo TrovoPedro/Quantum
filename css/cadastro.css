@@ -2,6 +2,10 @@
     font-family: Lato;
     src: url(../src/font/Lato/Lato-Light.ttf);
 }
+@font-face{
+    font-family: LatoBold;
+    src: url(../src/font/Lato/Lato-Bold.ttf);
+}
 @font-face {
     font-family: Ubunto;
     src: url(../src/font/Ubuntu/Ubuntu-Bold.ttf);
@@ -41,11 +45,12 @@ body{
 .logo {
     display: flex;
     justify-content: center;
+    margin-left: 15px;
 }
 
 .container {
     display: flex;
-    top: 5%;
+    top: 2%;
     position: absolute;
     flex-direction: column;
 }
@@ -54,17 +59,20 @@ body{
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
- 
+    margin-top: 10px;
 }
 
 .titulo h1 {
-    font-size: 30px;
+    font-size: 36px;
+    font-family: LatoBold;
 }
 
 .titulo p {
-    margin-top: 10px;
-    font-size: 13px;
+    margin-top: 19px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: LatoBold;
 }
 
 .right {
@@ -73,17 +81,11 @@ body{
     height: 100vh;
     background-repeat: no-repeat;
     background-color: #111111;
-    background-image: url(../img/Group3.svg);
+    background-image: url(../img/fundo-login.svg);
     background-size: cover;
+    background-position: center;
 
 }
-/* .right svg{
-    margin-left: 35%; 
-    height: 100vh;
-    width: 100%;
-
-} */
-
 .container-inputs {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -92,34 +94,25 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
+    width: 500px;
     border: 0.8px solid #9598C1;
     color: #9598C1;
     font-family: Lato;
-    font-size: 14px;
+    font-size: 18px;
     font-style: normal;
-    background: #111;
-    padding:10px;
+    font-weight: bold;
+    background: #1111;
+    padding: 15px;
 }
 
 .inputs {
-    margin-top: 10px;
+    margin-top: 12px;
+}
+.inputs p{
+    font-family: LatoBold;
+    margin-bottom: 12px;
 }
 
-
-select{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 420px;
-    border: 0.8px solid #9598C1;
-    color: #9598C1;
-    font-family: Lato;
-    font-size: 14px;
-    font-style: normal;
-    background: #111;
-    padding:10px;
-}
 .esqueceu_senha {
     display: flex;
     flex-direction: row-reverse;
@@ -132,18 +125,143 @@ select{
     font-family: Lato;
     margin-top:3%;
 }
+.semconta a{
+    text-decoration: none;
+    color: #3594BB;
+    margin-left: 2px;
+}
 .login{
     margin-top: 30px;
 }
 .login button{
-    width: 415px;
-    padding: 10px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 530px;
+    height: 50px;
+    font-family: Ubunto;
     background-color: #7449EB;
     border: none;
     transition: transform 0.5s;
+    cursor: pointer;
 }
-.login button:hover{
-   cursor: pointer;
-   transform: scale(1.1);
+
+/* tirando o spinner da input tipo Number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media screen and (max-width: 1366px) {
+
+    .left {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        height: 100vh;
+        background-color: #111111;
+    }
+    
+    .logo {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .container {
+        height: 100vh;
+        width: 50%;
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+    }
+    
+    .titulo {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 5px;
+    }
+    
+    .titulo h1 {
+        font-size: 36px;
+        font-family: LatoBold;
+    }
+    
+    .titulo p {
+        margin-top: 19px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: LatoBold;
+    }
+    
+    .right {
+        display: flex;
+        width: 50%;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-color: #111111;
+        background-image: url(../img/fundo-login.svg);
+        background-size: cover;
+        background-position: center;
+    
+    }
+    .container-inputs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: Lato;
+        font-weight: bold;
+        width: auto;
+    }
+    
+    .container-inputs input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 450px;
+        border: 0.8px solid #9598C1;
+        color: #9598C1;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: bold;
+        background: #1111;
+        padding: 15px;
+    }
+    
+    .inputs {
+        margin-top: 10px;
+    }
+    .inputs p{
+        font-family: LatoBold;
+        margin-bottom: 15px;
+    }
+    .semconta{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        font-family: Lato;
+        margin-top:3%;
+    }
+    .semconta a{
+        text-decoration: none;
+        color: #3594BB;
+        margin-left: 2px;
+    }
+    .login{
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .login button{
+        width: 480px;
+        height: 50px;
+        font-family: Ubunto;
+        background-color: #7449EB;
+        border: none;
+        transition: transform 0.5s;
+        cursor: pointer;
+    }
 }
