@@ -140,6 +140,14 @@ header button:hover {
 }
 
 /* RESPONSIVIDADE */
+@media only screen and (max-device-width: 700px) {
+    .left-container {
+        background-color: red;
+        width: 60%;
+    
+    }
+}
+
 
 @media only screen and (max-device-width: 900px) {
     .container-logo {

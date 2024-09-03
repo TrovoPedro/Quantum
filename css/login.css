@@ -32,7 +32,8 @@
     width: 50%;
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    align-items: center;
+  
     height: 100vh;
     background-color: #111111;
 }
@@ -45,8 +46,12 @@
 
 .container {
     display: flex;
-    top: 8%;
-    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    position: relative;
     flex-direction: column;
 }
 
@@ -158,11 +163,15 @@
         justify-content: center;
         margin-left: 15px;
     }
-
+    
     .container {
         display: flex;
-        top: 10%;
-        position: absolute;
+       
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         flex-direction: column;
     }
 
@@ -266,5 +275,52 @@
         border: none;
         transition: transform 0.5s;
         cursor: pointer;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .right{
+        display: none;
+    }
+    .left{
+        width: 100%;
+        padding: 0;
+    }
+    
+    .container{
+        width: 80%;
+    }
+  
+    .container-inputs{
+    width: 100%;
+    justify-content: left;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
+   
+    }
+    .container-inputs input{
+        width: 89.5%;
+    
+    }
+    .inputs{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .container-inputs input{
+        width: 96%;
+    
+    }
+}
+@media (max-width: 431px) {
+
+    .container-inputs input{
+        width: 96%;
+       
+    
+    }
+    .inputs{
+        width: 94.5%;
+       
     }
 }

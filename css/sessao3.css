@@ -143,7 +143,7 @@
 
 .card:hover{
     height: 80%;
-    flex: 0 0 20%;
+    flex: 0 0 23%;
     transition: 0.5s;
 
     border-radius: 2%;
@@ -220,9 +220,9 @@ display: flex;
     font-size: 1rem;
 
 }
-.conteudoCard:hover{
+.card:hover .conteudoCard{
    transform: rotateY('angle');
-   transition: 1S;
+  transition: 0.2s;
     height: auto;
     width: 100%;
     background-color: #2999C7;
@@ -289,16 +289,15 @@ display: flex;
     animation: bordas infinite 10s linear; */
 
 }
-.card:hover .conteudoCard:hover{
-    height: auto;
-}
+
 .imgCard{
     width: 15%;
 }
 .conteudoCard{
+  background-color: #7449EB;
     height: 100%;
     display: flex;
-    font-size: 0.2rem;
+  
     z-index: 1;
    
 

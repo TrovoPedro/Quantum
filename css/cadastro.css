@@ -37,7 +37,7 @@ body{
     width: 50%;
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    align-items: center;
     height: 100vh;
     background-color: #111111;
 }
@@ -50,8 +50,12 @@ body{
 
 .container {
     display: flex;
-    top: 2%;
-    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 95%;
+    bottom: 0;
+    position: relative;
     flex-direction: column;
 }
 
@@ -102,7 +106,7 @@ body{
     font-style: normal;
     font-weight: bold;
     background: #1111;
-    padding: 15px;
+    padding: 10px;
 }
 
 .inputs {
@@ -151,12 +155,13 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 1366px) {
-
+  
     .left {
         width: 50%;
         display: flex;
         justify-content: center;
-        flex-direction: row;
+        align-items: center;
+        
         height: 100vh;
         background-color: #111111;
     }
@@ -167,10 +172,13 @@ input[type="number"]::-webkit-inner-spin-button {
     }
     
     .container {
-        height: 100vh;
-        width: 50%;
         display: flex;
-        position: absolute;
+        
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         flex-direction: column;
     }
     
@@ -263,5 +271,50 @@ input[type="number"]::-webkit-inner-spin-button {
         border: none;
         transition: transform 0.5s;
         cursor: pointer;
+    }
+    .container{
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+@media screen and (max-width: 1366px) {
+.right{
+    display: none;
+}
+.left{
+    width: 100%;
+}
+.container{
+    width: 80%;
+}
+.container-inputs{
+    width: 100%;
+    justify-content: left;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
+   
+    }
+    .container-inputs input{
+        width: 96%;
+    
+    }
+    .inputs{
+        width: 100%;
+    }
+}
+@media (max-width: 431px) {
+
+    .container-inputs input{
+        width: 96%;
+       
+    
+    }
+    .inputs{
+        width: 94.5%;
+       
     }
 }
