@@ -214,3 +214,16 @@ overflow-x: hidden;
             left: 85%;
         }
 }
+
+@media only screen and (min-device-height:1365px) {
+    .imgBemVindo{
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        background-color: #7449EB;
+      }
+    .Elementos{
+        left: 90%;
+    }
+    }
