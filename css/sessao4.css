@@ -287,3 +287,8 @@ flex-shrink: 0;
             width: 8%;
         }
     }
+    @media only screen and (min-device-height:1365px) {
+        .box{
+            width: 75%;
+        }
+    }
