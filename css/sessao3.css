@@ -503,6 +503,7 @@
 
 @media only screen and (min-device-height:1365px) {
   .divisao1 {
+<<<<<<< HEAD
     top: 99vh;
   }
   .divisao2 {
@@ -510,6 +511,15 @@
   }
   .divisao3 {
     top: 297.5vh;
+=======
+    top: 100vh;
+  }
+  .divisao2 {
+    top: 200vh;
+  }
+  .divisao3 {
+    top: 300vh;
+>>>>>>> 0da3e01b3e8a3dc5abe2eacac19b0dfee85b42a8
   }
 
   .boxCarrossel {
