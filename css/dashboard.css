@@ -27,6 +27,9 @@ body {
 
 }
 
+#aparecerSelecionarComponentes {
+    display: none;
+}
 
 .topDash {
     height: 20%;

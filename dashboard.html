@@ -29,11 +29,11 @@
         <div class="linksNav">
             <div class="botoesNav">
                 <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
-                <p>Home</p>
+                <p><a href="dashboard.html" style="color: white; text-decoration: none;">Home</a></p>
             </div>
             <div class="botoesNav">
-                <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
-                <p>Graficos</p>
+               <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
+               <p><a href="dashboard_2.html" style="color: white; text-decoration: none;">Gráficos</a></p>
             </div>
             <div class="botoesNav">
                 <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
@@ -227,7 +227,7 @@
             <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
         </div>
 
-        <button class="botaoAvancar" onclick="avancarServidor()" >Avançar</button>
+        <button class="botaoAvancar" onclick="avancar()" >Avançar</button>
     </div>
 
 </body>
@@ -243,12 +243,14 @@ function aparecer(){
     }
 }
 
-function avancarServidor(){
-    var mostrarServidor = document.getElementById("aparecerSelecionarComponentes")
-    if(mostrarServidor.style.display === "none"){
-        mostrarServidor.style.display = "flex"
-    } else {
-        mostrarServidor.style.display = "none"
-    }
+function avancarServidor() {
+    var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
+    mostrarServidor.style.display = "flex";  // Exibe a caixa de seleção de componentes
 }
+
+function avancar() {
+    window.location.href = 'dashboard.html'
+
+}
+
 </script>
