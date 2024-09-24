@@ -33,17 +33,20 @@ overflow-x: hidden;
 
 }
 .imgBemVindo{
-    width: 50%;
+    width: 40%;
     height: 100%;
     background-color: #111111;
-    background-image: url(../img/Banner\ principal\ da\ sessão\ bem\ vindo.svg);
+    margin-top: 20%;
+    padding-left: 5%;
+    /* background-image: url(../img/Banner\ principal\ da\ sessão\ bem\ vindo.svg); */
     background-repeat: no-repeat;
 
 }
 .conteudoBemVindo{
     height: 100%;
     width: 50%;
-   
+    margin-top: 10%;
+    margin-left: 10%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -56,10 +59,8 @@ overflow-x: hidden;
     justify-content: end;
     align-items: center;
     flex-direction: column;
-  
-   
-
 }
+
 .TituloBemVindos{
     height: 35%;
     width: 50%;
@@ -74,6 +75,7 @@ overflow-x: hidden;
     font-style: normal;
     position: relative;
 }
+
 .nomeDaEmpresaBemVindos{
     height: 35%;
 
@@ -86,6 +88,7 @@ overflow-x: hidden;
     font-style: normal;
     color: #7449EB;
 }
+
 .textosBemVindo{
     height: 40%;
     width: 100%;
@@ -95,9 +98,8 @@ overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-
 }
+
 .boxTextosBemVindos{
     width: 75%;
     height: 90%;
@@ -106,17 +108,8 @@ overflow-x: hidden;
     font-style: normal; 
     font-size: 1.6rem;
     color: white;
-  
 }
 
-.Elementos{
-    height: 15%;
-    display: flex;
-    position: absolute;
-    top: 180vh;
-    left: 95%;
-    
-}
 @media (max-width: 1041px) {
     .TituloBemVindos{
         width: 80%;

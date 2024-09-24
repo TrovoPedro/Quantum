@@ -60,13 +60,15 @@ header button:hover {
 }
 
 .left {
-
     align-items: center;
     display: flex;
     width: 50%;
     height: 100vh;
     background-color: #111111;
+}
 
+.imgMonitoramento{
+   height: 700px;
 }
 
 .left-container {
@@ -98,9 +100,8 @@ header button:hover {
     cursor: pointer;
     color: #ffffff;
     background-color: #7449EB;
-    width: 230px;
+    width: 250px;
     height: 60px;
-
     transition: transform 0.5s;
 }
 
@@ -176,7 +177,7 @@ header button:hover {
     .main {
         display: flex;
         height: 100vh;
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .left {

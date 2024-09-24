@@ -1,46 +1,50 @@
-
-*{
+* {
 
     padding: 0%;
     margin: 0%;
 }
-body{
+
+body {
     background-color: #111;
 }
-.pai{
+
+.pai {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    
+
 }
-.imagem{
+
+.imagem {
     height: 100%;
     width: 100%;
-    background-size: contain;   
+    background-size: contain;
 }
+
 .content-main {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     gap: 5%;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     top: 300vh;
-   
-    
- 
+
+
+
 
 
 }
-.escrita{
+
+.escrita {
     color: #FFF;
     text-align: center;
     font-family: Lato;
@@ -49,6 +53,7 @@ body{
     font-weight: 800;
     line-height: normal;
 }
+
 .box {
     font-size: larger;
     height: 65%;
@@ -62,11 +67,12 @@ body{
     border-radius: 3%;
     align-items: center;
     flex-direction: column;
-  
 
-    
-} 
-.top{
+
+
+}
+
+.top {
     height: 20%;
     width: 90%;
     display: flex;
@@ -80,11 +86,13 @@ body{
     font-size: 24px;
 
 }
-.mid{
+
+.mid {
     height: 30%;
     width: 100%;
 }
-.nome{
+
+.nome {
     height: 50%;
     width: 100%;
     display: flex;
@@ -94,14 +102,16 @@ body{
     flex-direction: row;
     font-family: Ubuntu;
 }
-.email{
+
+.email {
     height: 50%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.low{
+
+.low {
     height: 50%;
     width: 100%;
     display: flex;
@@ -109,16 +119,17 @@ body{
     justify-content: center;
     align-items: center;
 
-    
+
 }
-.btn{
+
+.btn {
     width: 15%;
     height: 15%;
     border-radius: 5px;
     color: #000000;
     background-color: #FFF;
     border-color: #FFF;
-    border: 1px;    
+    border: 1px;
     font-family: Ubuntu;
     font-size: 14px;
     font-style: normal;
@@ -127,7 +138,8 @@ body{
     width: 100px;
     height: 30px;
 }
-.desc{
+
+.desc {
     width: 88%;
     height: 80%;
     display: flex;
@@ -140,14 +152,16 @@ body{
     gap: 3%;
     font-size: 14px;
 }
-#area{
+
+#area {
     width: 100%;
     height: 172px;
     border-radius: 10px;
     outline: none;
     padding: 2%;
 }
-.input_nome{
+
+.input_nome {
     color: rgb(255, 255, 255);
     width: 38%;
     height: 4vh;
@@ -155,7 +169,8 @@ body{
     border-bottom: 1px solid white;
     background: transparent;
 }
-.input_email{
+
+.input_email {
     color: rgb(255, 255, 255);
     width: 87%;
     height: 4vh;
@@ -163,46 +178,57 @@ body{
     border-bottom: 1px solid white;
     background: transparent;
 }
-.input_nome, .input_email:focus{
+
+.input_nome,
+.input_email:focus {
     outline: none;
 }
+
 input::placeholder {
     color: rgb(255, 253, 253);
     font-family: Ubuntu;
-  }
-.main-footer{
+}
+
+.main-footer {
     background-color: #111;
 
 }
-.icons-footer{
+
+.icons-footer {
     width: 100%;
-    height: 100px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-   
     gap: 50px;
+    border-top: 2px groove white;
 }
-.icons-footer svg{
-width: 5%;
+
+.icons-footer svg {
+    width: 6%;
+    height: 47px;
+    padding-top:10px ;
 }
 
 
-.foote-title{
+.foote-title {
     color: var(--Primaria-3-Brilho-87, #D5D6E6);
-font-family: Ubuntu;
-font-size: 36px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-text-align: center;
+    font-family: Ubuntu;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
 }
-.logo-quantum{
+
+.logo-quantum {
     width: 93px;
-height: 95px;
-flex-shrink: 0;
+    height: 47px;
+    flex-shrink: 0;
+    padding-top: 10px;
 }
-.video{
+
+.video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -235,60 +261,70 @@ flex-shrink: 0;
 } */
 
 @media only screen and (max-device-width:1366px) {
-    .content-main{
+    .content-main {
         position: absolute;
         top: 300vh;
         bottom: 0;
         right: 0;
         left: 0;
-            }
-            .imagem{
-                display: none;
-                position: absolute;
-                left: 0;
-            }
-         .box{
-            width: 35%
-         }
-         .video{
-            display: flex;
-            filter: contrast(130%) ;
-            backdrop-filter: brightness(0.7);
-        }
     }
-    @media  (max-width:1366px) {
-        .content-main{
-            position: absolute;
-            top: 300vh;
-            bottom: 0;
-            right: 0;
-            left: 0;
-                }
-                .imagem{
-                    display: none;
-                    position: absolute;
-                    left: 0;
-                }
-                .video{
-                    display: flex;
-                    filter: contrast(130%) ;
-                    backdrop-filter: brightness(0.7);
-                }
-             .box{
-                width: 35%
-             }
-        }
-    /* Celular */
-    @media only screen and (max-device-width:430px) {
-        .box{
-            width: 80%;
-        }
-        .logo-quantum{
-            width: 8%;
-        }
+
+    .imagem {
+        display: none;
+        position: absolute;
+        left: 0;
     }
-    @media only screen and (min-device-height:1365px) {
-        .box{
-            width: 75%;
-        }
+
+    .box {
+        width: 35%
     }
+
+    .video {
+        display: flex;
+        filter: contrast(130%);
+        backdrop-filter: brightness(0.7);
+    }
+}
+
+@media (max-width:1366px) {
+    .content-main {
+        position: absolute;
+        top: 300vh;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
+    .imagem {
+        display: none;
+        position: absolute;
+        left: 0;
+    }
+
+    .video {
+        display: flex;
+        filter: contrast(130%);
+        backdrop-filter: brightness(0.7);
+    }
+
+    .box {
+        width: 35%
+    }
+}
+
+/* Celular */
+@media only screen and (max-device-width:430px) {
+    .box {
+        width: 80%;
+    }
+
+    .logo-quantum {
+        width: 8%;
+    }
+}
+
+@media only screen and (min-device-height:1365px) {
+    .box {
+        width: 75%;
+    }
+}
