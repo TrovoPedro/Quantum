@@ -71,6 +71,11 @@ header button:hover {
    height: 700px;
 }
 
+.imgEmail{
+    height: 700px;
+    margin-top: 50px;
+ }
+
 .left-container {
     margin-left: 70px;
 
