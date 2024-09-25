@@ -126,14 +126,9 @@ header button:hover {
 }
 
 .div_divisor{
-
-    /* height: 10px; */
-    /* background-color: red; */
     display: flex;
     align-items: center;
     justify-content: center;
-    
-
 }
 
 .div_divisor .divisao1{
