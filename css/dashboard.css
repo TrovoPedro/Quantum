@@ -27,6 +27,8 @@ body {
 
 }
 
+
+
 #aparecerSelecionarComponentes {
     display: none;
 }
@@ -91,6 +93,7 @@ body {
     justify-content: center;
     gap: 5%;
     align-items: center;
+    border-radius: 6px;
 }
 
 .logoCadastroServidor{
@@ -158,6 +161,8 @@ body {
     justify-content: center;
     gap: 5%;
     align-items: center;
+    padding: 10px;
+    border-radius: 6px;
 }
 
 .selecionarComponentes{
@@ -233,6 +238,7 @@ body {
     font-family: Ubuntu;
     color: white;
     font-size: 1rem;
+    padding-bottom: 10px;
 }
 
 .itensMonitorados {
@@ -240,6 +246,8 @@ body {
     width: 100%;
     justify-content: space-between;
     display: flex;
+    padding: 10px;
+    padding-left: 5px;
     align-items: center;
     font-family: Ubuntu;
 
@@ -247,12 +255,14 @@ body {
 
 .cardMonitorados {
     width: 31%;
-    height: 90%;
+    height: 100%;
+    padding: 10px;
     background-color: #7449EB;
     border-radius: 10px;
     display: flex;
     justify-content: top;
     align-items: center;
+    text-align: center;
     flex-direction: column;
 }
 
@@ -266,7 +276,7 @@ body {
 }
 
 .item h2 {
-    font-weight: 400;
+    font-weight: 300;
 }
 
 .descricao {
@@ -301,30 +311,31 @@ body {
     display: flex;
     justify-content: left;
     align-items: center;
-
+    
     width: 100%;
     height: 10%;
 }
 
 .box1low {
     width: 45%;
-    height: 90%;
+    height: 80%;
 
     border-radius: 20px;
     font-family: Ubuntu;
     color: white;
     font-size: 1-rem;
-
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .box2low {
     width: 45%;
-    height: 90%;
+    height: 80%;
 
     border-radius: 20px;
     font-family: Ubuntu;
     color: white;
     font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cardServidor {
@@ -337,6 +348,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: top;
+    border: 5px;
 
 }
 .boxServidores{
@@ -345,21 +357,21 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    margin-bottom: 3%;
     margin-top: 3%;
 
 }
 .status{
     display: flex;
     justify-content: right;
-    width: 40%;
-    height: 80%;
+    width: 30%;
+    height: 50%;
     align-items: center;
-    gap: 10%;
+    gap: 5%;
 
 }
 .serverImgName{
-    width: 40%;
+    width: 30%;
     height: 80%;
     display: flex;
     justify-content: space-between;
@@ -372,17 +384,13 @@ body {
     align-items: center;
 }
 .imgServer{
-    width: 25%;
+    width: 60%;
 }
 .alert{
     width: 10%;
 }
-/* .borrar{
-    display: none;
-width: 100%;
-height: 100%;
-background-color: #11111143;
 
-
-
-} */
+.box1low:hover, .box2low:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}

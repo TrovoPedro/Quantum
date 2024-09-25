@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Quantum</title>
 
-      <!-- Icone  -->
-      <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+    <!-- Icone  -->
+    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
 
     <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,12 @@
 
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/Navbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
+<style>
+
+</style>
 
 <body>
 
@@ -32,8 +37,8 @@
                 <p><a href="dashboard.html" style="color: white; text-decoration: none;">Home</a></p>
             </div>
             <div class="botoesNav">
-               <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
-               <p><a href="dashboard_2.html" style="color: white; text-decoration: none;">Gráficos</a></p>
+                <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
+                <p><a href="dashboard_2.html" style="color: white; text-decoration: none;">Gráficos</a></p>
             </div>
             <div class="botoesNav">
                 <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
@@ -55,7 +60,7 @@
     <Section class="Dashboard">
         <div class="topDash">
             <div class="boxUser-data">
-                <h3>Seja bem vindo, Usuario!</h3>
+                <h3>Seja bem vindo, Usuário!</h3>
                 <p>Monitoramento dia DD/MM/AAAA</p>
             </div>
             <button class="btnNewServidor" onclick="aparecer()">Novo Servidor</button>
@@ -68,31 +73,28 @@
             <div class="itensMonitorados">
                 <div class="cardMonitorados">
                     <div class="item">
-                        <h2>CPU</h2>
+                        <h4>CPU</h4>
                     </div>
-                    <div class="descricao">
-                        <h1>
-                            20%
-                        </h1>
+                    <div>
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+                <div class="cardMonitorados">
+                    <div class="item">
+
+                        <h4>Memória RAM</h4>
+                    </div>
+                    <div>
+                        <canvas id="myChart1"></canvas>
                     </div>
 
                 </div>
                 <div class="cardMonitorados">
                     <div class="item">
-
-                        <h2>Momória RAM</h2>
+                        <h4>SSD / Hard Disk</h4>
                     </div>
-                    <div class="descricao">
-                        <h1>5,5/15,7 GB</h1>
-                    </div>
-
-                </div>
-                <div class="cardMonitorados">
-                    <div class="item">
-                        <h2>SSD / Hard Disk</h2>
-                    </div>
-                    <div class="descricao">
-                        <h1>40%</h1>
+                    <div>
+                        <canvas id="myChart2"></canvas>
                     </div>
 
                 </div>
@@ -107,21 +109,21 @@
                 <div class="cardServidor">
                     <div class="boxServidores">
                         <div class="serverImgName">
-                            <img src="img/servidor.svg" alt="" class="imgServer">
+                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
                             <p>Servidor 1</p>
                         </div>
                         <div class="status">
-                            <p>Critico</p>
+                            <p style="font-size: 14px;">Critico</p>
                             <img src="img/alert.svg" alt="" class="alert">
                         </div>
                     </div>
                     <div class="boxServidores">
                         <div class="serverImgName">
-                            <img src="img/servidor.svg" alt="" class="imgServer">
+                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
                             <p>Servidor 2</p>
                         </div>
                         <div class="status">
-                            <p>Critico</p>
+                            <p style="font-size: 14px;">Critico</p>
                             <img src="img/alert.svg" alt="" class="alert">
                         </div>
 
@@ -135,38 +137,44 @@
                 <div class="cardServidor">
                     <div class="boxServidores">
                         <div class="serverImgName">
-                            <img src="img/servidor.svg" alt="" class="imgServer">
-                            <div class="TextServidorFuncionalidade"><p>PEP</p></div>
-                           
+                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
+                            <div class="TextServidorFuncionalidade">
+                                <p>PEP - Jabaquara</p>
+                            </div>
+
                         </div>
                         <div class="status">
-                            <p>Ativo</p>
-                            <img src="img/circuloGreen.svg" alt="">
+                            <p style="font-size: 13px;">Ativo</p>
+                            <img src="img/circuloGreen.svg" alt="" style="height: 13px;">
                         </div>
                     </div>
                     <div class="boxServidores">
                         <div class="serverImgName">
-                            <img src="img/servidor.svg" alt="" class="imgServer">
+                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
 
-                            <div class="TextServidorFuncionalidade"><p>Exames</p></div>
-                         
+                            <div class="TextServidorFuncionalidade">
+                                <p>PEP - Mooca</p>
+                            </div>
+
                         </div>
                         <div class="status">
-                            <p>Desativado</p>
-                            <img src="img/circuloRed.svg" alt="">
-                            
+                            <p style="font-size: 13px;">Desativado</p>
+                            <img src="img/circuloRed.svg" alt="" style="height: 13px;">
+
                         </div>
                     </div>
 
                     <div class="boxServidores">
                         <div class="serverImgName">
-                            <img src="img/servidor.svg" alt="" class="imgServer">
-                            <div class="TextServidorFuncionalidade"><p>Exames</p></div>
+                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
+                            <div class="TextServidorFuncionalidade">
+                                <p>PEP - Ipiranga</p>
+                            </div>
 
                         </div>
                         <div class="status">
-                            <p>Ativo</p>
-                            <img src="img/circuloGreen.svg" alt="">
+                            <p style="font-size: 13px;">Ativo</p>
+                            <img src="img/circuloGreen.svg" alt="" style="height: 13px;">
                         </div>
                     </div>
                 </div>
@@ -181,16 +189,16 @@
         <div class="logoCadastroServidor">
             <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
             <h2>Cadastre um Servidor</h2>
-            
+
         </div>
         <div class="nomeServidor">
             <div class="divNomeServidor">
                 <p>Nome do Servidor</p>
             </div>
-            
+
             <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor">
         </div>
-        <button class="botaoAvancar" onclick="avancarServidor()" >Avançar</button>
+        <button class="botaoAvancar" onclick="avancarServidor()">Avançar</button>
     </div>
     <div class="filtro"></div>
 
@@ -202,7 +210,7 @@
 
         <div class="selecionarComponentes">
             <div class="btSelecionar">
-                <input type="checkbox"> 
+                <input type="radio">
                 <p class="btProcessador">Processador</p>
             </div>
             <input type="text" placeholder="Coloque a quantidade de Processadores" class="inputQtdProcessador">
@@ -210,7 +218,7 @@
 
         <div class="selecionarComponentes">
             <div class="btSelecionar">
-                <input type="checkbox"> 
+                <input type="radio">
                 <p class="btProcessador">Memória</p>
             </div>
             <input type="text" placeholder="Coloque a quantidade de Memória Ram(GB)" class="inputQtdProcessador">
@@ -218,39 +226,179 @@
 
         <div class="selecionarComponentes">
             <div class="btSelecionar">
-                <input type="checkbox"> 
+                <input type="radio">
                 <p class="btProcessador">SSD</p>
-                <input type="checkbox"> 
+                <input type="radio">
                 <p class="btProcessador">HD</p>
             </div>
 
             <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
         </div>
 
-        <button class="botaoAvancar" onclick="avancar()" >Avançar</button>
+        <button class="botaoAvancar" onclick="avancar()">Avançar</button>
     </div>
 
 </body>
 
 </html>
 <script>
-function aparecer(){
-    var mostrar = document.getElementById("aparecerBoxServidor")
-    if(mostrar.style.display === "none"){
-        mostrar.style.display = "flex"
-    } else {
-        mostrar.style.display = "none"
+    function aparecer() {
+        var mostrar = document.getElementById("aparecerBoxServidor")
+        if (mostrar.style.display === "none") {
+            mostrar.style.display = "flex"
+        } else {
+            mostrar.style.display = "none"
+        }
     }
-}
 
-function avancarServidor() {
-    var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
-    mostrarServidor.style.display = "flex";  // Exibe a caixa de seleção de componentes
-}
+    function avancarServidor() {
+        var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
+        mostrarServidor.style.display = "flex";  // Exibe a caixa de seleção de componentes
+    }
 
-function avancar() {
-    window.location.href = 'dashboard.html'
+    function avancar() {
+        window.location.href = 'dashboard.html'
 
-}
+    }
+</script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
+            datasets: [{
+                label: 'Nível de utilização',
+                data: [50, 25, 50, 29, 30, 40],
+                borderWidth: 1,
+                borderColor: 'white',
+                backgroundColor: 'white'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+            ,
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+
+                }
+            }
+        }
+    });
+
+    const ctx1 = document.getElementById('myChart1').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
+            datasets: [{
+                label: 'Nível de utilização',
+                data: [50, 25, 50, 29, 30, 40],
+                borderWidth: 1,
+                borderColor: 'white',
+                backgroundColor: 'white'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+
+                }
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
+            datasets: [{
+                label: 'Nível de utilização',
+                data: [50, 25, 50, 29, 30, 40],
+                borderWidth: 1,
+                borderColor: 'white',
+                backgroundColor: 'white'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+
+                }
+            }
+        }
+    });
 
 </script>

@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/dashboard_2.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -55,7 +56,11 @@
     <div class="espaço">
         <div class="card">
             <!--select-->
-            <select></select>
+            <select class="select-servidor">
+               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 1</a></option>
+               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 2</a></option>
+               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 3</a></option> 
+               </select>
 
             <!--informações-->
             <div class="infos">
@@ -120,10 +125,64 @@
                     </div>
                 </div>
                 <!--lado direito-->
-                <div class="infosD"></div>
+                <div class="infosD">
+                    <div>
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
 </body>
 </html>
+
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['10:00', '11:00', '12:00', '13:00', '14:00'],
+                datasets: [{
+                   label: 'Nível de utilização',     
+                    data: [50,25, 50, 29, 30, 40],
+                    borderWidth: 1,
+                    borderColor: 'white',
+                    backgroundColor: 'white'
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }  
+                }
+                ,
+                scales: {
+                    x: {
+                       ticks: {
+                        color: 'white',
+                        font:{
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                       }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                        color: 'white',
+                        font:{
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                       }
+                        
+                    }
+                }
+            }
+        });
+
+</script>
