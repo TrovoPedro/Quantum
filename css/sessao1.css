@@ -67,14 +67,14 @@ header button:hover {
     background-color: #111111;
 }
 
-.imgMonitoramento{
-   height: 700px;
+.imgMonitoramento {
+    height: 700px;
 }
 
-.imgEmail{
+.imgEmail {
     height: 700px;
     margin-top: 50px;
- }
+}
 
 .left-container {
     margin-left: 70px;
@@ -125,13 +125,13 @@ header button:hover {
     background-size: cover;
 }
 
-.div_divisor{
+.div_divisor {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.div_divisor .divisao1{
+.div_divisor .divisao1 {
 
     display: flex;
     align-items: center;
@@ -139,40 +139,35 @@ header button:hover {
 }
 
 .container-logo {
-    
     position: absolute;
     display: flex;
     justify-content: center;
     flex-direction: row;
     width: 70%;
     height: 65vh;
-
     margin-top: 11rem;
     margin-left: 20rem;
-   top: 0;
-   bottom: 0;
-   right: 0;
-   left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
-.svgHome{
+
+.svgHome {
     width: 80%;
 }
 
 /* RESPONSIVIDADE */
 @media only screen and (max-device-width: 700px) {
     .left-container {
-     
         width: 60%;
-    
     }
 }
-
 
 @media only screen and (max-device-width: 900px) {
     .container-logo {
         width: 50%;
     }
-
 
     .main {
         display: flex;
@@ -184,51 +179,55 @@ header button:hover {
         width: 100%;
         height: 50vh;
     }
-    .left-container {
 
+    .left-container {
         width: 70%;
-    
     }
-    .right{
+
+    .right {
         width: 100%;
-        height: 50vh; 
+        height: 50vh;
         display: none;
     }
-.header{
 
+    .header {
         position: absolute;
         margin-right: 30px;
     }
 }
 
 @media only screen and (max-device-width:1366px) {
-    .container-logo{
-      
+    .container-logo {
         width: 80%;
     }
-    .right{
-        width: 50%;
-    }
-    .left{
-        width: 50%;
-    }
-    .svgHome{
-        width: 30%;
 
+    .right {
+        width: 50%;
+    }
+
+    .left {
+        width: 50%;
+    }
+
+    .svgHome {
+        width: 30%;
     }
 }
+
 @media (max-width:1366px) {
-    .container-logo{
-      
+    .container-logo {
         width: 80%;
     }
-    .right{
+
+    .right {
         width: 40%;
     }
-    .left{
+
+    .left {
         width: 60%;
     }
-    .svgHome{
+
+    .svgHome {
         margin: auto;
         left: 30%;
         top: 0;
@@ -236,72 +235,69 @@ header button:hover {
         right: 0;
         width: 30%;
         position: absolute;
-
-
     }
 }
+
 @media only screen and (max-device-width:430px) {
-    .container-logo{
-      
+    .container-logo {
         width: 80%;
     }
-    .right{
-       display: none;
+
+    .right {
+        display: none;
     }
-    .left{
+
+    .left {
         width: 100%;
         height: 20vh;
         position: absolute;
         margin: auto;
-        display: flex ;
+        display: flex;
         justify-content: center;
         align-items: center;
         left: 0;
         right: 0;
         top: -20%;
         bottom: 0;
-        
     }
-    .svgHome{
+
+    .svgHome {
         display: flex;
         position: relative;
-
         left: 0;
         right: 0;
         bottom: 0;
         top: 0;
-
     }
-    
-.container-logo {
-    
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    width: 70%;
-    height: 20vh;
-   margin: auto;
- 
-   top: 50%;
-   bottom: 0;
-   right: 0;
-   left: 0;
-}
-.left-container {
-    width: 80%;
-    margin-left: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-   
 
-}
-.btn-login{
-    width: 35%;
-    margin-right: 10%;
-}
+    .container-logo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 70%;
+        height: 20vh;
+        margin: auto;
+
+        top: 50%;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
+    .left-container {
+        width: 80%;
+        margin-left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .btn-login {
+        width: 35%;
+        margin-right: 10%;
+    }
 }

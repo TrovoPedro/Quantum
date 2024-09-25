@@ -15,7 +15,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-
 }
 
 .imagem {
@@ -48,7 +47,6 @@ body {
     font-weight: 800;
     line-height: normal;
     margin-right: 700px;
-
 }
 
 .box {
@@ -79,7 +77,6 @@ body {
     font-family: Ubuntu;
     color: white;
     font-size: 24px;
-
 }
 
 .mid {
@@ -113,8 +110,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
 }
 
 .btn {
@@ -202,9 +197,8 @@ input::placeholder {
 .icons-footer svg {
     width: 6%;
     height: 6%;
-    padding-top:10px ;
+    padding-top: 10px;
 }
-
 
 .foote-title {
     color: var(--Primaria-3-Brilho-87, #D5D6E6);
