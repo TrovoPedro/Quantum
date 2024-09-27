@@ -1,5 +1,4 @@
 * {
-
     padding: 0%;
     margin: 0%;
 }
@@ -223,31 +222,6 @@ input::placeholder {
     object-fit: cover;
     display: flw;
 }
-
-/*
-.btn{
-    border-radius: 5px;
-    color: #000000;
-    background-color: #FFF;
-    border-color: #FFF;
-    border: 1px;    
-    font-family: Ubuntu;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: 100px;
-    height: 30px;
-}
-.box-branca{
-    width: 366px;
-    height: 172px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: #FFF;
-    justify-content: center;
-    text-align: center;
-} */
 
 @media only screen and (max-device-width:1366px) {
     .content-main {

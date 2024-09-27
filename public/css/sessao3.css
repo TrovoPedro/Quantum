@@ -1,4 +1,3 @@
-
 .tela3 {
   height: 100vh;
   width: 100%;
@@ -15,16 +14,14 @@
   right: -3%;
   width: 50%;
   height: 100vh;
-  background-image: url(../img/Banner\ sessao\ beneficiosbackgroundS3.svg);
+  background-image: url(../assets/Banner\ sessao\ beneficiosbackgroundS3.svg);
   background-repeat: no-repeat;
   z-index: 1;
-
 }
 
 .boxTopCarrossel {
   height: 25%;
   width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: left;
@@ -33,18 +30,15 @@
 .boxTituloCarrossel {
   height: 100%;
   width: 35%;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 
 .tituloBeneficiosCarrossel {
   height: 50%;
   width: 80%;
-
   display: flex;
   justify-content: left;
   align-items: center;
@@ -55,13 +49,11 @@
   font-style: normal;
   position: relative;
   top: 10%;
-
 }
 
 .nomeEmpresaCarrossel {
   height: 50%;
   width: 80%;
-
   display: flex;
   justify-content: left;
   align-items: center;
@@ -71,7 +63,6 @@
   font-style: normal;
   color: #7449EB;
   position: relative;
-
 }
 
 .boxLogoCarrossel {
@@ -81,8 +72,6 @@
   align-items: center;
   display: flex;
   z-index: 5;
-
-
 }
 
 .LogoBeneficios {
@@ -100,36 +89,22 @@
   z-index: 4;
   gap: 7%;
   backdrop-filter: blur(4px);
-
   scrollbar-color: rgb(255, 255, 255) #111111;
-  /* Cor do "polegar" e da área de rastreamento */
-
-
-
 }
-
 
 .card {
   height: 70%;
   flex: 0 0 18%;
-
   border-radius: 2%;
-  background-color: url(../img/Group\ 3.svg);
-  /* border: 5px solid white;
-    animation: bordas infinite 10s linear; */
-
+  background-color: url(../assets/Group\ 3.svg);
 }
 
 .card:hover {
   height: 80%;
   flex: 0 0 23%;
   transition: 0.5s;
-
   border-radius: 2%;
-  background-color: url(../img/Group\ 3.svg);
-  /* border: 5px solid white;
-    animation: bordas infinite 10s linear; */
-
+  background-color: url(../assets/Group\ 3.svg);
 }
 
 .card:hover .conteudoCard p {
@@ -137,31 +112,13 @@
 
 }
 
-
-/* @keyframes bordas {
-    0%{
-        border: 5px solid rgb(0, 229, 255);
-
-    }
-    25%{
-        border: 5px solid rgb(55, 0, 255);
-    }
-    50%{
-        border: 5px solid rgb(144, 0, 255);
-    }
-    75%{
-        border: 5px solid rgb(193, 140, 233);
-    }
-} */
-
-
 .ilustracaoCard {
   height: 60%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(../img/Group\ 3.svg);
+  background-image: url(../assets/Group\ 3.svg);
   background-repeat: no-repeat;
   background-size: cover;
   border-top-left-radius: 2%;
@@ -180,8 +137,6 @@
   border-bottom-left-radius: 2%;
   border-bottom-right-radius: 2%;
   overflow: hidden;
-
-
 }
 
 .conteudoCard h3 {
@@ -217,10 +172,6 @@
   border-bottom-left-radius: 5%;
   border-bottom-right-radius: 5%;
   color: black;
-
-
-
-
 }
 
 .cardCelular {
@@ -241,15 +192,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-
     width: 80%;
     background-color: #3d3d3d1f;
     z-index: 4;
     gap: 7%;
     backdrop-filter: blur(4px);
     scrollbar-color: rgb(255, 255, 255) #111111;
-    /* Cor do "polegar" e da área de rastreamento */
   }
 
   .card {
@@ -258,21 +206,14 @@
     border-radius: 2%;
     background-color: #7449EB;
     flex-direction: row;
-    /* border: 5px solid white;
-    animation: bordas infinite 10s linear; */
-
   }
 
   .card:hover {
     height: 30%;
     flex: 0 0 20%;
     transition: 0.5s;
-
     border-radius: 2%;
     background-color: #7449EB;
-    /* border: 5px solid white;
-    animation: bordas infinite 10s linear; */
-
   }
 
   .imgCard {
@@ -283,10 +224,7 @@
     background-color: #7449EB;
     height: 100%;
     display: flex;
-
     z-index: 1;
-
-
   }
 
 
@@ -305,20 +243,16 @@
 
   .tela3 {
     height: 100vh;
-
   }
 
   .backgroundCarrossel {
-
     display: none;
-
   }
 }
 
 @media (max-width:1366px) {
   .tituloBeneficiosCarrossel {
     font-size: 3rem;
-
   }
 
   .nomeEmpresaCarrossel {
@@ -331,7 +265,6 @@
 
   .card H3 {
     font-size: 1rem;
-
   }
 }
 
@@ -364,7 +297,6 @@
   }
 
   .boxTituloCarrossel {
-
     width: 80%;
     display: flex;
     justify-content: center;
@@ -373,7 +305,6 @@
 
   .tituloBeneficiosCarrossel {
     width: auto;
-
   }
 
   .nomeEmpresaCarrossel {
@@ -388,7 +319,6 @@
     height: 60%;
     position: relative;
     top: 10%;
-
   }
 
   .cardCelular {
@@ -410,7 +340,7 @@
   }
 
   .ilustracaoCelular {
-    background-image: url(../img/Gradient.svg);
+    background-image: url(../assets/Gradient.svg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -419,7 +349,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-
   }
 
   .cardCelular:hover {
@@ -449,7 +378,6 @@
 
   .cardCelular:hover .conteudoCelular {
     display: flex;
-
   }
 
   .cardCelular:hover .ilustracaoCelular {
@@ -463,7 +391,6 @@
 
   .conteudoCard {
     overflow: hidden;
-
   }
 
   .conteudoCard p {
@@ -498,8 +425,6 @@
     align-items: center;
     height: 60%;
     position: relative;
-    
-
   }
 
   .cardCelular {
@@ -517,11 +442,10 @@
   .imgCardCelular {
     width: 80px;
     display: flex;
-
   }
 
   .ilustracaoCelular {
-    background-image: url(../img/Gradient.svg);
+    background-image: url(../assets/Gradient.svg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -560,7 +484,6 @@
 
   .cardCelular:hover .conteudoCelular {
     display: flex;
-
   }
 
   .cardCelular:hover .ilustracaoCelular {

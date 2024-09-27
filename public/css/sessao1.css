@@ -1,11 +1,11 @@
 @font-face {
     font-family: Ubunto;
-    src: url(../src/font/Ubuntu/Ubuntu-Bold.ttf);
+    src: url(../../src/font/Ubuntu/Ubuntu-Bold.ttf);
 }
 
 @font-face {
     font-family: Ubunto-Medio;
-    src: url(../src/font/Ubuntu/Ubuntu-Medium.ttf);
+    src: url(../../src/font/Ubuntu/Ubuntu-Medium.ttf);
 }
 
 * {
@@ -78,8 +78,6 @@ header button:hover {
 
 .left-container {
     margin-left: 70px;
-
-
 }
 
 .title {
@@ -121,7 +119,7 @@ header button:hover {
 .right {
     width: 50%;
     height: 100vh;
-    background-image: url(../img/BannerPrincipalSVG.svg);
+    background-image: url(../assets/BannerPrincipalSVG.svg);
     background-size: cover;
 }
 
