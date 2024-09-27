@@ -1,0 +1,825 @@
+/* pagina mural */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.label-captura {
+  display: flex;
+  justify-content: center;
+}
+
+.dash-right .avisos {
+  width: 100%;
+  color: rgb(216, 216, 216);
+  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dash-right .avisos .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dash-right .avisos .container .div-form {
+  width: 95%;
+}
+
+.dash-right .avisos .container .div-form #form_postagem {
+  width: 95%;
+}
+
+.dash-right .avisos .div-form label {
+  width: 95%;
+}
+
+.dash-right .avisos .div-form input {
+  width: 95%;
+  border-radius: 5px;
+}
+
+.dash-right .avisos .div-form textarea {
+  width: 95%;
+  border: 3px solid #e6005a;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.dash-right .avisos .div-form button {
+  cursor: pointer;
+  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 15px;
+  color: white;
+  background-color: #e6005a;
+  width: 120px;
+}
+
+.publicacao-btn-editar {
+  cursor: pointer;
+  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 5px 8px;
+  color: white;
+  background-color: #e6005a;
+  width: 80px;
+}
+
+.publicacao {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  border-bottom: 3px solid #e6005a;
+  padding: 20px;
+}
+
+.publicacao>*:not(:last-child) {
+  padding: 0 0 10px 0;
+}
+
+.div-results {
+  width: 100%;
+}
+
+.div-results .feed-container {
+  background-color: #cbcbd8;
+  border-radius: 5px;
+  margin-bottom: 80px;
+}
+
+.div-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.div-buttons>* {
+  margin-left: 30px;
+}
+
+/* pagina graficos */
+
+.dash-header {
+  background-color: hsl(240, 11%, 77%);
+}
+
+.dash {
+  width: 80%;
+  position: relative;
+  top: 0;
+  left: 20%;
+  background-color: hsl(240, 19%, 85%);
+  height: 100vh;
+  overflow: auto;
+}
+
+.area-parametros-alerta {
+  /* border: 2px solid pink; */
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  margin-top: 10px;
+  background-color: #212124;
+}
+
+.area-parametros-alerta .titulo-legenda {
+  color: white;
+  font-weight: 600;
+  width: fit-content;
+  margin: 10px 20px;
+}
+
+.parametros-alerta {
+  display: flex;
+  width: 100%;
+}
+
+.item-regua {
+  width: 20%;
+  text-align: center;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+.item-regua p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.item-regua p:nth-child(2) {
+  font-weight: 800;
+}
+
+.perigo-frio {
+  background-color: #5c6bc0;
+}
+
+.perigo-quente {
+  background-color: #ff7043;
+}
+
+.alerta-frio {
+  background-color: #42a5f5;
+}
+
+.alerta-quente {
+  background-color: #ffee58;
+}
+
+.ideal {
+  background-color: #9ccc65;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 450px;
+  width: 100%;
+  align-items: center;
+  color: white;
+}
+
+.card-aquario {
+  margin: 2%;
+  min-width: 40%;
+  max-width: 50%;
+  width: fit-content;
+  flex-wrap: wrap;
+  display: flex;
+  /* text-align: center; */
+  height: 180px;
+  /* justify-content: right; */
+  background-color: #212124;
+  font-size: 20px;
+}
+
+.card-aquario h1 {
+  width: fit-content;
+}
+
+.card-aquario p {
+  margin: 0;
+  font-size: 50px;
+  font-weight: lighter;
+  text-align: left;
+}
+
+.desc-aquario {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.desc-aquario .cor-alerta {
+  width: 30px;
+}
+
+.title-aquario {
+  width: 100%;
+}
+
+
+.cards h1 {
+  font-size: 22px;
+  border-bottom: solid white 1px;
+  text-align: left;
+  font-weight: lighter;
+  margin: 20px;
+}
+
+.temperatura,
+.umidade {
+  margin: 5px;
+  margin-left: 20px;
+  width: 75%;
+}
+
+.cor-alerta {
+  width: 13%;
+  height: 30%;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.btns-dash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  padding: 0 30% 0 30%;
+}
+
+.graph {
+  width: 70%;
+  margin: auto;
+  padding-top: 10px;
+}
+
+.tituloGraficos {
+  color: rgb(216, 216, 216);
+  display: flex;
+  justify-content: center;
+}
+
+.btn-chart {
+  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 0;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 15px;
+  color: #e6005a;
+  background-color: white;
+  margin: 5px;
+  border-radius: 3px;
+  cursor: pointer
+}
+
+.btn-pink {
+  color: white;
+  background-color: #e6005a;
+}
+
+.btn-white {
+  color: #e6005a;
+  background-color: white;
+
+}
+
+.label-captura {
+  height: 80px;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.display-block {
+  display: block;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* PAGINA DOS GRÁFICOS 2023 */
+
+.janela {
+  display: flex;
+  /* width: 100vw; */
+}
+
+.header-left a {
+  text-decoration: none;
+  color: white;
+}
+
+.header-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 100vh;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-right: 3px solid #32b9cd;
+  background-color: #212124;
+}
+
+.dash-right {
+  display: flex;
+  width: 70%;
+  height: fit-content;
+  background-color: #161618;
+  position: relative;
+  top: 0;
+  left: 25%;
+  height: 100vh;
+  overflow: auto;
+}
+
+.header-left h1 {
+  color: #32b9cd;
+}
+
+.hello {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hello h3 {
+  color: #e3b062;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.hello h3 span {
+  font-weight: 800;
+}
+
+.btn-nav {
+  width: 40%;
+  color: white;
+  background-color: #e6005a;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2% 5%;
+}
+
+.btn-nav-white {
+  width: 40%;
+  background-color: white;
+  border: 3px solid #e6005a;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2% 5%;
+}
+
+.btn-nav-white h3 {
+  color: #e6005a;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-nav h3,
+.btn-logout h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.btn-logout {
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  background-color: #32b9cd;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 15px;
+  margin-bottom: 100px;
+  cursor: pointer;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+
+}
+
+html {
+    width: 100%;
+    height: 100%;
+
+}
+
+body {
+    width: 100%;
+    height: 100%;
+
+}
+
+.Dashboard {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E1E1E;
+
+}
+
+
+
+#aparecerSelecionarComponentes {
+    display: none;
+}
+
+.topDash {
+    height: 20%;
+    width: 83%;
+
+    position: relative;
+    left: 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.boxUser-data {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: first baseline;
+    flex-direction: column;
+
+    color: white;
+    font-family: Ubuntu;
+
+}
+
+.boxUser-data h3 {
+    font-size: 2rem;
+    font-weight: 400;
+
+}
+
+.boxUser-data p {
+    font-size: 1rem;
+
+}
+
+.btnNewServidor {
+    width: 12.5%;
+    height: 25%;
+    border-radius: 5px;
+    border: none;
+    background-color: #7449EB;
+    color: white;
+    font-family: Ubuntu
+}
+
+.boxCadastroServidor{
+    position: absolute;
+    margin:  auto;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 60%;
+    right: 0;
+    bottom: 0;
+    background-color: #111111;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+    border-radius: 6px;
+}
+
+.logoCadastroServidor{
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 35%;
+    /* background-color: #7449EB; */
+    align-items: center;
+    color: white;
+    font-family: Lato;
+    gap: 20%;
+
+}
+.nomeServidor{
+    height: 25%;
+    width: 80%;
+    padding-top: 5%;
+    /* background-color: red; */
+    gap: 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.divNomeServidor{
+    height: 20%;
+    width: 100%;
+    /* background-color: aqua; */
+    color: white;
+    font-family: Lato;
+}
+
+.inputNomeServidor{
+    width: 97.5%;
+    height: 30%;
+    border: 0.8px solid #9598C1;
+    background-color: #111111;
+    color: white;
+    outline: none;
+    padding-left: 5px;
+}
+
+/* .filtro{
+    position: fixed;
+    z-index: 5;
+    height: 100%;
+    width: 100%;
+    background-color: #111111e7;
+} */
+
+
+.boxSelecionarComponentes{
+    position: absolute;
+    margin:  auto;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 88%;
+    right: 0;
+    bottom: 0;
+    background-color: #111111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.selecionarComponentes{
+    height: 15%;
+    width: 91%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inputQtdProcessador{
+    width: 85%;
+    height: 50%;
+    border: 0.8px solid #9598C1;
+    background-color: #111111;
+    color: white;
+    outline: none;
+    padding-left: 10px;
+    margin-top: 2%;
+}
+
+.btSelecionar{
+    width: 87.9%;
+    display: flex;
+    justify-content:left;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    /* background-color: #7449EB; */
+}
+
+.btProcessador{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botaoAvancar{
+    width: 80%;
+    height: 10%;
+    background-color: #7449EB;
+    color: white;
+    font-family: Lato;
+    
+}
+
+.logoCadastroImagem{
+    height: 50%;
+
+}
+
+.midDash {
+    height: 30%;
+    width: 83%;
+    position: relative;
+    left: 4%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.monitoramentoGeral {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-family: Ubuntu;
+    color: white;
+    font-size: 1rem;
+    padding-bottom: 10px;
+}
+
+.itensMonitorados {
+    height: 90%;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    padding: 10px;
+    padding-left: 5px;
+    align-items: center;
+    font-family: Ubuntu;
+
+}
+
+.cardMonitorados {
+    width: 31%;
+    height: 100%;
+    padding: 10px;
+    background-color: #7449EB;
+    border-radius: 10px;
+    display: flex;
+    justify-content: top;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.item {
+    height: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+
+.item h2 {
+    font-weight: 300;
+}
+
+.descricao {
+    height: 55%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.item h2 {
+    font-weight: 700;
+}
+
+.lowDash {
+    height: 45%;
+    width: 83%;
+
+    position: relative;
+    left: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 2%;
+}
+
+.tituloLow {
+    position: relative;
+    top: 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    
+    width: 100%;
+    height: 10%;
+}
+
+.box1low {
+    width: 45%;
+    height: 80%;
+
+    border-radius: 20px;
+    font-family: Ubuntu;
+    color: white;
+    font-size: 1-rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box2low {
+    width: 45%;
+    height: 80%;
+
+    border-radius: 20px;
+    font-family: Ubuntu;
+    color: white;
+    font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardServidor {
+    margin-top: 2.5%;
+    height: 87%;
+    width: 95%;
+    background-color: #7449EB;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    border: 5px;
+
+}
+.boxServidores{
+    height: 25%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3%;
+    margin-top: 3%;
+
+}
+.status{
+    display: flex;
+    justify-content: right;
+    width: 30%;
+    height: 50%;
+    align-items: center;
+    gap: 5%;
+
+}
+.serverImgName{
+    width: 30%;
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.TextServidorFuncionalidade{
+    width: 50%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.imgServer{
+    width: 60%;
+}
+.alert{
+    width: 10%;
+}
+
+.box1low:hover, .box2low:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
