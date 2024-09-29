@@ -42,7 +42,7 @@
             </div>
             <div class="botoesNav">
                 <img src="assets/Vectorperfil.svg" class="LinkImgNav" alt="">
-                <p>Perfil</p>
+                <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;">Perfil</a></p>
             </div>
         </div>
         <div class="exitNav">
@@ -57,81 +57,167 @@
         </div>
     </div>
 
-
-    <section class="Dashboard">
+    <Section class="Dashboard">
 
         <div class="topDash">
 
             <div class="boxUser-data">
 
-                <h3>Seja bem vindo, Usuário xxxxx</h3>
+                <h3>Perfil de usuário</h3>
 
-                <p>Monitoramento dia DD/MM/AAAA</p>
+
+
             </div>
 
         </div>
-
         <div class="midDash">
-
-            <div class="div_box">
-
-                <img  style="width: 30%;" src="assets/icons8-usuário-100.png" alt="">
-
-                <p id="nome_2">*****</p>
-
-                <span id="email_2">email</span>
-                
+            <div class="monitoramentoGeral">
+                Monitoramento Geral
             </div>
+            <div class="itensMonitorados">
 
+                <img class="perfil_icon" src="assets/Icone_perfil.png" alt="">
 
-            <div class="div_box">
+                <div class="info_usuario">
 
+                    <h3>Fernanda Caramico</h3>
 
-                <img  style="width: 30%;" src="assets/icons8-companhia-100.png" alt="">
+                    <span style="color: gray;">fernada.caramico@sptech.school</span>
 
-                <p id="empresa">*******</p>
-
-                <span>Empresa</span>
+                </div>
 
             </div>
-            
         </div>
-
         <div class="lowDash">
 
-            <div class="boxU">
+            <div class="box1low">
 
-                <div class="texto">
+                <div class="cardServidor">
 
-                    <div class="title">
-                        <h1>Nome: </h1>
-                        <h2>Estado: </h2>
-                        <h3>Email: </h3>
-                        <h4>Senha: </h4>
+                    <div class="boxServidores">
+
+                        <span>Nome:</span>
+                        <div class="container_radiu">
+                            <span>Fernanda Caramico</span>
+                        </div>
+
+
                     </div>
 
-                    <div class="resp">
-                        <h1 id="nome"></h1>
-                        <h2 id="telefone"> 11 994637199 </h2>
-                        <h3 id="email">fernanda.caramico@sptech.school </h3>
-                        <h4>***********</h4>
+                    <div class="boxServidores">
+                        <span>Email:</span>
+                        <div class="container_radiu">
+                            <span>fernanda.caramico@sptech.school</span>
+                        </div>
+
                     </div>
+
+                    <div class="boxServidores">
+                        <span>Senha:</span>
+                        <div class="container_radiu_senha">
+                            <span id="senha" contenteditable="true">*******</span>
+                        </div>
+                        
+                        <div class="div_alterar">
+                            <button class="button-alterar" onclick="alterarSenha()">Alterar</button>
+                        </div>
+                    </div>
+                    
+
                 </div>
-              
             </div>
 
+            <div class="box2low">
 
+                <div class="cardServidor">
+                    
+                    <div class="boxServidores">
+
+                        <span>Empresa:</span>
+                        <div class="container_radiu">
+                            <span>Santa Marcelina</span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="boxServidores">
+                        <span>Data de criação:</span>
+                        <div class="container_radiu">
+                            <span>27-09-2024</span>
+                        </div>
+
+                    </div>
+
+                    <div class="boxServidores">
+                        <span>Função:</span>
+                        <div class="container_radiu">
+                            <span>Administrador</span>
+                        </div>
+
+                    </div>
+
+                    </div>
+                </div>
+            </div>
 
         </div>
 
 
-        </section>        
 
-        
+    </Section>
+    <div class="boxCadastroServidor" id="aparecerBoxServidor">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Cadastre um Servidor</h2>
 
+        </div>
+        <div class="nomeServidor">
+            <div class="divNomeServidor">
+                <p>Nome do Servidor</p>
+            </div>
 
+            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor">
+        </div>
+        <button class="botaoAvancar" onclick="avancarServidor()">Avançar</button>
+    </div>
+    <div class="filtro"></div>
 
+    <div class="boxSelecionarComponentes" id="aparecerSelecionarComponentes">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Selecione os componentes que deseje monitorar</h2>
+        </div>
 
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">Processador</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Processadores" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">Memória</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Memória Ram(GB)" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">SSD</p>
+                <input type="radio">
+                <p class="btProcessador">HD</p>
+            </div>
+
+            <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
+        </div>
+
+        <button class="botaoAvancar" onclick="avancar()">Avançar</button>
+    </div>
 
 </body>
 
@@ -148,7 +234,7 @@
 
     function avancarServidor() {
         var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
-        mostrarServidor.style.display = "flex";  
+        mostrarServidor.style.display = "flex";  // Exibe a caixa de seleção de componentes
     }
 
     function avancar() {
@@ -296,4 +382,7 @@
         }
     });
 
+    function alterarSenha() {
+        
+    }
 </script>
