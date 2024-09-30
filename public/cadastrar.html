@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="./js/sessao.js"></script>
+    <script src="js/cadastrar.js" defer></script>
     <link rel="shortcut icon" href="./src/img/LogoQuantum.icon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/cadastro.css">
@@ -12,8 +14,20 @@
 <body>
     <div class="main">
         <div class="left">
+            <div class="cadastrarLogin">
+                <div class="conteudoRight">
+                    <p class="bemvindoP">Seja bem-vindo</p>
+                    <p class="bemvindoP2">A Quantum agradece</p>
+                    <div class="textoRight">
+                        <p>Nosso compromisso é garantir a eficiência</p>
+                        <p>e a segurança das infraestruturas críticas em ambientes de TI</p>
+                    </div>
+                </div>
+                <img class="imgDash" src="assets/Dashboard graficos componentes.png" alt="">
+            </div>
+        </div>
+        <div class="right">
             <div class="container">
-
                 <div class="logo">
                     <svg width="106" height="108" viewBox="0 0 106 108" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g filter="url(#filter0_d_230_480)">
@@ -88,10 +102,8 @@
                             </filter>
                         </defs>
                     </svg>
-
                 </div>
                 <div class="titulo">
-                    <h1>A Quantum agradece</h1>
                     <p class="subtitulo">Coloque suas informações</p>
                 </div>
                 <div class="container-inputs">
@@ -113,7 +125,7 @@
                     </div>
                 </div>
                 <div class="login">
-                    <button>
+                    <button onclick="validarInformacoes()">
                         <h2>Cadastrar</h2>
                     </button>
                 </div>
@@ -122,9 +134,6 @@
                 </div>
             </div>
         </div>
-        <div class="right">
-        </div>
     </div>
 </body>
-
 </html>

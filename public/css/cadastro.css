@@ -2,10 +2,12 @@
     font-family: Lato;
     src: url(../../src/font/Lato/Lato-Light.ttf);
 }
-@font-face{
+
+@font-face {
     font-family: LatoBold;
     src: url(../../src/font/Lato/Lato-Bold.ttf);
 }
+
 @font-face {
     font-family: Ubunto;
     src: url(../../src/font/Ubuntu/Ubuntu-Bold.ttf);
@@ -15,7 +17,8 @@
     font-family: Ubunto-Medio;
     src: url(../../src/font/Ubuntu/Ubuntu-Medium.ttf);
 }
-body{
+
+body {
     background-color: #111111;
 }
 
@@ -31,6 +34,51 @@ body{
     width: 100%;
     height: 100vh;
     flex-direction: row;
+}
+
+.cadastrarLogin {
+    width: 70%;
+    height: 80%;
+    border-radius: 10px;
+    background: rgb(77, 20, 199);
+    background: linear-gradient(177deg, rgba(77, 20, 199, 1) 0%, rgba(90, 35, 163, 1) 44%, rgba(97, 61, 201, 1) 98%);
+    font-family: Lato;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 3%;
+    justify-content: space-around;
+}
+
+.conteudoRight {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30%;
+}
+
+.bemvindoP {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.bemvindoP2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: -10%;
+}
+
+.textoRight {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.imgDash {
+    width: 90%;
 }
 
 .left {
@@ -81,17 +129,13 @@ body{
     font-family: LatoBold;
 }
 
-.right {
+.left {
     display: flex;
     width: 50%;
     height: 100vh;
-    background-repeat: no-repeat;
     background-color: #111111;
-    background-image: url(../assets/fundo-login.svg);
-    background-size: cover;
-    background-position: center;
-
 }
+
 .container-inputs {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -114,7 +158,8 @@ body{
 .inputs {
     margin-top: 12px;
 }
-.inputs p{
+
+.inputs p {
     font-family: LatoBold;
     margin-bottom: 12px;
 }
@@ -124,22 +169,26 @@ body{
     flex-direction: row-reverse;
     margin-top: 15px;
 }
-.semconta{
+
+.semconta {
     display: flex;
     width: 100%;
     justify-content: center;
     font-family: Lato;
-    margin-top:3%;
+    margin-top: 3%;
 }
-.semconta a{
+
+.semconta a {
     text-decoration: none;
     color: #3594BB;
     margin-left: 2px;
 }
-.login{
+
+.login {
     margin-top: 30px;
 }
-.login button{
+
+.login button {
     width: 530px;
     height: 50px;
     font-family: Ubunto;
@@ -157,8 +206,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 1366px) {
-  
-    .left {
+
+    .right {
         width: 50%;
         display: flex;
         justify-content: center;
@@ -167,12 +216,12 @@ input[type="number"]::-webkit-inner-spin-button {
         height: 100vh;
         background-color: #111111;
     }
-    
+
     .logo {
         display: flex;
         justify-content: center;
     }
-    
+
     .container {
         display: flex;
         justify-content: center;
@@ -184,19 +233,19 @@ input[type="number"]::-webkit-inner-spin-button {
         bottom: 0;
         flex-direction: column;
     }
-    
+
     .titulo {
         display: flex;
         flex-direction: column;
         text-align: center;
         margin-top: 5px;
     }
-    
+
     .titulo h1 {
         font-size: 36px;
         font-family: LatoBold;
     }
-    
+
     .titulo p {
         margin-top: 19px;
         margin-bottom: 10px;
@@ -204,8 +253,8 @@ input[type="number"]::-webkit-inner-spin-button {
         font-weight: bold;
         font-family: LatoBold;
     }
-    
-    .right {
+
+    .left {
         display: flex;
         width: 50%;
         height: 100vh;
@@ -214,8 +263,9 @@ input[type="number"]::-webkit-inner-spin-button {
         background-image: url(../img/fundo-login.svg);
         background-size: cover;
         background-position: center;
-    
+
     }
+
     .container-inputs {
         display: flex;
         justify-content: center;
@@ -225,7 +275,7 @@ input[type="number"]::-webkit-inner-spin-button {
         font-weight: bold;
         width: auto;
     }
-    
+
     .container-inputs input {
         display: flex;
         flex-direction: column;
@@ -240,33 +290,38 @@ input[type="number"]::-webkit-inner-spin-button {
         background: #1111;
         padding: 15px;
     }
-    
+
     .inputs {
         margin-top: 10px;
     }
-    .inputs p{
+
+    .inputs p {
         font-family: LatoBold;
         margin-bottom: 15px;
     }
-    .semconta{
+
+    .semconta {
         display: flex;
         width: 100%;
         justify-content: center;
         font-family: Lato;
-        margin-top:3%;
+        margin-top: 3%;
     }
-    .semconta a{
+
+    .semconta a {
         text-decoration: none;
         color: #3594BB;
         margin-left: 2px;
     }
-    .login{
+
+    .login {
         margin-top: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .login button{
+
+    .login button {
         width: 480px;
         height: 50px;
         font-family: Ubunto;
@@ -275,7 +330,8 @@ input[type="number"]::-webkit-inner-spin-button {
         transition: transform 0.5s;
         cursor: pointer;
     }
-    .container{
+
+    .container {
         position: relative;
         top: 0;
         left: 0;
@@ -283,41 +339,49 @@ input[type="number"]::-webkit-inner-spin-button {
         bottom: 0;
     }
 }
+
 @media screen and (max-width: 1366px) {
-.right{
-    display: none;
-}
-.left{
-    width: 100%;
-}
-.container{
-    width: 80%;
-}
-.container-inputs{
-    width: 100%;
-    justify-content: left;
-    align-items: baseline;
-    margin: 0;
-    padding: 0;
-   
+    .left {
+        display: none;
     }
-    .container-inputs input{
+
+    .right {
+        width: 100%;
+    }
+
+    .container {
+        width: 80%;
+    }
+
+    .container-inputs {
+        width: 100%;
+        justify-content: left;
+        align-items: baseline;
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .container-inputs input {
         width: 96%;
-    
+
     }
-    .inputs{
+
+    .inputs {
         width: 100%;
     }
 }
+
 @media (max-width: 431px) {
 
-    .container-inputs input{
+    .container-inputs input {
         width: 96%;
-       
-    
+
+
     }
-    .inputs{
+
+    .inputs {
         width: 94.5%;
-       
+
     }
 }
