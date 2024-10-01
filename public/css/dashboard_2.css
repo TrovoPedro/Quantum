@@ -1,5 +1,16 @@
+@font-face {
+    font-family: Ubunto;
+    src: url(../src/font/Ubuntu/Ubuntu-Bold.ttf);
+}
+
+@font-face {
+    font-family: Ubunto-Medio;
+    src: url(../src/font/Ubuntu/Ubuntu-Medium.ttf);
+}
+
 body{
     background-color: #1E1E1E;
+
 }
 
 .espaço{
@@ -9,6 +20,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative; /* Para o alerta */
 
 }
 .espaço .card{
@@ -49,8 +61,8 @@ body{
 .infos .infosD{
     width: 65%;
     border-radius: 10px;
-    padding: 10px 0px 10px 10px;
-    height: 100%;
+    padding: 10px 10px 10px 10px;
+    height: 89%;
     background-color: rgba(129, 133, 187, 0.3);
     align-items: center;
     text-align: center;
@@ -137,4 +149,64 @@ b{
     background-color: rgba(129, 133, 187, 0.5); 
     color: white; 
     transition: background-color 0.3s ease; 
+}
+
+#aparecerAlerta {
+    display: none;
+}
+
+.Mensagemalerta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-family: Ubuntu;
+}
+
+.boxAlerta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.especificacaoAlerta {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 400px;
+    color: white;
+    font-family: Ubuntu;
+}
+
+.boxAlerta {
+    position: fixed; /* Fixa a posição do alerta */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza na tela */
+    width: 450px;
+    background-color: rgba(16, 13, 13, 0.9); /* Leve opacidade */
+    border: 2px solid #000000; 
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 7px;
+    border-radius: 5px; 
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+    opacity: 1; /* Alerta visível */
+    transition: opacity 0.5s;
+    z-index: 1000; /* Garante que o alerta fique acima */
+}
+
+.close {
+    font-family: Ubuntu;
+    font-weight: lighter;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer; /* Aponta que é clicável */
+}
+
+.close .fechar {
+    transform: translate(1500%, 0%);
 }

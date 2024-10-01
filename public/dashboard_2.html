@@ -19,31 +19,31 @@
     <link rel="stylesheet" href="css/dashboard_2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body onload="apareceralerta()">
 
     <!--NAV BAR-->
     <div class="navBar">
         <div class="CaixalogoNav">
-            <img src="assets/Logo Quantum.svg" class="logoNav" alt="">
+            <img src="img/Logo Quantum.svg" class="logoNav" alt="">
         </div>
         <div class="linksNav">
             <div class="botoesNav">
-                <img src="assets/Vectorhome.svg" class="LinkImgNav" alt="">
+                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
                 <p><a href="dashboard.html" style="color: white; text-decoration: none;">Home</a></p>
             </div>
             <div class="botoesNav">
-                <img src="assets/VectorGraficos.svg" class="LinkImgNav" alt="">
+                <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
                 <p><a href="dashboard_2.html" style="color: white; text-decoration: none;">Gráficos</a></p>
             </div>
             <div class="botoesNav">
-                <img src="assets/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
                 <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;">Perfil</a></p>
             </div>
         </div>
         <div class="exitNav">
             <div class="botoesNav">
 
-                <img src="assets/Vectorexit.svg" class="LinkImgNav" alt="">
+                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
                 <P>Logout</P>
             </div>
             <div class="borrar">
@@ -54,12 +54,26 @@
 
     <!--Informações-->
     <div class="espaço">
+        <div class="boxAlerta" id="aparecerAlerta">
+            <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none';"><h2 class="fechar">x</h2></div>
+            <div class="boxMensagem">
+                <div class="Mensagemalerta">
+                    <img src="img/alerta.svg" alt="" class="alert" style="height: 20%;">
+                    
+                    <h2>Alerta</h2>
+                </div>
+                    <div class="especificacaoAlerta">
+                        <h3>Servidor 1 - Estado Crítico</h3>
+                    </div>
+            </div>
+        </div>
+
         <div class="card">
             <!--select-->
             <select class="select-servidor">
-               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer">Servidor 1</a></option>
-               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer">Servidor 2</a></option>
-               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer">Servidor 3</a></option> 
+               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 1</a></option>
+               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 2</a></option>
+               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 3</a></option> 
                </select>
 
             <!--informações-->
@@ -71,7 +85,7 @@
                         <div id="CPU">
                             <button class="detalhe">
                                 <div class="quadrante">
-                                    <img src="assets/Group 22.svg" alt="">
+                                    <img src="img/Group 22.svg" alt="">
                                 </div>
                                 <div class="text">
                                     <b>CPU</b>
@@ -89,7 +103,7 @@
                         <div id="MEMORIA">
                             <button>
                                 <div class="quadrante">
-                                    <img src="assets/Vector.svg" alt="">
+                                    <img src="img/Vector.svg" alt="">
                                 </div>
                                 <div class="text">
                                     <b>Memória</b>
@@ -107,7 +121,7 @@
                         <div id="DISCO">
                             <button>
                                 <div class="quadrante">
-                                    <img src="assets/Mask group.svg" alt="">
+                                    <img src="img/Mask group.svg" alt="">
                                 </div>
                                 <div class="text">
                                     <b>Disco 0 (C:)</b>
@@ -121,7 +135,7 @@
                         </div>
                     </div>
                     <div class="logo">
-                        <img src="assets/Logo Quantum.svg" alt="">
+                        <img src="img/Logo Quantum.svg" alt="">
                     </div>
                 </div>
                 <!--lado direito-->
@@ -185,4 +199,16 @@
             }
         });
 
-</script>
+/**script para aparecer alerta*/
+
+function apareceralerta() {
+    var variavelbanco = 20
+
+        var mostrar = document.getElementById("aparecerAlerta")
+        if (variavelbanco > 30) {
+            mostrar.style.display = "flex"
+        } else {
+            mostrar.style.display = "none"
+        }
+    }
+</script>exit
