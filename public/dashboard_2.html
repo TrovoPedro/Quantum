@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Quantum</title>
 
-      <!-- Icone  -->
-      <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+    <!-- Icone  -->
+    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
 
     <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="css/dashboard_2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
     <!--NAV BAR-->
@@ -68,26 +70,32 @@
         </div>
         <!-- Div alerta na página do técnico -->
         <div class="boxAlerta" id="aparecerAlerta">
-            <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none'; document.getElementById('cardInfos').style.filter='blur(0)'"><h2 class="fechar">x</h2></div>
+            <div class="close"
+                onclick="document.getElementById('aparecerAlerta').style.display='none'; document.getElementById('cardInfos').style.filter='blur(0)'">
+                <h2 class="fechar">x</h2>
+            </div>
             <div class="boxMensagem">
                 <div class="Mensagemalerta">
                     <img src="img/alerta.svg" alt="" class="alert" style="height: 20%;">
-                    
+
                     <h2>Alerta</h2>
                 </div>
-                    <div class="especificacaoAlerta">
-                        <h3>Servidor 1 - Estado Crítico</h3>
-                    </div>
+                <div class="especificacaoAlerta">
+                    <h3>Servidor 1 - Estado Crítico</h3>
+                </div>
             </div>
         </div>
 
         <div class="card" id="cardInfos">
             <!--select-->
             <select class="select-servidor">
-               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 1</a></option>
-               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 2</a></option>
-               <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 3</a></option> 
-               </select>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
+                            class="imgServer">Servidor 1</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
+                            class="imgServer">Servidor 2</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
+                            class="imgServer">Servidor 3</a></option>
+            </select>
 
             <!--informações-->
             <div class="infos">
@@ -104,10 +112,10 @@
                                     <b>CPU</b>
                                     <div class="inside">
                                         <div id="porcentagemCPU">
-                                            8% 
+                                            8%
                                         </div>
                                         <div id="GHzCPU">
-                                            3,16 GHz 
+                                            3,16 GHz
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +130,7 @@
                                     <b>Memória</b>
                                     <div class="inside">
                                         <div id="GBMemoria">
-                                            29,5/32.0 GB 
+                                            29,5/32.0 GB
                                         </div>
                                         <div id="porcentagemMemoria">
                                             (72%)
@@ -157,19 +165,23 @@
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
+                <div>
+                      h2  
+                </div>
             </div>
         </div>
     </div>
-    
+
 </body>
+
 </html>
 
 <script>
     function iniciarMonitoramento() {
         var bemvindo = document.getElementById("aparecerBemvindo")
         var cardinfo = document.getElementById("cardInfos")
-        bemvindo.style.display  = "none"
-        cardinfo.style.filter  = "blur(0)"
+        bemvindo.style.display = "none"
+        cardinfo.style.filter = "blur(0)"
 
         const ctx = document.getElementById('myChart').getContext('2d');
         new Chart(ctx, {
@@ -177,8 +189,8 @@
             data: {
                 labels: ['10:00', '11:00', '12:00', '13:00', '14:00'],
                 datasets: [{
-                   label: 'Nível de utilização',     
-                    data: [50,25, 50, 29, 30, 40],
+                    label: 'Nível de utilização',
+                    data: [50, 25, 50, 29, 30, 40],
                     borderWidth: 1,
                     borderColor: 'white',
                     backgroundColor: 'white'
@@ -188,50 +200,50 @@
                 plugins: {
                     legend: {
                         display: false
-                    }  
+                    }
                 }
                 ,
                 scales: {
                     x: {
-                       ticks: {
-                        color: 'white',
-                        font:{
-                            size: 15,
-                            family: 'Arial',
-                            weigth: 'Bold'
+                        ticks: {
+                            color: 'white',
+                            font: {
+                                size: 15,
+                                family: 'Arial',
+                                weigth: 'Bold'
+                            }
                         }
-                       }
                     },
                     y: {
                         beginAtZero: true,
                         ticks: {
-                        color: 'white',
-                        font:{
-                            size: 15,
-                            family: 'Arial',
-                            weigth: 'Bold'
+                            color: 'white',
+                            font: {
+                                size: 15,
+                                family: 'Arial',
+                                weigth: 'Bold'
+                            }
                         }
-                       }
-                        
+
                     }
                 }
             }
-        }); 
+        });
 
-            apareceralerta()
+        apareceralerta()
 
-         /**script para aparecer alerta após o usuário logar e carregar o gráfico*/
-         function apareceralerta() {
-        var cardinfo = document.getElementById("cardInfos")
-        cardinfo.style.filter  = "blur(6px)"
-        var variavelbanco = 20
+        /**script para aparecer alerta após o usuário logar e carregar o gráfico*/
+        function apareceralerta() {
+            var cardinfo = document.getElementById("cardInfos")
+            var mostrar = document.getElementById("aparecerAlerta")
+            var variavelbanco = 20
 
-        var mostrar = document.getElementById("aparecerAlerta")
-        if (variavelbanco > 10) {
-            mostrar.style.display = "flex"
-        } else {
-            mostrar.style.display = "none"
+            if (variavelbanco > 10) {
+                cardinfo.style.filter = "blur(6px)"
+                mostrar.style.display = "flex"
+            } else {
+                mostrar.style.display = "none"
+            }
         }
     }
-    }
-</script>exit
+</script>
