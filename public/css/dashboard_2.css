@@ -210,3 +210,44 @@ b{
 .close .fechar {
     transform: translate(1500%, 0%);
 }
+
+.botaoIniciar {
+    background-color: #595D97;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+    border-color: #595D97;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+    width: 50%;
+}
+
+.boxBemvindo {
+    position: fixed; /* Fixa a posição do alerta */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza na tela */
+    width: 350px;
+    height: 360px;
+    background-color: rgba(16, 13, 13, 0.9); /* Leve opacidade */
+    border: 2px solid #000000; 
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7px;
+    border-radius: 5px; 
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+    opacity: 1; /* Alerta visível */
+    transition: opacity 0.5s;
+    z-index: 1000; /* Garante que o alerta fique acima */
+}
+
+.botaomonitoramneto {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center;*/
+} 
+
+#cardInfos {
+    filter: blur(6px);
+}

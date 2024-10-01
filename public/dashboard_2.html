@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/dashboard_2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="apareceralerta()">
+<body>
 
     <!--NAV BAR-->
     <div class="navBar">
@@ -54,8 +54,21 @@
 
     <!--Informações-->
     <div class="espaço">
+        <!-- seja bem vindo  -->
+        <div class="boxBemvindo" id="aparecerBemvindo">
+            <div class="boxBemvindomensagem">
+                <div class="Mensagemalerta">
+                    <img src="img/Logo Quantum.png" class="bemvindo">
+                    <h2>Seja bem vindo, usuário!</h2>
+                </div>
+                <div class="botaomonitoramneto">
+                    <button onclick="iniciarMonitoramento()" class="botaoIniciar">Inicie a monitorar</button>
+                </div>
+            </div>
+        </div>
+        <!-- Div alerta na página do técnico -->
         <div class="boxAlerta" id="aparecerAlerta">
-            <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none';"><h2 class="fechar">x</h2></div>
+            <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none'; document.getElementById('cardInfos').style.filter='blur(0)'"><h2 class="fechar">x</h2></div>
             <div class="boxMensagem">
                 <div class="Mensagemalerta">
                     <img src="img/alerta.svg" alt="" class="alert" style="height: 20%;">
@@ -68,7 +81,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" id="cardInfos">
             <!--select-->
             <select class="select-servidor">
                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 1</a></option>
@@ -83,7 +96,7 @@
                     <div class="cards">
                         <b class="title">Desempenho</b>
                         <div id="CPU">
-                            <button class="detalhe">
+                            <button class="detalhe" onclick="gerarGraficoCpu()">
                                 <div class="quadrante">
                                     <img src="img/Group 22.svg" alt="">
                                 </div>
@@ -152,7 +165,13 @@
 </html>
 
 <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
+    function iniciarMonitoramento() {
+        var bemvindo = document.getElementById("aparecerBemvindo")
+        var cardinfo = document.getElementById("cardInfos")
+        bemvindo.style.display  = "none"
+        cardinfo.style.filter  = "blur(0)"
+
+        const ctx = document.getElementById('myChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -197,18 +216,22 @@
                     }
                 }
             }
-        });
+        }); 
 
-/**script para aparecer alerta*/
+            apareceralerta()
 
-function apareceralerta() {
-    var variavelbanco = 20
+         /**script para aparecer alerta após o usuário logar e carregar o gráfico*/
+         function apareceralerta() {
+        var cardinfo = document.getElementById("cardInfos")
+        cardinfo.style.filter  = "blur(6px)"
+        var variavelbanco = 20
 
         var mostrar = document.getElementById("aparecerAlerta")
-        if (variavelbanco > 30) {
+        if (variavelbanco > 10) {
             mostrar.style.display = "flex"
         } else {
             mostrar.style.display = "none"
         }
+    }
     }
 </script>exit
