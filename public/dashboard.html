@@ -61,7 +61,7 @@
         <div class="topDash">
             <div class="boxUser-data">
                 <h3>Seja bem vindo, Usuário!</h3>
-                <p>Monitoramento dia DD/MM/AAAA</p>
+                <p id="data">Monitoramento dia DD/MM/AAAA</p>
             </div>
             <button class="btnNewServidor" onclick="aparecer()">Novo Servidor</button>
 
@@ -401,4 +401,21 @@
         }
     });
 
+
+    function formatarData(data) {
+        const dia = String(data.getDate()).padStart(2, '0');
+        const mes = String(data.getMonth() + 1).padStart(2, '0'); 
+        const ano = data.getFullYear();
+
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    const hoje = new Date();
+    const dataFormatada = formatarData(hoje);
+
+    document.getElementById('data').textContent = `Monitoramento dia ${dataFormatada}`;
+
+
+
 </script>
+
