@@ -439,3 +439,46 @@ body {
 .button-alterar:hover {
     background-color: #3b2772; 
 }
+
+.input-perfil{
+    border-style: none;
+    background-color: #3C3C3C;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    margin-left: 2%;
+    color:#FFFFFF;
+    font-family: Ubuntu;
+    font-size: 16px;
+}
+
+#senha{
+    font-size: 20px;
+}
+
+
+.profile-picture {
+    position: relative;
+    width: 100px; /* Ajuste o tamanho conforme necessário */
+    height: 100px; /* Ajuste o tamanho conforme necessário */
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ccc; /* Cor de fundo padrão */
+}
+
+input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Torna o input invisível */
+    cursor: pointer;
+}
+
+img #foto-usuario {
+    width: 20%;
+    height: 20%;
+    object-fit: cover; /* Cobre o contêiner sem distorcer a imagem */
+    border-radius: 50%; /* Deixa a imagem redonda */
+    background-size:cover ;
+
+}
