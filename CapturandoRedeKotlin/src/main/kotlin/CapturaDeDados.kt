@@ -10,6 +10,7 @@ fun main() {
     var totalDadosRecebidos = 0.0
     var totalPacotesEnviados = 0
     var totalPacotesRecebidos = 0
+    var totalInterface = 0
 
     fun converterParaMb(totalDadosEnviados: Double, totalDadosRecebidos: Double): DadosDeRede {
         val totalDadosEnviadosMB = totalDadosEnviados / (1024.0 * 1024.0)
@@ -43,6 +44,7 @@ fun main() {
                 totalDadosRecebidos += interfaceDeRede.bytesRecebidos.toDouble()
                 totalPacotesEnviados += interfaceDeRede.pacotesEnviados.toInt()
                 totalPacotesRecebidos += interfaceDeRede.pacotesRecebidos.toInt()
+                totalInterface += interfacesDeRede.wl.toInt()
             }
             println(descrever())
             Thread.sleep(5000)
