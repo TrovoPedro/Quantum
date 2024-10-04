@@ -1,62 +1,98 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+CREATE DATABASE Quantum;
 
-/*
-comandos para mysql server
-*/
+USE Quantum;
 
-CREATE DATABASE aquatech;
+CREATE TABLE endereco (
+    idEndereco INT PRIMARY KEY AUTO_INCREMENT,
+    cep CHAR(8),
+    rua VARCHAR(45),
+    complemento VARCHAR(255),
+    num INT
+);
 
-USE aquatech;
 
 CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    razao_social VARCHAR(45),
+    CNPJ CHAR(14),
+    fkEndereco INT,
+    FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco)
 );
+
+
+CREATE TABLE estado (
+    idEstado INT PRIMARY KEY AUTO_INCREMENT,
+    dtHora DATETIME,
+    operacao TINYINT,
+    descricao VARCHAR(255),
+    tipo VARCHAR(45)
+);
+
+
+CREATE TABLE servidor (
+    idServidor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    fkEmpresa INT,
+    fkLocalizacao INT, -- Este campo pode referenciar uma tabela "localizacao" que não foi incluída no DER
+    fkEstado INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+    FOREIGN KEY (fkEstado) REFERENCES estado(idEstado)
+);
+
+
+CREATE TABLE componente (
+    idComponente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    fabricante VARCHAR(45),
+    fkServidor INT,
+    limite VARCHAR(45),
+    unidade VARCHAR(45),
+    FOREIGN KEY (fkServidor) REFERENCES servidor(idServidor)
+);
+
+CREATE TABLE log (
+    idLog INT PRIMARY KEY AUTO_INCREMENT,
+    dtHora DATETIME,
+    tempoAtividade DATETIME,
+    porcentagemUso DOUBLE,
+    fkComponente INT,
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
+);
+
+
+CREATE TABLE alerta (
+    idAlerta INT PRIMARY KEY AUTO_INCREMENT,
+    data DATETIME,
+    descricao VARCHAR(45),
+    fkLog INT,
+    FOREIGN KEY (fkLog) REFERENCES log(idLog)
+);
+
+
+CREATE TABLE servico (
+    idServico INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    fkEmpresa INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+);
+
+
+CREATE TABLE tipo (
+    idTipo INT PRIMARY KEY AUTO_INCREMENT,
+    cargo VARCHAR(45)
+);
+
 
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255),
+    email VARCHAR(255),
+    senha VARCHAR(255),
+    fkEmpresa INT,
+    fkTipo INT,
+    createdAt DATETIME,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+    FOREIGN KEY (fkTipo) REFERENCES tipo(idTipo)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
-);
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
-
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
-
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
