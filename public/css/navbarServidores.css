@@ -1,7 +1,7 @@
 .navBar {
     width: 8%;
     height: 100vh;
-    background-color: #F2ECF2;
+    background-color: #111;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,14 +12,14 @@
     z-index: 1;
     border-radius: 0 10px 10px 0;
     transition: 0.5s ease;
-    color: #7449EB !important;
+    color: #ffff !important;
 }
 
 .navBar:hover {
     transition: 0.6s;
     width: 20%;
     height: 100vh;
-    background-color: #F2ECF2;
+    background-color: #111;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,22 +46,19 @@
 .navBar:hover .botoesNav p {
     display: inline-flex;
     text-decoration: none;
-    text-decoration: none;
-
+    color: #ffff;
 }
 
 .botoesNav p {
     display: none;
     text-decoration: none;
-
+    color: #ffff;
 }
 
 .logoNav {
     width: 40%;
     transition: 0.5s ease;
     text-decoration: none;
-
-
 }
 
 .botoesNav {
@@ -71,19 +68,17 @@
     flex-direction: column;
     width: 50%;
     padding: 5%;
-    background-color: #F2ECF2;
+    background-color: #111;
     height: 15%;
     font-family: Ubuntu;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-
 }
 
 .botoesNav:hover {
-    background-color: #F2ECF2;
+    background-color: #111;
     text-decoration: none;
-
 }
 
 .linksNav {
@@ -94,7 +89,6 @@
     justify-content: space-around;
     align-items: center;
     text-decoration: none;
-
 }
 
 .CaixalogoNav {
@@ -104,7 +98,6 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
-
 }
 
 .exitNav {
@@ -115,12 +108,9 @@
     justify-content: end;
     align-items: center;
     text-decoration: none;
-
 }
 
 .LinkImgNav {
     height: 70%;
     text-decoration: none;
-
-
 }
