@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: Lato;
 }
 
 html {
@@ -16,14 +17,28 @@ body {
     flex-direction: row;
 }
 
-.tituloLista{
+.pai-lista{
+    display: flex;
+    flex-direction: column;
     margin-left: 25%;
-    font-family: Lato;
-    font-weight: bold;
-    font-size: 90px;
     width: 100%;
+    height: 100%;
+    gap: 10px;
 }
 
-.img-servidores{
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5%;
+    margin-left: -7%;
+}
 
+.tituloTabela{
+    color: #7449EB;
+}
+
+.camposTabela, td{
+    padding: 15px; 
+    text-align: center;
+    color: #fff; 
 }

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/navbarServidores.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="navBar">
         <div class="CaixalogoNav">
@@ -52,8 +53,42 @@
             </div>
         </div>
     </div>
-    <div class="tituloLista">
-        <img class="img-servidores" src="assets/Servidores.svg" alt="">
+    <div class="pai-lista">
+        <div class="tituloLista">
+            <img class="img-servidores" src="assets/Servidores.svg" alt="">
+        </div>
+        <div>
+            <button onclick="cadastrarServidor()">Novo servidor</button>
+        </div>
+        <div class="listaServidores">
+            <table>
+                <thead>
+                    <tr class="tituloTabela">
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Empresa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="camposTabela">
+                        <td>João</td>
+                        <td>exemplo@exemplo</td>
+                        <td>Santa Marcelina</td>
+                    </tr>
+                    <tr class="camposTabela">
+                        <td>Maria</td>
+                        <td>exemplo@exemplo</td>
+                        <td>Santa Marcelina</td>
+                    </tr>
+                    <tr class="camposTabela">
+                        <td>Pedro</td>
+                        <td>exemplo@exemplo</td>
+                        <td>Santa Marcelina</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
+
 </html>
