@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servidores</title>
+
+    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/ListaFuncionarios.css">
+    <link rel="stylesheet" href="css/Navbar(ADM).css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+
+
+    <div class="navBar">
+        <div class="CaixalogoNav">
+            <img src="assets/Logo Quantum (1).svg" class="logoNav" alt="">
+        </div>
+        <div class="linksNav">
+
+            <div class="botoesNav">
+                <img src="assets/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p><a href="Dash(ADM).html" style="color: #7449eb; text-decoration: none;">Home</a></p>
+            </div>
+
+            <div class="botoesNav">
+                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
+                <p><a href="dashboard_2.html" style="color: #7449eb; text-decoration: none;">Funcionários</a></p>
+            </div>
+
+            <div class="botoesNav">
+                <img src="assets/VectorServer.svg" class="LinkImgNav" alt="">
+                <p><a href="listaServidores.html" style="color: #7449eb; text-decoration: none;">Servidores</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="assets/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p><a href="Tela_Perfil.html" style="color: #7449eb; text-decoration: none;">Perfil</a></p>
+            </div>
+        </div>
+
+        <div class="exitNav">
+            <div class="botoesNav">
+
+                <img src="assets/Vectorexit.svg" class="LinkImgNav" alt="">
+                <P>Logout</P>
+            </div>
+            <div class="borrar">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pai-lista">
+
+        <div class="tituloLista">
+
+            <img class="img-servidores" src="assets/Funcionários.svg" alt="">
+
+        </div>
+
+        <div class="botão_cadastrar">
+
+            <button onclick="cadastrarServidor()"  class="botao_funcionario">Novo Funcionário</button>
+
+        </div>
+
+        <div class="listaServidores">
+
+            <table >
+
+                <thead >
+
+                    <tr class="tituloTabela">
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Empresa</th>
+                    </tr>
+
+                </thead>
+                
+
+                <tbody>
+
+                    <tr class="camposTabela">
+                        <td>João</td>
+                        <td>exemplo@exemplo</td>
+                        <td>Santa Marcelina</td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+                    
+                    <tr class="camposTabela">
+                        <td>Maria</td>
+                        <td>exemplo@exemplo</td>
+                        <td>Santa Marcelina</td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+                    <tr class="camposTabela">
+                        <td>Pedro</td>
+                        <td>exemplo@exemplo</td>
+                        <td>Santa Marcelina</td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+
+                    <tr class="camposTabela">
+                        <td>José</td>
+                        <td>exemplo@exemplo</td>
+                        <td>Santa Marcelina</td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
