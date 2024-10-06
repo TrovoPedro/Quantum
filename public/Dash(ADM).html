@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard(ADM) - Quantum</title>
+
+    <!-- Icone  -->
+    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+
+    <!-- Links Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/Dash(ADM).css">
+    <link rel="stylesheet" href="css/Navbar(ADM).css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<style>
+
+</style>
+
+<body>
+
+    <div class="navBar">
+        <div class="CaixalogoNav">
+            <img src="assets/Logo Quantum (1).svg" class="logoNav" alt="">
+        </div>
+        <div class="linksNav">
+
+            <div class="botoesNav">
+                <img src="assets/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p><a href="dashboard.html" style="color: #7449eb; text-decoration: none;">Home</a></p>
+            </div>
+
+            <div class="botoesNav">
+                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
+                <p><a href="dashboard_2.html" style="color: #7449eb; text-decoration: none;">Funcionários</a></p>
+            </div>
+            
+            <div class="botoesNav">
+                <img src="assets/VectorServer.svg" class="LinkImgNav" alt="">
+                <p><a href="dashboard_2.html" style="color: #7449eb; text-decoration: none;">Servidores</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="assets/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p><a href="Tela_Perfil.html" style="color: #7449eb; text-decoration: none;">Perfil</a></p>
+            </div>
+        </div>
+
+        <div class="exitNav">
+            <div class="botoesNav">
+
+                <img src="assets/Vectorexit.svg" class="LinkImgNav" alt="">
+                <P>Logout</P>
+            </div>
+            <div class="borrar">
+
+            </div>
+        </div>
+    </div>
+
+    <Section class="Dashboard">
+        <div class="topDash">
+            <div class="boxUser-data">
+                <h3>Olá, Usuário!</h3>
+                <p id="data2">Monitoramento dia DD/MM/AAAA</p>
+            </div>
+
+        </div>
+        <div class="midDash">
+            <div class="monitoramentoGeral">
+                Monitoramento Geral
+            </div>
+            <div class="itensMonitorados">
+
+                <div class="cardMonitorados">
+
+                    <div class="item">
+                        <h4>UPTIME SEMANAL</h4>
+                    </div>
+                    <div>
+                        <canvas id="myChart" width="400" height="220"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="cardMonitorado1">
+
+                    <div class="titulo_Card">
+                        <h3>Estado geral do servidores</h3>
+                    </div>
+
+                    <div class="lista_Servidores">
+
+                        <div class="div_servers">
+
+                            <div class="serverImgName">
+                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
+                                <p>Servidor 1</p>
+                            </div>
+
+                            <div class="status">
+
+                                <p>Estável</p>
+                                <img src="assets/icons8-emoji-de-círculo-verde-48.png" alt="" class="alert">
+
+                            </div>
+
+                        </div>
+                        <div class="div_servers">
+
+                            <div class="serverImgName">
+                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
+                                <p>Servidor 2</p>
+                            </div>
+
+                            <div class="status">
+                                <p>Critico</p>
+                                <img src="assets/alert.svg" alt="" class="alert">
+                            </div>
+                        </div>
+                        <div class="div_servers">
+
+                            <div class="serverImgName">
+                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
+                                <p>Servidor 3</p>
+                            </div>
+
+                            <div class="status">
+                                <p>Estável</p>
+                                <img src="assets/icons8-emoji-de-círculo-verde-48.png" alt="" class="alert">
+                            </div>
+                        </div>
+                        <div class="div_servers">
+
+                            <div class="serverImgName">
+
+                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
+
+                                <p>Servidor 4</p>
+
+                            </div>
+
+                            <div class="status">
+                                <p>Critico</p>
+                                <img src="assets/alert.svg" alt="" class="alert">
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="lowDash">
+
+
+            <div class="box2low">
+
+                <div class="monitoramento_estado">
+
+                </div>
+                <div class="cardServidor">
+                    <br>
+                    <div class="titulo_servidores">
+                        <h4>Número total de servidores:</h4>
+                    </div>
+
+                    <div class="boxServidores">
+
+                        <div class="titulo_Estado">
+                            <h3>Ativos</h3>
+                        </div>
+
+                        <div class="info_Servidores">
+                            <h3 style="color: green;">30</h3>
+                        </div>
+
+
+                    </div>
+
+                    <div class="boxServidores1">
+                        <div class="titulo_Estado">
+                            <h3>Desativados</h3>
+                        </div>
+
+                        <div class="info_Servidores">
+                            <h3 style="color: red;">6</h3>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        </div>
+
+
+
+    </Section>
+    <div class="boxCadastroServidor" id="aparecerBoxServidor">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Cadastre um Servidor</h2>
+
+        </div>
+        <div class="nomeServidor">
+            <div class="divNomeServidor">
+                <p>Nome do Servidor</p>
+            </div>
+
+            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor">
+        </div>
+        <button class="botaoAvancar" onclick="avancarServidor()">Avançar</button>
+    </div>
+    <div class="filtro"></div>
+
+    <div class="boxSelecionarComponentes" id="aparecerSelecionarComponentes">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Selecione os componentes que deseje monitorar</h2>
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">Processador</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Processadores" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">Memória</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Memória Ram(GB)" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">SSD</p>
+                <input type="radio">
+                <p class="btProcessador">HD</p>
+            </div>
+
+            <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
+        </div>
+
+        <button class="botaoAvancar" onclick="avancar()">Avançar</button>
+    </div>
+
+</body>
+
+</html>
+<script>
+    function aparecer() {
+        var mostrar = document.getElementById("aparecerBoxServidor")
+        if (mostrar.style.display === "none") {
+            mostrar.style.display = "flex"
+        } else {
+            mostrar.style.display = "none"
+        }
+    }
+
+    function avancarServidor() {
+        var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
+        mostrarServidor.style.display = "flex";  // Exibe a caixa de seleção de componentes
+    }
+
+    function avancar() {
+        window.location.href = 'dashboard.html'
+
+    }
+</script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
+            datasets: [{
+                label: 'Uptime dos Servidores (%)',
+                data: [98, 97, 99, 96, 88, 75, 60, 83, 91, 85, 92, 78, 81],
+                borderWidth: 2,
+                borderColor: 'White',
+                backgroundColor: 'rgba(116, 73, 235, 0.2)',
+                fill: true,
+                tension: 0.3,
+                borderJoinStyle: 'round',
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                pointBackgroundColor: 'White',
+                pointBorderColor: 'white',
+            }]
+        },
+        options: {
+            responsive: true,
+            animations: {
+                tension: {
+                    duration: 500,
+                    easing: 'easeInOutQuad',
+                    from: 1,
+                    to: 0,
+                    loop: true
+                },
+                borderWidth: {
+                    duration: 300,
+                    easing: 'easeInOutQuad',
+                    from: 0,
+                    to: 2,
+                    loop: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: 'white',
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        },
+                        stepSize: 20
+                    },
+                    max: 100
+                }
+            }
+        }
+    });
+
+    const ctx1 = document.getElementById('myChart1').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
+            datasets: [{
+                label: 'Nível de utilização',
+                data: [50, 25, 50, 29, 30, 40],
+                borderWidth: 1,
+                borderColor: 'white',
+                backgroundColor: 'white'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+
+                }
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
+            datasets: [{
+                label: 'Nível de utilização',
+                data: [50, 25, 50, 29, 30, 40],
+                borderWidth: 1,
+                borderColor: 'white',
+                backgroundColor: 'white'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weigth: 'Bold'
+                        }
+                    }
+
+                }
+            }
+        }
+    });
+
+
+    function formatarData(data) {
+        const dia = String(data.getDate()).padStart(2, '0');
+        const mes = String(data.getMonth() + 1).padStart(2, '0'); 
+        const ano = data.getFullYear();
+
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    const hoje = new Date();
+    const dataFormatada = formatarData(hoje);
+
+    document.getElementById('data2').textContent = `Monitoramento dia ${dataFormatada}`;
+
+
+</script>

@@ -1,0 +1,113 @@
+.navBar {
+    width: 8%;
+    height: 100vh;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 0 10px 10px 0;
+    transition: 0.5s ease;
+    color: #7449EB;
+}
+
+.navBar:hover {
+    transition: 0.6s;
+    width: 20%;
+    height: 100vh;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 0 10px 10px 0;
+    color: #7449EB;
+}
+
+
+.navBar:hover .botoesNav {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.navBar:hover .logoNav {
+    width: 20%;
+}
+
+.navBar:hover .botoesNav p {
+    display: inline-flex;
+    color: #7449EB;
+}
+
+.botoesNav p {
+    display: none;
+    color: #7449EB;
+
+}
+
+.logoNav {
+    width: 40%;
+    transition: 0.5s ease;
+}
+
+.botoesNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    padding: 5%;
+    background-color: #f1f1f1;
+    height: 15%;
+    color: #7449EB;
+    font-family: Ubuntu;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botoesNav:hover {
+    background-color: #cbc8c8;
+    color: #3b11ac;
+}
+
+.linksNav {
+    height: 45%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.CaixalogoNav {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.exitNav {
+    height: 45%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.LinkImgNav {
+    height: 70%;
+
+}
