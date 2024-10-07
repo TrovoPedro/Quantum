@@ -5,6 +5,7 @@
 
 body {
     background-color: #111;
+    width: 100vw;
 }
 
 .pai {
@@ -35,6 +36,7 @@ body {
     right: 0;
     bottom: 0;
     top: 300vh;
+    margin-left: 86px;
 }
 
 .escrita {
@@ -180,7 +182,7 @@ input::placeholder {
 
 .main-footer {
     background-color: #111;
-
+    width: 100%;
 }
 
 .icons-footer {
@@ -224,12 +226,22 @@ input::placeholder {
 }
 
 @media only screen and (max-device-width:1366px) {
+
+    body{
+        width: 100vw;
+    }
+
     .content-main {
         position: absolute;
         top: 300vh;
         bottom: 0;
         right: 0;
         left: 0;
+    }
+
+    .main-footer {
+        background-color: #111;
+        width: 100%;
     }
 
     .imagem {
@@ -249,7 +261,7 @@ input::placeholder {
     }
 }
 
-@media (max-width:1366px) {
+@media (max-width:1024px) {
     .content-main {
         position: absolute;
         top: 300vh;
