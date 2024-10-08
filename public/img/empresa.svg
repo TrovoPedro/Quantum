@@ -5,7 +5,8 @@
 <stop offset="0.215" stop-color="white"/>
 <stop offset="0.2151" stop-color="#FEFEFE" stop-opacity="0.970484"/>
 <stop offset="0.265" stop-color="white"/>
-<stop offset="0.62" stop-color="#040404"/>
+<stop offset="0.54"/>
+<stop offset="0.6" stop-color="#040404"/>
 <stop offset="1" stop-color="#D9D9D9" stop-opacity="0"/>
 </linearGradient>
 </defs>
