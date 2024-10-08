@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Empresas</title>
+
+    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/listaEmpresas.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="assets/Logo Quantum (1).svg" class="logo-nav" alt="">
+        </div>
+        <div class="nav-links">
+            <div class="nav-button">
+                <img src="img/empresaicon.svg" class="nav-icon" alt="">
+                <p><a style="text-decoration: none; color: white;" href="listaEmpresas.html"class="nav-link">Empresas</a></p>
+            </div>
+            <div class="nav-button">
+                <img src="assets/funcionarios-icon.svg" class="nav-icon" alt="">
+                <p><a style="text-decoration: none; color: white;" href="listaFuncionarios.html" class="nav-link">Funcionários</a></p>
+            </div>
+        </div>
+        <div class="logout-container">
+            <div class="nav-button">
+                <img src="assets/Vectorexit.svg" class="nav-icon" alt="">
+                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="empresa-list-container">
+        <div class="list-title">
+            <img class="list-icon" src="img/empresa.svg" alt="">
+        </div>
+        <div class="add-button-container">
+            <button id="btnCadastrarEmpresa" class="btn-add-empresa" onclick="cadastrar()">Cadastrar nova empresa</button>
+        </div>
+       
+        <div class="empresa-list">
+            <table>
+                <thead>
+                    <tr class="table-header">
+                        <th>Nome</th>
+                        <th>CNPJ</th>
+                        <th>Administrador</th>
+                        <th>Endereço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row">
+                        <td>Hospital São Lucas</td>
+                        <td>12.345.678/0001-90</td>
+                        <td>Dr. João Silva</td>
+                        <td>Rua da Esperança, 123 - Centro, São Paulo - SP, 01234-000</td>
+                        <td><img  src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td>Hospital Vida Plena</td>
+                        <td>98.765.432/0001-01</td>
+                        <td>Dra. Maria Oliveira</td>
+                        <td>Avenida das Américas, 456 - Jardim, Rio de Janeiro - RJ, 12345-678</td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td>Hospital Esperança</td>
+                        <td>56.789.123/0001-02</td>
+                        <td>Dr. Carlos Santos</td>
+                        <td>Rua do Progresso, 789 - Bairro Novo, Belo Horizonte - MG, 30123-456</td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td>Hospital Coração Amigo</td>
+                        <td>34.567.890/0001-03</td>
+                        <td>Dra. Ana Ferreira</td>
+                        <td>Avenida Central, 321 - Vila Nova, Curitiba - PR, 80000-123</td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal para detalhes da empresa -->
+        <div id="modalDetalhes" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="fecharModal()">&times;</span>
+                <h2 id="tituloDetalhes">Detalhes da Empresa</h2>
+                <div id="conteudoDetalhes">
+                    <p id="nomeEmpresa"></p>
+                    <p id="cnpjEmpresa"></p>
+                    <p id="admEmpresa"></p>
+                    <p id="enderecoEmpresa"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script>
+    // Função para abrir o modal com os detalhes da empresa
+    function abrirModal(nome, cnpj, ADM, endereco) {
+        document.getElementById('nomeEmpresa').innerText = 'Nome: ' + nome;
+        document.getElementById('cnpjEmpresa').innerText = 'CNPJ: ' + cnpj;
+        document.getElementById('admEmpresa').innerText = 'Administrador: ' + ADM;
+        document.getElementById('enderecoEmpresa').innerText = 'Endereço: ' + endereco;
+        document.getElementById('modalDetalhes').style.display = 'block';
+    }
+
+    // Função para fechar o modal
+    function fecharModal() {
+        document.getElementById('modalDetalhes').style.display = 'none';
+    }
+
+    // Adicionando evento de clique nas linhas da tabela
+    const linhas = document.querySelectorAll('.table-row');
+
+    linhas.forEach(linha => {
+        linha.addEventListener('click', () => {
+            const nome = linha.cells[0].innerText;
+            const cnpj = linha.cells[1].innerText;
+            const ADM = linha.cells[2].innerText;
+            const enderecoEmpresa = linha.cells[3].innerText; 
+            abrirModal(nome, cnpj, ADM, enderecoEmpresa);
+        });
+    });
+
+    // Adicionando evento para fechar o modal ao clicar no "x"
+    document.querySelectorAll('.modal-close').forEach(el => {
+        el.addEventListener('click', fecharModal);
+    });
+
+    function cadastrar(){
+        
+    }
+</script>
