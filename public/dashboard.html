@@ -86,7 +86,7 @@
                         <h4>Servidor 2</h4>
                     </div>
                     <div>
-                        <canvas id="myChart1"  height="190" width="340"></canvas>
+                        <canvas id="myChart1" height="190" width="340"></canvas>
                     </div>
 
                 </div>
@@ -95,7 +95,7 @@
                         <h4>Servidor 3</h4>
                     </div>
                     <div>
-                        <canvas id="myChart2"   height="190" width="340"></canvas>
+                        <canvas id="myChart2" height="190" width="340"></canvas>
                     </div>
 
                 </div>
@@ -243,6 +243,7 @@
 
 </html>
 <script>
+
     function aparecer() {
         var mostrar = document.getElementById("aparecerBoxServidor")
         if (mostrar.style.display === "none") {
@@ -254,247 +255,248 @@
 
     function avancarServidor() {
         var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
-        mostrarServidor.style.display = "flex";  
+        mostrarServidor.style.display = "flex";
     }
 
     function avancar() {
         window.location.href = 'dashboard.html'
     }
+
 </script>
 <script>
 
-const ctx = document.getElementById('myChart').getContext('2d');
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['CPU', 'RAM', 'Disco'],
-        datasets: [{
-            label: 'Mínima', 
-            data: [87, 82, 92], 
-            borderWidth: 1,
-            borderColor: '#bab5b5',
-            backgroundColor: '#bab5b5' 
-        },
-        {
-            label: 'Máxima', 
-            data: [89, 85, 94],
-            borderWidth: 1,
-            borderColor: '#2e0a91',
-            backgroundColor: '#2e0a91'
-        }]
-    },
-    options: {
-        plugins: {
-            legend: {
-                display: true, 
-                labels: {
-                    color: 'white' 
-                }
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['CPU', 'RAM', 'Disco'],
+            datasets: [{
+                label: 'Mínima',
+                data: [87, 82, 92],
+                borderWidth: 1,
+                borderColor: '#bab5b5',
+                backgroundColor: '#bab5b5'
             },
-            datalabels: {
-                anchor: 'end',
-                align: 'bottom', 
-                color: 'white', 
-                font: {
-                    weight: 'bold'
-                },
-                formatter: function(value) {
-                    return value + '%'; 
-                }
-            }
+            {
+                label: 'Máxima',
+                data: [89, 85, 94],
+                borderWidth: 1,
+                borderColor: '#2e0a91',
+                backgroundColor: '#2e0a91'
+            }]
         },
-        scales: {
-            x: {
-                beginAtZero: true, 
-                ticks: {
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: 'white'
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'bottom',
                     color: 'white',
                     font: {
-                        size: 15,
-                        family: 'Arial',
-                        weight: 'Bold'
+                        weight: 'bold'
+                    },
+                    formatter: function (value) {
+                        return value + '%';
                     }
-                },
-                grid: {
-                    display: false // Remove a grade do eixo X
                 }
             },
-            y: {
-                beginAtZero: true, 
-                ticks: {
-                    color: 'white', 
-                    font: {
-                        size: 15,
-                        family: 'Arial',
-                        weight: 'Bold'
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    },
+                    grid: {
+                        display: false
                     }
                 },
-                grid: {
-                    display: false // Remove a grade do eixo Y
-                }
-            }
-        }
-    },
-    plugins: [ChartDataLabels] 
-});
-
-
-const ctx1 = document.getElementById('myChart1').getContext('2d');
-new Chart(ctx1, {
-    type: 'bar',
-    data: {
-        labels: ['CPU', 'RAM', 'Disco'], 
-        datasets: [{
-            label: ' Mínima', 
-            data: [82, 85, 89],
-            borderWidth: 1,
-            borderColor: '#bab5b5',
-            backgroundColor: '#bab5b5' 
-        },
-        {
-            label: ' Máxima', 
-            data: [88, 87, 90], 
-            borderWidth: 1,
-            borderColor: '#2e0a91', 
-            backgroundColor: '#2e0a91' 
-        }]
-    },
-    options: {
-        plugins: {
-            legend: {
-                display: true,
-                labels: {
-                    color: 'white' 
-                }
-            },
-            datalabels: {
-                anchor: 'end',
-                align: 'bottom',
-                color: 'white', 
-                font: {
-                    weight: 'bold'
-                },
-                formatter: function(value) {
-                    return value + '%';
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
                 }
             }
         },
-        scales: {
-            x: {
-                beginAtZero: true,
-                ticks: {
+        plugins: [ChartDataLabels]
+    });
+
+
+    const ctx1 = document.getElementById('myChart1').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['CPU', 'RAM', 'Disco'],
+            datasets: [{
+                label: ' Mínima',
+                data: [82, 85, 89],
+                borderWidth: 1,
+                borderColor: '#bab5b5',
+                backgroundColor: '#bab5b5'
+            },
+            {
+                label: ' Máxima',
+                data: [88, 87, 90],
+                borderWidth: 1,
+                borderColor: '#2e0a91',
+                backgroundColor: '#2e0a91'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: 'white'
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'bottom',
                     color: 'white',
                     font: {
-                        size: 15,
-                        family: 'Arial',
-                        weight: 'Bold'
-                    }
-                },
-                grid: {
-                    display: false 
+                        weight: 'bold'
                     },
-            },  
-            
-            
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    color: 'white', 
-                    font: {
-                        size: 15,
-                        family: 'Arial',
-                        weight: 'Bold'
+                    formatter: function (value) {
+                        return value + '%';
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    },
+                    grid: {
+                        display: false
+                    },
+                },
+
+
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    },
+                    grid: {
+                        display: false
                     }
                 },
-                grid: {
-                    display: false
-                }
-            },
-           
-        }
-    },
-    plugins: [ChartDataLabels] 
-});
 
-
-const ctx2 = document.getElementById('myChart2').getContext('2d');
-new Chart(ctx2, { 
-    type: 'bar',
-    data: {
-        labels: ['CPU', 'RAM', 'Disco'], 
-        datasets: [{
-            label: ' Mínima', 
-            data: [85, 84, 91], 
-            borderWidth: 1,
-            borderColor: '#9370DB', 
-            backgroundColor: '#bab5b5' 
-        },
-        {
-            label: ' Máxima', // Segundo conjunto de dados
-            data: [89, 90, 92], // Valores máximos para CPU, RAM e Disco
-            borderWidth: 1,
-            borderColor: '#2e0a91', // Cor de borda (Roxo mais escuro)
-            backgroundColor: '#2e0a91' // Cor de fundo (Roxo mais escuro)
-        }]
-    },
-    options: {
-        plugins: {
-            legend: {
-                display: true, // Exibe a legenda
-                labels: {
-                    color: 'white' // Cor da legenda
-                }
-            },
-            datalabels: {
-                anchor: 'end', // Anexa os rótulos ao final das barras
-                align: 'bottom', // Posiciona os rótulos na parte inferior das barras
-                color: 'white', // Cor dos rótulos
-                font: {
-                    weight: 'bold'
-                },
-                formatter: function(value) {
-                    return value + '%'; // Formata o valor com '%'
-                }
             }
         },
-        scales: {
-            x: {
-                beginAtZero: true, // Inicia o eixo X no zero
-                ticks: {
-                    color: 'white', // Cor branca para os valores no eixo X
-                    font: {
-                        size: 15,
-                        family: 'Arial',
-                        weight: 'Bold'
+        plugins: [ChartDataLabels]
+    });
+
+
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['CPU', 'RAM', 'Disco'],
+            datasets: [{
+                label: ' Mínima',
+                data: [85, 84, 91],
+                borderWidth: 1,
+                borderColor: '#9370DB',
+                backgroundColor: '#bab5b5'
+            },
+            {
+                label: ' Máxima',
+                data: [89, 90, 92],
+                borderWidth: 1,
+                borderColor: '#2e0a91',
+                backgroundColor: '#2e0a91'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: 'white'
                     }
                 },
-                grid: {
-                        display: false // Remove a grade do eixo X
+                datalabels: {
+                    anchor: 'end',
+                    align: 'bottom',
+                    color: 'white',
+                    font: {
+                        weight: 'bold'
                     },
+                    formatter: function (value) {
+                        return value + '%';
+                    }
+                }
             },
-            y: {
-                beginAtZero: true, // Inicia o eixo Y no zero
-                ticks: {
-                    color: 'white', // Cor branca para os rótulos no eixo Y
-                    font: {
-                        size: 15,
-                        family: 'Arial',
-                        weight: 'Bold'
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    },
+                    grid: {
+                        display: false
+                    },
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    },
+                    grid: {
+                        display: false
                     }
                 },
-                grid: {
-                        display: false // Remove a grade do eixo X
-                    }
-            },
-        }
-    },
-    plugins: [ChartDataLabels] 
-});
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
 
 
 
     function formatarData(data) {
         const dia = String(data.getDate()).padStart(2, '0');
-        const mes = String(data.getMonth() + 1).padStart(2, '0'); 
+        const mes = String(data.getMonth() + 1).padStart(2, '0');
         const ano = data.getFullYear();
 
         return `${dia}/${mes}/${ano}`;
@@ -508,4 +510,3 @@ new Chart(ctx2, {
 
 
 </script>
-
