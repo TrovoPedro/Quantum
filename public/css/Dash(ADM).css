@@ -21,7 +21,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #000000;
 }
 
 
@@ -251,6 +251,7 @@ body {
     align-items: center;
     text-align: center;
     flex-direction: column;
+    box-shadow: #5a31c9 0 2px 30px;
 }
 
 .item {
