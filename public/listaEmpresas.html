@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Empresas</title>
+
+    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/listaEmpresas.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="navBar">
+        <div class="CaixalogoNav">
+            <img src="assets/Logo Quantum (1).svg" class="logoNav" alt="">
+        </div>
+        <div class="linksNav">
+            <div class="botoesNav">
+                <img src="assets/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p><a href="Dash(ADM).html" style="color: #7449eb; text-decoration: none;">Home</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
+                <p><a href="dashboard_2.html" style="color: #7449eb; text-decoration: none;">Funcionários</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="assets/VectorServer.svg" class="LinkImgNav" alt="">
+                <p><a href="listaServidores.html" style="color: #7449eb; text-decoration: none;">Servidores</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="assets/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p><a href="Tela_Perfil.html" style="color: #7449eb; text-decoration: none;">Perfil</a></p>
+            </div>
+        </div>
+        <div class="exitNav">
+            <div class="botoesNav">
+                <img src="assets/Vectorexit.svg" class="LinkImgNav" alt="">
+                <p>Logout</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pai-lista">
+        <div class="tituloLista">
+            <img class="img-servidores" src="img/empresa.svg" alt="">
+        </div>
+        <div class="botão_cadastrar">
+            <button id="cadastrarFuncionario" class="botao_funcionario" onclick="CADASTRAR()">Cadastrar Nova Empresa</button>
+        </div>
+        <div id="meu_modal" class="modal">
+            <div class="div_modal">
+                <span class="Fechar">&times;</span>
+                <h2 id="titulo">Cadastro de Empresa</h2>
+                <div id="conteudo">
+                    <div class="profile-picture">   
+                        <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
+                        <img id="foto-usuario" class="perfil_icon" src="assets/default-avatar.jpg" alt="Avatar" style="width: 100%;height: 100%;">
+                    </div>
+                    <div class="cardServidor">
+                        <div class="boxServidores">
+                            <span>Nome:</span>
+                            <input type="text" class="input-perfil container_radiu">
+                        </div>
+                        <div class="boxServidores">
+                            <span>Cnpj:</span>
+                            <input type="cnpj" class="input-perfil container_radiu">
+                        </div>
+                        <!-- <div class="boxServidores">
+                            <span>ADM:</span>
+                            <input type="text" class="input-perfil container_radiu" maxlength="45">
+                        </div>
+                        <div class="boxServidores">
+                            <span>Senha:</span>
+                            <input type="text" class="input-perfil container_radiu">
+                        </div> -->
+                    </div>
+                    <button onclick="cadstrar()" id="cadastro">Cadastar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="listaServidores">
+            <table>
+                <thead>
+                    <tr class="tituloTabela">
+                        <th>Nome</th>
+                        <th>CNPJ</th>
+                        <th>ADM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="camposTabela">
+                        <td>João</td>
+                        <td>joao@exemplo.com</td>
+                        <td>Santa Marcelina</td>
+                    </tr>
+                    <tr class="camposTabela">
+                        <td>Maria</td>
+                        <td>maria@exemplo.com</td>
+                        <td>Santa Marcelina</td>
+                    </tr>
+                    <tr class="camposTabela">
+                        <td>Cecília Maria</td>
+                        <td>cecilia@exemplo.com</td>
+                        <td>Santa Marcelina</td>
+                    </tr>
+                    <tr class="camposTabela">
+                        <td>José</td>
+                        <td>jose@exemplo.com</td>
+                        <td>Santa Marcelina</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal para detalhes da empresa -->
+        <div id="modalDetalhes" class="modal">
+            <div class="div_modal">
+                <span class="Fechar" onclick="fecharModal()">&times;</span>
+                <h2 id="tituloDetalhes">Detalhes da Empresa</h2>
+                <div id="conteudoDetalhes">
+                    <p id="nomeEmpresa"></p>
+                    <p id="cnpjEmpresa"></p>
+                    <p id="ADMEmpresa"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+    <script>
+        // Função para abrir o modal com os detalhes da empresa
+        function abrirModal(nome, cnpj, ADM) {
+            document.getElementById('nomeEmpresa').innerText = 'Nome: ' + nome;
+            document.getElementById('cnpjEmpresa').innerText = 'CNPJ: ' + cnpj;
+            document.getElementById('ADMEmpresa').innerText = 'ADM: ' + ADM;
+            document.getElementById('modalDetalhes').style.display = 'block';
+        }
+
+        // Função para fechar o modal
+        function fecharModal() {
+            document.getElementById('modalDetalhes').style.display = 'none';
+        }
+
+        // Adicionando evento de clique nas linhas da tabela
+        const linhas = document.querySelectorAll('.camposTabela');
+
+        linhas.forEach(linha => {
+            linha.addEventListener('click', () => {
+                const nome = linha.cells[0].innerText;
+                const cnpj = linha.cells[1].innerText;
+                const ADM = linha.cells[2].innerText; // Adapte conforme a estrutura da sua tabela
+                abrirModal(nome, cnpj, ADM);
+            });
+        });
+
+        // Adicionando evento para fechar o modal ao clicar no "x"
+        document.querySelector('.Fechar').addEventListener('click', fecharModal);
+
+        function CADASTRAR(){
+            
+        }
+    </script>
+</body>
+
+</html>
