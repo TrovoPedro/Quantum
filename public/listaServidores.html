@@ -15,29 +15,21 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="css/listaServidores.css">
     <link rel="stylesheet" href="css/navbarServidores.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-
 <body>
-
     <div class="navBar">
-
         <div class="CaixalogoNav">
             <img src="img/Logo Quantum.svg" class="logoNav" alt="">
         </div>
-
-
         <div class="linksNav">
-            
             <div class="botoesNav">
                 <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
                 <p><a href="dashboard.html" style="text-decoration: none; color: #ffff">Home</a></p>
             </div>
-            
             <div class="botoesNav">
                 <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
                 <p><a href="Tela_Perfil.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
@@ -64,38 +56,26 @@
         <div class="tituloLista">
             <img class="img-servidores" src="assets/Servidores.svg" alt="">
         </div>
-        <div>
-            <button onclick="cadastrarServidor()">Novo servidor</button>
+        <div class="div-btn">
+            <button class="btn-novoServidor" onclick="cadastrarServidor()">Novo servidor</button>
         </div>
         <div class="listaServidores">
-            <table>
+            <table id="tabela-servidores">
                 <thead>
                     <tr class="tituloTabela">
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Empresa</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="camposTabela">
-                        <td>João</td>
-                        <td>exemplo@exemplo</td>
-                        <td>Santa Marcelina</td>
-                    </tr>
-                    <tr class="camposTabela">
-                        <td>Maria</td>
-                        <td>exemplo@exemplo</td>
-                        <td>Santa Marcelina</td>
-                    </tr>
-                    <tr class="camposTabela">
-                        <td>Pedro</td>
-                        <td>exemplo@exemplo</td>
-                        <td>Santa Marcelina</td>
-                    </tr>
+                <tbody>              
+                    
                 </tbody>
             </table>
         </div>
     </div>
 </body>
-
+<script src="js/listaServidores.js"></script>
 </html>
