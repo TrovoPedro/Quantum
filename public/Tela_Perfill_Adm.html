@@ -26,34 +26,35 @@
 
 </style>
 
-<body>
-
+<body style="background-color: #111111;">
     <div class="navBar">
         <div class="CaixalogoNav">
-            <img src="assets/Logo Quantum (1).svg" class="logoNav" alt="">
+            <img src="img/Logo Quantum.svg" class="logoNav" alt="">
         </div>
         <div class="linksNav">
             <div class="botoesNav">
-                <img src="assets/Vectorhome.svg" class="LinkImgNav" alt="">
-                <p><a href="dashboard.html" style="color: white; text-decoration: none;">Home</a></p>
+                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
             </div>
             <div class="botoesNav">
-                <img src="assets/VectorGraficos.svg" class="LinkImgNav" alt="">
-                <p><a href="dashboard_2.html" style="color: white; text-decoration: none;">Gráficos</a></p>
+                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
+                <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
             </div>
             <div class="botoesNav">
-                <img src="assets/Vectorperfil.svg" class="LinkImgNav" alt="">
-                <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;">Perfil</a></p>
+                <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
+                <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
             </div>
         </div>
         <div class="exitNav">
             <div class="botoesNav">
-
-                <img src="assets/Vectorexit.svg" class="LinkImgNav" alt="">
+                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
                 <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
             </div>
             <div class="borrar">
-
             </div>
         </div>
     </div>
@@ -63,11 +64,7 @@
         <div class="topDash">
 
             <div class="boxUser-data">
-
                 <h3>Perfil de usuário</h3>
-
-
-
             </div>
 
         </div>
@@ -75,9 +72,10 @@
 
             <div class="itensMonitorados">
 
-                <div class="profile-picture">   
+                <div class="profile-picture">
                     <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
-                    <img  id="foto-usuario" class="perfil_icon" id="preview"  src="assets/default-avatar.jpg" alt="Avatar" style="width: 100%;height: 100%;">
+                    <img id="foto-usuario" class="perfil_icon" id="preview" src="assets/default-avatar.jpg" alt="Avatar"
+                        style="width: 100%;height: 100%;">
                 </div>
 
                 <div class="info_usuario">
@@ -152,11 +150,61 @@
         </div>
 
         </div>
-
-
-
     </Section>
-    
+
+    <div class="boxCadastroServidor" id="aparecerBoxServidor">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Cadastre um Servidor</h2>
+
+        </div>
+        <div class="nomeServidor">
+            <div class="divNomeServidor">
+                <p>Nome do Servidor</p>
+            </div>
+
+            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor">
+        </div>
+        <button class="botaoAvancar" onclick="avancarServidor()">Avançar</button>
+    </div>
+    <div class="filtro"></div>
+
+    <div class="boxSelecionarComponentes" id="aparecerSelecionarComponentes">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Selecione os componentes que deseje monitorar</h2>
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">Processador</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Processadores" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">Memória</p>
+            </div>
+            <input type="text" placeholder="Coloque a quantidade de Memória Ram(GB)" class="inputQtdProcessador">
+        </div>
+
+        <div class="selecionarComponentes">
+            <div class="btSelecionar">
+                <input type="radio">
+                <p class="btProcessador">SSD</p>
+                <input type="radio">
+                <p class="btProcessador">HD</p>
+            </div>
+
+            <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
+        </div>
+
+        <button class="botaoAvancar" onclick="avancar()">Avançar</button>
+    </div>
+
 </body>
 
 </html>

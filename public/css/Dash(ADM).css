@@ -21,11 +21,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #000000;
+    background-color:#111111 ;
 }
 
-
-
+    
 #aparecerSelecionarComponentes {
     display: none;
 }
@@ -53,17 +52,13 @@ body {
 }
 
 .boxUser-data h3 {
-    margin-top: 2rem;
-    font-size: 2rem;
-    font-weight: bolder;
-    color: #7449EB;
-    padding-bottom: 7px;
+    font-size: 2.5rem;
+    font-weight: 500;
 }
 
 .boxUser-data p {
-    font-size: 1rem;
-    color: #7449EB;
-    font-weight:500;
+    width: 80%;
+    font-size: 1.2rem;
 
 }
 
