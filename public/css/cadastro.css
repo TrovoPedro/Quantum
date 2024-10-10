@@ -31,6 +31,9 @@ body {
 
 .main {
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
     height: 100vh;
     flex-direction: row;
@@ -113,7 +116,7 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-top: 10px;
+    margin-top: px;
 }
 
 .titulo h1 {
@@ -156,12 +159,12 @@ body {
 }
 
 .inputs {
-    margin-top: 12px;
+    margin-top: 4px;
 }
 
 .inputs p {
     font-family: LatoBold;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .esqueceu_senha {
@@ -226,7 +229,7 @@ input[type="number"]::-webkit-inner-spin-button {
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative;
+        position: block;
         top: 0;
         left: 0;
         right: 0;
@@ -254,17 +257,7 @@ input[type="number"]::-webkit-inner-spin-button {
         font-family: LatoBold;
     }
 
-    .left {
-        display: flex;
-        width: 50%;
-        height: 100vh;
-        background-repeat: no-repeat;
-        background-color: #111111;
-        background-image: url(../img/fundo-login.svg);
-        background-size: cover;
-        background-position: center;
-
-    }
+   
 
     .container-inputs {
         display: flex;
@@ -385,3 +378,26 @@ input[type="number"]::-webkit-inner-spin-button {
 
     }
 }
+
+select {
+    width: 100%; /* Preenche toda a largura disponível */
+    padding: 10px; /* Adiciona espaçamento interno */
+    font-size: 16px; /* Define o tamanho da fonte */
+    border: 2px solid 0.8px solid #9598C1; /* Define a cor e espessura da borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #111111; /* Cor de fundo */
+    color: #495057; /* Cor do texto */
+    outline: none; /* Remove o contorno padrão ao clicar */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Animação suave para as interações */
+  }
+  
+  select:focus {
+    border-color: #856c8b; /* Cor da borda quando o select é focado */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra ao focar */
+  }
+  
+  option {
+    color: #333; /* Cor do texto das opções */
+    background-color: #fff; /* Cor de fundo das opções */
+  }
+  

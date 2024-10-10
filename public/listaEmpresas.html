@@ -30,8 +30,8 @@
             </div>
             <div class="nav-button">
                 <img src="assets/funcionarios-icon.svg" class="nav-icon" alt="">
-                <p><a style="text-decoration: none; color: white;" href="listaFuncionarios.html"
-                        class="nav-link">Funcionários</a></p>
+                <p><a style="text-decoration: none; color: white;" href="cadastrar.html"
+                        class="nav-link">Cadastro ADM</a></p>
             </div>
         </div>
         <div class="logout-container">
@@ -153,6 +153,15 @@
             </div>
         </div>
 
+        <div id="modalCadastroAdm" class="modalEmpresa">
+            <div class="conteudos-modal">
+                <h2>É necessário realizar um cadastro de um administrador da empresa.</h2>
+                <div class="boxEmpresa">
+                    <button onclick="window.location='cadastrar.html'" class="botaoAvancar" class="input-empresa">Ir para o cadastro</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 
@@ -208,6 +217,14 @@
 
         cardEmpresa.style.display = 'none'
         cardEndereco.style.display = 'block'
+    }
+
+    function cadastroEndereco() {
+        var cardEndereco = document.getElementById('modalCadastroEndereco')
+        var cardAdm = document.getElementById('modalCadastroAdm')
+        cardEndereco.style.display = 'none'
+        cardAdm.style.display = 'block'
+
     }
 
 </script>
