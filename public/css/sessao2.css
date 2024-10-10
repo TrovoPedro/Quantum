@@ -40,6 +40,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    height: 10%;
 }
 
 .titulosBemVindo {
@@ -83,7 +84,7 @@ body {
 .textosBemVindo {
     height: 40%;
     width: 100%;
-    top: 18%;
+    top: 1%;
     padding-right: 40px;
     position: relative;
     display: flex;
@@ -92,13 +93,10 @@ body {
 }
 
 .boxTextosBemVindos {
-    width: 75%;
-    height: 90%;
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 1.6rem;
-    color: white;
+    font-size: 60px;
+    font-weight: lighter;
+    color: #c2bfbf;
+    margin-left: 5%;
 }
 
 @media (max-width: 1024px) {
@@ -317,10 +315,10 @@ body {
     }
 }
 
-@media only screen and (max-device-width: 1366px) {
+@media(max-width: 1366px) {
 
     .conteudoBemVindo {
-        height: 100%;
+        height: 40%;
         width: 50%;
     }
 
@@ -333,13 +331,11 @@ body {
     }
 
     .boxTextosBemVindos {
-        width: 75%;
-        height: 90%;
-        font-family: "Lato", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        font-size: 1.7rem;
-        color: white;
+        font-size: 30px;
+        font-weight: lighter;
+        color: #c2bfbf;
+        margin-left: 5%;
+        font-family: 'lato';
     }
 
     .TituloBemVindos {
@@ -379,13 +375,13 @@ body {
     }
 }
 
-@media only screen and (min-device-height: 1365px) {
+@media(max-width: 1366px) {
     .imgBemVindo {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        height: 100vh;
-        background-color: #7449EB;
+        height: 80%;
+        width: 40%;
     }
 
     .Elementos {

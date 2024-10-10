@@ -35,13 +35,15 @@
 
     header h1 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        margin-left: 35px; /* 35px */
-        font-size: 30px; /* 30px */
+        margin-left: 35px;
+        /* 35px */
+        font-size: 30px;
+        /* 30px */
         font-weight: 500;
     }
 
     header button {
-        width: 200px; 
+        width: 200px;
         height: 48px;
         font-family: Ubunto-Medio;
         font-size: 15px;
@@ -66,18 +68,34 @@
         background-color: #111111;
     }
 
+    .h1_monitoramento {
+        display: flex;
+    }
+
+    .p_monitoramento{
+        font-size: 55%;
+        font-weight: lighter;
+        color: #c2bfbf;
+        margin-left: 5%;
+    }
+
     .imgMonitoramento {
         height: 700px;
     }
 
     .imgEmail {
-        height: 700px;
+        width: 80%;
         margin-top: 50px;
     }
 
     .left-container {
-        margin-left: 70px;
+        margin-left: 5%;
         position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     .title {
@@ -87,7 +105,7 @@
 
     .title h1 {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-size: 2.6rem; 
+        font-size: 2.6rem;
         width: 50%;
 
     }
@@ -147,8 +165,8 @@
         flex-direction: row;
         width: 70%;
         height: 65vh;
-        margin-top: 6.875rem; 
-        margin-left: 12.5rem; 
+        margin-top: 6.875rem;
+        margin-left: 12.5rem;
         top: 0;
         bottom: 0;
         right: 0;
@@ -159,7 +177,7 @@
         width: 80%;
     }
 
-    @media only screen and  (width: 1024px) {
+    @media(max-width: 1024px) {
 
         body {
             padding: 0;
@@ -193,7 +211,7 @@
             height: 30%;
             width: -10%;
             margin-right: 3.75rem;
-            
+
         }
 
         .boxTextosBemVindos {
@@ -211,17 +229,17 @@
             text-align: justify;
         }
 
-        .text{
+        .text {
             font-size: 1.2rem;
         }
 
-        .left .text{
+        .left .text {
             font-size: small;
             width: 100%;
             height: 100%;
         }
 
-        .left .text .p_monitoramento{
+        .left .text .p_monitoramento {
 
             color: rgb(255, 255, 255);
             /* width: 30%; */
@@ -229,7 +247,7 @@
             font-weight: lighter;
 
         }
-        
+
 
         .imgMonitoramento {
             height: auto;
