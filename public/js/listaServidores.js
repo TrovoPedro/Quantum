@@ -62,7 +62,7 @@ fetch(`/servidores/buscar`, {
                 <td>${item.fkEmpresa}</td>
                 <td>${item.fkLocalizacao}</td>
                 <td><button onclick="editarServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
-                <td><button onclick="excluirServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlixeira.png" alt=""></button></td>
+                <td><button onclick="excluirServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
                 `;
                 tbody.appendChild(row);
             });
