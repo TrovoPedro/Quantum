@@ -1,7 +1,34 @@
-function cadastrarServidor(){
-    console.log("AAAA");
+function cadastrar(nome) {
     
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            empresa: empresa,
+            nome: nome,
+        }),
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            alert("Cadastro feito com sucesso!");
+
+            setTimeout(() => {
+                window.location = "login.html";
+            }, 2000);
+        } else {
+            alert("Houve um erro ao efetuar o cadastro.");
+            throw new Error("Erro no cadastro. Status: " + resposta.status);
+        }
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+    });
+
+    return false;
 }
+
 
 fetch(`/servidores/buscar`, {
     method: "GET",
@@ -45,10 +72,50 @@ fetch(`/servidores/buscar`, {
         console.error('Houve um erro ao capturar os dados', error);
     });
 
-function editarServidor(){
+function editarServidor(idServidor) {
+    sessionStorage.ID_SERVIDOR = idServidor;
+    window.alert("Você será redirecionado à página de edição do aviso de id número: " + idServidor);
+    window.location = "/editarServidor.html"
 
+    fetch(`/servidores/editar/${sessionStorage.getItem("ID_SERVIDOR")}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nome: nome.value
+        })
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+            window.location = "/dashboard/mural.html"
+        } else if (resposta.status == 404) {
+            window.alert("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
 }
 
-function excluirServidor(){
-
+function excluirServidor(idServidor) {
+    fetch(`/servidores/deletar/${idServidor}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            window.location = "/listaServidores.html";
+        } else if (resposta.status == 404) {
+            window.alert("Deu 404! Servidor não encontrado.");
+        }
+    }).catch(function (erro) {
+        console.log(`#ERRO ao excluir servidor: ${erro}`);
+    });
 }
+
+
+

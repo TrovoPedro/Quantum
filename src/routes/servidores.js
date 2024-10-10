@@ -12,12 +12,12 @@ router.get("/buscar", function (req, res) {
     servidorController.buscarServidores(req, res);
 });
 
-router.get("/editarServidor", function (req, res) {
+router.put("/editar/:idServidor", function (req, res) {
     servidorController.editarServidor(req, res);
 });
 
-router.get("/exlcuirServidor", function (req, res) {
-    servidorController.exluirServidor(req, res);
+router.delete("/deletar/:idServidor", function (req, res) {
+    servidorController.excluirServidor(req, res);
 });
 
 module.exports = router;
