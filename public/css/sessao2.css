@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -8,49 +7,51 @@
 /* Fontes */
 @import url('https://fonts.googleapis.com/css2?family=Jacquard+12&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-html{
+
+html {
     padding: 0;
     margin: 0;
     width: 100%;
     height: 100%;
 }
-body{
+
+body {
     padding: 0;
     margin: 0;
-overflow-x: hidden;
+    overflow-x: hidden;
     width: 100%;
     height: 100%;
 }
 
 /* Tela Bem vindos */
-.tela2{
-    width:100%;
+.tela2 {
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     background-image: url(../assets/gradient_1920_1080.png);
-
-
 }
-.imgBemVindo{
+
+.imgBemVindo {
     width: 50%;
     height: 100%;
     background-color: #111111;
     /* background-image: url(../img/Banner\ principal\ da\ sessão\ bem\ vindo.svg); */
     background-repeat: no-repeat;
     background-image: url(../assets/gradient_1920_1080.png);
-
 }
-.conteudoBemVindo{
+
+.conteudoBemVindo {
     height: 100%;
     width: 50%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.titulosBemVindo{
+
+.titulosBemVindo {
     height: 30%;
     width: 100%;
     display: flex;
@@ -58,10 +59,11 @@ overflow-x: hidden;
     align-items: center;
     flex-direction: column;
 }
-.TituloBemVindos{
+
+.TituloBemVindos {
     height: 35%;
     width: 50%;
-  top: 5%;
+    top: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,7 +74,8 @@ overflow-x: hidden;
     font-style: normal;
     position: relative;
 }
-.nomeDaEmpresaBemVindos{
+
+.nomeDaEmpresaBemVindos {
     height: 35%;
     display: flex;
     justify-content: center;
@@ -83,7 +86,8 @@ overflow-x: hidden;
     font-style: normal;
     color: #7449EB;
 }
-.textosBemVindo{
+
+.textosBemVindo {
     height: 40%;
     width: 100%;
     top: 8%;
@@ -92,99 +96,96 @@ overflow-x: hidden;
     justify-content: center;
     align-items: center;
 }
-.boxTextosBemVindos{
+
+.boxTextosBemVindos {
     width: 75%;
     height: 90%;
     font-family: "Lato", sans-serif;
     font-weight: 400;
-    font-style: normal; 
+    font-style: normal;
     font-size: 1.6rem;
     color: white;
-  
+
 }
 
-.Elementos{
+.Elementos {
     height: 15%;
     display: flex;
     position: absolute;
     top: 180vh;
     left: 95%;
-    
 }
+
 @media (max-width: 1024px) {
-    .TituloBemVindos{
+    .TituloBemVindos {
         width: 80%;
         font-size: 1rem;
-  
     }
-    .nomeDaEmpresaBemVindos{
-    
+
+    .nomeDaEmpresaBemVindos {
         font-size: 1rem;
-  
     }
-    .boxTextosBemVindos{
+
+    .boxTextosBemVindos {
         font-size: 1.3rem;
     }
-    .imgBemVindo{
+
+    .imgBemVindo {
         width: 35%;
         background-image: url(../assets/gradient_1920_1080.png);
         background-repeat: no-repeat;
     }
-    .conteudoBemVindo{
+
+    .conteudoBemVindo {
         width: 65%;
     }
 
 }
 
-
 @media (max-width: 1212px) {
-    .TituloBemVindos{
-    
+    .TituloBemVindos {
         font-size: 3rem;
-  
     }
-    .nomeDaEmpresaBemVindos{
-    
-        font-size: 2.5rem;
-  
-    }
-   
 
+    .nomeDaEmpresaBemVindos {
+        font-size: 2.5rem;
+    }
 }
 
 @media only screen and (max-device-width: 1366px) {
-    .imgBemVindo{
-    width: 50%;
-    background-repeat: no-repeat;
-    background-image: url(../assets/gradient_1920_1080.png);
+    .imgBemVindo {
+        width: 50%;
+        background-repeat: no-repeat;
+        background-image: url(../assets/gradient_1920_1080.png);
     }
-    .conteudoBemVindo{
+
+    .conteudoBemVindo {
         height: 100%;
         width: 50%;
-     
     }
-    .Elementos{
+
+    .Elementos {
         height: 15%;
         display: flex;
         position: absolute;
         top: 180vh;
         left: 95%;
-        
     }
-    .boxTextosBemVindos{
+
+    .boxTextosBemVindos {
         width: 75%;
         height: 90%;
         font-family: "Lato", sans-serif;
         font-weight: 300;
-        font-style: normal; 
+        font-style: normal;
         font-size: 1.7rem;
         color: white;
-      
     }
-    .TituloBemVindos{
+
+    .TituloBemVindos {
         height: 35%;
         width: 70%;
-      top: 5%;
+        top: 5%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -196,31 +197,35 @@ overflow-x: hidden;
         position: relative;
     }
 }
+
 @media only screen and (max-device-width:430px) {
-    .imgBemVindo{
+    .imgBemVindo {
         display: none;
-        }
-        .conteudoBemVindo{
-          width: 100%;
-         
-        }
-        .boxTextosBemVindos{
-            font-size: 1.5rem;
-        }
-        .Elementos{
-            left: 85%;
-        }
+    }
+
+    .conteudoBemVindo {
+        width: 100%;
+    }
+
+    .boxTextosBemVindos {
+        font-size: 1.5rem;
+    }
+
+    .Elementos {
+        left: 85%;
+    }
 }
 
 @media only screen and (min-device-height:1365px) {
-    .imgBemVindo{
+    .imgBemVindo {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
         background-color: #7449EB;
-      }
-    .Elementos{
+    }
+
+    .Elementos {
         left: 90%;
     }
-    }
+}
