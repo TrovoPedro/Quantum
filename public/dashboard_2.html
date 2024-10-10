@@ -12,16 +12,14 @@
     <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/dashboard_2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body >
+<body>
 
     <!--NAV BAR-->
     <div class="navBar">
@@ -45,7 +43,7 @@
         <div class="exitNav">
             <div class="botoesNav">
                 <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
-                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+                <p>Logout</p>
             </div>
         </div>
     </div>
@@ -62,18 +60,17 @@
                     <h2>Seja bem-vindo, usuário!</h2>
                 </div>
                 <div class="botaomonitoramneto">
-                    <button onclick="iniciarMonitoramento()" class="botaoIniciar" style="color: white;">Inicie o
-                        monitoramento</button>
+                    <button onclick="iniciarMonitoramento()" class="botaoIniciar" style="color: white;">Inicie o monitoramento</button>
                 </div>
             </div>
         </div>
 
         <div class="boxAlerta" id="aparecerAlerta">
+            <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none'; document.getElementById('cardInfos').style.filter='blur(0)'">
+                <h2 class="fechar">x</h2>
+            </div>
             <div class="boxMensagem">
                 <div class="Mensagemalerta">
-                    <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none'; document.getElementById('cardInfos').style.filter='blur(0)'">
-                        <h2 class="fechar">x</h2>
-                    </div>
                     <img src="img/alerta.svg" alt="" class="alert" style="height: 20%;">
                     <h2>Alerta</h2>
                 </div>
@@ -86,12 +83,9 @@
         <div class="card" id="cardInfos">
             <!--select-->
             <select class="select-servidor">
-                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
-                            class="imgServer">Servidor 1</a></option>
-                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
-                            class="imgServer">Servidor 2</a></option>
-                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
-                            class="imgServer">Servidor 3</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 1</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 2</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 3</a></option>
             </select>
 
             <!--informações-->
@@ -128,6 +122,30 @@
                                 </div>
                             </button>
                         </div>
+                        
+                        <div id="MEMORIA">
+
+
+                            <button class="detalhe" onclick="gerarGraficoMemoria()">
+                               
+                                <div class="quadrante">
+
+                                    <img style="width: 30%; height: 60%;" src="assets/icons8-restauração-de-backup-em-nuvem-100.png" alt="">
+                                </div>
+                                <div class="text">
+
+                                    <b>REDE</b>
+
+                                    <div class="inside">
+
+                                        <div id="GBMemoria">29,5/32.0 U</div>
+
+                                        <div id="porcentagemMemoria">(78%)</div>
+
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
                         <div id="DISCO">
                             <button class="detalhe" onclick="gerarGraficoDisco()">
                                 <div class="quadrante">
@@ -141,15 +159,17 @@
                                 </div>
                             </button>
                         </div>
+                        
                     </div>
+
                     <div class="logo">
                         <img src="img/Logo Quantum.svg" alt="">
                     </div>
                 </div>
-                <!--lado direito-->
+
                 <div class="infosD">
                     <div>
-                        <!-- Canvas para os gráficos -->
+
                         <canvas id="myChartCPU" style="display:none;"></canvas>
                         <canvas id="myChartMemoria" style="display:none;"></canvas>
                         <canvas id="myChartDisco" style="display:none;"></canvas>
@@ -165,27 +185,15 @@
             var cardinfo = document.getElementById("cardInfos");
             bemvindo.style.display = "none";
             cardinfo.style.filter = "blur(0)";
-
-            alerta()
-        }
-
-        function alerta() {
-            var a = 10
-            var alerta = document.getElementById("aparecerAlerta");
-            var cardinfo = document.getElementById("cardInfos");
-
-            if (a > 10) {
-                alerta.style.display = "block"
-                cardinfo.style.filter = "blur(2)";
-            }
-
         }
 
         function gerarGraficoCPU() {
+
             const ctx = document.getElementById('myChartCPU').getContext('2d');
             const data = [85, 82, 78, 90, 88, 87, 80, 75, 83, 86, 89, 82, 81, 77, 80, 84, 79, 85, 88, 90];
             const label = 'Uso da CPU';
             mostrarGrafico(ctx, label, data);
+
             document.getElementById('myChartCPU').style.display = 'block';
             document.getElementById('myChartMemoria').style.display = 'none';
             document.getElementById('myChartDisco').style.display = 'none';
@@ -212,6 +220,7 @@
         }
 
         function mostrarGrafico(ctx, label, data) {
+
             new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -256,6 +265,7 @@
                 }
             });
         }
+        
     </script>
 
 </body>

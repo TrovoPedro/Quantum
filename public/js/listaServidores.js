@@ -10,6 +10,8 @@ function cadastrarServidor() {
     }
 }
 
+
+
 function avancarServidor() {
     var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
     mostrarServidor.style.display = "flex";
