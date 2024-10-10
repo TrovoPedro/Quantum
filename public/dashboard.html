@@ -186,83 +186,9 @@
 
 
     </Section>
-    <div class="boxCadastroServidor" id="aparecerBoxServidor">
-        <div class="logoCadastroServidor">
-            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
-            <h2>Cadastre um Servidor</h2>
-
-        </div>
-        <div class="nomeServidor">
-            <div class="divNomeServidor">
-                <p>Nome do Servidor</p>
-            </div>
-
-            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor">
-        </div>
-        <button class="botaoAvancar" onclick="avancarServidor()">Avançar</button>
-    </div>
-    <div class="filtro"></div>
-
-    <div class="boxSelecionarComponentes" id="aparecerSelecionarComponentes">
-        <div class="logoCadastroServidor">
-            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
-            <h2>Selecione os componentes que deseje monitorar</h2>
-        </div>
-
-        <div class="selecionarComponentes">
-            <div class="btSelecionar">
-                <input type="radio">
-                <p class="btProcessador">Processador</p>
-            </div>
-            <input type="text" placeholder="Coloque a quantidade de Processadores" class="inputQtdProcessador">
-        </div>
-
-        <div class="selecionarComponentes">
-            <div class="btSelecionar">
-                <input type="radio">
-                <p class="btProcessador">Memória</p>
-            </div>
-            <input type="text" placeholder="Coloque a quantidade de Memória Ram(GB)" class="inputQtdProcessador">
-        </div>
-
-        <div class="selecionarComponentes">
-            <div class="btSelecionar">
-                <input type="radio">
-                <p class="btProcessador">SSD</p>
-                <input type="radio">
-                <p class="btProcessador">HD</p>
-            </div>
-
-            <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
-        </div>
-
-        <button class="botaoAvancar" onclick="avancar()">Avançar</button>
-    </div>
-
 </body>
 
 </html>
-<script>
-
-    function aparecer() {
-        var mostrar = document.getElementById("aparecerBoxServidor")
-        if (mostrar.style.display === "none") {
-            mostrar.style.display = "flex"
-        } else {
-            mostrar.style.display = "none"
-        }
-    }
-
-    function avancarServidor() {
-        var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
-        mostrarServidor.style.display = "flex";
-    }
-
-    function avancar() {
-        window.location.href = 'dashboard.html'
-    }
-
-</script>
 <script>
 
     const ctx = document.getElementById('myChart').getContext('2d');

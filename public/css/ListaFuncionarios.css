@@ -94,10 +94,10 @@ table {
 }
 
 .div_modal {
-    background-color: #fff;
+    background-color: #212121;
     margin: 0 auto; /* Centraliza horizontalmente */
     position: relative;
-    top: 20%;
+    top: 15%;
     padding: 20px;
     border-radius: 10px;
     width: 50%; /* Ajuste conforme necessário */

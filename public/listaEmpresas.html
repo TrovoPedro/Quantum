@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="css/listaEmpresas.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -25,11 +25,13 @@
         <div class="nav-links">
             <div class="nav-button">
                 <img src="img/empresaicon.svg" class="nav-icon" alt="">
-                <p><a style="text-decoration: none; color: white;" href="listaEmpresas.html"class="nav-link">Empresas</a></p>
+                <p><a style="text-decoration: none; color: white;" href="listaEmpresas.html"
+                        class="nav-link">Empresas</a></p>
             </div>
             <div class="nav-button">
                 <img src="assets/funcionarios-icon.svg" class="nav-icon" alt="">
-                <p><a style="text-decoration: none; color: white;" href="listaFuncionarios.html" class="nav-link">Funcionários</a></p>
+                <p><a style="text-decoration: none; color: white;" href="listaFuncionarios.html"
+                        class="nav-link">Funcionários</a></p>
             </div>
         </div>
         <div class="logout-container">
@@ -40,14 +42,14 @@
         </div>
     </div>
 
-    <div class="empresa-list-container">
+    <div class="empresa-list-container" id="empresa-list-container">
         <div class="list-title">
             <img class="list-icon" src="img/empresa.svg" alt="">
         </div>
         <div class="add-button-container">
-            <button id="btnCadastrarEmpresa" class="btn-add-empresa" onclick="cadastrar()">Cadastrar nova empresa</button>
+            <button id="btncadastrarEmpresa" class="btn-add-empresa" onclick="aparecercard()">Cadastrar empresa</button>
         </div>
-       
+
         <div class="empresa-list">
             <table>
                 <thead>
@@ -64,7 +66,7 @@
                         <td>12.345.678/0001-90</td>
                         <td>Dr. João Silva</td>
                         <td>Rua da Esperança, 123 - Centro, São Paulo - SP, 01234-000</td>
-                        <td><img  src="assets/icons8-lápis-100 (1).png" alt=""></td>
+                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
                         <td><img src="assets/icons8-lixeira-100 (1).png" alt=""></td>
                     </tr>
                     <tr class="table-row">
@@ -109,8 +111,45 @@
         </div>
 
         <div id="modalCadastroEmpresa" class="modalEmpresa">
+            <span class="modal-close" onclick="fecharModal1()">&times;</span>
             <div class="conteudos-modal">
-                <span class="modal-close" onclick="fecharModal()">&times;</span>
+                <h2>Cadastre uma nova empresa</h2>
+                <div class="boxEmpresa">
+                    <span>Nome:</span>
+                    <input type="text" id="razaosocial" class="input-empresa" class="container_radiu"></input>
+                </div>
+                <div class="boxEmpresa">
+                    <span>CNPJ:</span>
+                    <input type="email" id="cnpj" class="input-empresa" class="container_radiu"></input>
+                </div>
+                <div class="boxEmpresa">
+                    <button onclick="cadastroEmpresa()" class="botaoAvancar" class="input-empresa">Avançar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalCadastroEndereco" class="modalEmpresa">
+            <div class="conteudos-modal">
+                <h2>Digite o endereço da empresa a ser cadastrada</h2>
+                <div class="boxEmpresa">
+                    <span>CEP:</span>
+                    <input type="text" id="cep" class="input-empresa" class="container_radiu"></input>
+                </div>
+                <div class="boxEmpresa">
+                    <span>Rua:</span>
+                    <input type="email" id="rua" class="input-empresa" class="container_radiu"></input>
+                </div>
+                <div class="boxEmpresa">
+                    <span>Complemento:</span>
+                    <input type="email" id="complemento" class="input-empresa" class="container_radiu"></input>
+                </div>
+                <div class="boxEmpresa">
+                    <span>Número:</span>
+                    <input type="email" id="num" class="input-empresa" class="container_radiu" placeholder=""></input>
+                </div>
+                <div class="boxEmpresa">
+                    <button onclick="cadastroEndereco()" class="botaoAvancar" class="input-empresa">Avançar</button>
+                </div>
             </div>
         </div>
 
@@ -133,6 +172,11 @@
         document.getElementById('modalDetalhes').style.display = 'none';
     }
 
+    function fecharModal1() {
+        var span = document.getElementById("modalCadastroEmpresa");
+        span.style.display = "none";
+    }
+
     // Adicionando evento de clique nas linhas da tabela
     const linhas = document.querySelectorAll('.table-row');
 
@@ -141,7 +185,7 @@
             const nome = linha.cells[0].innerText;
             const cnpj = linha.cells[1].innerText;
             const ADM = linha.cells[2].innerText;
-            const enderecoEmpresa = linha.cells[3].innerText; 
+            const enderecoEmpresa = linha.cells[3].innerText;
             abrirModal(nome, cnpj, ADM, enderecoEmpresa);
         });
     });
@@ -151,7 +195,19 @@
         el.addEventListener('click', fecharModal);
     });
 
-    function cadastrar(){
-        
+    function aparecercard() {
+        var span = document.getElementById("modalCadastroEmpresa");
+        var info = document.getElementById('empresa-list-container')
+        info.style.filter = 'blur(2)'
+        span.style.display = "block";
     }
+
+    function cadastroEmpresa() {
+        var cardEmpresa = document.getElementById('modalCadastroEmpresa')
+        var cardEndereco = document.getElementById('modalCadastroEndereco')
+
+        cardEmpresa.style.display = 'none'
+        cardEndereco.style.display = 'block'
+    }
+
 </script>

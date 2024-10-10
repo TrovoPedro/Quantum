@@ -12,14 +12,16 @@
     <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="css/Navbar.css">
     <link rel="stylesheet" href="css/dashboard_2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body >
 
     <!--NAV BAR-->
     <div class="navBar">
@@ -52,7 +54,7 @@
     <div class="espaço">
 
         <!-- seja bem vindo  -->
-         
+
         <div class="boxBemvindo" id="aparecerBemvindo">
             <div class="boxBemvindomensagem">
                 <div class="Mensagemalerta">
@@ -60,17 +62,18 @@
                     <h2>Seja bem-vindo, usuário!</h2>
                 </div>
                 <div class="botaomonitoramneto">
-                    <button onclick="iniciarMonitoramento()" class="botaoIniciar" style="color: white;">Inicie o monitoramento</button>
+                    <button onclick="iniciarMonitoramento()" class="botaoIniciar" style="color: white;">Inicie o
+                        monitoramento</button>
                 </div>
             </div>
         </div>
 
         <div class="boxAlerta" id="aparecerAlerta">
-            <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none'; document.getElementById('cardInfos').style.filter='blur(0)'">
-                <h2 class="fechar">x</h2>
-            </div>
             <div class="boxMensagem">
                 <div class="Mensagemalerta">
+                    <div class="close" onclick="document.getElementById('aparecerAlerta').style.display='none'; document.getElementById('cardInfos').style.filter='blur(0)'">
+                        <h2 class="fechar">x</h2>
+                    </div>
                     <img src="img/alerta.svg" alt="" class="alert" style="height: 20%;">
                     <h2>Alerta</h2>
                 </div>
@@ -83,9 +86,12 @@
         <div class="card" id="cardInfos">
             <!--select-->
             <select class="select-servidor">
-                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 1</a></option>
-                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 2</a></option>
-                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer">Servidor 3</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
+                            class="imgServer">Servidor 1</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
+                            class="imgServer">Servidor 2</a></option>
+                <option class="opcao-select" value=""> <a href="dashboard_2.html"><img src="img/servidor.svg" alt=""
+                            class="imgServer">Servidor 3</a></option>
             </select>
 
             <!--informações-->
@@ -159,6 +165,20 @@
             var cardinfo = document.getElementById("cardInfos");
             bemvindo.style.display = "none";
             cardinfo.style.filter = "blur(0)";
+
+            alerta()
+        }
+
+        function alerta() {
+            var a = 10
+            var alerta = document.getElementById("aparecerAlerta");
+            var cardinfo = document.getElementById("cardInfos");
+
+            if (a > 10) {
+                alerta.style.display = "block"
+                cardinfo.style.filter = "blur(2)";
+            }
+
         }
 
         function gerarGraficoCPU() {
