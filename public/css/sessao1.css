@@ -1,446 +1,288 @@
-    @font-face {
-        font-family: Ubunto;
-        src: url(../../src/font/Ubuntu/Ubuntu-Bold.ttf);
+@font-face {
+    font-family: Ubunto;
+    src: url(../src/font/Ubuntu/Ubuntu-Bold.ttf);
+}
+
+@font-face {
+    font-family: Ubunto-Medio;
+    src: url(../src/font/Ubuntu/Ubuntu-Medium.ttf);
+}
+
+* {
+    margin: 0px;
+    padding: 0%;
+    max-width: 100%;
+}
+
+body {
+    color: #ffffff;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    justify-content: space-between;
+    margin-top: 25px;
+    width: 100%;
+    background-color: rgba(240, 248, 255, 0);
+
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+header h1 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 35px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+header button {
+    width: 200px;
+    height: 48px;
+    font-family: Ubunto-Medio;
+    font-size: 15px;
+    background-color: #7449EB;
+    color: #ffffff;
+    border-radius: 5px;
+    margin-right: 20px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+header button:hover {
+    transform: scale(1.1);
+}
+
+.left {
+
+    align-items: center;
+    display: flex;
+    width: 50%;
+    height: 100vh;
+    background-color: #111111;
+
+}
+
+.left-container {
+    margin-left: 70px;
+
+
+}
+
+.title {
+    width: 350px;
+    margin-bottom: 20px;
+}
+
+.title h1 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 38px;
+}
+
+.text {
+    width: 450px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    border: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #7449EB;
+    width: 230px;
+    height: 60px;
+
+    transition: transform 0.5s;
+}
+
+.button-container button h1 {
+    font-weight: 800;
+}
+
+.button-container button:hover {
+    transform: scale(1.1);
+}
+
+.right {
+    width: 50%;
+    height: 100vh;
+    /* background-image: url(../img/BannerPrincipalSVG.svg); */
+    background-size: cover;
+}
+
+
+
+.container-logo {
+    
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 70%;
+    height: 60vh;
+   margin: auto;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+}
+.svgHome{
+    width: 80%;
+}
+
+/* RESPONSIVIDADE */
+@media only screen and (max-device-width: 700px) {
+    .left-container {
+     
+        width: 60%;
+    
+    }
+}
+
+
+@media only screen and (max-device-width: 900px) {
+    .container-logo {
+        width: 50%;
     }
 
-    @font-face {
-        font-family: Ubunto-Medio;
-        src: url(../../src/font/Ubuntu/Ubuntu-Medium.ttf);
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        max-width: 100%;
-    }
-
-    body {
-        color: #ffffff;
-    }
-
-    header {
-        display: flex;
-        flex-direction: row;
-        position: absolute;
-        justify-content: space-between;
-        margin-top: 25px;
-        width: 100%;
-        background-color: rgba(240, 248, 255, 0);
-    }
 
     .main {
         display: flex;
-        flex-direction: row;
-    }
-
-    header h1 {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        margin-left: 35px;
-        /* 35px */
-        font-size: 30px;
-        /* 30px */
-        font-weight: 500;
-    }
-
-    header button {
-        width: 200px;
-        height: 48px;
-        font-family: Ubunto-Medio;
-        font-size: 15px;
-        background-color: #7449EB;
-        color: #ffffff;
-        border-radius: 5px;
-        margin-right: 20px;
-        border: none;
-        cursor: pointer;
-        transition: transform 0.5s;
-    }
-
-    header button:hover {
-        transform: scale(1.1);
-    }
-
-    .left {
-        align-items: center;
-        display: flex;
-        width: 50%;
         height: 100vh;
-        background-color: #111111;
-    }
-
-    .h1_monitoramento {
-        display: flex;
-    }
-
-    .p_monitoramento{
-        font-size: 55%;
-        font-weight: lighter;
-        color: #c2bfbf;
-        margin-left: 5%;
-    }
-
-    .imgMonitoramento {
-        height: 700px;
-    }
-
-    .imgEmail {
-        width: 80%;
-        margin-top: 50px;
-    }
-
-    .left-container {
-        margin-left: 5%;
-        position: relative;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
     }
 
-    .title {
-        width: 50%;
-        margin-bottom: 20px;
+    .left {
+        width: 100%;
+        height: 50vh;
     }
+    .left-container {
 
-    .title h1 {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-size: 2.6rem;
-        width: 50%;
-
-    }
-
-    .text {
-
-        width: 450px;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        margin-bottom: 20px;
-        font-size: 3rem;
-    }
-
-
-    .button-container button {
-        border: none;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        border-radius: 5px;
-        cursor: pointer;
-        color: #ffffff;
-        background-color: #7449EB;
-        width: 250px;
-        height: 60px;
-        transition: transform 0.5s;
-    }
-
-    .button-container button h1 {
-        font-weight: 800;
-    }
-
-    .button-container button:hover {
-        transform: scale(1.1);
-    }
-
-    .right {
-        width: 50%;
-        height: 100vh;
-        background-image: url(../assets/BannerPrincipalSVG.svg);
-        background-size: cover;
-    }
-
-    .div_divisor {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .div_divisor .divisao1 {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .container-logo {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
         width: 70%;
-        height: 65vh;
-        margin-top: 6.875rem;
-        margin-left: 12.5rem;
+    
+    }
+    .right{
+        width: 100%;
+        height: 50vh; 
+        display: none;
+    }
+.header{
+
+        position: absolute;
+        margin-right: 30px;
+    }
+}
+
+@media only screen and (max-device-width:1366px) {
+    .container-logo{
+      
+        width: 80%;
+    }
+    .right{
+        width: 50%;
+    }
+    .left{
+        width: 50%;
+    }
+    .svgHome{
+        width: 30%;
+
+    }
+}
+@media (max-width:1366px) {
+    .container-logo{
+      
+        width: 80%;
+    }
+    .right{
+        width: 40%;
+    }
+    .left{
+        width: 60%;
+    }
+    .svgHome{
+        margin: auto;
+        left: 30%;
         top: 0;
         bottom: 0;
         right: 0;
-        left: 0;
-    }
+        width: 30%;
+        position: absolute;
 
-    .svgHome {
+
+    }
+}
+@media only screen and (max-device-width:430px) {
+    .container-logo{
+      
         width: 80%;
     }
-
-    @media(max-width: 1024px) {
-
-        body {
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        html {
-            width: 100%;
-            height: 100%;
-        }
-
-        .left {
-            width: 100%;
-            padding: 1rem;
-            height: 0%;
-            /* overflow-x: hidden; */
-        }
-
-        .TituloBemVindos {
-            width: 100%;
-            margin-top: -3.75rem;
-        }
-
-        .nomeDaEmpresaBemVindos {
-            font-size: 1rem;
-        }
-
-        .titulosBemVindo {
-            height: 30%;
-            width: -10%;
-            margin-right: 3.75rem;
-
-        }
-
-        .boxTextosBemVindos {
-            position: absolute;
-            font-size: 1rem;
-            margin-bottom: 70%;
-            width: 50%;
-
-        }
-
-        .p_monitoramento {
-            width: 60%;
-            height: 10%;
-            font-size: 20px;
-            text-align: justify;
-        }
-
-        .text {
-            font-size: 1.2rem;
-        }
-
-        .left .text {
-            font-size: small;
-            width: 100%;
-            height: 100%;
-        }
-
-        .left .text .p_monitoramento {
-
-            color: rgb(255, 255, 255);
-            /* width: 30%; */
-            font-size: 30px;
-            font-weight: lighter;
-
-        }
-
-
-        .imgMonitoramento {
-            height: auto;
-            width: 100%;
-            margin-bottom: 1rem;
-        }
-
-        .imgEmail {
-            width: 80%;
-            height: 80%;
-            margin-left: 488px;
-            /* margin-bottom: 800px; */
-            margin-top: 15%;
-        }
-
-        .escrita {
-            padding-top: 0px;
-        }
-
-        .conent-main {
-            position: absolute;
-            top: 300vh;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            margin-left: 86px;
-        }
-
-        .main-footer {
-            width: 100%;
-            background-color: red;
-        }
-
-        .button {
-            width: 0%;
-            height: 0%;
-        }
-
-        .h1_monitoramento {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            margin-top: 3%;
-            width: 50%;
-            background-color: red;
-            height: 30%;
-            position: relative;
-            padding-right: 0%;
-            padding-left: 10%;
-        }
-
-        .conteudoBemVindo {
-            width: 65%;
-        }
+    .right{
+       display: none;
     }
-
-    /* RESPONSIVIDADE */
-    @media only screen and (max-width: 414px) {
-        .left-container {
-            width: 60%;
-        }
+    .left{
+        width: 100%;
+        height: 20vh;
+        position: absolute;
+        margin: auto;
+        display: flex ;
+        justify-content: center;
+        align-items: center;
+        left: 0;
+        right: 0;
+        top: -20%;
+        bottom: 0;
+        
     }
+    .svgHome{
+        display: flex;
+        position: relative;
 
-    @media only screen and (max-device-width: 900px) {
-        .container-logo {
-            width: 50%;
-        }
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
 
-        .main {
-            display: flex;
-            height: 100vh;
-            flex-direction: row;
-        }
-
-        .left {
-            width: 100%;
-            height: 50vh;
-        }
-
-        .left-container {
-            width: 70%;
-        }
-
-        .right {
-            width: 100%;
-            height: 50vh;
-            display: none;
-        }
-
-        .header {
-            position: absolute;
-            margin-right: 30px;
-        }
     }
+    
+.container-logo {
+    
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 70%;
+    height: 20vh;
+   margin: auto;
+ 
+   top: 50%;
+   bottom: 0;
+   right: 0;
+   left: 0;
+}
+.left-container {
+    width: 80%;
+    margin-left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+   
 
-    @media only screen and (max-device-width:1366px) {
-        .container-logo {
-            width: 80%;
-        }
-
-        .right {
-            width: 50%;
-        }
-
-        .left {
-            width: 50%;
-        }
-
-        .svgHome {
-            width: 30%;
-        }
-    }
-
-    @media (max-width:1366px) {
-        .container-logo {
-            width: 80%;
-        }
-
-        .right {
-            width: 40%;
-        }
-
-        .left {
-            width: 60%;
-        }
-
-        .svgHome {
-            margin: auto;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            width: 30%;
-            position: absolute;
-        }
-    }
-
-    @media only screen and (max-device-width:430px) {
-        .container-logo {
-            width: 80%;
-        }
-
-        .right {
-            display: none;
-        }
-
-        .left {
-            width: 100%;
-            height: 20vh;
-            position: absolute;
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            left: 0;
-            right: 0;
-            top: -20%;
-            bottom: 0;
-        }
-
-        .svgHome {
-            display: flex;
-            position: relative;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-        }
-
-        .container-logo {
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 70%;
-            height: 20vh;
-            margin: auto;
-            top: 50%;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-
-        .left-container {
-            width: 80%;
-            margin-left: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .btn-login {
-            width: 35%;
-            margin-right: 10%;
-        }
-    }
+}
+.btn-login{
+    width: 35%;
+    margin-right: 10%;
+}
+}
