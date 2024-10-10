@@ -1,32 +1,22 @@
-function cadastrar(nome) {
+function cadastrarServidor() {
     
-    fetch("/usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            empresa: empresa,
-            nome: nome,
-        }),
-    })
-    .then(function (resposta) {
-        if (resposta.ok) {
-            alert("Cadastro feito com sucesso!");
 
-            setTimeout(() => {
-                window.location = "login.html";
-            }, 2000);
-        } else {
-            alert("Houve um erro ao efetuar o cadastro.");
-            throw new Error("Erro no cadastro. Status: " + resposta.status);
-        }
-    })
-    .catch(function (erro) {
-        console.log(`#ERRO: ${erro}`);
-    });
 
-    return false;
+    var mostrar = document.getElementById("aparecerBoxServidor")
+    if (mostrar.style.display === "none") {
+        mostrar.style.display = "flex"
+    } else {
+        mostrar.style.display = "none"
+    }
+}
+
+function avancarServidor() {
+    var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
+    mostrarServidor.style.display = "flex";
+}
+
+function avancar() {
+    window.location.href = 'listaServidores.html'
 }
 
 
