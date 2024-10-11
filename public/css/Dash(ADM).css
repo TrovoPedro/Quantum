@@ -246,7 +246,7 @@ body {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    box-shadow: #5a31c9 0 2px 30px;
+    /* box-shadow: #5a31c9 0 2px 30px; */
 }
 
 .item {
@@ -357,7 +357,7 @@ body {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    box-shadow: #5a31c9 0 2px 30px;
+    /* box-shadow: #5a31c9 0 2px 30px; */
     transition: transform 0.3s ease;
     overflow: hidden;
 }
@@ -375,7 +375,7 @@ body {
     justify-content: top;
     border: 5px;
     transform: translate(0%, -15%);
-    box-shadow: #5a31c9 0 2px 30px;
+    /* box-shadow: #5a31c9 0 2px 30px; */
     transition: transform 0.3s ease;
 
 
