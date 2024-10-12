@@ -1,7 +1,4 @@
 function cadastrarServidor() {
-    
-
-
     var mostrar = document.getElementById("aparecerBoxServidor")
     if (mostrar.style.display === "none") {
         mostrar.style.display = "flex"
@@ -9,8 +6,6 @@ function cadastrarServidor() {
         mostrar.style.display = "none"
     }
 }
-
-
 
 function avancarServidor() {
     var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
@@ -50,9 +45,9 @@ fetch(`/servidores/buscar`, {
             data.forEach(item => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td>${item.nome}</td>
-                <td>${item.fkEmpresa}</td>
-                <td>${item.fkLocalizacao}</td>
+                <td>${item.nomeServidor}</td>
+                <td>${item.razao_social}</td>
+                <td>${item.tipo}</td>
                 <td><button onclick="editarServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
                 <td><button onclick="excluirServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
                 `;

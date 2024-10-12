@@ -5,9 +5,9 @@ function cadastrar() {
 }
 
 function buscarServidores(req, res) {
-    var idUsuario = req.params.idUsuario;
+    var idServidor = req.params.idServidor;
 
-    servidorModel.buscarServidores(idUsuario)
+    servidorModel.buscarServidores(idServidor)
         .then(resultadoAutenticar => {
             console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
             console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
