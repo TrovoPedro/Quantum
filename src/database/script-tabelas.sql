@@ -1,98 +1,155 @@
-CREATE DATABASE Quantum;
+create database QuantumDB;
 
-USE Quantum;
+use QuantumDB;
 
-CREATE TABLE endereco (
-    idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-    cep CHAR(8),
-    rua VARCHAR(45),
-    complemento VARCHAR(255),
-    num INT
+create table tipoUsuario(
+	idTipoUsuario int primary key auto_increment,
+    nome char(7)
 );
 
-
-CREATE TABLE empresa (
-    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-    razao_social VARCHAR(45),
-    CNPJ CHAR(14),
-    fkEndereco INT,
-    FOREIGN KEY (fkEndereco) REFERENCES endereco(idEndereco)
+create table situacao(
+	idSituacao int primary key auto_increment,
+    tipo char(10)
 );
 
-
-CREATE TABLE estado (
-    idEstado INT PRIMARY KEY AUTO_INCREMENT,
-    dtHora DATETIME,
-    operacao TINYINT,
-    descricao VARCHAR(255),
-    tipo VARCHAR(45)
+create table tipoComponente(
+	idTipoComponente int primary key auto_increment,
+    nome varchar(45)
 );
 
-
-CREATE TABLE servidor (
-    idServidor INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45),
-    fkEmpresa INT,
-    fkLocalizacao INT, -- Este campo pode referenciar uma tabela "localizacao" que não foi incluída no DER
-    fkEstado INT,
-    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
-    FOREIGN KEY (fkEstado) REFERENCES estado(idEstado)
+create table periodoAtividade(
+	idEstado int primary key auto_increment,
+    dtHora datetime,
+    tempoAtivo int
 );
 
-
-CREATE TABLE componente (
-    idComponente INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45),
-    fabricante VARCHAR(45),
-    fkServidor INT,
-    limite VARCHAR(45),
-    unidade VARCHAR(45),
-    FOREIGN KEY (fkServidor) REFERENCES servidor(idServidor)
+create table empresa(
+	idEmpresa int primary key auto_increment,
+    razao_social varchar(100),
+    cnpj char(14),
+    fkSituacao int,
+	foreign key (fkSituacao) references situacao(idSituacao)
 );
 
-CREATE TABLE log (
-    idLog INT PRIMARY KEY AUTO_INCREMENT,
-    dtHora DATETIME,
-    tempoAtividade DATETIME,
-    porcentagemUso DOUBLE,
-    fkComponente INT,
-    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
+create table endereco(
+	idEndereco int primary key auto_increment,
+    cep char(8),
+    rua varchar(45),
+    complemento varchar(45),
+    num int,
+    fkEmpresa int,
+	foreign key (fkEmpresa) references empresa(idEmpresa)
 );
 
-
-CREATE TABLE alerta (
-    idAlerta INT PRIMARY KEY AUTO_INCREMENT,
-    data DATETIME,
-    descricao VARCHAR(45),
-    fkLog INT,
-    FOREIGN KEY (fkLog) REFERENCES log(idLog)
+create table usuario(
+	idUsuario int primary key auto_increment,
+    nome varchar(255),
+    email varchar(255),
+    senha varchar(255),
+    data_cadastro datetime,
+    fotoPerfil varchar(600),
+    fkEmpresa int,
+    fkTipoUsuario int,
+    fkSituacao int,
+	foreign key (fkEmpresa) references empresa(idEmpresa),
+	foreign key (fkTipoUsuario) references tipoUsuario(idTipoUsuario),
+	foreign key (fkSituacao) references situacao(idSituacao)
 );
 
-
-CREATE TABLE servico (
-    idServico INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45),
-    fkEmpresa INT,
-    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+create table servidor(
+	idServidor int primary key auto_increment,
+    nomeServidor varchar(45),
+    fkEmpresa int,
+    fkLocalizacao int,
+    fkTempoAtividade int,
+    fkSituacao int,
+    foreign key (fkEmpresa) references empresa(idEmpresa),
+	foreign key (fkLocalizacao) references endereco(idEndereco),
+	foreign key (fkSituacao) references situacao(idSituacao),
+	foreign key (fkTempoAtividade) references periodoAtividade(idEstado)
 );
 
-
-CREATE TABLE tipo (
-    idTipo INT PRIMARY KEY AUTO_INCREMENT,
-    cargo VARCHAR(45)
+create table componente(
+	idComponente int primary key auto_increment,
+    nome varchar(45),
+    fabricante varchar(45),
+	fkServidor int,
+    fkTipoComponente int,
+	foreign key (fkServidor) references servidor(idServidor),
+	foreign key (fkTipoComponente) references tipoComponente(idTipoComponente)
 );
 
-
-CREATE TABLE usuario (
-    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255),
-    email VARCHAR(255),
-    senha VARCHAR(255),
-    fkEmpresa INT,
-    fkTipo INT,
-    createdAt DATETIME,
-    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
-    FOREIGN KEY (fkTipo) REFERENCES tipo(idTipo)
+create table log(
+	idLog int primary key auto_increment,
+    dtHora datetime,
+    tempoAtividade datetime,
+    usoComponente double,
+    fkComponente int,
+	foreign key (fkComponente) references componente(idComponente)
 );
 
+create table limiteComponente(
+	idLimiteComponente int primary key auto_increment,
+    valorLimite double,
+    fkComponente int,
+	foreign key (fkComponente) references componente(idComponente)
+);
 
+create table alerta(
+	idAlerta int primary key auto_increment,
+    data datetime,
+    descricao varchar(45),
+    fkLog int,
+    fkLimiteComponente int,
+    foreign key (fkLog) references log(idLog),
+	foreign key (fkLimiteComponente) references limiteComponente(idLimiteComponente)
+);
+
+SELECT servidor.nomeServidor, empresa.razao_social, situacao.tipo
+FROM servidor
+JOIN empresa
+    ON servidor.fkEmpresa = empresa.idEmpresa
+JOIN situacao
+    ON servidor.fkSituacao = situacao.idSituacao;
+    
+INSERT INTO tipoUsuario (nome) 
+VALUES
+    ('Gerente'),
+    ('Tecnico');
+
+INSERT INTO situacao (tipo) 
+VALUES
+    ('Desativado'),
+    ('Ativado');
+    
+INSERT INTO tipoComponente(nome) 
+VALUES
+    ('Ram'),
+    ('CPU'),
+    ('Disco'),
+    ('Rede');
+    
+INSERT INTO periodoAtividade(dtHora, tempoAtivo) 
+VALUES
+    (now(), 5),
+    (now(), 10);
+    
+INSERT INTO empresa(razao_social, cnpj, fkSituacao) 
+VALUES
+    ('Santa Marcelina', '90847581904876', 2),
+    ('Doutor consulta', '90847581904221', 2),
+    ('A.C Camargo', '10289465718298', 2);
+    
+INSERT INTO endereco(cep, rua, complemento, num, fkEmpresa) 
+VALUES
+    (08485430, 'Rua arroio triunfo', 'Hospital', 42, 1),
+    (08485540, 'Rua ladeira porto geral', 'Hospital', 1991, 2),
+    (09283727, 'Rua liberdade', 'Hospital', 3955, 3);
+    
+INSERT INTO servidor( nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
+VALUES
+    ('Servidor 1', 1, 1, 1, 2),
+    ('Servidor 2', 2, 2, 2, 1),
+    ('Servidor 3', 3, 3, 1, 2);
+    
+select * from servidor;

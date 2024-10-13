@@ -16,8 +16,4 @@ router.put("/editar/:idServidor", function (req, res) {
     servidorController.editarServidor(req, res);
 });
 
-router.delete("/deletar/:idServidor", function (req, res) {
-    servidorController.excluirServidor(req, res);
-});
-
 module.exports = router;

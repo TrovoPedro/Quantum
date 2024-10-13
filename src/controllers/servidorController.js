@@ -51,10 +51,11 @@ function buscarServidores(req, res) {
 }
 
 function editarServidor(req, res) {
-    var novoNome = req.body.nome;
+    var nomeEditado = req.body.nomeEditado;
+    var situacaoEditada = req.body.situacaoEditada;
     var idServidor = req.params.idServidor;
 
-    servidorModel.editarServidor(novoNome, idServidor)
+    servidorModel.editarServidor(idServidor, nomeEditado, situacaoEditada)
         .then(
             function (resultado) {
                 res.json(resultado);

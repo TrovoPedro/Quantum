@@ -26,10 +26,10 @@ function buscarServidores(idServidor) {
     return database.executar(instrucaoSql);
 }
 
-function editarServidor(novoNome, idServidor) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n", novoNome, idServidor);
+function editarServidor(idServidor, nomeEditado, situacaoEditada) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", idServidor, nomeEditado, situacaoEditada);
     var instrucaoSql = `
-        UPDATE servidor SET nome = '${novoNome}' WHERE id = ${idServidor};
+        UPDATE servidor SET nomeServidor = '${nomeEditado}', fkSituacao = '${2}' WHERE idServidor = ${idServidor};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -20,7 +20,16 @@ function mostrarServidor() {
     } else {
         mostrar.style.display = "none";
     }
+}
 
+function mostrarEditar(){
+    var mostrar = document.getElementById("aparecerBoxEditar");
+
+    if (getComputedStyle(mostrar).display === "none") {
+        mostrar.style.display = "flex";
+    } else {
+        mostrar.style.display = "none";
+    }
 }
 
 function cadastrarServidor(nomeServidor, situacao) {
@@ -93,7 +102,7 @@ function listarServidor() {
                     <td>${item.nomeServidor}</td>
                     <td>${item.razao_social}</td>
                     <td>${item.tipo}</td>
-                    <td><button onclick="editarServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
+                    <td><button onclick="mostrarEditar()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
                     <td><button onclick="excluirServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
                     `;
                     tbody.appendChild(row);
@@ -106,9 +115,8 @@ function listarServidor() {
 }
 
 function editarServidor(idServidor) {
-    sessionStorage.ID_SERVIDOR = idServidor;
-    window.alert("Você será redirecionado à página de edição do aviso de id número: " + idServidor);
-    window.location = "/editarServidor.html"
+    var nomeServidorEditado = document.getElementById("inputNomeEditado").value;
+    var situacaoEditada = document.getElementById("situacaoServidorEditado").value;
 
     fetch(`/servidores/editar/${sessionStorage.getItem("ID_SERVIDOR")}`, {
         method: "PUT",
@@ -116,17 +124,15 @@ function editarServidor(idServidor) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            nome: nome.value
+            nomeEditado: nomeServidorEditado,
+            situacaoEditada: situacaoEditada
         })
     }).then(function (resposta) {
 
         if (resposta.ok) {
-            window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-            window.location = "/dashboard/mural.html"
+            window.location = "/listaServidores.html"
         } else if (resposta.status == 404) {
             window.alert("Deu 404!");
-        } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
         }
     }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);

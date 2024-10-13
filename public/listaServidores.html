@@ -91,7 +91,6 @@
             </table>
         </div>
     </div>
-
     <div class="boxCadastroServidor" id="aparecerBoxServidor">
         <div class="logoCadastroServidor">
             <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
@@ -111,6 +110,26 @@
             </select>
         </div>
         <button class="botaoAvancar" onclick="cadastrarServidor()">Cadastrar</button>
+    </div>
+    <div class="boxEditarServidor" id="aparecerBoxEditar">
+        <div class="logoCadastroServidor">
+            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
+            <h2>Editar Servidor</h2>
+        </div>
+        <div class="nomeServidorEditado">
+            <div class="divNomeServidorEditado">
+                <p>Nome do Servidor</p>
+            </div>
+            <input type="text" placeholder="Insira o novo nome do servidor" class="inputNomeServidor" id="inputNomeEditado">
+            <div class="divNomeServidorEditado">
+                <p>Situação do Servidor</p>
+            </div>
+            <select id="situacaoServidorEditado">
+                <option id="ativo" value="Ativo">Ativo</option>
+                <option id="desativado" value="Desativado">Desativado</option>
+            </select>
+        </div>
+        <button class="botaoAvancar" onclick="editarServidor()">Editar</button>
     </div>
     <div class="filtro"></div>
 </body>
