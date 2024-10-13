@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="listarServidor()">
     <div class="navBar">
         <div class="CaixalogoNav">
             <img src="img/Logo Quantum.svg" class="logoNav" alt="">
@@ -67,7 +67,7 @@
         </div>
 
         <div class="div-btn">
-            <button class="btn-novoServidor" onclick="cadastrarServidor()">Novo servidor</button>
+            <button class="btn-novoServidor" onclick="mostrarServidor()">Novo servidor</button>
         </div>
 
         <div class="listaServidores">
@@ -75,6 +75,7 @@
             <table id="tabela-servidores">
                 <thead>
                     <tr class="tituloTabela">
+                        <th>Id servidor</th>
                         <th>Nome</th>
                         <th>Empresa</th>
                         <th>Situação</th>
@@ -95,51 +96,23 @@
         <div class="logoCadastroServidor">
             <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
             <h2>Cadastre um Servidor</h2>
-
         </div>
         <div class="nomeServidor">
             <div class="divNomeServidor">
                 <p>Nome do Servidor</p>
             </div>
-
-            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor">
+            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor" id="inputNomeServidor">
+            <div class="divNomeServidor">
+                <p>Situação do Servidor</p>
+            </div>
+            <select id="situacaoServidor">
+                <option id="ativo" value="Ativo">Ativo</option>
+                <option id="desativado" value="Desativado">Desativado</option>
+            </select>
         </div>
-        <button class="botaoAvancar" onclick="avancarServidor()">Avançar</button>
+        <button class="botaoAvancar" onclick="cadastrarServidor()">Cadastrar</button>
     </div>
     <div class="filtro"></div>
-
-    <div class="boxSelecionarComponentes" id="aparecerSelecionarComponentes">
-        <div class="logoCadastroServidor">
-            <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
-            <h2>Selecione os componentes que deseje monitorar</h2>
-        </div>
-
-        <div class="selecionarComponentes">
-            <div class="btSelecionar">
-                <p class="btProcessador">Processador</p>
-            </div>
-            <input type="text" placeholder="Coloque a quantidade de Processadores" class="inputQtdProcessador">
-        </div>
-
-        <div class="selecionarComponentes">
-            <div class="btSelecionar">
-                <p class="btProcessador">Memória</p>
-            </div>
-            <input type="text" placeholder="Coloque a quantidade de Memória Ram(GB)" class="inputQtdProcessador">
-        </div>
-
-        <div class="selecionarComponentes">
-            <div class="btSelecionar">
-                <p class="btProcessador">SSD</p>
-                <p class="btProcessador">HD</p>
-            </div>
-
-            <input type="text" placeholder="Coloque a quantidade de espaço" class="inputQtdProcessador">
-        </div>
-
-        <button class="botaoAvancar" onclick="avancar()">Avançar</button>
-    </div>
-
 </body>
 <script src="js/listaServidores.js"></script>
 </html>
