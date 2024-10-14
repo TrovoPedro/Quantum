@@ -3,7 +3,7 @@
 
 <head>
 
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard(ADM) - Quantum</title>
@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="css/Dash(ADM).css">
     <link rel="stylesheet" href="css/Navbar(ADM).css">
+    <link rel="stylesheet" href="css/dashboard_2.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -64,139 +65,201 @@
     <Section class="Dashboard">
         <div class="topDash">
             <div class="boxUser-data">
+
                 <h3>Olá, Administrador!</h3>
+
                 <p id="data2">Monitoramento dia DD/MM/AAAA</p>
             </div>
 
         </div>
         <div class="midDash">
-          
+
             <div class="itensMonitorados">
 
                 <div class="cardMonitorados">
 
                     <div class="item">
-                        <h4>UPTIME SEMANAL</h4>
+
+                        <h2 style="transform: translate(0%, -90%);">UPTIME SEMANAL</h2>
                     </div>
+
                     <div>
-                        <canvas id="myChart" width="400" height="220"></canvas>
+
+                        <canvas style="transform: translate(0%, -20%);" id="myChart" width="450" height="230"></canvas>
+
+
+
+
+
                     </div>
+
+
+                    <div style="width: 90%;" class="infosE">
+
+                        <div class="cards">
+
+
+                            <div id="CPU">
+
+                                <button class="detalhe" onclick="gerarGraficoCPU()">
+
+                                    <div class="quadrante">
+                                        <img src="img/Group 22.svg" alt="">
+                                    </div>
+
+                                    <div class="text">
+                                        <b>CPU</b>
+                                        <div class="inside">
+                                            <div id="porcentagemCPU">87%</div>
+                                            <div id="GHzCPU">5,21 GHz</div>
+                                        </div>
+                                    </div>
+
+                                </button>
+                            </div>
+
+                            <div id="MEMORIA">
+                                <button class="detalhe" onclick="gerarGraficoMemoria()">
+                                    <div class="quadrante">
+                                        <img src="img/Vector.svg" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <b>Memória</b>
+                                        <div class="inside">
+                                            <div id="GBMemoria">91 GB</div>
+                                            <div id="porcentagemMemoria">(82%)</div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <div id="MEMORIA">
+
+
+                                <button class="detalhe" onclick="gerarGraficoRede()">
+
+                                    <div class="quadrante">
+
+                                        <img style="width: 20%; height: 50%;"
+                                            src="assets/icons8-restauração-de-backup-em-nuvem-100.png" alt="">
+                                    </div>
+                                    <div class="text">
+
+                                        <b>Rede</b>
+
+                                        <div class="inside">
+
+                                            <div id="GBMemoria">2.1/3.7 U</div>
+
+                                            <div id="porcentagemMemoria">(4.1%)</div>
+
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            <div id="DISCO">
+                                <button class="detalhe" onclick="gerarGraficoDisco()">
+                                    <div class="quadrante">
+                                        <img src="img/Mask group.svg" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <b>Disco 0 (C:)</b>
+                                        <div class="inside">
+                                            <div id="porcentagemDISCO">ssd - 7%</div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
-
-                <div class="cardMonitorado1">
-
-                    <div class="titulo_Card">
-                        <h3 >Estado geral do servidores</h3>
-                    </div>
-
-                    <div class="lista_Servidores">
-
-                        <div class="div_servers">
-
-                            <div class="serverImgName">
-                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
-                                <p>Servidor 1</p>
-                            </div>
-
-                            <div class="status">
-
-                                <p>Estável</p>
-                                <img src="assets/icons8-emoji-de-círculo-verde-48.png" alt="" class="alert">
-
-                            </div>
-
-                        </div>
-                        <div class="div_servers">
-
-                            <div class="serverImgName">
-                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
-                                <p>Servidor 2</p>
-                            </div>
-
-                            <div class="status">
-                                <p>Critico</p>
-                                <img src="assets/alert.svg" alt="" class="alert">
-                            </div>
-                        </div>
-                        <div class="div_servers">
-
-                            <div class="serverImgName">
-                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
-                                <p>Servidor 3</p>
-                            </div>
-
-                            <div class="status">
-                                <p>Estável</p>
-                                <img src="assets/icons8-emoji-de-círculo-verde-48.png" alt="" class="alert">
-                            </div>
-                        </div>
-                        <div class="div_servers">
-
-                            <div class="serverImgName">
-
-                                <a href="dashboard_2.html"><img src="assets/servidor.svg" alt="" class="imgServer"></a>
-
-                                <p>Servidor 4</p>
-
-                            </div>
-
-                            <div class="status">
-                                <p>Critico</p>
-                                <img src="assets/alert.svg" alt="" class="alert">
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
             </div>
-        </div>
-        <div class="lowDash">
+
+            <div class="lowDash">
 
 
-            <div class="box2low">
+                <div class="box2low">
 
-                <div class="monitoramento_estado">
+                    <div class="monitoramento_estado">
+
+                    </div>
+
+                    <div class="cardServidor">
+
+                        <br>
+
+                        <div style="width: 150%;" class="titulo_servidores">
+                            <h4>Número total de servidores:</h4>
+                        </div>
+
+
+                        <div class="div_Ativados">
+
+
+                            <div class="boxServidores">
+
+                                <div class="titulo_Estado">
+                                    <h3>Ativos</h3>
+                                </div>
+
+                                <div class="info_Servidores">
+                                    <h3 style="color: green;">5</h3>
+                                </div>
+
+
+                            </div>
+                            <br>
+                            <div class="boxServidores">
+
+                                <div class="titulo_Estado">
+                                    <h3>Estável</h3>
+                                </div>
+
+                                <div class="info_Servidores">
+                                    <h3 style="color: green;">3</h3>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="div_Desativados">
+
+                            <div class="boxServidores1">
+                                <div class="titulo_Estado">
+                                    <h3>Desativados</h3>
+                                </div>
+
+                                <div class="info_Servidores">
+                                    <h3 style="color: red;">3</h3>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="boxServidores1">
+                                <div class="titulo_Estado">
+                                    <h3>Critico</h3>
+                                </div>
+
+                                <div class="info_Servidores">
+                                    <h3 style="color: red;">2</h3>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+
 
                 </div>
-                <div class="cardServidor">
-                    <br>
-                    <div class="titulo_servidores">
-                        <h4>Número total de servidores:</h4>
-                    </div>
-
-                    <div class="boxServidores">
-
-                        <div class="titulo_Estado">
-                            <h3>Ativos</h3>
-                        </div>
-
-                        <div class="info_Servidores">
-                            <h3 style="color: green;">30</h3>
-                        </div>
-
-
-                    </div>
-
-                    <div class="boxServidores1">
-                        <div class="titulo_Estado">
-                            <h3>Desativados</h3>
-                        </div>
-
-                        <div class="info_Servidores">
-                            <h3 style="color: red;">6</h3>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
-        </div>
 
         </div>
 
@@ -271,7 +334,7 @@
 
     function avancarServidor() {
         var mostrarServidor = document.getElementById("aparecerSelecionarComponentes");
-        mostrarServidor.style.display = "flex";  // Exibe a caixa de seleção de componentes
+        mostrarServidor.style.display = "flex";
     }
 
     function avancar() {
@@ -279,80 +342,8 @@
 
     }
 </script>
+
 <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex'],
-            datasets: [{
-                label: 'Uptime dos Servidores (%)',
-                data: [98, 97, 99, 96, 88, 75, 60, 83, 91, 85, 92, 78, 81],
-                borderWidth: 2,
-                borderColor: 'White',
-                backgroundColor: 'rgba(116, 73, 235, 0.2)',
-                fill: true,
-                tension: 0.3,
-                borderJoinStyle: 'round',
-                pointRadius: 5,
-                pointHoverRadius: 7,
-                pointBackgroundColor: 'White',
-                pointBorderColor: 'white',
-            }]
-        },
-        options: {
-            responsive: true,
-            animations: {
-                tension: {
-                    duration: 500,
-                    easing: 'easeInOutQuad',
-                    from: 1,
-                    to: 0,
-                    loop: true
-                },
-                borderWidth: {
-                    duration: 300,
-                    easing: 'easeInOutQuad',
-                    from: 0,
-                    to: 2,
-                    loop: true
-                }
-            },
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: 'white',
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 15,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        }
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 15,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        },
-                        stepSize: 20
-                    },
-                    max: 100
-                }
-            }
-        }
-    });
 
     const ctx1 = document.getElementById('myChart1').getContext('2d');
     new Chart(ctx1, {
@@ -449,7 +440,7 @@
 
     function formatarData(data) {
         const dia = String(data.getDate()).padStart(2, '0');
-        const mes = String(data.getMonth() + 1).padStart(2, '0'); 
+        const mes = String(data.getMonth() + 1).padStart(2, '0');
         const ano = data.getFullYear();
 
         return `${dia}/${mes}/${ano}`;
@@ -461,4 +452,175 @@
     document.getElementById('data2').textContent = `Monitoramento dia ${dataFormatada}`;
 
 
+</script>
+
+<script>
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    let myChart;
+
+    function criarGraficoUptime() {
+        const data = {
+
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            datasets: [
+                {
+                    label: 'Servidor 1 - Uptime (%)',
+                    data: [98, 97, 99, 96, 88, 85, 90],
+                    borderColor: 'rgba(255, 255, 0, 1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: 'rgba(255, 255, 0, 1)',
+                },
+                {
+                    label: 'Servidor 2 - Uptime (%)',
+                    data: [95, 92, 94, 90, 80, 85, 88],
+                    borderColor: 'rgba(255, 165, 0, 1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: 'rgba(255, 165, 0, 1)',
+                },
+                {
+                    label: 'Servidor 3 - Uptime (%)',
+                    data: [90, 85, 88, 83, 75, 80, 82],
+                    borderColor: 'rgba(0, 0, 139, 1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: 'rgba(0, 0, 139, 1)',
+                }
+            ]
+        };
+
+        const options = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: 'white',
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white',
+                        font: {
+                            size: 15,
+                            family: 'Arial',
+                            weight: 'Bold'
+                        },
+                        stepSize: 10
+                    },
+                    max: 100
+                }
+            }
+        };
+
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+    }
+
+
+    function gerarGraficoCPU() {
+        const data = [85, 82, 78, 90, 88, 87, 80, 75, 83, 86, 89, 82, 81, 77, 80, 84, 79, 85, 88, 90];
+        mostrarGrafico('Picos de uso de CPU', data);
+    }
+
+    function gerarGraficoMemoria() {
+        const data = [80, 75, 78, 85, 90, 82, 79, 77, 83, 88, 81, 84, 76, 85, 89, 87, 82, 90, 78, 80];
+        mostrarGrafico('Picos de uso Memória', data);
+    }
+
+    function gerarGraficoRede() {
+        const data = [1, 2, 1.3, 2.5, 3.2, 2.1, 2.3, 4.1, 1.7, 2.07, 5.1, 2.1, 1.9, 4.7, 3.6, 2.8, 2, 1, 3.8, 3.9];
+        mostrarGrafico('Picos de uso Rede ', data);
+    }
+
+    function gerarGraficoDisco() {
+        const data = [70, 72, 75, 78, 80, 82, 77, 74, 76, 79, 81, 85, 88, 90, 73, 78, 82, 85, 76, 80];
+        mostrarGrafico('Picos de uso de Disco', data);
+    }
+
+    function mostrarGrafico(label, data) {
+
+        if (myChart) {
+
+            myChart.destroy();
+
+        }
+
+        myChart = new Chart(ctx, {
+
+            type: 'line',
+            data: {
+                labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                datasets: [{
+                    label: label,
+                    data: data,
+                    borderWidth: 1,
+                    borderColor: 'black',
+                    backgroundColor: 'white',
+                }]
+            },
+            options: {
+                plugins: {
+
+
+                    legend: {
+                    display: true,
+                    labels: {
+                        color: 'white', 
+                        font: {
+                            size: 14,
+                            family: 'Arial',
+                            weight: 'bold'
+                        }
+                    }
+                }
+
+
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white',
+                            font: {
+                                size: 15,
+                                family: 'Arial',
+                                weight: 'Bold'
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white',
+                            font: {
+                                size: 14,
+                                family: 'Arial',
+                                weight: 'Bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    criarGraficoUptime();
 </script>
