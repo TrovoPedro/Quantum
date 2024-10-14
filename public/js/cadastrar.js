@@ -16,9 +16,10 @@ function validarInformacoes() {
     } else if (senha !== confirmar_senha) {
         alert("As senhas não coincidem.");
     } else {
-        cadastrar(empresa, nome, email, senha); // Se todas as validações forem bem-sucedidas, chama a função de cadastro.
+        cadastrar(empresa, nome, email, senha); 
     }
 }
+
 
 function cadastrar(empresa, nome, email, senha) {
 
@@ -35,6 +36,7 @@ function cadastrar(empresa, nome, email, senha) {
             email: email,
             senha: senha
         }),
+
     })
     .then(function (resposta) {
         if (resposta.ok) {
@@ -48,6 +50,7 @@ function cadastrar(empresa, nome, email, senha) {
             throw new Error("Erro no cadastro. Status: " + resposta.status);
         }
     })
+
     .catch(function (erro) {
         console.log(`#ERRO: ${erro}`);
     });
@@ -55,7 +58,9 @@ function cadastrar(empresa, nome, email, senha) {
     return false;
 }
 
+
 function listarEmpresa() {
+
     fetch(`/usuarios/listarEmpresa`, {
         method: "GET",
         headers: {
@@ -82,12 +87,13 @@ function listarEmpresa() {
         } else {
             data.forEach(item => {
                 const option = document.createElement('option'); // Cria um novo elemento option
-                option.value = item.id; // Define o valor da opção (pode ser o ID da empresa)
+                option.value = item.idEmpresa; // Define o valor da opção (pode ser o ID da empresa)
                 option.textContent = item.razao_social; // Define o texto da opção
                 select.appendChild(option); // Adiciona a nova opção ao select
             });
         }
     })
+
     .catch(error => {
         console.error('Houve um erro ao capturar os dados', error);
     });

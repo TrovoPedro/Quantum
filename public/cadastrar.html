@@ -10,6 +10,7 @@
 </head>
 
 <body onload="listarEmpresa()">
+    
     <div class="main">
         <div class="right">
             <div class="container">
@@ -19,30 +20,40 @@
                 <div class="titulo">
                     <p class="subtitulo">Coloque as informações do administrador</p>
                 </div>
+
                 <div class="container-inputs">
+
                     <div class="inputs">
                         <p>Escolha a empresa</p>
                         <select name="" id="empresa">
                         </select>
                     </div>
+
                     <div class="inputs">
                         <p>Nome</p>
                         <input id="nome" name="nome" placeholder="Insira seu nome" type="text">
                     </div>
+
                     <div class="inputs">
                         <p>Email</p>
                         <input id="email" name="email" placeholder="Insira seu email" type="text">
                     </div>
+
                     <div class="inputs">
                         <p>Senha</p>
                         <input id="senha" name="senha" placeholder="Insira sua senha" type="password">
                     </div>
+
                     <div class="inputs">
                         <p>Confirmar senha</p>
                         <input id="confirmar_senha" name="confirmar_senha" placeholder="Confirme sua senha"
                             type="password">
                     </div>
+
+
                 </div>
+
+
                 <div class="login">
                     <button onclick="validarInformacoes()">
                         <h2>Cadastrar</h2>
@@ -52,6 +63,7 @@
         </div>
     </div>
 </body>
+
 <script src="./js/sessao.js"></script>
 <script src="js/cadastrar.js"></script>
 </html>

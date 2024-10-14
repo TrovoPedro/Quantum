@@ -35,17 +35,27 @@ function entrar() {
             sessionStorage.NOME_USUARIO = json[0].nome;
             sessionStorage.ID_USUARIO = json[0].idUsuario;
 
+            console.log("ID_USUARIO: ", sessionStorage.ID_USUARIO);
+
+
             if(sessionStorage.ID_USUARIO == 1){
+
+                console.log("Redirecionando para a página apropriada...");
+
                 setTimeout(function () {
                     window.location = "../listaEmpresas.html";
                 }, 500);
             }
             if (sessionStorage.ID_USUARIO == 2) {
+                console.log("Redirecionando para a página apropriada...");
+
                 setTimeout(function () {
                     window.location = "../Dash(ADM).html";
                 }, 500);
             }
             if (sessionStorage.ID_USUARIO == 3) {
+                console.log("Redirecionando para a página apropriada...");
+
                 setTimeout(function () {
                     window.location = "../dashboard.html";
                 }, 500);
