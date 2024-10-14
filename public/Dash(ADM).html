@@ -63,7 +63,9 @@
         </div>
     </div>
     <Section class="Dashboard">
+
         <div class="topDash">
+
             <div class="boxUser-data">
 
                 <h3>Olá, Administrador!</h3>
@@ -78,18 +80,16 @@
 
                 <div class="cardMonitorados">
 
+
                     <div class="item">
 
                         <h2 style="transform: translate(0%, -90%);">UPTIME SEMANAL</h2>
+
                     </div>
 
+
                     <div>
-
                         <canvas style="transform: translate(0%, -20%);" id="myChart" width="450" height="230"></canvas>
-
-
-
-
 
                     </div>
 
@@ -344,6 +344,19 @@
 </script>
 
 <script>
+    function atualizarData() {
+        const hoje = new Date();
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0'); 
+        const ano = hoje.getFullYear();
+        const dataFormatada = `Monitoramento dia ${dia}/${mes}/${ano}`;
+        document.getElementById("data2").innerText = dataFormatada;
+    }
+    
+    window.onload = atualizarData;
+</script>
+
+<script>
 
     const ctx1 = document.getElementById('myChart1').getContext('2d');
     new Chart(ctx1, {
@@ -437,19 +450,6 @@
         }
     });
 
-
-    function formatarData(data) {
-        const dia = String(data.getDate()).padStart(2, '0');
-        const mes = String(data.getMonth() + 1).padStart(2, '0');
-        const ano = data.getFullYear();
-
-        return `${dia}/${mes}/${ano}`;
-    }
-
-    const hoje = new Date();
-    const dataFormatada = formatarData(hoje);
-
-    document.getElementById('data2').textContent = `Monitoramento dia ${dataFormatada}`;
 
 
 </script>
@@ -582,16 +582,16 @@
 
 
                     legend: {
-                    display: true,
-                    labels: {
-                        color: 'white', 
-                        font: {
-                            size: 14,
-                            family: 'Arial',
-                            weight: 'bold'
+                        display: true,
+                        labels: {
+                            color: 'white',
+                            font: {
+                                size: 14,
+                                family: 'Arial',
+                                weight: 'bold'
+                            }
                         }
                     }
-                }
 
 
                 },
