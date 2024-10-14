@@ -71,10 +71,10 @@ function editarServidor(req, res) {
 }
 
 function excluirServidor(req, res) {
-
+    var situacaoEditada = req.body.situacaoEditada;
     var idServidor = req.params.idServidor;
 
-    servidorModel.excluirServidor(idServidor)
+    servidorModel.editarServidor(idServidor, situacaoEditada)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -83,7 +83,7 @@ function excluirServidor(req, res) {
         .catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao deletar o Servidor: ", erro.sqlMessage);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
@@ -93,5 +93,4 @@ module.exports = {
     cadastrar,
     buscarServidores,
     editarServidor,
-    excluirServidor
 }

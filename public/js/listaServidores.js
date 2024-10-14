@@ -1,7 +1,7 @@
 function validarInformacoes() {
     var nomeServidor = document.getElementById("inputNomeServidor").value;
     var situacao = document.getElementById("situacaoServidor").value;
-
+    
     if (
         nomeServidor === "" ||
         situacao === ""
@@ -116,7 +116,6 @@ function listarServidor() {
 
 function editarServidor(idServidor) {
     var nomeServidorEditado = document.getElementById("inputNomeEditado").value;
-    var situacaoEditada = document.getElementById("situacaoServidorEditado").value;
 
     fetch(`/servidores/editar/${sessionStorage.getItem("ID_SERVIDOR")}`, {
         method: "PUT",
@@ -125,7 +124,6 @@ function editarServidor(idServidor) {
         },
         body: JSON.stringify({
             nomeEditado: nomeServidorEditado,
-            situacaoEditada: situacaoEditada
         })
     }).then(function (resposta) {
 
@@ -140,19 +138,25 @@ function editarServidor(idServidor) {
 }
 
 function excluirServidor(idServidor) {
-    fetch(`/servidores/deletar/${idServidor}`, {
-        method: "DELETE",
+    var situacaoEditada = document.getElementById("situacaoServidorEditado").value;
+
+    fetch(`/servidores/editar/${sessionStorage.getItem("ID_SERVIDOR")}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify({
+            situacaoEditada: situacaoEditada
+        })
     }).then(function (resposta) {
+
         if (resposta.ok) {
-            window.location = "/listaServidores.html";
+            window.location = "/listaServidores.html"
         } else if (resposta.status == 404) {
-            window.alert("Deu 404! Servidor não encontrado.");
+            window.alert("Deu 404!");
         }
-    }).catch(function (erro) {
-        console.log(`#ERRO ao excluir servidor: ${erro}`);
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
     });
 }
 

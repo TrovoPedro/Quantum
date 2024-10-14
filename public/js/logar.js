@@ -1,5 +1,4 @@
 function entrar() {
-    
     var email = document.getElementById("email").value;
     var senha = document.getElementById("senha").value;
 
@@ -16,28 +15,33 @@ function entrar() {
             senha: senha
         })
     }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
+        console.log("ESTOU NO THEN DO entrar()!");
 
         if (resposta.ok) {
             console.log(resposta);
-
-            resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
-                sessionStorage.EMAIL_USUARIO = json[0].email;
-                sessionStorage.NOME_USUARIO = json[0].nomeUsuario;
-                sessionStorage.ID_USUARIO = json[0].idUsuario;
-
-                setTimeout(function () {
-                    window.location = "../Tela_Perfil.html";
-                }, 500); // apenas para exibir o loading
-
+            return resposta.json();
+        } else {
+            // Lógica para falha na autenticação
+            console.log("Erro na autenticação:", resposta.status);
+            return resposta.json().then(json => {
+                console.log("Mensagem de erro:", json.message);
             });
+        }
+    }).then(json => {
+        if (json) { // Verifique se json existe
+            console.log(json);
+            console.log(JSON.stringify(json));
+            sessionStorage.EMAIL_USUARIO = json[0].email;
+            sessionStorage.NOME_USUARIO = json[0].nome;
+            sessionStorage.ID_USUARIO = json[0].idUsuario;
 
+            setTimeout(function () {
+                window.location = "../Tela_Perfil.html";
+            }, 500);
         }
     }).catch(function (erro) {
-        console.log(erro);
-    })
+        console.log("Erro de rede ou outra falha:", erro);
+    });
 
     return false;
 }

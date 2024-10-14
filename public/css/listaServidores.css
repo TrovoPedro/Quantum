@@ -38,7 +38,7 @@ body {
 .pai-lista {
     display: flex;
     flex-direction: column;
-    margin-left: 25%;
+    margin-left: 20%;
     width: 100%;
     height: 100%;
     gap: 10px;
@@ -48,7 +48,6 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 5%;
-    margin-left: -7%;
 }
 
 .tituloTabela {
@@ -75,6 +74,32 @@ td {
     width: 25%;
 }
 
+.listaServidores{
+    width: 100%; /* Defina o tamanho da largura da div */
+    height: 370px; /* Altura fixa */
+    overflow-y: auto; /* Apenas o scroll vertical, se necessário */
+    overflow-x: hidden; /* Para evitar scroll horizontal, caso não precise */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+  .listaServidores::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem vertical */
+    height: 12px; /* Altura da barra de rolagem horizontal */
+  }
+  
+  /* Parte deslizante (thumb) da barra de rolagem */
+  .listaServidores::-webkit-scrollbar-thumb {
+    background-color: #7449EB; /* Cor da parte deslizante */
+    border-radius: 10px; /* Borda arredondada */
+  }
+  
+  /* Parte deslizante ao passar o mouse (hover) */
+  .listaServidores::-webkit-scrollbar-thumb:hover {
+    background-color: #351d79; /* Cor mais escura no hover */
+  }
+  
 
 .cardServidor {
     margin-top: 2.5%;

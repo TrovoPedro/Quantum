@@ -3,15 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <script src="./js/sessao.js"></script>
-    <script src="js/cadastrar.js" defer></script>
     <link rel="shortcut icon" href="./src/img/LogoQuantum.icon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/cadastro.css">
     <title>Cadastrar</title>
 </head>
 
-<body>
+<body onload="listarEmpresa()">
     <div class="main">
         <div class="right">
             <div class="container">
@@ -23,12 +21,9 @@
                 </div>
                 <div class="container-inputs">
                     <div class="inputs">
-                        <p>Insira o código da empresa</p>
-                       <select name="" id="">
-                        <option value=""></option>
-                        <option value="">Hospital 1</option>
-                        <option value="">Hospital 2</option>
-                       </select>
+                        <p>Escolha a empresa</p>
+                        <select name="" id="empresa">
+                        </select>
                     </div>
                     <div class="inputs">
                         <p>Nome</p>
@@ -44,7 +39,8 @@
                     </div>
                     <div class="inputs">
                         <p>Confirmar senha</p>
-                        <input id="confirmar_senha" name="confirmar_senha" placeholder="Confirme sua senha" type="password">
+                        <input id="confirmar_senha" name="confirmar_senha" placeholder="Confirme sua senha"
+                            type="password">
                     </div>
                 </div>
                 <div class="login">
@@ -56,5 +52,6 @@
         </div>
     </div>
 </body>
-
+<script src="./js/sessao.js"></script>
+<script src="js/cadastrar.js"></script>
 </html>

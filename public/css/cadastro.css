@@ -1,22 +1,4 @@
-@font-face {
-    font-family: Lato;
-    src: url(../../src/font/Lato/Lato-Light.ttf);
-}
-
-@font-face {
-    font-family: LatoBold;
-    src: url(../../src/font/Lato/Lato-Bold.ttf);
-}
-
-@font-face {
-    font-family: Ubunto;
-    src: url(../../src/font/Ubuntu/Ubuntu-Bold.ttf);
-}
-
-@font-face {
-    font-family: Ubunto-Medio;
-    src: url(../../src/font/Ubuntu/Ubuntu-Medium.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 body {
     background-color: #111111;
@@ -25,8 +7,8 @@ body {
 * {
     margin: 0px;
     padding: 0%;
-    max-width: 100%;
     color: #ffffff;
+    font-family: 'Lato';
 }
 
 .main {
@@ -45,7 +27,6 @@ body {
     border-radius: 10px;
     background: rgb(77, 20, 199);
     background: linear-gradient(177deg, rgba(77, 20, 199, 1) 0%, rgba(90, 35, 163, 1) 44%, rgba(97, 61, 201, 1) 98%);
-    font-family: Lato;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -116,7 +97,6 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-top: px;
 }
 
 .titulo h1 {
@@ -194,59 +174,60 @@ body {
 .login button {
     width: 530px;
     height: 50px;
-    font-family: Ubunto;
+    font-family: 'Lato';
     background-color: #7449EB;
     border: none;
     transition: transform 0.5s;
     cursor: pointer;
 }
 
-/* tirando o spinner da input tipo Number */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-@media screen and (max-width: 1366px) {
+@media (max-width: 1366px) {
+
+    *{
+        font-family: 'Lato';
+    }
 
     .right {
-        width: 50%;
+        width: 40%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        font-family: 'Lato';
         height: 100vh;
-        background-color: #111111;
     }
 
     .logo {
         display: flex;
+        font-family: 'Lato';
         justify-content: center;
     }
 
     .container {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
-        position: block;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
         flex-direction: column;
+        font-family: 'Lato';
     }
 
     .titulo {
         display: flex;
         flex-direction: column;
         text-align: center;
+        font-family: 'Lato';
         margin-top: 5px;
     }
 
     .titulo h1 {
         font-size: 36px;
-        font-family: LatoBold;
+        font-family: 'Lato';
     }
 
     .titulo p {
@@ -254,60 +235,47 @@ input[type="number"]::-webkit-inner-spin-button {
         margin-bottom: 10px;
         font-size: 20px;
         font-weight: bold;
-        font-family: LatoBold;
+        font-family: 'Lato';
     }
-
-   
 
     .container-inputs {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         flex-direction: column;
-        font-family: Lato;
+        font-family: 'Lato';
         font-weight: bold;
         width: auto;
+        height: 500px;
     }
 
     .container-inputs input {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 450px;
+        width: 400px;
         border: 0.8px solid #9598C1;
         color: #9598C1;
-        font-family: Lato;
+        font-family: 'Lato';
         font-size: 16px;
         font-style: normal;
         font-weight: bold;
-        background: #1111;
         padding: 15px;
     }
 
     .inputs {
         margin-top: 10px;
+        font-family: 'Lato';
+        height: 30px;
     }
 
     .inputs p {
-        font-family: LatoBold;
-        margin-bottom: 15px;
-    }
-
-    .semconta {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        font-family: Lato;
-        margin-top: 3%;
-    }
-
-    .semconta a {
-        text-decoration: none;
-        color: #3594BB;
-        margin-left: 2px;
+        font-family: 'Lato';
+        margin-bottom: -1px;
     }
 
     .login {
+        font-family: 'Lato';
         margin-top: 30px;
         display: flex;
         justify-content: center;
@@ -315,53 +283,13 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     .login button {
-        width: 480px;
-        height: 50px;
-        font-family: Ubunto;
+        width: 190px;
+        height: 30px;
+        font-family: 'Lato';
         background-color: #7449EB;
         border: none;
         transition: transform 0.5s;
         cursor: pointer;
-    }
-
-    .container {
-        position: relative;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-}
-
-@media screen and (max-width: 1366px) {
-    .left {
-        display: none;
-    }
-
-    .right {
-        width: 100%;
-    }
-
-    .container {
-        width: 80%;
-    }
-
-    .container-inputs {
-        width: 100%;
-        justify-content: left;
-        align-items: baseline;
-        margin: 0;
-        padding: 0;
-
-    }
-
-    .container-inputs input {
-        width: 96%;
-
-    }
-
-    .inputs {
-        width: 100%;
     }
 }
 
@@ -369,13 +297,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
     .container-inputs input {
         width: 96%;
-
-
     }
 
     .inputs {
         width: 94.5%;
-
     }
 }
 
