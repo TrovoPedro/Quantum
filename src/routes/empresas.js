@@ -8,6 +8,10 @@ router.post("/cadastrar", function (req, res) {
     empresaController.cadastrar(req, res);
 })
 
+router.post("/cadastrarEnd", function (req, res) {
+  empresaController.cadastrarEnd(req, res);
+})
+
 router.get("/buscar", function (req, res) {
     empresaController.buscarPorCnpj(req, res);
 });

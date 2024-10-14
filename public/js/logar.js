@@ -35,9 +35,22 @@ function entrar() {
             sessionStorage.NOME_USUARIO = json[0].nome;
             sessionStorage.ID_USUARIO = json[0].idUsuario;
 
-            setTimeout(function () {
-                window.location = "../Tela_Perfil.html";
-            }, 500);
+            if(sessionStorage.ID_USUARIO == 1){
+                setTimeout(function () {
+                    window.location = "../listaEmpresas.html";
+                }, 500);
+            }
+            if (sessionStorage.ID_USUARIO == 2) {
+                setTimeout(function () {
+                    window.location = "../Dash(ADM).html";
+                }, 500);
+            }
+            if (sessionStorage.ID_USUARIO == 3) {
+                setTimeout(function () {
+                    window.location = "../dashboard.html";
+                }, 500);
+            }
+            
         }
     }).catch(function (erro) {
         console.log("Erro de rede ou outra falha:", erro);

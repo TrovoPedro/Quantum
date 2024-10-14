@@ -30,8 +30,8 @@
             </div>
             <div class="nav-button">
                 <img src="assets/funcionarios-icon.svg" class="nav-icon" alt="">
-                <p><a style="text-decoration: none; color: white;" href="cadastrar.html"
-                        class="nav-link">Cadastro ADM</a></p>
+                <p><a style="text-decoration: none; color: white;" href="cadastrar.html" class="nav-link">Cadastro
+                        ADM</a></p>
             </div>
         </div>
         <div class="logout-container">
@@ -61,53 +61,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-row">
-                        <td>Hospital São Lucas</td>
-                        <td>12.345.678/0001-90</td>
-                        <td>Dr. João Silva</td>
-                        <td>Rua da Esperança, 123 - Centro, São Paulo - SP, 01234-000</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                        <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Hospital Vida Plena</td>
-                        <td>98.765.432/0001-01</td>
-                        <td>Dra. Maria Oliveira</td>
-                        <td>Avenida das Américas, 456 - Jardim, Rio de Janeiro - RJ, 12345-678</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                        <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Hospital Esperança</td>
-                        <td>56.789.123/0001-02</td>
-                        <td>Dr. Carlos Santos</td>
-                        <td>Rua do Progresso, 789 - Bairro Novo, Belo Horizonte - MG, 30123-456</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                        <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Hospital Coração Amigo</td>
-                        <td>34.567.890/0001-03</td>
-                        <td>Dra. Ana Ferreira</td>
-                        <td>Avenida Central, 321 - Vila Nova, Curitiba - PR, 80000-123</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                        <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
+
                 </tbody>
             </table>
-        </div>
-        <!-- Modal para detalhes da empresa -->
-        <div id="modalDetalhes" class="modal">
-            <div class="modal-content">
-                <span class="modal-close" onclick="fecharModal()">&times;</span>
-                <h2 id="tituloDetalhes">Detalhes da Empresa</h2>
-                <div id="conteudoDetalhes">
-                    <p id="nomeEmpresa"></p>
-                    <p id="cnpjEmpresa"></p>
-                    <p id="admEmpresa"></p>
-                    <p id="enderecoEmpresa"></p>
-                </div>
-            </div>
         </div>
 
         <div id="modalCadastroEmpresa" class="modalEmpresa">
@@ -125,6 +81,7 @@
                 <div class="boxEmpresa">
                     <button onclick="cadastroEmpresa()" class="botaoAvancar" class="input-empresa">Avançar</button>
                 </div>
+                <input type="hidden" id="idEmpresa" value="">
             </div>
         </div>
 
@@ -157,7 +114,8 @@
             <div class="conteudos-modal">
                 <h2>É necessário realizar um cadastro de um administrador da empresa.</h2>
                 <div class="boxEmpresa">
-                    <button onclick="window.location='cadastrar.html'" class="botaoAvancar" class="input-empresa">Ir para o cadastro</button>
+                    <button onclick="window.location='cadastrar.html'" class="botaoAvancar" class="input-empresa">Ir
+                        para o cadastro</button>
                 </div>
             </div>
         </div>
@@ -173,7 +131,7 @@
         var span = document.getElementById("modalCadastroEmpresa");
         span.style.display = "none";
     }
-    
+
 
 
     function aparecercard() {
@@ -187,16 +145,141 @@
         var cardEmpresa = document.getElementById('modalCadastroEmpresa')
         var cardEndereco = document.getElementById('modalCadastroEndereco')
 
-        cardEmpresa.style.display = 'none'
-        cardEndereco.style.display = 'block'
+
+        var nomeEmpresa = document.getElementById("razaosocial").value;
+        var cnpjEmpresa = document.getElementById("cnpj").value;
+
+        console.log(nomeEmpresa);
+        console.log(cnpjEmpresa);
+
+        fetch("/empresas/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeEmpresa: nomeEmpresa,
+                cnpjEmpresa: cnpjEmpresa,
+            }),
+        })
+        .then(function (resposta) {
+        if (resposta.ok) {
+            return resposta.json(); // Retorne o resultado como JSON
+        } else {
+            throw new Error("Erro no cadastro. Status: " + resposta.status);
+        }
+    })
+    .then(function (resultado) {
+        alert("Cadastro feito com sucesso!");
+        var idEmpresa = resultado.insertId; // Armazene o ID da empresa cadastrada
+
+        // Armazenar o id da empresa para o cadastro do endereço
+        document.getElementById("idEmpresa").value = idEmpresa; // Crie um input oculto para armazenar o ID
+        
+        // Agora abra o modal para cadastro do endereço
+        cardEmpresa.style.display = 'none';
+        cardEndereco.style.display = 'block';
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        alert("Um erro ocorreu: " + erro.message);
+    });
+
+    return false;
     }
 
     function cadastroEndereco() {
         var cardEndereco = document.getElementById('modalCadastroEndereco')
         var cardAdm = document.getElementById('modalCadastroAdm')
+
+        var cep = document.getElementById("cep").value;
+        var rua = document.getElementById("rua").value;
+        var complemento = document.getElementById("complemento").value;
+        var numero = document.getElementById("num").value;
+        var idEmpresa = document.getElementById("idEmpresa").value; // Obtenha o ID da empresa
+
+        fetch("/empresas/cadastrarEnd", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                cep: cep,
+                rua: rua,
+                complemento: complemento,
+                numero: numero,
+                idEmpresa: idEmpresa // Inclua o ID da empresa no corpo
+            }),
+        })
+         .then(function (resposta) {
+        if (resposta.ok) {
+            return resposta.json(); // Retorne o resultado como JSON
+        } else {
+            throw new Error("Erro no cadastro. Status: " + resposta.status);
+        }
+    })
+    .then(function (resultado) {
+        alert("Cadastro feito com sucesso!");
+        var idEmpresa = resultado.insertId; // Armazene o ID da empresa cadastrada
+
+        // Armazenar o id da empresa para o cadastro do endereço
+        document.getElementById("idEmpresa").value = idEmpresa; // Crie um input oculto para armazenar o ID
+        
+        // Agora abra o modal para cadastro do user
         cardEndereco.style.display = 'none'
         cardAdm.style.display = 'block'
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        alert("Um erro ocorreu: " + erro.message);
+    });
 
+    return false;
     }
+
+    function listarServidor() {
+    fetch(`/empresas/buscar`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            const tbody = document.querySelector('#tabela-servidores tbody');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 5;
+                cell.textContent = 'Nenhum Registro encontrado.';
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            } else {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                    <td>${item.idServidor}</td>
+                    <td>${item.nomeServidor}</td>
+                    <td>${item.razao_social}</td>
+                    <td>${item.tipo}</td>
+                    <td><button onclick="mostrarEditar()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
+                    <td><button onclick="excluirServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados', error);
+        });
+}
 
 </script>
