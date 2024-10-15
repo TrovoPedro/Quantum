@@ -51,46 +51,50 @@ function buscarServidores(req, res) {
 }
 
 function editarServidor(req, res) {
-    var nomeEditado = req.body.nomeEditado;
-    var situacaoEditada = req.body.situacaoEditada;
-    var idServidor = req.params.idServidor;
+    var nomeEditado = req.body.nomeEditado; 
+    var idServidor = req.params.idServidor; 
 
-    servidorModel.editarServidor(idServidor, nomeEditado, situacaoEditada)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    if (!nomeEditado) {
+        return res.status(400).send("Nome do servidor não fornecido.");
+    }
+
+    servidorModel.editarServidor(idServidor, nomeEditado) 
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
+
 
 function excluirServidor(req, res) {
-    var situacaoEditada = req.body.situacaoEditada;
+    
     var idServidor = req.params.idServidor;
 
-    servidorModel.editarServidor(idServidor, situacaoEditada)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    if (!idServidor) {
+
+        return res.status(400).send("ID do servidor não fornecido.");
+    }
+
+    var situacaoEditada = 1; 
+
+    servidorModel.excluirServidor(idServidor, situacaoEditada)
+        .then(resultado => {
+            res.status(200).json(resultado);
+        })
+        .catch(erro => {
+            console.log("Erro ao excluir servidor: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
+
 
 module.exports = {
     cadastrar,
     buscarServidores,
     editarServidor,
+    excluirServidor
 }

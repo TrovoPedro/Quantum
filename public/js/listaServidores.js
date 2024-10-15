@@ -1,7 +1,7 @@
 function validarInformacoes() {
     var nomeServidor = document.getElementById("inputNomeServidor").value;
     var situacao = document.getElementById("situacaoServidor").value;
-    
+
     if (
         nomeServidor === "" ||
         situacao === ""
@@ -21,10 +21,10 @@ function mostrarServidor() {
         mostrar.style.display = "none";
     }
 }
+function mostrarEditar(idServidor) {
 
-function mostrarEditar(){
+    sessionStorage.setItem("ID_SERVIDOR", idServidor);
     var mostrar = document.getElementById("aparecerBoxEditar");
-
     if (getComputedStyle(mostrar).display === "none") {
         mostrar.style.display = "flex";
     } else {
@@ -102,8 +102,10 @@ function listarServidor() {
                     <td>${item.nomeServidor}</td>
                     <td>${item.razao_social}</td>
                     <td>${item.tipo}</td>
-                    <td><button onclick="mostrarEditar()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
-                    <td><button onclick="excluirServidor()" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
+
+                <td><button onclick="mostrarEditar(${item.idServidor})" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
+                <td><button onclick="excluirServidor(${item.idServidor})" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
+
                     `;
                     tbody.appendChild(row);
                 });
@@ -114,49 +116,64 @@ function listarServidor() {
         });
 }
 
-function editarServidor(idServidor) {
+function editarServidor() {
+
+    var idServidor = sessionStorage.getItem("ID_SERVIDOR");
     var nomeServidorEditado = document.getElementById("inputNomeEditado").value;
 
-    fetch(`/servidores/editar/${sessionStorage.getItem("ID_SERVIDOR")}`, {
+    if (!idServidor) {
+        alert("ID do servidor não encontrado.");
+        return;
+    }
+
+    if (!nomeServidorEditado) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    fetch(`/servidores/editar/${idServidor}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            nomeEditado: nomeServidorEditado,
+            nomeEditado: nomeServidorEditado 
         })
     }).then(function (resposta) {
-
         if (resposta.ok) {
-            window.location = "/listaServidores.html"
+            window.location = "/listaServidores.html";
         } else if (resposta.status == 404) {
-            window.alert("Deu 404!");
+            window.alert("Servidor não encontrado.");
+        } else {
+            alert("Erro ao editar o servidor. Tente novamente.");
         }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+    }).catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
     });
 }
 
-function excluirServidor(idServidor) {
-    var situacaoEditada = document.getElementById("situacaoServidorEditado").value;
 
-    fetch(`/servidores/editar/${sessionStorage.getItem("ID_SERVIDOR")}`, {
+
+function excluirServidor(idServidor) {
+    
+    fetch(`/servidores/excluir/${idServidor}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            situacaoEditada: situacaoEditada
+            situacaoEditada: 1
         })
-    }).then(function (resposta) {
-
+    })
+    .then(function (resposta) {
         if (resposta.ok) {
-            window.location = "/listaServidores.html"
+            window.location = "/listaServidores.html";
         } else if (resposta.status == 404) {
             window.alert("Deu 404!");
         }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
     });
 }
 
