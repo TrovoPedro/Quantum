@@ -43,7 +43,7 @@ function cadastrar(empresa, nome, email, senha) {
             alert("Cadastro feito com sucesso!");
 
             setTimeout(() => {
-                window.location = "login.html";
+                window.location = "listaEmpresas.html";
             }, 2000);
         } else {
             alert("Houve um erro ao efetuar o cadastro.");

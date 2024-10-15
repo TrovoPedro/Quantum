@@ -34,11 +34,13 @@ function entrar() {
             sessionStorage.EMAIL_USUARIO = json[0].email;
             sessionStorage.NOME_USUARIO = json[0].nome;
             sessionStorage.ID_USUARIO = json[0].idUsuario;
+            sessionStorage.FKTIPO_USUARIO = json[0].fkTipoUsuario;
 
             console.log("ID_USUARIO: ", sessionStorage.ID_USUARIO);
+            console.log("FKTIPOUSUARIO: ", sessionStorage.FKTIPO_USUARIO);
 
 
-            if(sessionStorage.ID_USUARIO == 1){
+            if(sessionStorage.FKTIPO_USUARIO == 1){
 
                 console.log("Redirecionando para a página apropriada...");
 
@@ -46,14 +48,14 @@ function entrar() {
                     window.location = "../listaEmpresas.html";
                 }, 500);
             }
-            if (sessionStorage.ID_USUARIO == 2) {
+            if (sessionStorage.FKTIPO_USUARIO == 2) {
                 console.log("Redirecionando para a página apropriada...");
 
                 setTimeout(function () {
                     window.location = "../Dash(ADM).html";
                 }, 500);
             }
-            if (sessionStorage.ID_USUARIO == 3) {
+            if (sessionStorage.FKTIPO_USUARIO == 3) {
                 console.log("Redirecionando para a página apropriada...");
 
                 setTimeout(function () {

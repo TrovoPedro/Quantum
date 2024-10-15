@@ -1,13 +1,11 @@
 var database = require("../database/config");
 
-function buscarPorId(id) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${id}'`;
-
-  return database.executar(instrucaoSql);
-}
-
-function listar() {
-  var instrucaoSql = `SELECT id, razao_social, cnpj FROM empresa`;
+function buscarPorId(idEmpresa) {
+  var instrucaoSql = `SELECT empresa.idEmpresa, empresa.razao_social, empresa.cnpj, situacao.tipo, endereco.cep, endereco.rua, endereco.num, usuario.nome FROM empresa JOIN situacao
+            ON empresa.fkSituacao = situacao.idSituacao
+            JOIN endereco ON endereco.fkEmpresa = empresa.idEmpresa 
+            JOIN usuario ON usuario.fkEmpresa = empresa.idEmpresa WHERE usuario.fkTipoUsuario = 2
+    ORDER BY idEmpresa;`;
 
   return database.executar(instrucaoSql);
 }
@@ -30,4 +28,4 @@ function cadastrarEnd(cep, rua, complemento, numero, idEmpresa) {
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, cadastrarEnd };
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, cadastrarEnd };
