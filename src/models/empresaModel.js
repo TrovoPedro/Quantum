@@ -1,18 +1,22 @@
 var database = require("../database/config");
 
 function buscarPorId(idEmpresa) {
-  var instrucaoSql = `SELECT empresa.idEmpresa, empresa.razao_social, empresa.cnpj, situacao.tipo, endereco.cep, endereco.rua, endereco.num, usuario.nome FROM empresa JOIN situacao
+
+
+  var instrucaoSql = `SELECT empresa.idEmpresa, empresa.razao_social, empresa.cnpj, situacao.tipo, endereco.cep, endereco.rua, endereco.num, usuario.idUsuario, usuario.nome, usuario.email FROM empresa JOIN situacao
             ON empresa.fkSituacao = situacao.idSituacao
             JOIN endereco ON endereco.fkEmpresa = empresa.idEmpresa 
             JOIN usuario ON usuario.fkEmpresa = empresa.idEmpresa WHERE usuario.fkTipoUsuario = 2
     ORDER BY idEmpresa;`;
 
   return database.executar(instrucaoSql);
+  
+
 }
 
 function buscarPorCnpj(cnpj) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
 
+  var instrucaoSql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
   return database.executar(instrucaoSql);
 }
 
@@ -41,7 +45,7 @@ function excluirEmpresa(idEmpresa, situacaoEditada) {
   return database.executar(instrucaoSql);
 }
 
-function editarEmpresa(idUsuario,idEmpresa, nomeGerenteEditado, emailGerenteEditado, senhaGerenteEditado) {
+function editarEmpresa(idUsuario, idEmpresa, nomeGerenteEditado, emailGerenteEditado, senhaGerenteEditado) {
   var instrucaoSql = `
       UPDATE usuario 
       SET nome = '${nomeGerenteEditado}',
@@ -54,4 +58,35 @@ function editarEmpresa(idUsuario,idEmpresa, nomeGerenteEditado, emailGerenteEdit
 }
 
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, cadastrarEnd, excluirEmpresa, editarEmpresa, };
+function salvarEdicao(idUsuario, nomeGerenteEditado, emailGerenteEditado) {
+
+    console.log("ID do Usuário:", idUsuario);
+    console.log("Nome Editado:", nomeGerenteEditado);
+    console.log("Email Editado:", emailGerenteEditado);
+
+    var instrucaoSql = `
+        UPDATE usuario 
+        SET nome = '${nomeGerenteEditado}',
+        email = '${emailGerenteEditado}'
+        WHERE idUsuario = ${idUsuario};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+
+
+
+
+
+
+module.exports = {
+  buscarPorCnpj,
+  buscarPorId, cadastrar,
+  cadastrarEnd,
+  excluirEmpresa,
+  editarEmpresa,
+  salvarEdicao
+
+};

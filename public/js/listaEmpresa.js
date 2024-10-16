@@ -1,4 +1,4 @@
-// Função para abrir o modal com os detalhes da empresa
+let idUsuario01;
 
 function fecharModal1() {
     var span = document.getElementById("modalCadastroEmpresa");
@@ -34,30 +34,28 @@ function cadastroEmpresa() {
             cnpjEmpresa: cnpjEmpresa,
         }),
     })
-    .then(function (resposta) {
-    if (resposta.ok) {
-        return resposta.json(); // Retorne o resultado como JSON
-    } else {
-        throw new Error("Erro no cadastro. Status: " + resposta.status);
-    }
-})
-.then(function (resultado) {
-    alert("Cadastro feito com sucesso!");
-    var idEmpresa = resultado.insertId; // Armazene o ID da empresa cadastrada
+        .then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
+            } else {
+                throw new Error("Erro no cadastro. Status: " + resposta.status);
+            }
+        })
+        .then(function (resultado) {
+            alert("Cadastro feito com sucesso!");
+            var idEmpresa = resultado.insertId;
 
-    // Armazenar o id da empresa para o cadastro do endereço
-    document.getElementById("idEmpresa").value = idEmpresa; // Crie um input oculto para armazenar o ID
-    
-    // Agora abra o modal para cadastro do endereço
-    cardEmpresa.style.display = 'none';
-    cardEndereco.style.display = 'block';
-})
-.catch(function (erro) {
-    console.log(`#ERRO: ${erro}`);
-    alert("Um erro ocorreu: " + erro.message);
-});
+            document.getElementById("idEmpresa").value = idEmpresa;
 
-return false;
+            cardEmpresa.style.display = 'none';
+            cardEndereco.style.display = 'block';
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
+            alert("Um erro ocorreu: " + erro.message);
+        });
+
+    return false;
 }
 
 function cadastroEndereco() {
@@ -68,7 +66,7 @@ function cadastroEndereco() {
     var rua = document.getElementById("rua").value;
     var complemento = document.getElementById("complemento").value;
     var numero = document.getElementById("num").value;
-    var idEmpresa = document.getElementById("idEmpresa").value; // Obtenha o ID da empresa
+    var idEmpresa = document.getElementById("idEmpresa").value;
 
     fetch("/empresas/cadastrarEnd", {
         method: "POST",
@@ -80,64 +78,65 @@ function cadastroEndereco() {
             rua: rua,
             complemento: complemento,
             numero: numero,
-            idEmpresa: idEmpresa // Inclua o ID da empresa no corpo
+            idEmpresa: idEmpresa
         }),
     })
-     .then(function (resposta) {
-    if (resposta.ok) {
-        return resposta.json(); // Retorne o resultado como JSON
-    } else {
-        throw new Error("Erro no cadastro. Status: " + resposta.status);
-    }
-})
-.then(function (resultado) {
-    alert("Cadastro feito com sucesso!");
-    var idEmpresa = resultado.insertId; // Armazene o ID da empresa cadastrada
+        .then(function (resposta) {
+            if (resposta.ok) {
+                return resposta.json();
+            } else {
+                throw new Error("Erro no cadastro. Status: " + resposta.status);
+            }
+        })
+        .then(function (resultado) {
+            alert("Cadastro feito com sucesso!");
+            var idEmpresa = resultado.insertId;
 
-    // Armazenar o id da empresa para o cadastro do endereço
-    document.getElementById("idEmpresa").value = idEmpresa; // Crie um input oculto para armazenar o ID
-    
-    // Agora abra o modal para cadastro do user
-    cardEndereco.style.display = 'none'
-    cardAdm.style.display = 'block'
-})
-.catch(function (erro) {
-    console.log(`#ERRO: ${erro}`);
-    alert("Um erro ocorreu: " + erro.message);
-});
+            document.getElementById("idEmpresa").value = idEmpresa;
+            cardEndereco.style.display = 'none'
+            cardAdm.style.display = 'block'
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
+            alert("Um erro ocorreu: " + erro.message);
+        });
 
-return false;
+    return false;
 }
 
-function listarEmpresa() {
-fetch(`/empresas/buscarPorId`, {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json"
-    }
-})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        const tbody = document.querySelector('.empresa-list tbody');
-        tbody.innerHTML = '';
 
-        if (data.length === 0) {
-            const row = document.createElement('tr');
-            const cell = document.createElement('td');
-            cell.colSpan = 5;
-            cell.textContent = 'Nenhum Registro encontrado.';
-            row.appendChild(cell);
-            tbody.appendChild(row);
-        } else {
-            data.forEach(item => {
+
+function listarEmpresa() {
+
+    fetch(`/empresas/buscarPorId`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            const tbody = document.querySelector('.empresa-list tbody');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
                 const row = document.createElement('tr');
-                row.innerHTML = `
+                const cell = document.createElement('td');
+                cell.colSpan = 5;
+                cell.textContent = 'Nenhum Registro encontrado.';
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            } else {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+
                 <td>${item.idEmpresa}</td>
                 <td>${item.razao_social}</td>
                 <td>${item.cnpj}</td>
@@ -145,47 +144,146 @@ fetch(`/empresas/buscarPorId`, {
                 <td>CEP: ${item.cep}, ${item.rua}, nº:${item.num}</td>
                 <td>${item.tipo}</td>
                 <td>
-    <td>
-    <button onclick="mostrarEditar($)" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+
+
+<td>
+    <button onclick="aparecerModalEditar(${item.idUsuario}, '${item.nome}', '${item.email}')" 
+            class="btn-icon" 
+            style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconlapis.png" alt="" style="width: 25px; height: 25px;">
     </button>
 </td>
+
+
 <td>
     <button onclick="excluirEmpresa(${item.idEmpresa})" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconLixeira.svg" alt="" style="width: 25px; height: 25px;">
     </button>
 </td>
                 `;
-                tbody.appendChild(row);
-            });
-        }
+                    tbody.appendChild(row);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados', error);
+        });
+}
+
+
+function aparecerModalEditar(idUsuario, nome, email) {
+
+
+    document.getElementById("modalEditarAdm").style.display = "block";
+
+
+    nomeEditado.value = nome
+    emailGerenteEditado.value = email
+
+    // salvarEdicao(idUsuario);
+
+    idUsuario01 = idUsuario;
+
+
+}
+
+function fecharModalEditar() {
+    document.getElementById("modalEditarAdm").style.display = "none";
+}
+
+function abrirModalEditarAdministrador(usuario) {
+    console.log("Abrindo modal para editar usuário:", usuario);
+    document.getElementById('idUsuario').value = usuario.id;
+    document.getElementById('nomeEditado').value = usuario.nome
+    document.getElementById('emailGerenteEditado').value = usuario.email;
+    document.getElementById('modalEditarAdm').style.display = 'block';
+
+}
+
+
+
+
+function mostrarEditar(idUsuario, nomeAdm, emailAdm) {
+
+    abrirModalEditarAdministrador({ id: idUsuario, nome: nomeAdm, email: emailAdm });
+
+}
+
+
+
+
+
+
+function salvarEdicao() {
+
+    // listarEmpresa()
+
+    // var idUsuario = sessionStorage.getItem("ID_USUARIO");
+
+
+    var nomeEditado = document.getElementById("nomeEditado").value;
+    var emailGerenteEditado = document.getElementById("emailGerenteEditado").value;
+
+
+    // console.log("Id", idUsuario01)
+    // console.log("n", nome)
+    // console.log("em", email)
+
+
+    var idUsuario = idUsuario01
+
+    fetch(`/empresas/editarADM/${idUsuario}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            nome: nomeEditado,
+            email: emailGerenteEditado
+        }),
     })
-    .catch(error => {
-        console.error('Houve um erro ao capturar os dados', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao editar o administrador: " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Administrador editado com sucesso:", data);
+
+            document.getElementById("modalEditarAdm").style.display = "none";
+            document.getElementById("modalEditarEndereco").style.display = "block";
+
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+        });
 }
 
-function mostrarEditar(idEmpresa, idUsuario) {
 
-    sessionStorage.setItem("ID_EMPRESA", idEmpresa);
-    sessionStorage.setItem("ID_USUARIO", idUsuario);
 
-    var mostrar = document.getElementById("aparecerBoxEditar");
-    if (getComputedStyle(mostrar).display === "none") {
-        mostrar.style.display = "flex";
-    } else {
-        mostrar.style.display = "none";
-    }
+
+
+
+function editarEndereco() {
+
+
+
+    
 }
+
+
+
+
 
 function editarEmpresa() {
-    var idEmpresa= sessionStorage.getItem("ID_EMPRESA");
-    var idUsuario= sessionStorage.getItem("ID_USUARIO");
+    var idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+    var idUsuario = sessionStorage.getItem("ID_USUARIO");
     var nomeGerenteEditado = document.getElementById("inputNomeAdm").value;
     var emailGerenteEditado = document.getElementById("inputEmailAdm").value;
     var senhaGerenteEditado = document.getElementById("inputSenhaAdm").value;
 
-    
+
     if (!idEmpresa) {
         alert("ID da empresa não encontrado.");
         return;
@@ -217,7 +315,7 @@ function editarEmpresa() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            nomeEditado: nomeGerenteEditado 
+            nomeEditado: nomeGerenteEditado
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -233,7 +331,7 @@ function editarEmpresa() {
 }
 
 function excluirEmpresa(idEmpresa) {
-    
+
     fetch(`/empresas/excluir/${idEmpresa}`, {
         method: "PUT",
         headers: {
@@ -243,14 +341,14 @@ function excluirEmpresa(idEmpresa) {
             situacaoEditada: 1
         })
     })
-    .then(function (resposta) {
-        if (resposta.ok) {
-            window.location = "/listaEmpresas.html";
-        } else if (resposta.status == 404) {
-            window.alert("Deu 404!");
-        }
-    })
-    .catch(function (erro) {
-        console.log(`#ERRO: ${erro}`);
-    });
+        .then(function (resposta) {
+            if (resposta.ok) {
+                window.location = "/listaEmpresas.html";
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            }
+        })
+        .catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
+        });
 }

@@ -3,7 +3,6 @@ var router = express.Router();
 
 var empresaController = require("../controllers/empresaController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
     empresaController.cadastrar(req, res);
 })
@@ -23,5 +22,14 @@ router.get("/buscarPorId", function (req, res) {
 router.put("/excluir/:idEmpresa", function (req, res) {
   empresaController.excluirEmpresa(req, res);
 });
+
+
+router.put('/editarADM/:idUsuario', function (req, res) {
+  empresaController.salvarEdicao(req, res);
+}); 
+
+
+
+
 
 module.exports = router;

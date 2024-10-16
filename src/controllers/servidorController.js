@@ -51,6 +51,7 @@ function buscarServidores(req, res) {
 }
 
 function editarServidor(req, res) {
+    
     var nomeEditado = req.body.nomeEditado; 
     var idServidor = req.params.idServidor; 
 

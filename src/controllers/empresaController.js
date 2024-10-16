@@ -52,7 +52,6 @@ function cadastrarEnd(req, res) {
     res.status(400).send("Seu idEmpresa está undefined!");
   } else {
 
-    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
     empresaModel.cadastrarEnd(cep, rua, complemento, numero, idEmpresa)
       .then(
         function (resultado) {
@@ -72,48 +71,79 @@ function cadastrarEnd(req, res) {
 }
 
 function excluirEmpresa(req, res) {
-  
+
   var idEmpresa = req.params.idEmpresa;
 
   if (!idEmpresa) {
 
-      return res.status(400).send("ID da empresa não fornecido.");
+    return res.status(400).send("ID da empresa não fornecido.");
   }
 
-  var situacaoEditada = 1; 
+  var situacaoEditada = 1;
 
   empresaModel.excluirEmpresa(idEmpresa, situacaoEditada)
-      .then(resultado => {
-          res.status(200).json(resultado);
-      })
-      .catch(erro => {
-          console.log("Erro ao excluir empresa: ", erro.sqlMessage);
-          res.status(500).json(erro.sqlMessage);
-      });
+    .then(resultado => {
+      res.status(200).json(resultado);
+    })
+    .catch(erro => {
+      console.log("Erro ao excluir empresa: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
 }
 
 function editarEmpresa(req, res) {
-  var nomeEditado = req.body.nomeEditado;  
-  var idUsuario= req.params.idUsuario;
+  
+  var nomeEditado = req.body.nomeEditado;
+  var idUsuario = req.params.idUsuario;
   var idEmpresa = req.params.idEmpresa;
   var nomeGerenteEditado = req.body.nomeGerenteEditado;
   var emailGerenteEditado = req.body.emailGerenteEditado;
-  var senhaGerenteEditado =req.body.senhaGerenteEditado;
+  var senhaGerenteEditado = req.body.senhaGerenteEditado;
 
   if (!nomeEditado) {
-      return res.status(400).send("Nome do servidor não fornecido.");
+    return res.status(400).send("Nome do servidor não fornecido.");
   }
 
-  servidorModel.editarServidor(idUsuario,idEmpresa, nomeGerenteEditado, emailGerenteEditado, senhaGerenteEditado) 
-      .then(function (resultado) {
-          res.json(resultado);
-      })
-      .catch(function (erro) {
-          console.log(erro);
-          console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-          res.status(500).json(erro.sqlMessage);
-      });
+  servidorModel.editarServidor(idUsuario, idEmpresa, nomeGerenteEditado, emailGerenteEditado, senhaGerenteEditado)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
 }
+
+
+function salvarEdicao(req, res) {
+
+  var idUsuario = req.params.idUsuario;
+  var nomeGerenteEditado = req.body.nome;
+  var emailGerenteEditado = req.body.email;
+
+  console.log("ID do Usuário:", idUsuario);
+  console.log("Nome Editado:", nomeGerenteEditado);
+  console.log("Email Editado:", emailGerenteEditado);
+
+
+
+  empresaModel.salvarEdicao(idUsuario, nomeGerenteEditado, emailGerenteEditado)
+
+    .then(() => {
+      res.status(200).json({ message: "Administrador editado com sucesso" });
+    })
+
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: "Erro ao editar o administrador" });
+    });
+}
+
+
+
+
+
 
 module.exports = {
   buscarPorCnpj,
@@ -122,4 +152,5 @@ module.exports = {
   cadastrarEnd,
   excluirEmpresa,
   editarEmpresa,
+  salvarEdicao
 };

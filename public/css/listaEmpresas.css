@@ -49,10 +49,11 @@ table {
     font-size: 23px;
 }
 
-.table-row, td {
-    padding: 15px; 
+.table-row,
+td {
+    padding: 15px;
     text-align: center;
-    color: #ffffff; 
+    color: #ffffff;
     font-size: 16px;
 }
 
@@ -87,17 +88,20 @@ table {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro semitransparente */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Fundo escuro semitransparente */
 }
 
 .modal-content {
     background-color: #000000;
-    margin: 0 auto; /* Centraliza horizontalmente */
+    margin: 0 auto;
+    /* Centraliza horizontalmente */
     position: relative;
     top: 20%;
     padding: 20px;
     border-radius: 10px;
-    width: 50%; /* Ajuste conforme necessário */
+    width: 50%;
+    /* Ajuste conforme necessário */
     max-width: 600px;
 }
 
@@ -123,26 +127,32 @@ table {
 
 .profile-picture {
     position: relative;
-    width: 100px; /* Ajuste o tamanho conforme necessário */
-    height: 100px; /* Ajuste o tamanho conforme necessário */
+    width: 100px;
+    /* Ajuste o tamanho conforme necessário */
+    height: 100px;
+    /* Ajuste o tamanho conforme necessário */
     border-radius: 50%;
     overflow: hidden;
-    background-color: #ccc; /* Cor de fundo padrão */
+    background-color: #ccc;
+    /* Cor de fundo padrão */
 }
 
 input[type="file"] {
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0; /* Torna o input invisível */
+    opacity: 0;
+    /* Torna o input invisível */
     cursor: pointer;
 }
 
 #imgPerfil {
     width: 20%;
     height: 20%;
-    object-fit: cover; /* Cobre o contêiner sem distorcer a imagem */
-    border-radius: 50%; /* Deixa a imagem redonda */
+    object-fit: cover;
+    /* Cobre o contêiner sem distorcer a imagem */
+    border-radius: 50%;
+    /* Deixa a imagem redonda */
     background-size: cover;
 }
 
@@ -184,12 +194,12 @@ input[type="file"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50px; 
+    border-radius: 50px;
     background-color: #3C3C3C;
-    height: 40px; 
+    height: 40px;
     width: 300px;
     padding: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -210,24 +220,28 @@ input[type="file"] {
 
 /* Estilos do modal */
 .modal {
-    display: none; /* Inicialmente escondido */
+    display: none;
+    /* Inicialmente escondido */
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro semitransparente */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Fundo escuro semitransparente */
 }
 
 .modal-content {
     background-color: #000000;
-    margin: 0 auto; /* Centraliza horizontalmente */
+    margin: 0 auto;
+    /* Centraliza horizontalmente */
     position: relative;
     top: 20%;
     padding: 20px;
     border-radius: 10px;
-    width: 50%; /* Ajuste conforme necessário */
+    width: 50%;
+    /* Ajuste conforme necessário */
     max-width: 600px;
 }
 
@@ -361,23 +375,22 @@ input[type="file"] {
 .nav-icon {
     height: 70%;
 }
-/* Modal cadastro empresa */
+
 .modalEmpresa {
     display: none;
-    position: fixed; /* Posição fixa para garantir que o modal sempre fique visível */
-    top: 50%; /* Centraliza verticalmente */
-    left: 50%; /* Centraliza horizontalmente */
-    transform: translate(-50%, -50%); /* Ajuste para alinhar o modal ao centro exato */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #212121;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
     padding: 2rem;
     width: fit-content;
     height: fit-content;
-    z-index: 1000; /* Garantir que o modal fique acima de outros elementos */
+    z-index: 1000;
 }
 
-/* Para garantir que os conteúdos dentro do modal estejam alinhados */
 .conteudos-modal {
     display: flex;
     flex-direction: column;
@@ -394,14 +407,14 @@ input[type="file"] {
 }
 
 
-.input-empresa{
+.input-empresa {
     border-style: none;
     background-color: #cccaca;
     width: 100%;
     height: 2rem;
     border-radius: 20px;
     margin-left: 2%;
-    color:#000  ;
+    color: #000;
     font-family: Ubuntu;
     font-size: 20px;
 }
@@ -426,26 +439,66 @@ input[type="file"] {
 }
 
 .boxEditarEmpresa {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    width: 35%;
-    height: 8   0%;
-    right: 0;
-    bottom: 0;
-    background-color: #111111;
-    display: none; /* Inicialmente oculto */
+    display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 5%;
     align-items: center;
-    border-radius: 6px;
-    border: solid 1px;
-    border-color: #7449EB;
+    background-color: #212121;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    transform: translate(-30%, -50%); 
+
 }
 
-/* Estilo para a seção do logotipo e título */
+.boxEditarEmpresa h2 {
+    color: #7449EB;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.boxEditarEmpresa input,
+.boxEditarEmpresa select {
+    width: 85%;
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #7449EB; 
+    border-radius: 4px;
+    font-size: 16px; 
+    background-color: #333333; 
+    color: #ffffff; 
+}
+
+.boxEditarEmpresa button {
+    background-color: #7449EB;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.boxEditarEmpresa button:hover {
+    background-color: #5b38b0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
 .logoCadastroEmpresa {
     display: flex;
     width: 80%;
@@ -458,14 +511,12 @@ input[type="file"] {
     gap: 20%;
 }
 
-/* Estilo para a imagem do logotipo */
 .logoCadastroImagem {
     height: 50%;
 }
 
-/* Estilo para o formulário de edição */
 .nomeEmpresaEditado {
-    height: 10  0%;
+    height: 10 0%;
     width: 90%;
     gap: 5%;
     display: flex;
@@ -473,7 +524,6 @@ input[type="file"] {
     margin-top: 5%;
 }
 
-/* Estilo para as divs que contêm os textos */
 .divNomeEmpresaEditado {
     height: 20%;
     width: 100%;

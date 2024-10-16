@@ -62,7 +62,7 @@
                         <th>Situação</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
 
                 </tbody>
             </table>
@@ -122,35 +122,38 @@
             </div>
         </div>
 
-        <div class="boxEditarEmpresa" id="aparecerBoxEditar">
-            <div class="logoCadastroEmpresa">
-                <img src="img/Logo Quantum.svg" class="logoCadastroImagem">
-                <h2>Editar Empresa</h2>
+        <div class="boxEditarEmpresa" id="modalEditarAdm" style="display: none; background: none; border: none;">
+
+            <div  class="modal-content">
+
+                <span class="close-button" onclick="fecharModalEditar()">×</span>
+
+                <h2>Editar Administrador</h2>
+
+                <input type="hidden" id="idUsuario" />
+                <input type="text" id="nomeEditado" placeholder="Nome" />
+                <input type="email" id="emailGerenteEditado" placeholder="Email" />
+                
+                <button onclick="salvarEdicao()">Salvar</button>
+
             </div>
-            <div class="nomeEmpresaEditado">
-                <div class="divNomeEmpresaEditado">
-                    <p>Nome Novo Administrador</p>
-                </div>
-                <input type="text" placeholder="Insira o nome do novo Administrador da Empresa" class="inputNomeEmpresa" id="inputNomeAdm">
-                <div class="divNomeEmpresaEditado">
-                    <p>Email Novo Administrador</p>
-                </div>
-                <input type="text" placeholder="Insira o nome do novo Administrador da Empresa" class="inputNomeEmpresa" id="inputEmailAdm">
-                <div class="divNomeEmpresaEditado">
-                    <p>Senha Novo Administrador</p>
-                </div>
-                <input type="text" placeholder="Insira o nome do novo Administrador da Empresa" class="inputNomeEmpresa" id="inputSenhaAdm">
-                <div class="divNomeEmpresaEditado">
-                    <p>Situação empresa</p>
-                </div>
-                <select id="situacaoEmpresaEditado">
-                    <option id="ativo" value="Ativo">Ativo</option>
-                    <option id="desativado" value="Desativado">Desativado</option>
-                </select>
-            </div> <br>
-    
-            <button class="botaoAvancar" onclick="editarEmpresa()">Editar</button>
+
         </div>
+
+
+
+        <div class="boxEditarEmpresa" id="modalEditarEndereco" style="display: none;">
+            <h2>Editar Endereço</h2>
+            <input type="text" placeholder="CEP" id="inputCepEmpresa">
+            <input type="text" placeholder="Rua" id="inputRuaEmpresa">
+            <input type="text" placeholder="Número" id="inputNumeroEmpresa">
+            <input type="text" placeholder="Complemento" id="inputComplementoEmpresa">
+            <button onclick="editarEndereco()">Salvar Endereço</button>
+        </div>
+
+
+
+
 
     </div>
 </body>
