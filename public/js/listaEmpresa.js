@@ -1,4 +1,5 @@
 let idUsuario01;
+let idEndereco01;
 
 function fecharModal1() {
     var span = document.getElementById("modalCadastroEmpresa");
@@ -147,7 +148,13 @@ function listarEmpresa() {
 
 
 <td>
-    <button onclick="aparecerModalEditar(${item.idUsuario}, '${item.nome}', '${item.email}')" 
+    <button onclick="aparecerModalEditar(${item.idUsuario}, 
+    '${item.nome}',
+     '${item.email}',
+     '${item.idEndereco}',
+      '${item.cep}', 
+       '${item.rua}',
+        '${item.num}',)" 
             class="btn-icon" 
             style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconlapis.png" alt="" style="width: 25px; height: 25px;">
@@ -171,27 +178,33 @@ function listarEmpresa() {
 }
 
 
-function aparecerModalEditar(idUsuario, nome, email) {
+function aparecerModalEditar(idUsuario, nome, email, idEndereco,  cep, rua, numero, ) {
 
 
     document.getElementById("modalEditarAdm").style.display = "block";
 
 
-    nomeEditado.value = nome
-    emailGerenteEditado.value = email
+    nomeEditado.value = nome;
+    emailGerenteEditado.value = email;
 
-    // salvarEdicao(idUsuario);
+    inputCepEmpresa.value = cep;
+    inputRuaEmpresa.value = rua;
+    inputNumeroEmpresa.value = numero;
 
     idUsuario01 = idUsuario;
+    idEndereco01 = idEndereco;
+
 
 
 }
 
 function fecharModalEditar() {
+
     document.getElementById("modalEditarAdm").style.display = "none";
 }
 
 function abrirModalEditarAdministrador(usuario) {
+
     console.log("Abrindo modal para editar usuário:", usuario);
     document.getElementById('idUsuario').value = usuario.id;
     document.getElementById('nomeEditado').value = usuario.nome
@@ -216,18 +229,8 @@ function mostrarEditar(idUsuario, nomeAdm, emailAdm) {
 
 function salvarEdicao() {
 
-    // listarEmpresa()
-
-    // var idUsuario = sessionStorage.getItem("ID_USUARIO");
-
-
     var nomeEditado = document.getElementById("nomeEditado").value;
     var emailGerenteEditado = document.getElementById("emailGerenteEditado").value;
-
-
-    // console.log("Id", idUsuario01)
-    // console.log("n", nome)
-    // console.log("em", email)
 
 
     var idUsuario = idUsuario01
@@ -268,8 +271,41 @@ function salvarEdicao() {
 function editarEndereco() {
 
 
+    var cepEditado = document.getElementById("inputCepEmpresa").value;
+    var ruaEditada = document.getElementById("inputRuaEmpresa").value;
+    var numEditado = document.getElementById("inputNumeroEmpresa").value;
 
-    
+
+    var idEndereco = idEndereco01
+
+    fetch(`/empresas/editarEndereco/${idEndereco}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+
+            cep: cepEditado,
+            rua: ruaEditada,
+            numero: numEditado
+            
+        }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao editar o Endereço: " + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Endereço editado com sucesso:", data);
+
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+        });
+
+
 }
 
 

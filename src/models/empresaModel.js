@@ -3,7 +3,7 @@ var database = require("../database/config");
 function buscarPorId(idEmpresa) {
 
 
-  var instrucaoSql = `SELECT empresa.idEmpresa, empresa.razao_social, empresa.cnpj, situacao.tipo, endereco.cep, endereco.rua, endereco.num, usuario.idUsuario, usuario.nome, usuario.email FROM empresa JOIN situacao
+  var instrucaoSql = `SELECT empresa.idEmpresa, empresa.razao_social, empresa.cnpj, situacao.tipo, endereco.idEndereco ,endereco.cep, endereco.rua, endereco.num, usuario.idUsuario, usuario.nome, usuario.email FROM empresa JOIN situacao
             ON empresa.fkSituacao = situacao.idSituacao
             JOIN endereco ON endereco.fkEmpresa = empresa.idEmpresa 
             JOIN usuario ON usuario.fkEmpresa = empresa.idEmpresa WHERE usuario.fkTipoUsuario = 2
@@ -74,6 +74,26 @@ function salvarEdicao(idUsuario, nomeGerenteEditado, emailGerenteEditado) {
     return database.executar(instrucaoSql);
 }
 
+function editarEndereco(idEndereco, cepEditado, ruaEditada, numEditado) {
+
+  console.log("ID do Endereco:", idEndereco);
+  console.log("cep Editado:", cepEditado);
+  console.log("rua Editado:", ruaEditada);
+  console.log("numero Editado:", numEditado);
+
+  var instrucaoSql = `
+        UPDATE endereco 
+        SET cep = '${cepEditado}',
+        rua = '${ruaEditada}',
+        num = '${numEditado}'
+        WHERE idEndereco = ${idEndereco};`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+
+}
+
+
 
 
 
@@ -87,6 +107,7 @@ module.exports = {
   cadastrarEnd,
   excluirEmpresa,
   editarEmpresa,
-  salvarEdicao
+  salvarEdicao,
+  editarEndereco
 
 };

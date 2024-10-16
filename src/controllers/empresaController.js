@@ -91,8 +91,9 @@ function excluirEmpresa(req, res) {
     });
 }
 
+
 function editarEmpresa(req, res) {
-  
+
   var nomeEditado = req.body.nomeEditado;
   var idUsuario = req.params.idUsuario;
   var idEmpresa = req.params.idEmpresa;
@@ -142,6 +143,34 @@ function salvarEdicao(req, res) {
 
 
 
+function editarEndereco(req, res) {
+
+  var idEndereco = req.params.idEndereco;
+  var cepEditado = req.body.cep;
+  var ruaEditada = req.body.rua;
+  var numEditado = req.body.numero;
+
+  console.log("ID do Endereco:", idEndereco);
+  console.log("cep Editado:", cepEditado);
+  console.log("rua Editado:", ruaEditada);
+  console.log("numero Editado:", numEditado);
+
+
+
+  empresaModel.editarEndereco(idEndereco, cepEditado, ruaEditada, numEditado)
+
+    .then(() => {
+      res.status(200).json({ message: "Endereço editado com sucesso" });
+    })
+
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: "Erro ao editar o Endereço" });
+    });
+}
+
+
+
 
 
 
@@ -152,5 +181,6 @@ module.exports = {
   cadastrarEnd,
   excluirEmpresa,
   editarEmpresa,
-  salvarEdicao
+  salvarEdicao,
+  editarEndereco
 };

@@ -29,6 +29,11 @@ router.put('/editarADM/:idUsuario', function (req, res) {
 }); 
 
 
+router.put('/editarEndereco/:idEndereco', function (req, res) {
+  empresaController.editarEndereco(req, res);
+}); 
+
+
 
 
 
