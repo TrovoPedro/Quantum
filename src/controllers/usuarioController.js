@@ -72,6 +72,33 @@ function cadastrar(req, res) {
     }
 }
 
+function cadastrarFuncionario(req, res) {
+    var nome = req.body.nome;
+    var empresa = req.body.empresa;
+    var email = req.body.email;
+    var senha = req.body.senha;
+
+    console.log("Dados recebidos:", req.body);
+
+    if (email == undefined) {
+        return res.status(400).json({ error: "Seu email está undefined!" });
+    } else if (senha == undefined) {
+        return res.status(400).json({ error: "Sua senha está indefinida!" });
+    } else if (nome == undefined) {
+        return res.status(400).json({ error: "Seu nome está undefined!" });
+    }
+
+    usuarioModel.cadastrarFuncionario(nome, email, senha, empresa)
+        .then(function (resultado) {
+            res.json(resultado);
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
+}
+
+
 function listarEmpresa(req, res){
     
     usuarioModel.listarEmpresa()
@@ -92,8 +119,18 @@ function listarEmpresa(req, res){
         });
 }
 
+function buscarPorId(req, res) {
+    var idUsuario= req.params.idUsuario;
+  
+    usuarioModel.buscarPorId(idUsuario).then((resultado) => {
+      res.status(200).json(resultado);
+    });
+  }
+
 module.exports = {
     autenticar,
     cadastrar,
-    listarEmpresa
+    listarEmpresa,
+    cadastrarFuncionario,
+    buscarPorId
 }

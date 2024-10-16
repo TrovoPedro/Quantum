@@ -62,7 +62,7 @@
     <Section class="Dashboard">
         <div class="topDash">
             <div class="boxUser-data">
-                <h3>Olá, Usuário!</h3>
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
                 <p id="data">Monitoramento dia DD/MM/AAAA</p>
             </div>
 
@@ -204,6 +204,7 @@
 
 </html>
 <script>
+ b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {

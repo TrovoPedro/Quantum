@@ -20,7 +20,7 @@
 </head>
 
 
-<body>
+<body onload="listarFuncionario()">
     <div class="navBar">
         <div class="CaixalogoNav">
             <img src="img/Logo Quantum.svg" class="logoNav" alt="">
@@ -73,72 +73,49 @@
                 <span class="Fechar">&times;</span>
                 <h2 id="titulo">Cadastro de Funcionario</h2>
                 <div id="conteudo">
-                    <div class="profile-picture">
+                    <!-- <div class="profile-picture">
                         <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
                         <img id="foto-usuario" class="perfil_icon" id="preview" src="assets/default-avatar.jpg"
                             alt="Avatar" style="width: 100%;height: 100%;">
-                    </div>
+                    </div> -->
                     <div class="cardServidor">
                         <div class="boxServidores">
                             <span>Nome:</span>
-                            <input type="text" class="input-perfil" class="container_radiu"></input>
+                            <input id="nome" type="text" class="input-perfil" class="container_radiu"></input>
                         </div>
                         <div class="boxServidores">
                             <span>Email:</span>
-                            <input type="email" class="input-perfil" class="container_radiu"></input>
+                            <input id="email" type="email" class="input-perfil" class="container_radiu"></input>
                         </div>
-                        <div class="boxServidores">
-                            <span>Cargo:</span>
-                            <input type="text" class="input-perfil" class="container_radiu" maxlength="45"></input>
-                        </div>
+                        <div class="boxServidores" style="margin-bottom: 15px;">
+    <span style="font-weight: bold; margin-right: 10px;">Cargo:</span>
+    <select id="cargo" style="color: white; background-color: #212121; padding: 10px; border: 2px solid #212121; border-radius: 5px; font-size: 16px; width: 250px; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+        <option value="3">Técnico de Infraestrutura</option>
+        <!-- Adicione outras opções conforme necessário -->
+    </select>
+</div>
                         <div class="boxServidores">
                             <span>Senha:</span>
-                            <input type="text" class="input-perfil" class="container_radiu"></input>
+                            <input id="senha" type="text" class="input-perfil" class="container_radiu"></input>
                         </div>
 
                     </div>
-                    <button onclick="cadastrarFuncionario()" id="cadastro">Cadastar</button>
+               <button onclick="validarInformacoes()" id="cadastro">Cadastar</button>
                 </div>
             </div>
         </div>
-        <div class="listaServidores">
+        <div class="listaFuncionario">
             <table>
                 <thead>
                     <tr class="tituloTabela">
                         <th>Nome</th>
                         <th>Email</th>
+                        <th>Cargo</th>
                         <th>Empresa</th>
+                        <th>Situação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="camposTabela">
-                        <td>João</td>
-                        <td>exemplo@exemplo</td>
-                        <td>Santa Marcelina</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                        <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
-                    <tr class="camposTabela">
-                        <td>Maria</td>
-                        <td>exemplo@exemplo</td>
-                        <td>Santa Marcelina</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                       <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
-                    <tr class="camposTabela">
-                        <td>Pedro</td>
-                        <td>exemplo@exemplo</td>
-                        <td>Santa Marcelina</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                       <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
-                    <tr class="camposTabela">
-                        <td>José</td>
-                        <td>exemplo@exemplo</td>
-                        <td>Santa Marcelina</td>
-                        <td><img src="assets/icons8-lápis-100 (1).png" alt=""></td>
-                       <td><img src="assets/iconLixeira.svg" alt=""></td>
-                    </tr>
                 </tbody>
             </table>
         </div>

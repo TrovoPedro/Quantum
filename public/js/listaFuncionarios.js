@@ -18,48 +18,126 @@ window.onclick = function(event) {
     }
 }
 
+// Função para validar as informações
+function validarInformacoes() {
+    var email = document.getElementById("email").value;
+    var senha = document.getElementById("senha").value;
+    var nome = document.getElementById("nome").value;
+    var fkEmpresa = sessionStorage.getItem("FKEMPRESA");
+    console.log("fkEmpresa:", fkEmpresa); // Para verificar se está correto
 
-// Função  para cadastrar o Funcionario
-
-function cadastrarFuncionario() {
-    var fotoVar = foto.value;
-    var nomeVar = nome.value;
-    var emailVar = email.value;
-    var cargoVar = cargo.value;
-     var senhaVar = senha.value;
-
-    if(
-        fotoVar == "" || nomeVar == "" ||
-        emailVar == "" || cargoVar == "" || senhaVar == ""
-    ){
-        alert("Campos em branco por favor preecha-los para conseguirmos dar continuidade ao cadastro")
-        return false;
+    if (
+        email === "" ||
+        senha === "" ||
+        nome === "" ||
+        !fkEmpresa // Adicionando verificação da empresa
+    ) {
+        alert("Por favor, preencha todos os campos.");
+        return; // Adicione um return para evitar chamada em caso de erro
     }
+    console.log("Dados enviados:", {
+        nome: nome,
+        email: email,
+        senha: senha,
+        empresa: fkEmpresa
+    });
+    cadastrarFuncionario( nome, email, senha, fkEmpresa); 
+}
 
-    const formData = new FormData();
-    formData.append('foto', foto.files[0])
-    formData.append('nome',nome.value)
-    formData.append('email',email.value)
-    formData.append('cargo',cargo.value)
-    formData.append('senha',senha.value)
-
-    console.log(senha.value)
-
-    fetch("usuario/cadastrarFuncionario",{
-        method:"POST",
-        body: formData
+// Função para cadastrar o Funcionário
+function cadastrarFuncionario( nome, email, senha, fkEmpresa) {
+    console.log(fkEmpresa, nome, email, senha);
+    console.log("Dados enviados:", {
+        nome: nome,
+        email: email,
+        senha: senha,
+        empresa: fkEmpresa
+    });
+    
+    fetch("http://localhost:3333/usuarios/cadastrarFuncionario", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nome: nome,
+            email: email,
+            senha: senha,
+            empresa: fkEmpresa // Use fkEmprea aqui
+        }),
     })
-    .then(function(resposta){
-        console.log("resposta",resposta);
-
-        if(resposta.ok){
-            alert("cadastro realizado com sucesso!")
-        }else{
-            alert("Houve um erro ao tentar realizar o cadastro!")
+    .then(function (resposta) {
+        if (resposta.ok) {
+            alert("Cadastro feito com sucesso!");
+            setTimeout(() => {
+                window.location = "listaFuncionarios.html";
+            }, 2000);
+        } else {
+            return resposta.json().then(err => {
+                console.error(err);
+                alert("Erro: " + (err.error || "Erro desconhecido"));
+            });
         }
     })
-    .catch(function(resposta){
-        console.log(`#Erro: ${resposta}`)
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        alert("Erro de comunicação com o servidor.");
     });
-    return false
+
+    return false;
 }
+
+function listarFuncionario() {
+    fetch(`/usuarios/buscarPorId`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            const tbody = document.querySelector('.listaFuncionario tbody');
+            tbody.innerHTML = '';
+    
+            if (data.length === 0) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 5;
+                cell.textContent = 'Nenhum Registro encontrado.';
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            } else {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                    <td>${item.nome}</td>
+                    <td>${item.email}</td>
+                    <td>${item.tipoNome}</td>
+                    <td>${item.razao_social}</td>
+                    <td>${item.tipo}</td>
+      <td>
+        <button onclick="mostrarEditar()" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+            <img class="img-iconsEdit" src="assets/iconlapis.png" alt="" style="width: 25px; height: 25px;">
+        </button>
+    </td>
+    <td>
+        <button onclick="excluirFuncionario()" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+            <img class="img-iconsEdit" src="assets/iconLixeira.svg" alt="" style="width: 25px; height: 25px;">
+        </button>
+    </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados', error);
+        });
+    }
+    

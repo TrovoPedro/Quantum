@@ -35,6 +35,7 @@ function entrar() {
             sessionStorage.NOME_USUARIO = json[0].nome;
             sessionStorage.ID_USUARIO = json[0].idUsuario;
             sessionStorage.FKTIPO_USUARIO = json[0].fkTipoUsuario;
+            sessionStorage.FKEMPRESA = json[0].fkEmpresa;
 
             console.log("ID_USUARIO: ", sessionStorage.ID_USUARIO);
             console.log("FKTIPOUSUARIO: ", sessionStorage.FKTIPO_USUARIO);
