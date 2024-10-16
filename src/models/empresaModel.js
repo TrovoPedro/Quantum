@@ -28,4 +28,30 @@ function cadastrarEnd(cep, rua, complemento, numero, idEmpresa) {
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, cadastrarEnd };
+function excluirEmpresa(idEmpresa, situacaoEditada) {
+  console.log("Executando exclusão da empresa: ", idEmpresa, situacaoEditada);
+
+  var instrucaoSql = `
+      UPDATE empresa 
+      SET fkSituacao = ${situacaoEditada} 
+      WHERE idEmpresa = ${idEmpresa};
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function editarEmpresa(idUsuario,idEmpresa, nomeGerenteEditado, emailGerenteEditado, senhaGerenteEditado) {
+  var instrucaoSql = `
+      UPDATE usuario 
+      SET nome = '${nomeGerenteEditado}',
+      email = '${emailGerenteEditado}',
+      senha = '${senhaGerenteEditado}'
+      WHERE fkEmpresa = ${idEmpresa}; `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, cadastrarEnd, excluirEmpresa, editarEmpresa, };

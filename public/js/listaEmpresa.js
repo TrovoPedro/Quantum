@@ -146,12 +146,12 @@ fetch(`/empresas/buscarPorId`, {
                 <td>${item.tipo}</td>
                 <td>
     <td>
-    <button onclick="mostrarEditar()" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+    <button onclick="mostrarEditar($)" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconlapis.png" alt="" style="width: 25px; height: 25px;">
     </button>
 </td>
 <td>
-    <button onclick="excluirServidor()" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+    <button onclick="excluirEmpresa(${item.idEmpresa})" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconLixeira.svg" alt="" style="width: 25px; height: 25px;">
     </button>
 </td>
@@ -162,5 +162,95 @@ fetch(`/empresas/buscarPorId`, {
     })
     .catch(error => {
         console.error('Houve um erro ao capturar os dados', error);
+    });
+}
+
+function mostrarEditar(idEmpresa, idUsuario) {
+
+    sessionStorage.setItem("ID_EMPRESA", idEmpresa);
+    sessionStorage.setItem("ID_USUARIO", idUsuario);
+
+    var mostrar = document.getElementById("aparecerBoxEditar");
+    if (getComputedStyle(mostrar).display === "none") {
+        mostrar.style.display = "flex";
+    } else {
+        mostrar.style.display = "none";
+    }
+}
+
+function editarEmpresa() {
+    var idEmpresa= sessionStorage.getItem("ID_EMPRESA");
+    var idUsuario= sessionStorage.getItem("ID_USUARIO");
+    var nomeGerenteEditado = document.getElementById("inputNomeAdm").value;
+    var emailGerenteEditado = document.getElementById("inputEmailAdm").value;
+    var senhaGerenteEditado = document.getElementById("inputSenhaAdm").value;
+
+    
+    if (!idEmpresa) {
+        alert("ID da empresa não encontrado.");
+        return;
+    }
+
+    if (!idUsuario) {
+        alert("ID do gerente não encontrado.");
+        return;
+    }
+
+    if (!nomeGerenteEditado) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    if (!emailGerenteEditado) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    if (!senhaGerenteEditado) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+    fetch(`/empresas/editar/${idEmpresa},${idUsuario}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nomeEditado: nomeGerenteEditado 
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            window.location = "/listaEmpresas.html";
+        } else if (resposta.status == 404) {
+            window.alert("Gerente não encontrado.");
+        } else {
+            alert("Erro ao editar o Gerente. Tente novamente.");
+        }
+    }).catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+    });
+}
+
+function excluirEmpresa(idEmpresa) {
+    
+    fetch(`/empresas/excluir/${idEmpresa}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            situacaoEditada: 1
+        })
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            window.location = "/listaEmpresas.html";
+        } else if (resposta.status == 404) {
+            window.alert("Deu 404!");
+        }
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
     });
 }

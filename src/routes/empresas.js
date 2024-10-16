@@ -20,5 +20,8 @@ router.get("/buscarPorId", function (req, res) {
   empresaController.buscarPorId(req, res);
 });
 
+router.put("/excluir/:idEmpresa", function (req, res) {
+  empresaController.excluirEmpresa(req, res);
+});
 
 module.exports = router;
