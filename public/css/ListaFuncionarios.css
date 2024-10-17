@@ -32,11 +32,12 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
     max-width: 400px;
-    margin: 20px auto;
-    position: relative; 
-    z-index: 1010; 
-    transform: translate(-30%, -10%); 
-
+    position: fixed; /* Altere para fixed para centralização */
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para alinhar ao centro */
+    z-index: 1010;
+    opacity: 1;
 }
 
 .boxEditarFuncionario h2 {
@@ -280,4 +281,12 @@ img #foto-usuario {
     align-items: center;
     font-size: 15px;
     margin-left: 70%;
+}
+
+.close-button {
+    color: #fff; /* Tente uma cor que seja visível, como branco */
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
