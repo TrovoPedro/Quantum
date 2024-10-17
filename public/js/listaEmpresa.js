@@ -299,6 +299,10 @@ function editarEndereco() {
         })
         .then(data => {
             console.log("Endereço editado com sucesso:", data);
+            alert("Os registros foram editados com sucesso!");
+            setTimeout(() => {
+                window.location = "listaEmpresas.html";
+            }, 2000);
 
         })
         .catch(error => {
