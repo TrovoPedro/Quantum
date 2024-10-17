@@ -11,14 +11,15 @@ body {
 }
 
 .svg_Linhas {
-    padding: 0;
     bottom: 0%;
     display: flex;
     height: 100vh;
-    padding-left: 66.2%;
+    padding-left: 90.0%;
     overflow-y: hidden;
     position: absolute;
     justify-content: flex-end;
+    z-index: -10;
+    width: 10%;
 }
 
 .Logo_Nome {
@@ -54,6 +55,11 @@ body {
     margin-bottom: 10px;
     border-radius: 3px;
     border: 2px solid #7449EB;
+    z-index: 999;
+}
+
+.button:hover{
+    cursor: pointer;
 }
 
 .p_paragrafo {
