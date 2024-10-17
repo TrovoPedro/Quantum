@@ -198,10 +198,14 @@ function editarFuncionario() {
             if (!response.ok) {
                 throw new Error("Erro ao editar o funcionário: " + response.statusText);
             }
+           
             return response.json();
         })
         .then(data => {
-
+            alert('Funcionário editado com sucesso..')
+            setTimeout(() => {
+                window.location = "listaFuncionarios.html";
+            }, 2000);
             console.log("funcionário editado com sucesso:", data);
 
         })
@@ -242,3 +246,7 @@ function excluirFuncionario(idUsuario) {
         });
 }
 
+function fecharModalEditar() {
+
+    document.getElementById("modalEditarFuncionario").style.display = "none";
+}
