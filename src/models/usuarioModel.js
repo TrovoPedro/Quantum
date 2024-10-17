@@ -61,10 +61,45 @@ ORDER BY usuario.idUsuario;`;
 }
 
 
+
+function editarFuncionario(idUsuario, nomeGerenteEditado, emailGerenteEditado) {
+
+    console.log("ID do Usuário:", idUsuario);
+    console.log("Nome Editado:", nomeGerenteEditado);
+    console.log("Email Editado:", emailGerenteEditado);
+
+    var instrucaoSql = `
+        UPDATE usuario 
+        SET nome = '${nomeGerenteEditado}',
+        email = '${emailGerenteEditado}'
+        WHERE idUsuario = ${idUsuario};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function excluirFuncionario(idUsuario, situacaoEditada) {
+    
+    console.log("Executando exclusão do funcionário: ", idUsuario, situacaoEditada);
+  
+    var instrucaoSql = `
+        UPDATE usuario 
+        SET fkSituacao = ${situacaoEditada} 
+        WHERE idUsuario = ${idUsuario};
+    `;
+  
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+  }
+
+
 module.exports = {
     autenticar,
     cadastrar,
     listarEmpresa,
     cadastrarFuncionario,
-    buscarPorId
+    buscarPorId,
+    editarFuncionario,
+    excluirFuncionario
 };

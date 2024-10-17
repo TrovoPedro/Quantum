@@ -120,6 +120,24 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="boxEditarFuncionario" id="modalEditarFuncionario" style="display: none; background: none; border: none;">
+
+            <div  class="modal-content">
+
+                <span class="close-button" onclick="fecharModalEditar()">×</span>
+
+                <h2>Editar Administrador</h2>
+
+                <input type="hidden" id="idUsuario" />
+                <input type="text" id="nomeEditado" placeholder="Nome" />
+                <input type="email" id="emailGerenteEditado" placeholder="Email" />
+                
+                <button onclick="editarFuncionario()">Salvar</button>
+
+            </div>
+
+        </div>
     </div>
     <script src="js/listaFuncionarios.js"></script>
 </body>

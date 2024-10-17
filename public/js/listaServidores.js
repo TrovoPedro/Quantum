@@ -104,6 +104,8 @@ function listarServidor() {
                     <td>${item.tipo}</td>
 
                 <td><button onclick="mostrarEditar(${item.idServidor})" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
+
+                
                 <td><button onclick="excluirServidor(${item.idServidor})" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
 
                     `;

@@ -127,10 +127,67 @@ function buscarPorId(req, res) {
     });
   }
 
+
+
+
+  function editarFuncionario(req, res) {
+
+    var idUsuario = req.params.idUsuario;
+    var nomeGerenteEditado = req.body.nome;
+    var emailGerenteEditado = req.body.email;
+  
+    console.log("ID do Usuário:", idUsuario);
+    console.log("Nome Editado:", nomeGerenteEditado);
+    console.log("Email Editado:", emailGerenteEditado);
+  
+  
+  
+    usuarioModel.editarFuncionario(idUsuario, nomeGerenteEditado, emailGerenteEditado)
+  
+      .then(() => {
+        res.status(200).json({ message: "Funcionário editado com sucesso" });
+      })
+  
+      .catch(error => {
+        console.error(error);
+        res.status(500).json({ error: "Erro ao editar o Funcionário" });
+      });
+  }
+  
+
+  
+function excluirFuncionario(req, res) {
+
+    var idUsuario = req.params.idUsuario;
+  
+    if (!idUsuario) {
+  
+      return res.status(400).send("ID do funcionário não fornecido.");
+    }
+  
+    var situacaoEditada = 1;
+  
+    usuarioModel.excluirFuncionario(idUsuario, situacaoEditada)
+
+      .then(resultado => {
+
+        res.status(200).json(resultado);
+      })
+      .catch(erro => {
+        console.log("Erro ao excluir funcionário: ", erro.sqlMessage);
+
+        res.status(500).json(erro.sqlMessage);
+
+      });
+  }
+  
+
 module.exports = {
     autenticar,
     cadastrar,
     listarEmpresa,
     cadastrarFuncionario,
-    buscarPorId
+    buscarPorId,
+    editarFuncionario,
+    excluirFuncionario
 }
