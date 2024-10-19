@@ -31,11 +31,10 @@ function validarInformacoes() {
     if (
         email === "" ||
         senha === "" ||
-        nome === "" ||
-        !fkEmpresa // Adicionando verificação da empresa
+        nome === "" 
     ) {
         alert("Por favor, preencha todos os campos.");
-        return; // Adicione um return para evitar chamada em caso de erro
+        return; 
     }
     console.log("Dados enviados:", {
         nome: nome,
