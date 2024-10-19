@@ -63,7 +63,6 @@ function entrar() {
                     window.location = "../dashboard.html";
                 }, 500);
             }
-            
         }
     }).catch(function (erro) {
         console.log("Erro de rede ou outra falha:", erro);

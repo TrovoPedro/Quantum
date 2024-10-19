@@ -2,6 +2,9 @@ package dominio
 
 import com.github.britooo.looca.api.core.Looca
 import repositorio.DadosRepositorio
+import java.time.Instant
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 class Dados {
     var id: Int = 0

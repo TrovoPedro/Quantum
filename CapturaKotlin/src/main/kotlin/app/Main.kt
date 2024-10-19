@@ -1,30 +1,38 @@
 package app
 
+import com.github.britooo.looca.api.core.Looca
 import dominio.Componente;
 import dominio.Dados;
 import repositorio.DadosRepositorio;
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 open class Main {
     companion object {
-        @JvmStatic fun main(args: Array<String>) {
+        @JvmStatic
+        fun main(args: Array<String>) {
 
-                val dadosRepositorio = DadosRepositorio();
-                dadosRepositorio.configurar();
+            val dadosRepositorio = DadosRepositorio();
+            dadosRepositorio.configurar();
 
-                val dadosRecebidos = Dados();
-                dadosRecebidos.dadosRepositorio = dadosRepositorio;
+            val dadosRecebidos = Dados();
+            dadosRecebidos.dadosRepositorio = dadosRepositorio;
 
-                println("Informe seu nome: ");
-                val nomeUsuario = readln();
+            val looca = Looca();
 
-                var capturaAtiva = false;
-                val componente = Componente();
-                var nome: String = "";
-                var fabricante: String = "";
+            println("Informe seu nome: ");
+            val nomeUsuario = readln();
 
-                while (true) {
-                    println(
-                        """
+            var capturaAtiva = false;
+            val componente = Componente();
+            var nome: String = "";
+            var fabricante: String = "";
+
+            while (true) {
+                println(
+                    """
             <-----Olá ${nomeUsuario}-----> 
             O que gostaria de fazer? 
             1 - Cadastrar componente 
@@ -34,103 +42,104 @@ open class Main {
             5 - Excluir componente
             6 - Sair
             """.trimIndent()
-                    );
+                );
 
-                    val opcao = readln().toInt();
+                val opcao = readln().toInt();
 
-                    when (opcao) {
-                        1 -> {
-                            println("Informe o nome do componente: ");
-                            nome = readln();
-                            println("Informe o fabricante do componente: ");
-                            fabricante = readln();
+                when (opcao) {
+                    1 -> {
+                        println("Informe o nome do componente: ");
+                        nome = readln();
+                        println("Informe o fabricante do componente: ");
+                        fabricante = readln();
 
-                            if (nome.isNotEmpty() && fabricante.isNotEmpty()){
-                                componente.setNomeComponente(nome);
-                                componente.setFabricante(fabricante);
-                                dadosRepositorio.inserirComponente(componente.nome, componente.fabricante);
-                            }else{
-                                println("Por favor, preencha todos os campos.");
-                            }
+                        if (nome.isNotEmpty() && fabricante.isNotEmpty()) {
+                            componente.setNomeComponente(nome);
+                            componente.setFabricante(fabricante);
+                            dadosRepositorio.inserirComponente(componente.nome, componente.fabricante);
+                        } else {
+                            println("Por favor, preencha todos os campos.");
                         }
+                    }
 
-                        2 -> {
-                            capturaAtiva = if (!capturaAtiva) {
-                                println("Iniciando captura de rede...");
-                                dadosRecebidos.iniciarCaptura();
-                                true
-                            } else {
-                                println("Captura de rede finalizada.");
-                                dadosRecebidos.pararCaptura();
-                                false
-                            }
+                    2 -> {
+                        capturaAtiva = if (!capturaAtiva) {
+                            println("Iniciando captura de rede...");
+                            dadosRecebidos.iniciarCaptura();
+                            true
+                        } else {
+                            println("Captura de rede finalizada.");
+                            dadosRecebidos.pararCaptura();
+                            false
                         }
+                    }
 
-                        3 -> {
-                            val listaComponente = dadosRepositorio.listarComponentes()
-                            println("<-----Listagem dos componentes----->")
-                            listaComponente.forEach {
-                                println(
-                                    """
+                    3 -> {
+                        val listaComponente = dadosRepositorio.listarComponentes()
+                        println("<-----Listagem dos componentes----->")
+                        listaComponente.forEach {
+                            println(
+                                """
                         ID: ${it.idComponente}
                         Nome componente: ${it.nome}
                         Fabricante: ${it.fabricante}
-                    """)
-                            }
-                        }
-
-                        4 -> {
-                            println("Digite o id do componente para ser atualizado: ");
-                            val id = readln().toInt();
-
-                            if (!dadosRepositorio.existePorId(id)) {
-                                println("O componente com ID $id não existe.");
-                            } else {
-                                println("Informe o novo nome do componente: ");
-                                nome = readln();
-
-                                println("Informe o novo fabricante do componente: ");
-                                fabricante = readln();
-
-                                if (nome.isNotEmpty() && fabricante.isNotEmpty()) {
-                                    val atualizadoComSucesso = dadosRepositorio.editarComponente(id, nome, fabricante);
-                                    if (atualizadoComSucesso) {
-                                        println("Componente atualizado com sucesso!");
-                                    } else {
-                                        println("Erro ao atualizar o componente.");
-                                    }
-                                } else {
-                                    println("Nome e fabricante não podem estar vazios.");
-                                }
-                            }
-                        }
-
-                        5 -> {
-                            println("Digite o id do componente para ser excluído: ");
-                            val id = readln().toInt();
-
-                            if (!dadosRepositorio.existePorId(id)) {
-                                println("O componente com ID $id não existe.");
-                            } else {
-                                val excluidoComSucesso = dadosRepositorio.excluirComponente(id);
-                                if (excluidoComSucesso) {
-                                    println("Componente excluído com sucesso.");
-                                } else {
-                                    println("Erro ao excluir o componente.");
-                                }
-                            }
-                        }
-
-                        6 -> {
-                            println("Saindo...")
-                            break
-                        }
-
-                        else -> {
-                            println("Opção inválida, tente novamente.")
+                    """
+                            )
                         }
                     }
+
+                    4 -> {
+                        println("Digite o id do componente para ser atualizado: ");
+                        val id = readln().toInt();
+
+                        if (!dadosRepositorio.existePorId(id)) {
+                            println("O componente com ID $id não existe.");
+                        } else {
+                            println("Informe o novo nome do componente: ");
+                            nome = readln();
+
+                            println("Informe o novo fabricante do componente: ");
+                            fabricante = readln();
+
+                            if (nome.isNotEmpty() && fabricante.isNotEmpty()) {
+                                val atualizadoComSucesso = dadosRepositorio.editarComponente(id, nome, fabricante);
+                                if (atualizadoComSucesso) {
+                                    println("Componente atualizado com sucesso!");
+                                } else {
+                                    println("Erro ao atualizar o componente.");
+                                }
+                            } else {
+                                println("Nome e fabricante não podem estar vazios.");
+                            }
+                        }
+                    }
+
+                    5 -> {
+                        println("Digite o id do componente para ser excluído: ");
+                        val id = readln().toInt();
+
+                        if (!dadosRepositorio.existePorId(id)) {
+                            println("O componente com ID $id não existe.");
+                        } else {
+                            val excluidoComSucesso = dadosRepositorio.excluirComponente(id);
+                            if (excluidoComSucesso) {
+                                println("Componente excluído com sucesso.");
+                            } else {
+                                println("Erro ao excluir o componente.");
+                            }
+                        }
+                    }
+
+                    6 -> {
+                        println("Saindo...")
+                        break
+                    }
+
+                    else -> {
+                        println("Opção inválida, tente novamente.")
+                    }
                 }
+            }
         }
     }
 }

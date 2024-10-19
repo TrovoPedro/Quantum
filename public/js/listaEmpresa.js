@@ -145,8 +145,6 @@ function listarEmpresa() {
                 <td>CEP: ${item.cep}, ${item.rua}, nº:${item.num}</td>
                 <td>${item.tipo}</td>
                 <td>
-
-
 <td>
     <button onclick="aparecerModalEditar(${item.idUsuario}, 
     '${item.nome}',
@@ -194,8 +192,6 @@ function aparecerModalEditar(idUsuario, nome, email, idEndereco,  cep, rua, nume
     idUsuario01 = idUsuario;
     idEndereco01 = idEndereco;
 
-
-
 }
 
 function fecharModalEditar() {
@@ -212,9 +208,6 @@ function abrirModalEditarAdministrador(usuario) {
     document.getElementById('modalEditarAdm').style.display = 'block';
 
 }
-
-
-
 
 function mostrarEditar(idUsuario, nomeAdm, emailAdm) {
 

@@ -11,9 +11,9 @@ class DadosRepositorio {
     fun configurar(){
         val dataSource = BasicDataSource();
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver";
-        dataSource.url = "jdbc:mysql://localhost:3306/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo";
+        dataSource.url = "jdbc:mysql://3.86.32.237/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
         dataSource.username = "root"
-        dataSource.password = "Semsenha13"
+        dataSource.password = "@Davidson01"
 
         jdbcTemplate = JdbcTemplate(dataSource);
     }
@@ -28,8 +28,9 @@ class DadosRepositorio {
     }
     fun inserir(dadosRecebidos: Double): Boolean{
         var qtdLinhasAfetadas = jdbcTemplate.update("""
-            insert into log (usoComponente) values(?); 
-        """, dadosRecebidos);
+            insert into log (dtHora, usoComponente, fkComponente) values(NOW(), ?, 4); 
+        """, dadosRecebidos,
+            );
 
         return qtdLinhasAfetadas > 0;
     }
