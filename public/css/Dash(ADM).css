@@ -367,7 +367,7 @@ body {
 
 
 .cardServidor {
-    
+    margin-top: -150px;
     height: 200%;
     width: 95%;
     background-color: #7449EB;
@@ -379,18 +379,7 @@ body {
     border: 5px;
     transform: translate(0%, -15%);
     transition: transform 0.3s ease;
-
-
 }
-
-
-
-/* 
-.cardMonitorados:hover{
-    transform: scale(1.05);
-    transition: transform 0.3s ease; 
-
-} */
 
 .div_servers{
     border: 3px solid white;
@@ -423,8 +412,6 @@ body {
     height: 60%;
 }
 
-
-
 .boxServidores {
     background-color: #ffffff;
     height: 33%;
@@ -436,7 +423,6 @@ body {
     padding: 10px; 
     transform: translate(-85%, 45%);
     border-radius: 10%;
-
 }
 
 .titulo_Estado h3{
@@ -461,17 +447,13 @@ body {
     border-radius: 10%;
 }
 
-
-
-
 .status{
     display: flex;
     justify-content: right;
     width: 30%;
     height: 50%;
     align-items: center;
-    gap: 5%;
-  
+    gap: 5%; 
 }
 
 .status p{

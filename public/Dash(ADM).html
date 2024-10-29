@@ -89,7 +89,7 @@
 
 
                     <div>
-                        <canvas style="transform: translate(0%, -20%);" id="myChart" width="450" height="230"></canvas>
+                        <canvas style="transform: translate(0%, -20%);" id="myChart" width="650" height="230"></canvas>
 
                     </div>
 
@@ -97,6 +97,26 @@
                     <div style="width: 90%;" class="infosE">
 
                         <div class="cards">
+
+                            <div id="CPU">
+                                <a href="Dash(ADM).html">
+                                <button class="detalhe" onclick="criarGraficoUptime()">
+
+                                    <div class="quadrante">
+                                        <img src="img/painel (1).png" style="height: 40px;" alt="">
+                                    </div>
+
+                                    <div class="text">
+                                        <b style="margin-top: 20px;">UPTIME SEMANAL</b>
+                                        <!-- <div class="inside">
+                                            <div id="porcentagemCPU"></div>
+                                            <div id="GHzCPU">Clique aqui para visualizar o Uptime Semanal!</div>
+                                        </div> -->
+                                    </div>
+
+                                </button>
+                            </a>
+                            </div>
 
 
                             <div id="CPU">
@@ -466,30 +486,27 @@
 
             labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
             datasets: [
-                {
-                    label: 'Servidor 1 - Uptime (%)',
-                    data: [98, 97, 99, 96, 88, 85, 90],
-                    borderColor: 'rgba(255, 255, 0, 1)',
-                    fill: true,
-                    tension: 0.3,
-                    pointBackgroundColor: 'rgba(255, 255, 0, 1)',
-                },
-                {
-                    label: 'Servidor 2 - Uptime (%)',
-                    data: [95, 92, 94, 90, 80, 85, 88],
-                    borderColor: 'rgba(255, 165, 0, 1)',
-                    fill: true,
-                    tension: 0.3,
-                    pointBackgroundColor: 'rgba(255, 165, 0, 1)',
-                },
-                {
-                    label: 'Servidor 3 - Uptime (%)',
-                    data: [90, 85, 88, 83, 75, 80, 82],
-                    borderColor: 'rgba(0, 0, 139, 1)',
-                    fill: true,
-                    tension: 0.3,
-                    pointBackgroundColor: 'rgba(0, 0, 139, 1)',
-                }
+            {
+                label: 'Servidor 1 - Uptime (%)',
+                data: [98, 97, 99, 96, 88, 85, 90],
+                backgroundColor: 'rgba(255, 255, 0, 0.7)', // Cor de fundo para as barras
+                borderColor: 'rgba(255, 255, 0, 1)', // Borda das barras
+                borderWidth: 1,
+            },
+            {
+                label: 'Servidor 2 - Uptime (%)',
+                data: [95, 92, 94, 90, 80, 85, 88],
+                backgroundColor: 'rgba(255, 165, 0, 0.7)', // Cor de fundo para as barras
+                borderColor: 'rgba(255, 165, 0, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Servidor 3 - Uptime (%)',
+                data: [90, 85, 88, 83, 75, 80, 82],
+                backgroundColor: 'rgba(0, 0, 139, 0.7)', // Cor de fundo para as barras
+                borderColor: 'rgba(0, 0, 139, 1)',
+                borderWidth: 1,
+            }
             ]
         };
 
@@ -531,7 +548,7 @@
         };
 
         myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: data,
             options: options
         });
