@@ -1,7 +1,8 @@
 .navBar {
     width: 8%;
     height: 100vh;
-    background-color: #000;
+    /* background-color: white; */
+    background-image: url(https://img.freepik.com/fotos-gratis/aguarela-da-textura-do-papel_1194-6432.jpg?ga=GA1.1.1475176288.1730210578&semt=ais_hybrids);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,6 +14,7 @@
     border-radius: 0 10px 10px 0;
     transition: 0.5s ease;
     color: #7449EB;
+    border-right: 2px white solid;
 }
 
 .navBar:hover {
@@ -66,12 +68,14 @@
     flex-direction: column;
     width: 50%;
     padding: 5%;
-    background-color: #000000;
+    /* background-color: #000000; */
+    background-image: url(https://img.freepik.com/fotos-gratis/fundo-de-papel-de-espaco-de-design-texturizado_53876-14886.jpg?t=st=1730210900~exp=1730214500~hmac=8645eb4a9e5395e2837e576a345cc05590de27bf7cfb0f50ef63b5b1ae671e76&w=996);
     height: 15%;
     color: #7449EB;
     font-family: Ubuntu;
     border-radius: 5px;
     cursor: pointer;
+    
 }
 
 .botoesNav:hover {
