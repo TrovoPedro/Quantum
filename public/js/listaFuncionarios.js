@@ -1,5 +1,6 @@
 let idUsuario01;
 let idUsuario02;
+let idEmpresa01;
 
 var modal = document.getElementById("meu_modal");
 
@@ -45,7 +46,7 @@ function validarInformacoes() {
     cadastrarFuncionario(nome, email, senha, fkEmpresa);
 }
 
-// Função para cadastrar o Funcionário
+
 function cadastrarFuncionario(nome, email, senha, fkEmpresa) {
     console.log(fkEmpresa, nome, email, senha);
     console.log("Dados enviados:", {
@@ -55,7 +56,7 @@ function cadastrarFuncionario(nome, email, senha, fkEmpresa) {
         empresa: fkEmpresa
     });
 
-    fetch("http://localhost:3333/usuarios/cadastrarFuncionario", {
+    fetch("http://localhost:8080/usuarios/cadastrarFuncionario", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -64,7 +65,7 @@ function cadastrarFuncionario(nome, email, senha, fkEmpresa) {
             nome: nome,
             email: email,
             senha: senha,
-            empresa: fkEmpresa // Use fkEmprea aqui
+            empresa: fkEmpresa 
         }),
     })
         .then(function (resposta) {
@@ -122,6 +123,7 @@ function listarFuncionario() {
                     <td>${item.tipoNome}</td>
                     <td>${item.razao_social}</td>
                     <td>${item.tipo}</td>
+                    <td>${item.idEmpresa}</td>
 
     <td>
         <button onclick="aparecerModalEditar(${item.idUsuario}, 

@@ -121,8 +121,9 @@ function listarEmpresa(req, res){
 
 function buscarPorId(req, res) {
     var idUsuario= req.params.idUsuario;
+    var idEmpresa= req.body.idEmpresa;
   
-    usuarioModel.buscarPorId(idUsuario).then((resultado) => {
+    usuarioModel.buscarPorId(idUsuario, idEmpresa).then((resultado) => {
       res.status(200).json(resultado);
     });
   }
