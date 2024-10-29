@@ -138,7 +138,6 @@ function listarEmpresa() {
                     const row = document.createElement('tr');
                     row.innerHTML = `
 
-                <td>${item.idEmpresa}</td>
                 <td>${item.razao_social}</td>
                 <td>${item.cnpj}</td>
                 <td>${item.nome}</td>
