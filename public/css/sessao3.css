@@ -26,7 +26,7 @@
   height: 100%;
   width: 100%;
   display: flex;
-  background-color: #111111;
+  background-color: #151a22;
   align-items: center;
   flex-direction: column;
   gap: 3%;
@@ -41,6 +41,7 @@
   /* background-image: url(../img/Banner\ sessao\ beneficiosbackgroundS3.svg); */
   background-repeat: no-repeat;
   z-index: 1;
+  background-color: #151a22;
 }
 
 .boxTopCarrossel {
@@ -85,7 +86,7 @@
   font-weight: 600;
   font-size: 64px;
   font-style: normal;
-  color: #7449EB;
+  color: #a098d3;
   position: relative;
 }
 
@@ -109,7 +110,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #3d3d3d1f;
+  background-color: #151a22;
   z-index: 4;
   gap: 7%;
   backdrop-filter: blur(4px);
@@ -121,7 +122,7 @@
   height: 70%;
   flex: 0 0 18%;
   border-radius: 2%;
-  background-color: #7449EB;
+  background-color: #a098d3;
   /* background-color: #2999C7; */
   /* border: 5px solid white;
     animation: bordas infinite 10s linear; */
@@ -131,7 +132,7 @@
   height: 80%;
   flex: 0 0 23%;
   transition: 0.5s;
-  background-color: #7449EB;
+  background-color: #a098d3;
   border-radius: 2%;
   /* background-color: #2999C7; */
   /* border: 5px solid white;
@@ -208,7 +209,7 @@
   transition: 0.2s;
   height: auto;
   width: 100%;
-  background-color: #7449EB;
+  background-color: #a098d3;
   /* background-color: #2999C7; */
   left: 20%;
   display: flex;
@@ -253,7 +254,7 @@
     width: 200%;
     border-radius: 2%;
     /* background-color: #2999C7; */
-    background-color: #7449EB;
+    background-color: #a098d3;
     flex-direction: row;
     /* border: 5px solid white;
     animation: bordas infinite 10s linear; */
@@ -266,7 +267,7 @@
     transition: 0.5s;
     border-radius: 2%;
     /* background-color: #2999C7; */
-    background-color: #7449EB;
+    background-color: #a098d3;
     /* border: 5px solid white;
     animation: bordas infinite 10s linear; */
   }
@@ -276,7 +277,7 @@
   }
 
   .conteudoCard {
-    background-color: #7449EB;
+    background-color: #a098d3;
     height: 100%;
     display: flex;
     z-index: 1;
@@ -384,7 +385,7 @@
     align-items: center;
     transition: 0.5s ease;
     /* background-color: #2999C7; */
-    background-color: #7449EB;
+    background-color: #a098d3;
     font-family: Lato;
     border-radius: 5px;
   }
@@ -495,7 +496,7 @@
     align-items: center;
     transition: 0.5s ease;
     /* background-color: #2999C7; */
-    background-color: #7449EB;
+    background-color: #a098d3;
     font-family: Lato;
     border-radius: 5px;
   }

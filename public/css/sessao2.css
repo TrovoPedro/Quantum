@@ -31,16 +31,17 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-image: url(../assets/gradient_1920_1080.png);
+    background-image: url(../assets/Group\ 41\(LinhasRoxas\).svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+
 }
 
 .imgBemVindo {
     width: 50%;
     height: 100%;
     background-color: #111111;
-    /* background-image: url(../img/Banner\ principal\ da\ sessão\ bem\ vindo.svg); */
     background-repeat: no-repeat;
-    background-image: url(../assets/gradient_1920_1080.png);
 }
 
 .conteudoBemVindo {
@@ -84,7 +85,7 @@ body {
     font-weight: 600;
     font-size: 64px;
     font-style: normal;
-    color: #7449EB;
+    color: #a098d3;
 }
 
 .textosBemVindo {
@@ -98,12 +99,12 @@ body {
 }
 
 .boxTextosBemVindos {
-    width: 75%;
+    width: 100%;
     height: 90%;
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: white;
 
 }
@@ -115,6 +116,8 @@ body {
     top: 180vh;
     left: 95%;
 }
+
+
 
 @media (max-width: 1024px) {
     .TituloBemVindos {
@@ -222,7 +225,7 @@ body {
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
-        background-color: #7449EB;
+        background-color: #a098d3;
     }
 
     .Elementos {

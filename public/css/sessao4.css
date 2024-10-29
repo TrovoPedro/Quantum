@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #111;
+    background-color: #151a22;
 }
 
 .pai {
@@ -55,8 +55,8 @@ body {
     justify-content: center;
     text-align: center;
     border-style: solid;
-    border-color: #7853E1;
-    background-color: #7853E1;
+    border-color: #a098d3;
+    background-color: #a098d3;
     border-radius: 3%;
     align-items: center;
     flex-direction: column;
@@ -124,6 +124,10 @@ body {
     line-height: normal;
     width: 100px;
     height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
 }
 
 .desc {
@@ -177,7 +181,7 @@ input::placeholder {
 }
 
 .main-footer {
-    background-color: #111;
+    background-color: #151a22;
 }
 
 .icons-footer {
