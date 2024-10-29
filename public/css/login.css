@@ -147,7 +147,7 @@
     font-size: 18px;
     font-style: normal;
     font-weight: bold;
-    background: #1111;
+    background: #151a22;
     padding: 15px;
 }
 
@@ -194,12 +194,17 @@
     width: 530px;
     height: 50px;
     font-family: Ubunto;
-    background-color: #7449EB;
+    background-color: #a098d3;
     border: none;
     transition: transform 0.5s;
     cursor: pointer;
 }
 
+.imgLogo{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}
 @media screen and (max-width: 1366px) {
     .logo {
         display: flex;

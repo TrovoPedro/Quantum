@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 body {
-    background-color: black;
+    background-color: #151a22;
     margin: 0;
     margin-bottom: 0;
 }
@@ -32,6 +32,7 @@ body {
     margin-left: 10%;
     color: white;
     font-size: 150%;
+    align-items: center;
 }
 
 .h1_novoSistema {
@@ -47,14 +48,14 @@ body {
     font-size: 1.2rem;
     margin-left: 7%;
     margin-top: 5%;
-    background-color: #7449EB;
+    background-color: #a098d3;
     color: white;
     box-shadow: 0 0 5px;
     height: 40px;
     width: 150px;
     margin-bottom: 10px;
     border-radius: 3px;
-    border: 2px solid #7449EB;
+    border: 2px solid #a098d3;
     z-index: 999;
 }
 
@@ -67,6 +68,12 @@ body {
     margin-left: 7%;
     font-size: 25px;
     font-family: 'Lato';
+}
+
+.imgLogo{
+    width: 10%;
+    display: flex;
+    justify-content: center;
 }
 
 @media only screen and (width: 1024px) {
