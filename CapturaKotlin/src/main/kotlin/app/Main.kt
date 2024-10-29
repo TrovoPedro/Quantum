@@ -3,7 +3,9 @@ package app
 import com.github.britooo.looca.api.core.Looca
 import dominio.Componente;
 import dominio.Dados;
+import dominio.Slack
 import repositorio.DadosRepositorio;
+import org.json.JSONObject
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -13,6 +15,10 @@ open class Main {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
+
+            val slack = Slack("https://hooks.slack.com/services/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")
+
+            val message = ""
 
             val dadosRepositorio = DadosRepositorio();
             dadosRepositorio.configurar();
@@ -40,7 +46,8 @@ open class Main {
             3 - Listar componentes 
             4-  Editar componente
             5 - Excluir componente
-            6 - Sair
+            6 - Cadastrar alerta
+            7 - Sair
             """.trimIndent()
                 );
 
@@ -66,6 +73,9 @@ open class Main {
                         capturaAtiva = if (!capturaAtiva) {
                             println("Iniciando captura de rede...");
                             dadosRecebidos.iniciarCaptura();
+                            if(dadosRecebidos.iniciarCaptura() < alerta){
+
+                            }
                             true
                         } else {
                             println("Captura de rede finalizada.");
@@ -131,6 +141,10 @@ open class Main {
                     }
 
                     6 -> {
+                        println("Informe em qual valor deseja ")
+                    }
+
+                    7 -> {
                         println("Saindo...")
                         break
                     }
