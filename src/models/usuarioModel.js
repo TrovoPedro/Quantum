@@ -95,6 +95,17 @@ function excluirFuncionario(idUsuario, situacaoEditada) {
     return database.executar(instrucaoSql);
   }
 
+  function selecionar(idUsuario) {
+    // Defina a instrução SQL com um placeholder (?) para o parâmetro
+    var instrucaoSql = `
+    SELECT nome, email, senha, fkEmpresa, data_cadastro, fkTipoUsuario 
+    FROM usuario 
+    WHERE idUsuario = ${idUsuario};
+    `;
+    // Execute a instrução SQL passando idUsuario como parâmetro
+    return database.executar(instrucaoSql, [idUsuario]);
+}
+
 
 module.exports = {
     autenticar,
@@ -103,5 +114,6 @@ module.exports = {
     cadastrarFuncionario,
     buscarPorId,
     editarFuncionario,
-    excluirFuncionario
+    excluirFuncionario,
+    selecionar
 };

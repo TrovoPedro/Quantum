@@ -32,4 +32,8 @@ router.put('/excluir/:idUsuario', function (req, res) {
     usuarioController.excluirFuncionario(req, res);
 });
 
+router.get('/selecionar/:idUsuario', function (req, res) {
+    usuarioController.selecionar(req, res);
+});
+
 module.exports = router;

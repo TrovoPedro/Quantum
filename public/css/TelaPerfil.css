@@ -452,15 +452,27 @@ body {
     font-size: 16px;
 }
 
+
+#nome_usuario{
+    border-style: none;
+    background-color: #3C3C3C;
+    width: 60%;
+    height: 100%;
+    border-radius: 20px;
+    margin-left: 2%;
+    color:#FFFFFF;
+    font-family: Ubuntu;
+    font-size: 16px;
+}
+
 #senha{
     font-size: 20px;
 }
 
-
 .profile-picture {
     position: relative;
-    width: 100px; /* Ajuste o tamanho conforme necessário */
-    height: 100px; /* Ajuste o tamanho conforme necessário */
+    width: 150px; /* Aumentado para 150px */
+    height: 150px; /* Aumentado para 150px */
     border-radius: 50%;
     overflow: hidden;
     background-color: #ccc; /* Cor de fundo padrão */
@@ -474,11 +486,9 @@ input[type="file"] {
     cursor: pointer;
 }
 
-img #foto-usuario {
-    width: 20%;
-    height: 20%;
+#foto-usuario {
+    width: 100%; /* Ajustado para ocupar todo o contêiner */
+    height: 100%; /* Ajustado para ocupar todo o contêiner */
     object-fit: cover; /* Cobre o contêiner sem distorcer a imagem */
     border-radius: 50%; /* Deixa a imagem redonda */
-    background-size:cover ;
-
 }

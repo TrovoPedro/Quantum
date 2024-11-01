@@ -12,7 +12,7 @@ html {
 body {
     width: 100%;
     height: 100%;
-    background: #111111;
+    background: #151a22;
     display: flex;
     flex-direction: row;
     color: rgb(255, 255, 255);
@@ -44,7 +44,7 @@ table {
 }
 
 .table-header {
-    color: #7449EB;
+    color: #a098d3;
     font-weight: bolder;
     font-size: 23px;
 }
@@ -65,7 +65,7 @@ td {
 }
 
 .btn-add-empresa {
-    background-color: #4522a4;
+    background-color: #a098d3;
     color: white;
     height: 2rem;
     width: 9.5rem;
@@ -88,7 +88,7 @@ td {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #151a22
     /* Fundo escuro semitransparente */
 }
 
@@ -116,7 +116,7 @@ td {
 
 .modal-close:hover,
 .modal-close:focus {
-    color: #000;
+    color: #151a22;
 }
 
 #tituloModal {
@@ -185,7 +185,7 @@ input[type="file"] {
     height: 2rem;
     border-radius: 20px;
     margin-left: 2%;
-    color: #000;
+    color: #151a22;
     font-family: Ubuntu;
     font-size: 20px;
 }
@@ -204,7 +204,7 @@ input[type="file"] {
 }
 
 #btnConfirmarCadastro {
-    background-color: #7449EB;
+    background-color: #a098d3;
     color: white;
     height: 2rem;
     width: 8.5rem;
@@ -233,7 +233,7 @@ input[type="file"] {
 }
 
 .modal-content {
-    background-color: #000000;
+    background-color: #151a22;
     margin: 0 auto;
     /* Centraliza horizontalmente */
     position: relative;
@@ -282,7 +282,7 @@ input[type="file"] {
     z-index: 1;
     border-radius: 0 10px 10px 0;
     transition: 0.5s ease;
-    color: #7449EB;
+    color: #a098d3;
 }
 
 .navbar:hover {
@@ -443,7 +443,7 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #212121;
+    background-color: #151a22;
     border-radius: 10px;
    
     padding: 20px;
@@ -470,7 +470,7 @@ input[type="file"] {
     width: 90%;
     padding: 12px;
     margin-bottom: 20px;
-    border: 2px solid #7449EB;
+    border: 2px solid #a098d3;
     border-radius: 6px;
     font-size: 18px;
     background-color: #333333;

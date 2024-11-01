@@ -181,6 +181,18 @@ function excluirFuncionario(req, res) {
 
       });
   }
+
+
+  function selecionar(req, res) {
+    var idUsuario = req.params.idUsuario;
+    usuarioModel.selecionar(idUsuario)
+        .then(function (resultado) {
+            res.json(resultado);
+        }).catch(function (erro) {
+            console.error("Houve um erro ao selecionar os dados do usuário:", erro);
+            res.status(500).json(erro.sqlMessage || erro.message);
+        });
+}
   
 
 module.exports = {
@@ -190,5 +202,6 @@ module.exports = {
     cadastrarFuncionario,
     buscarPorId,
     editarFuncionario,
-    excluirFuncionario
+    excluirFuncionario,
+    selecionar
 }
