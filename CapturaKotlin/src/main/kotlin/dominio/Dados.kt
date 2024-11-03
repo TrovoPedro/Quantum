@@ -43,10 +43,13 @@ class Dados {
 
                 exibirDados()
 
+                alertar(10.0)
+
                 Thread.sleep(5000)
             }
         }.start()
     }
+
 
     fun inserirDados(totalDadosRecebidosMB: Double) {
         dadosRepositorio.inserir(totalDadosRecebidosMB)
@@ -57,7 +60,6 @@ class Dados {
             enviados = converterParaMb(totalDadosEnviados),
             recebidos = converterParaMb(totalDadosRecebidos)
         )
-
         println("Total de Dados Enviados: %.2f MB".format(dadosRede.enviados))
         println("Total de Dados Recebidos: %.2f MB".format(dadosRede.recebidos))
         println("Total de Pacotes Enviados: $totalPacotesEnviados")
@@ -73,11 +75,20 @@ class Dados {
         capturando = false
     }
 
-    fun alertar(alertaUsuario:Double){
-        val slack = Slack("https://hooks.slack.com/services/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")
-        val mensagem = JSONObject().apply {
-            put("text", alertaUsuario)
+    fun alertar(alertaUsuario: Double) {
+        if (totalDadosRecebidos >= alertaUsuario) {
+            val slack = Slack("https://hooks.slack.com/services/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")
+            val mensagem = JSONObject().apply {
+                put("text", "O servidor X está em estado de alerta, por favor resolva o quanto antes.");
+            }
+            slack.sendMessage(mensagem);
+            println("Alerta enviado: Dados recebidos ultrapassaram $alertaUsuario MB.")
+
+            totalDadosRecebidos = 0.0
+        } else {
+            println("Estável")
         }
     }
+
 
 }

@@ -16,8 +16,6 @@ open class Main {
             val dadosRecebidos = Dados();
             dadosRecebidos.dadosRepositorio = dadosRepositorio;
 
-            // finalizar funcao de alerta print(dadosRecebidos.alertar(0.0));
-
             val looca = Looca();
 
             println("Informe seu nome: ");
@@ -65,6 +63,7 @@ open class Main {
                         capturaAtiva = if (!capturaAtiva) {
                             println("Iniciando captura de rede...");
                             dadosRecebidos.iniciarCaptura();
+                            dadosRecebidos.alertar(10.0);
                             true
                         } else {
                             println("Captura de rede finalizada.");
