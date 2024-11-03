@@ -2,6 +2,8 @@ package dominio
 
 import com.github.britooo.looca.api.core.Looca
 import repositorio.DadosRepositorio
+import dominio.Slack
+import org.json.JSONObject;
 import java.time.Instant
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -70,4 +72,12 @@ class Dados {
     fun pararCaptura() {
         capturando = false
     }
+
+    fun alertar(alertaUsuario:Double){
+        val slack = Slack("https://hooks.slack.com/services/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")
+        val mensagem = JSONObject().apply {
+            put("text", alertaUsuario)
+        }
+    }
+
 }
