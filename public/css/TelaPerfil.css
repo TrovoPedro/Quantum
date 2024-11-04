@@ -13,14 +13,14 @@ body {
     height: 100%;
 }
 
-.Dashboard {
+.dashboard {
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #1E1E1E;
+    background-color: #151a22;;
 }
 
 
@@ -239,6 +239,7 @@ body {
 .info_usuario{
     color: white;
     padding-left: 2rem;
+    width: 70%;
 }
 
 .info_usuario h3{
@@ -449,20 +450,23 @@ body {
     margin-left: 2%;
     color:#FFFFFF;
     font-family: Ubuntu;
-    font-size: 16px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    
 }
 
 
 #nome_usuario{
     border-style: none;
-    background-color: #3C3C3C;
-    width: 60%;
+    width: 100%;
     height: 100%;
     border-radius: 20px;
     margin-left: 2%;
     color:#FFFFFF;
     font-family: Ubuntu;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 #senha{

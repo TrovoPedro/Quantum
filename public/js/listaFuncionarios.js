@@ -89,7 +89,9 @@ function cadastrarFuncionario(nome, email, senha, fkEmpresa) {
     return false;
 }
 
-function listarFuncionario() {
+function listarFuncionario(
+
+) {
     fetch(`/usuarios/buscarPorId`, {
         method: "GET",
         headers: {
@@ -132,7 +134,7 @@ function listarFuncionario() {
         '${item.email}')" 
 
         class="btn-icon" 
-        style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+        style="width: 35px; height: 35px; padding: 5px; background: #151a22; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconlapis.png" alt="" style="width: 25px; height: 25px">
 
         </button>
@@ -142,7 +144,7 @@ function listarFuncionario() {
 
 
     <td>
-        <button onclick="excluirFuncionario('${item.idUsuario}')" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+        <button onclick="excluirFuncionario('${item.idUsuario}')" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #151a22; border-style: none;">
             <img class="img-iconsEdit" src="assets/iconLixeira.svg" alt="" style="width: 25px; height: 25px;">
         </button>
     </td>

@@ -54,14 +54,11 @@ function previewImage(event) {
     }
 }
 
-
 function mostrarDados() {
-
-
     var idEmpresa = sessionStorage.getItem("FKEMPRESA");
     console.log("FK da Empresa:", idEmpresa);
 
-    var idUsuario = sessionStorage.getItem("ID_USUARIO")
+    var idUsuario = sessionStorage.getItem("ID_USUARIO");
     console.log("ID do Usuário:", idUsuario);
 
     fetch(`./usuarios/selecionar/${idUsuario}`)
@@ -74,49 +71,22 @@ function mostrarDados() {
             }
         })
         .then(function (resposta) {
+            var dashboard = document.getElementsByClassName("dashboard")[0]; // Correção
+
             if (resposta.length === 0) {
-                var Dashboard = document.getElementById("Dashboard");
-                info.innerHTML = "<span>Nenhum resultado encontrado.</span>";
+                dashboard.innerHTML = "<span>Nenhum resultado encontrado.</span>";
                 return;
             }
 
-            var html = resposta.map(function (usuario) {
-                console.log("Usuário:", usuario);
-                // Acesse 'usuario.empresa' para obter os dados da empresa
-                return `
-                    <div class="box1low">
-                        <div class="cardServidor">
-                            <div class="boxServidores">
-                                <span>Email:</span>
-                                <input type="email" class="input-perfil" class="container_radiu"> <span id="b_usuario_email" value="${usuario.email}" style="color: gray;"></span></input>
-                            </div>
-                            <div class="boxServidores">
-                                <span>Senha:</span>
-                                <input type="password" class="input-perfil" class="container_radiu" id="senha" value="${usuario.senha}" contenteditable="true"></input>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box2low">
-                        <div class="cardServidor">
-                            
-                            <div class="boxServidores">
-                                <span>Data de criação:</span>
-                                <div class="container_radiu">
-                                    <span id="data_criacao" value="${usuario.datacadastro}">${usuario.datacadastro}</span>
-                                </div>
-                            </div>
-                            <div class="boxServidores">
-                                <span>Função:</span>
-                                <div class="container_radiu">
-                                    <span id="funcao" value="${usuario.funcao}">${usuario.funcao}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            })
-            
-            
+            var usuario = resposta[0]; // Supondo que há um único usuário retornado
+
+            // Preenchendo os campos com os dados do usuário
+            document.getElementById("nome_usuario").textContent = usuario.nome; // Nome do usuário
+            document.getElementById("input_email").value = usuario.email; // Campo de email
+            document.getElementById("input_senha").value = usuario.senha; // Campo de senha
+            document.getElementById("empresa_usuario").textContent = usuario.empresa; // Empresa
+            document.getElementById("data_criacao").textContent = usuario.datacadastro; // Data de criação
+            document.getElementById("funcao_usuario").textContent = usuario.funcao; // Função
         })
         .catch(function (erro) {
             console.error("Erro na requisição fetch:", erro);

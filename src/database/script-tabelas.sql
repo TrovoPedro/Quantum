@@ -1,155 +1,177 @@
-create database QuantumDB;
+CREATE DATABASE QuantumDB;
 
-use QuantumDB;
+USE QuantumDB;
 
-create table tipoUsuario(
-	idTipoUsuario int primary key auto_increment,
-    nome char(7)
-);
 
-create table situacao(
-	idSituacao int primary key auto_increment,
-    tipo char(10)
-);
-
-create table tipoComponente(
-	idTipoComponente int primary key auto_increment,
+CREATE TABLE tipoUsuario(
+    idTipoUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45)
 );
 
-create table periodoAtividade(
-	idEstado int primary key auto_increment,
-    dtHora datetime,
-    tempoAtivo int
-);
-
-create table empresa(
-	idEmpresa int primary key auto_increment,
-    razao_social varchar(100),
-    cnpj char(14),
-    fkSituacao int,
-	foreign key (fkSituacao) references situacao(idSituacao)
-);
-
-create table endereco(
-	idEndereco int primary key auto_increment,
-    cep char(8),
-    rua varchar(45),
-    complemento varchar(45),
-    num int,
-    fkEmpresa int,
-	foreign key (fkEmpresa) references empresa(idEmpresa)
-);
-
-create table usuario(
-	idUsuario int primary key auto_increment,
-    nome varchar(255),
-    email varchar(255),
-    senha varchar(255),
-    data_cadastro datetime,
-    fotoPerfil varchar(600),
-    fkEmpresa int,
-    fkTipoUsuario int,
-    fkSituacao int,
-	foreign key (fkEmpresa) references empresa(idEmpresa),
-	foreign key (fkTipoUsuario) references tipoUsuario(idTipoUsuario),
-	foreign key (fkSituacao) references situacao(idSituacao)
-);
-
-create table servidor(
-	idServidor int primary key auto_increment,
-    nomeServidor varchar(45),
-    fkEmpresa int,
-    fkLocalizacao int,
-    fkTempoAtividade int,
-    fkSituacao int,
-    foreign key (fkEmpresa) references empresa(idEmpresa),
-	foreign key (fkLocalizacao) references endereco(idEndereco),
-	foreign key (fkSituacao) references situacao(idSituacao),
-	foreign key (fkTempoAtividade) references periodoAtividade(idEstado)
-);
-
-create table componente(
-	idComponente int primary key auto_increment,
-    nome varchar(45),
-    fabricante varchar(45),
-	fkServidor int,
-    fkTipoComponente int,
-	foreign key (fkServidor) references servidor(idServidor),
-	foreign key (fkTipoComponente) references tipoComponente(idTipoComponente)
-);
-
-create table log(
-	idLog int primary key auto_increment,
-    dtHora datetime,
-    tempoAtividade datetime,
-    usoComponente double,
-    fkComponente int,
-	foreign key (fkComponente) references componente(idComponente)
-);
-
-create table limiteComponente(
-	idLimiteComponente int primary key auto_increment,
-    valorLimite double,
-    fkComponente int,
-	foreign key (fkComponente) references componente(idComponente)
-);
-
-create table alerta(
-	idAlerta int primary key auto_increment,
-    data datetime,
-    descricao varchar(45),
-    fkLog int,
-    fkLimiteComponente int,
-    foreign key (fkLog) references log(idLog),
-	foreign key (fkLimiteComponente) references limiteComponente(idLimiteComponente)
-);
-
-SELECT servidor.nomeServidor, empresa.razao_social, situacao.tipo
-FROM servidor
-JOIN empresa
-    ON servidor.fkEmpresa = empresa.idEmpresa
-JOIN situacao
-    ON servidor.fkSituacao = situacao.idSituacao;
-    
 INSERT INTO tipoUsuario (nome) 
-VALUES
-    ('Gerente'),
-    ('Tecnico');
+VALUES ('Administrador'), ('Gerente'), ('Tecnico');
+
+select * from usuario;
+
+CREATE TABLE situacao(
+    idSituacao INT PRIMARY KEY AUTO_INCREMENT,
+    tipo varchar(45)
+);
 
 INSERT INTO situacao (tipo) 
-VALUES
-    ('Desativado'),
-    ('Ativado');
-    
+VALUES ('Desativado'), ('Ativado');
+
+
+CREATE TABLE tipoComponente(
+    idTipoComponente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45)
+);
+
 INSERT INTO tipoComponente(nome) 
-VALUES
-    ('Ram'),
-    ('CPU'),
-    ('Disco'),
-    ('Rede');
-    
+VALUES ('Ram'), ('CPU'), ('Disco'), ('Rede');
+
+-- Tabela periodoAtividade
+CREATE TABLE periodoAtividade(
+    idEstado INT PRIMARY KEY AUTO_INCREMENT,
+    dtHora DATETIME,
+    tempoAtivo INT
+);
+
 INSERT INTO periodoAtividade(dtHora, tempoAtivo) 
-VALUES
-    (now(), 5),
-    (now(), 10);
-    
+VALUES (NOW(), 5), (NOW(), 10);
+
+-- Tabela empresa
+CREATE TABLE empresa(
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    razao_social VARCHAR(100),
+    cnpj CHAR(14),
+    fkSituacao INT,
+    FOREIGN KEY (fkSituacao) REFERENCES situacao(idSituacao)
+);
+
+
+select idEmpresa, razao_social from empresa;
+
 INSERT INTO empresa(razao_social, cnpj, fkSituacao) 
-VALUES
-    ('Santa Marcelina', '90847581904876', 2),
-    ('Doutor consulta', '90847581904221', 2),
-    ('A.C Camargo', '10289465718298', 2);
-    
+VALUES ('Santa Marcelina', '90847581904876', 2),
+       ('Doutor consulta', '90847581904221', 2),
+       ('A.C Camargo', '10289465718298', 2);
+
+-- Tabela endereco
+CREATE TABLE endereco(
+    idEndereco INT PRIMARY KEY AUTO_INCREMENT,
+    cep CHAR(8),
+    rua VARCHAR(45),
+    complemento VARCHAR(45),
+    num INT,
+    fkEmpresa INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+);
+
 INSERT INTO endereco(cep, rua, complemento, num, fkEmpresa) 
-VALUES
-    (08485430, 'Rua arroio triunfo', 'Hospital', 42, 1),
-    (08485540, 'Rua ladeira porto geral', 'Hospital', 1991, 2),
-    (09283727, 'Rua liberdade', 'Hospital', 3955, 3);
-    
-INSERT INTO servidor( nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
-VALUES
-    ('Servidor 1', 1, 1, 1, 2),
-    ('Servidor 2', 2, 2, 2, 1),
-    ('Servidor 3', 3, 3, 1, 2);
-    
-select * from servidor;
+VALUES ('08485430', 'Rua arroio triunfo', 'Hospital', 42, 1),
+       ('08485540', 'Rua ladeira porto geral', 'Hospital', 1991, 2),
+       ('09283727', 'Rua liberdade', 'Hospital', 3955, 3);
+
+CREATE TABLE usuario(
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255),
+    email VARCHAR(255),
+    senha VARCHAR(255),
+    data_cadastro DATETIME,
+    fotoPerfil VARCHAR(600),
+    fkEmpresa INT,
+    fkTipoUsuario INT,
+    fkSituacao INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+    FOREIGN KEY (fkTipoUsuario) REFERENCES tipoUsuario(idTipoUsuario),
+    FOREIGN KEY (fkSituacao) REFERENCES situacao(idSituacao)
+);
+
+SELECT 
+    usuario.nome AS nomeUsuario,
+    usuario.email,
+    empresa.razao_social AS nomeEmpresa,
+    tipoUsuario.nome AS cargoUsuario
+FROM usuario
+JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa
+JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
+
+CREATE TABLE servidor(
+    idServidor INT PRIMARY KEY AUTO_INCREMENT,
+    nomeServidor VARCHAR(45),
+    fkEmpresa INT,
+    fkLocalizacao INT,
+    fkTempoAtividade INT,
+    fkSituacao INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+    FOREIGN KEY (fkLocalizacao) REFERENCES endereco(idEndereco),
+    FOREIGN KEY (fkSituacao) REFERENCES situacao(idSituacao),
+    FOREIGN KEY (fkTempoAtividade) REFERENCES periodoAtividade(idEstado)
+);
+
+INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
+VALUES ('Servidor 1', 1, 1, 1, 2),
+       ('Servidor 2', 2, 2, 2, 1),
+       ('Servidor 3', 3, 3, 1, 2);
+
+-- Tabela componente
+CREATE TABLE componente(
+    idComponente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    fabricante VARCHAR(45),
+    fkServidor INT,
+    fkTipoComponente INT,
+    FOREIGN KEY (fkServidor) REFERENCES servidor(idServidor),
+    FOREIGN KEY (fkTipoComponente) REFERENCES tipoComponente(idTipoComponente)
+);
+
+INSERT INTO componente(nome, fabricante, fkServidor, fkTipoComponente) 
+VALUES ('CPU', 'Intel', 1, 2),
+       ('RAM', 'Corsair', 1, 1),
+       ('DISCO', 'Seagate', 1, 3);
+
+-- Tabela log
+CREATE TABLE log(
+    idLog INT PRIMARY KEY AUTO_INCREMENT,
+    dtHora DATETIME,
+    tempoAtividade DATETIME,
+    usoComponente DOUBLE,
+    fkComponente INT,
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
+);
+
+-- Tabela limiteComponente
+CREATE TABLE limiteComponente(
+    idLimiteComponente INT PRIMARY KEY AUTO_INCREMENT,
+    valorLimite DOUBLE,
+    fkComponente INT,
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
+);
+
+-- Tabela alerta
+CREATE TABLE alerta(
+    idAlerta INT PRIMARY KEY AUTO_INCREMENT,
+    data DATETIME,
+    descricao VARCHAR(45),
+    fkLog INT,
+    fkLimiteComponente INT,
+    FOREIGN KEY (fkLog) REFERENCES log(idLog),
+    FOREIGN KEY (fkLimiteComponente) REFERENCES limiteComponente(idLimiteComponente)
+);
+
+-- View para análise do uso dos componentes
+CREATE VIEW analiseUsoComponentes AS
+SELECT 
+    componente.nome AS nomeComponente,
+    MIN(log.usoComponente) AS usoMinimo,
+    MAX(log.usoComponente) AS usoMaximo
+FROM log
+JOIN componente ON log.fkComponente = componente.idComponente
+GROUP BY componente.nome;
+
+-- Consulta de servidores
+SELECT servidor.nomeServidor, empresa.razao_social, situacao.tipo
+FROM servidor
+JOIN empresa ON servidor.fkEmpresa = empresa.idEmpresa
+JOIN situacao ON servidor.fkSituacao = situacao.idSituacao;

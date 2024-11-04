@@ -7,14 +7,12 @@
     <title>Perfil - Quantum</title>
 
     <!-- Icone  -->
-    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+    <link rel="icon" href="img/novalogo.svg" type="image/x-icon">
 
     <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:wght@100;300;400;700;900&family=Space+Mono:wght@400;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/TelaPerfil.css">
     <link rel="stylesheet" href="css/Navbar.css">
@@ -22,37 +20,38 @@
     <script src="js/sessao.js"></script>
 </head>
 
-<body onload="validarSessao()">
+<body style="background-color: #111111;" onload="mostrarDados()">
     <div class="navBar">
         <div class="CaixalogoNav">
-            <img src="assets/Logo Quantum (1).svg" class="logoNav" alt="">
+            <img src="img/novalogo.svg" class="logoNav" alt="">
         </div>
         <div class="linksNav">
             <div class="botoesNav">
-                <img src="assets/Vectorhome.svg" class="LinkImgNav" alt="">
-                <p><a href="dashboard.html" style="color: white; text-decoration: none;">Home</a></p>
+                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
             </div>
             <div class="botoesNav">
-                <img src="assets/VectorGraficos.svg" class="LinkImgNav" alt="">
-                <p><a href="dashboard_2.html" style="color: white; text-decoration: none;">Gráficos</a></p>
+                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
+                <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
             </div>
             <div class="botoesNav">
-                <img src="assets/Vectorperfil.svg" class="LinkImgNav" alt="">
-                <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;">Perfil</a></p>
+                <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
+                <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
             </div>
         </div>
         <div class="exitNav">
             <div class="botoesNav">
-
-                <img src="assets/Vectorexit.svg" class="LinkImgNav" alt="">
+                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
                 <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
-            </div>
-            <div class="borrar">
-
             </div>
         </div>
     </div>
-    <Section class="Dashboard">
+
+    <section class="dashboard">
         <div class="topDash">
             <div class="boxUser-data">
                 <h3>Perfil de usuário</h3>
@@ -60,61 +59,58 @@
         </div>
         <div class="midDash">
             <div class="itensMonitorados">
-                <div class="profile-picture">   
+                <div class="profile-picture">
                     <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
-                    <img  id="foto" class="perfil_icon" id="preview"  src="assets/default-avatar.jpg" alt="Avatar" style="width: 100%;height: 100%;">
+                    <img id="foto-usuario" class="perfil_icon" src="assets/default-avatar.jpg" alt="Avatar" style="width: 100%; height: 100%;">
                 </div>
                 <div class="info_usuario">
-                    <h3 id="b_usuario"></h3>
-                    <span id="b_usuario_email" style="color: gray;"></span>
+                    <h3 id="nome_usuario"></h3> <!-- Para exibir o nome do usuário -->
+                   
                 </div>
             </div>
         </div>
         <div class="lowDash">
             <div class="box1low">
-                <!--Nome do usuario-->
                 <div class="cardServidor">
                     <div class="boxServidores">
-                        <span>Nome:</span>
-                        <input type="text" class="input-perfil" class="container_radiu"></input>
-                    </div>
-                    <!--Email-->
-                    <div class="boxServidores">
                         <span>Email:</span>
-                        <input type="email" class="input-perfil" class="container_radiu"></input>
+                        <input type="email" class="input-perfil" id="input_email" readonly disabled> <!-- Para exibir email -->
                     </div>
-                    <!--Senha-->
                     <div class="boxServidores">
                         <span>Senha:</span>
-                        <input type="password" class="input-perfil" class="container_radiu" id="senha"
-                            contenteditable="true"></input>
+                        
+                        <input type="password" class="input-perfil" id="input_senha" readonly disabled > 
+                           
+                    <!-- Para exibir senha -->
                     </div>
                 </div>
             </div>
+
             <div class="box2low">
                 <div class="cardServidor">
                     <div class="boxServidores">
                         <span>Empresa:</span>
                         <div class="container_radiu">
-                            <span>Santa Marcelina</span>
+                            <span id="empresa_usuario"></span> <!-- Para exibir empresa -->
                         </div>
                     </div>
                     <div class="boxServidores">
                         <span>Data de criação:</span>
                         <div class="container_radiu">
-                            <span>27-09-2024</span>
+                            <span id="data_criacao"></span> <!-- Para exibir data de criação -->
                         </div>
                     </div>
                     <div class="boxServidores">
                         <span>Função:</span>
                         <div class="container_radiu">
-                            <span>Administrador</span>
+                            <span id="funcao_usuario"></span> <!-- Para exibir função -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-    </Section>
+    </section>
+
 </body>
+
 </html>

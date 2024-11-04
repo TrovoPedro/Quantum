@@ -12,7 +12,7 @@ html {
 body {
     width: 100%;
     height: 100%;
-    background: #111111;
+    background: #151a22;
     display: flex;
     flex-direction: row;
 }
@@ -25,7 +25,7 @@ body {
 }
 
 .btn-novoServidor {
-    background-color: #7449EB;
+    background-color: #a098d3;
     color: white;
     height: 2rem;
     width: 8.5rem;
@@ -51,7 +51,7 @@ table {
 }
 
 .tituloTabela {
-    color: #7449EB;
+    color: #a098d3;
 }
 
 .camposTabela,
@@ -91,7 +91,7 @@ td {
   
   /* Parte deslizante (thumb) da barra de rolagem */
   .listaServidores::-webkit-scrollbar-thumb {
-    background-color: #7449EB; /* Cor da parte deslizante */
+    background-color: #a098d3; /* Cor da parte deslizante */
     border-radius: 10px; /* Borda arredondada */
   }
   
@@ -105,7 +105,7 @@ td {
     margin-top: 2.5%;
     height: 87%;
     width: 95%;
-    background-color: #7449EB;
+    background-color: #a098d3;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -151,7 +151,7 @@ td {
     align-items: center;
     border-radius: 6px;
     border: solid 1px;
-    border-color: #7449EB;
+    border-color: #a098d3;
 }
 
 .boxCadastroServidor {
@@ -163,7 +163,7 @@ td {
     height: 60%;
     right: 0;
     bottom: 0;
-    background-color: #111111;
+    background-color: #151a22;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -171,7 +171,7 @@ td {
     align-items: center;
     border-radius: 6px;
     border: solid 1px;
-    border-color: #7449EB;
+    border-color: #a098d3;
 }
 
 #situacaoServidor {
@@ -256,7 +256,7 @@ option{
     width: 85%;
     height: 50%;
     border: 0.8px solid #9598C1;
-    background-color: #111111;
+    background-color: #222121;
     color: white;
     outline: none;
     padding-left: 10px;
@@ -282,7 +282,7 @@ option{
 .botaoAvancar {
     width: 80%;
     height: 10%;
-    background-color: #7449EB;
+    background-color: #a098d3;
     color: white;
     font-family: Lato;
     cursor: pointer;
@@ -302,7 +302,7 @@ option{
     width: 97.5%;
     height: 30%;
     border: 0.8px solid #9598C1;
-    background-color: #111111;
+    background-color: #222121;
     color: white;
     outline: none;
     padding-left: 5px;

@@ -56,7 +56,6 @@ JOIN situacao ON usuario.fkSituacao = situacao.idSituacao
 JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa
 JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario
 WHERE usuario.fkTipoUsuario = 3 
-  AND empresa.idEmpresa = ${idEmpresa}
 ORDER BY usuario.idUsuario;`;
 
     return database.executar(instrucaoSql);

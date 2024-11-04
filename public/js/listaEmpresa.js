@@ -153,14 +153,14 @@ function listarEmpresa() {
        '${item.rua}',
         '${item.num}',)" 
             class="btn-icon" 
-            style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+            style="width: 35px; height: 35px; padding: 5px; background: #151a22; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconlapis.png" alt="" style="width: 25px; height: 25px;">
     </button>
 </td>
 
 
 <td>
-    <button onclick="excluirEmpresa(${item.idEmpresa})" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #111111; border-style: none;">
+    <button onclick="excluirEmpresa(${item.idEmpresa})" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #151a22; border-style: none;">
         <img class="img-iconsEdit" src="assets/iconLixeira.svg" alt="" style="width: 25px; height: 25px;">
     </button>
 </td>
