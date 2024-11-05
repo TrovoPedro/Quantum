@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Empresas</title>
 
-    <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
+    <link rel="icon" href="img/novalogo.svg" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,19 +92,19 @@
                 <h2>Digite o endereço da empresa a ser cadastrada</h2>
                 <div class="boxEmpresa">
                     <span>CEP:</span>
-                    <input type="text" id="cep" class="input-empresa" class="container_radiu"></input>
+                    <input type="text" id="cep" class="input-empresa" class="container_radiu" oninput="buscar()" maxlength="8"></input>
                 </div>
                 <div class="boxEmpresa">
                     <span>Rua:</span>
-                    <input type="email" id="rua" class="input-empresa" class="container_radiu"></input>
+                    <input type="text" id="rua" class="input-empresa" class="container_radiu"></input>
                 </div>
                 <div class="boxEmpresa">
                     <span>Complemento:</span>
-                    <input type="email" id="complemento" class="input-empresa" class="container_radiu"></input>
+                    <input type="text" id="complemento" class="input-empresa" class="container_radiu"></input>
                 </div>
                 <div class="boxEmpresa">
                     <span>Número:</span>
-                    <input type="email" id="num" class="input-empresa" class="container_radiu" placeholder=""></input>
+                    <input type="text" id="num" class="input-empresa" class="container_radiu" placeholder=""></input>
                 </div>
                 <div class="boxEmpresa">
                     <button onclick="cadastroEndereco()" class="botaoAvancar" class="input-empresa">Avançar</button>
