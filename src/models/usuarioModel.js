@@ -93,14 +93,11 @@ function excluirFuncionario(idUsuario, situacaoEditada) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
   }
-
   function selecionar(idUsuario) {
-    // Defina a instrução SQL com um placeholder (?) para o parâmetro
+    // Defina a instrução SQL com um placeholder (?)
     var instrucaoSql = `
-    SELECT nome, email, senha, fkEmpresa, data_cadastro, fkTipoUsuario 
-    FROM usuario 
-    WHERE idUsuario = ${idUsuario};
-    `;
+    SELECT * FROM usuarioDados WHERE idUsuario = ${idUsuario}`;
+    
     // Execute a instrução SQL passando idUsuario como parâmetro
     return database.executar(instrucaoSql, [idUsuario]);
 }

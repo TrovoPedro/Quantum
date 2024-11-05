@@ -54,10 +54,9 @@ function previewImage(event) {
     }
 }
 
-function mostrarDados() {
-    var idEmpresa = sessionStorage.getItem("FKEMPRESA");
-    console.log("FK da Empresa:", idEmpresa);
 
+
+function mostrarDados() {
     var idUsuario = sessionStorage.getItem("ID_USUARIO");
     console.log("ID do Usuário:", idUsuario);
 
@@ -80,15 +79,48 @@ function mostrarDados() {
 
             var usuario = resposta[0]; // Supondo que há um único usuário retornado
 
-            // Preenchendo os campos com os dados do usuário
-            document.getElementById("nome_usuario").textContent = usuario.nome; // Nome do usuário
-            document.getElementById("input_email").value = usuario.email; // Campo de email
-            document.getElementById("input_senha").value = usuario.senha; // Campo de senha
-            document.getElementById("empresa_usuario").textContent = usuario.empresa; // Empresa
-            document.getElementById("data_criacao").textContent = usuario.datacadastro; // Data de criação
-            document.getElementById("funcao_usuario").textContent = usuario.funcao; // Função
+            // Verifique a estrutura da resposta e preencha os campos
+            document.getElementById("nome_usuario").textContent = usuario.nomeUsuario || "Nome não encontrado"; // Nome do usuário
+            document.getElementById("input_email").value = usuario.email || "Email não encontrado"; // Campo de email
+           
+
+            // Verificando se os dados da empresa existem antes de preencher
+            if (usuario.nomeEmpresa) {
+                document.getElementById("empresa_usuario").textContent = usuario.nomeEmpresa; // Nome da empresa
+            } else {
+                document.getElementById("empresa_usuario").textContent = "Empresa não encontrada";
+            }
+
+            // Formatar e exibir a data no padrão BR
+            document.getElementById("data_criacao").textContent = formatarData(usuario.DtCadastro) || "Data de criação não encontrada"; // Data de criação
+
+            document.getElementById("funcao_usuario").textContent = usuario.cargoUsuario || "Cargo não encontrado"; // Função
         })
         .catch(function (erro) {
             console.error("Erro na requisição fetch:", erro);
         });
 }
+
+// Função para formatar a data no padrão brasileiro (DD/MM/YYYY)
+function formatarData(data) {
+    const dataObj = new Date(data);
+
+    // Verifica se a data é válida
+    if (isNaN(dataObj)) {
+        return "Data inválida";
+    }
+
+    return new Intl.DateTimeFormat('pt-BR').format(dataObj);
+}
+
+
+function formatarData(data){
+    const newData = new Date(data);
+
+    if (isNaN(newData)) {
+        return "Data Invalida"
+    }
+
+    return new Intl.DateTimeFormat('pr-BR').format(newData)
+}
+
