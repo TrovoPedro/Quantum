@@ -59,6 +59,52 @@ function cadastroEmpresa() {
     return false;
 }
 
+function buscar() {
+    var varcep = document.getElementById("cep").value;
+    console.log("CEP digitado:", varcep);  // Verificar o valor do CEP digitado
+
+    // Validação do CEP (8 caracteres numéricos) só quando o CEP estiver completo
+    if (varcep.length === 8) {
+        if (isNaN(Number(varcep))) {
+            console.log("CEP inválido:", varcep);
+            alert("CEP inválido. Certifique-se de digitar um CEP válido.");
+            return; // Se o CEP não for numérico, sai da função
+        }
+
+        console.log("Iniciando busca para o CEP:", varcep); // Confirma que a busca foi iniciada
+        fetch(`https://viacep.com.br/ws/${varcep}/json/`)
+            .then(function(resposta) {
+                if (!resposta.ok) {
+                    throw new Error("Erro na requisição");
+                }
+                return resposta.json();
+            })
+            .then(function(respostaFormatada) {
+                console.log("Resposta da API:", respostaFormatada); // Verifique a resposta da API
+
+                // Verifica se a API retornou informações válidas
+                if (respostaFormatada.erro) {
+                    alert("CEP não encontrado. Verifique o número e tente novamente.");
+                    return; // Se o CEP for inválido, pare a execução aqui
+                }
+
+                // Preenche os campos com os dados obtidos
+                document.getElementById("rua").value = respostaFormatada.logradouro || "";
+                document.getElementById("complemento").value = respostaFormatada.complemento || "";
+                console.log("Dados do endereço preenchidos com sucesso.");
+            })
+            .catch(function(error) {
+                console.error("Erro ao fazer a requisição:", error);
+                alert("Ocorreu um erro. Tente novamente mais tarde.");
+            });
+    } else {
+        console.log("CEP incompleto:", varcep);  // Não faz nada até o CEP ter 8 caracteres
+    }
+}
+
+
+
+
 function cadastroEndereco() {
     var cardEndereco = document.getElementById('modalCadastroEndereco')
     var cardAdm = document.getElementById('modalCadastroAdm')

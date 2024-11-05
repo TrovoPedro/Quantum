@@ -404,6 +404,7 @@ input[type="file"] {
     align-items: flex-start;
     display: flex;
     justify-content: center;
+    width: 60;
 }
 
 
@@ -417,6 +418,7 @@ input[type="file"] {
     color: #000;
     font-family: Ubuntu;
     font-size: 20px;
+    text-align: center;
 }
 
 .botaoAvancar {
