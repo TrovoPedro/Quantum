@@ -4,9 +4,6 @@ import com.github.britooo.looca.api.core.Looca
 import repositorio.DadosRepositorio
 import dominio.Slack
 import org.json.JSONObject;
-import java.time.Instant
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 
 class Dados {
     var id: Int = 0
@@ -51,7 +48,6 @@ class Dados {
         }.start()
     }
 
-
     fun inserirDados(totalDadosRecebidosMB: Double) {
         dadosRepositorio.inserir(totalDadosRecebidosMB)
     }
@@ -90,7 +86,4 @@ class Dados {
             println("Estável")
         }
     }
-
-
-
 }

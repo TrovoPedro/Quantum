@@ -12,8 +12,8 @@ class DadosRepositorio {
         val dataSource = BasicDataSource();
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver";
         dataSource.url = "jdbc:mysql://localhost/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
-        dataSource.username = "root"
-        dataSource.password = "Semsenha13"
+        dataSource.username = "aluno"
+        dataSource.password = "sptech"
 
         jdbcTemplate = JdbcTemplate(dataSource);
     }
@@ -69,5 +69,12 @@ class DadosRepositorio {
         """,
             id)
         return qtdLinhasAfetadas > 0;
+    }
+
+    fun buscarServidor(): String {
+        return jdbcTemplate.queryForObject(
+            """select nomeServidor from servidor where idServidor = 1;""",
+            String::class.java
+        ) ?: ""
     }
 }

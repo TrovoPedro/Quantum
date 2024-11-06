@@ -17,7 +17,7 @@ open class Main {
             dadosRecebidos.dadosRepositorio = dadosRepositorio;
 
             val looca = Looca();
-
+            
             println("Informe seu nome: ");
             val nomeUsuario = readln();
 
@@ -129,7 +129,9 @@ open class Main {
                     }
 
                     6 -> {
-                        println("Informe em qual valor deseja")
+                        println("Informe a quantidade limite de dados a serem recebidos: ")
+                        dadosRecebidos.limeteUsuario = readln().toDouble();
+                        dadosRecebidos.alertar(dadosRecebidos.limeteUsuario);
                     }
 
                     7 -> {
