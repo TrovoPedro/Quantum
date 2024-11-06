@@ -14,6 +14,7 @@ class Dados {
     var totalDadosRecebidos = 0.0
     var totalPacotesEnviados = 0
     var totalPacotesRecebidos = 0
+    var limeteUsuario: Double = 0.0
 
     val looca = Looca()
     var dadosRepositorio = DadosRepositorio()
@@ -43,7 +44,7 @@ class Dados {
 
                 exibirDados()
 
-                alertar(10.0)
+                alertar(limeteUsuario)
 
                 Thread.sleep(5000)
             }
@@ -77,9 +78,9 @@ class Dados {
 
     fun alertar(alertaUsuario: Double) {
         if (totalDadosRecebidos >= alertaUsuario) {
-            val slack = Slack("https://hooks.slack.com/services/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")
+            val slack = Slack("https://hooks.slack.com/services/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")
             val mensagem = JSONObject().apply {
-                put("text", "O servidor X está em estado de alerta, por favor resolva o quanto antes.");
+                put("text", "O servidor ${dadosRepositorio.buscarServidor()} está em estado de alerta, por favor resolva o quanto antes.");
             }
             slack.sendMessage(mensagem);
             println("Alerta enviado: Dados recebidos ultrapassaram $alertaUsuario MB.")
@@ -89,6 +90,7 @@ class Dados {
             println("Estável")
         }
     }
+
 
 
 }
