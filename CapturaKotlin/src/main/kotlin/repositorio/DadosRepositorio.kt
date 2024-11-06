@@ -12,8 +12,8 @@ class DadosRepositorio {
         val dataSource = BasicDataSource();
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver";
         dataSource.url = "jdbc:mysql://localhost/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
-        dataSource.username = "aluno"
-        dataSource.password = "sptech"
+        dataSource.username = "root"
+        dataSource.password = "Semsenha13"
 
         jdbcTemplate = JdbcTemplate(dataSource);
     }
@@ -76,5 +76,14 @@ class DadosRepositorio {
             """select nomeServidor from servidor where idServidor = 1;""",
             String::class.java
         ) ?: ""
+    }
+
+    fun inserirLimite(limiteUsuario:Double):Boolean{
+        var qtdLinhasAfetadas = jdbcTemplate.update("""
+            insert into LimiteComponente(valorLimite, fkComponente) values (?, 4)
+        """, limiteUsuario)
+
+        println("limite adicionado com sucesso")
+        return qtdLinhasAfetadas > 0
     }
 }
