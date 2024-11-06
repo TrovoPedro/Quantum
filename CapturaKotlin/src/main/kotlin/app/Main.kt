@@ -132,6 +132,7 @@ open class Main {
                         println("Informe a quantidade limite de dados a serem recebidos: ")
                         dadosRecebidos.limeteUsuario = readln().toDouble();
                         dadosRecebidos.alertar(dadosRecebidos.limeteUsuario);
+                        dadosRepositorio.inserirLimite(dadosRecebidos.limeteUsuario)
                     }
 
                     7 -> {
