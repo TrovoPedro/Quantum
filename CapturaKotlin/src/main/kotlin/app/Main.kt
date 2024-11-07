@@ -17,7 +17,7 @@ open class Main {
             dadosRecebidos.dadosRepositorio = dadosRepositorio;
 
             val looca = Looca();
-            
+
             println("Informe seu nome: ");
             val nomeUsuario = readln();
 
@@ -129,10 +129,26 @@ open class Main {
                     }
 
                     6 -> {
-                        println("Informe a quantidade limite de dados a serem recebidos: ")
-                        dadosRecebidos.limeteUsuario = readln().toDouble();
-                        dadosRecebidos.alertar(dadosRecebidos.limeteUsuario);
-                        dadosRepositorio.inserirLimite(dadosRecebidos.limeteUsuario)
+                        println("Informe a quantidade limite de dados a serem recebidos pelo componente de rede: ")
+                        dadosRecebidos.limiteRede = readln().toDouble();
+                        dadosRecebidos.alertar(dadosRecebidos.limiteRede);
+                        dadosRepositorio.inserirLimite(dadosRecebidos.limiteRede, 4)
+
+                        println("Informe o uso máximo de CPU: ")
+                        dadosRecebidos.limiteCpu = readln().toDouble();
+                        dadosRecebidos.alertar(dadosRecebidos.limiteCpu);
+                        dadosRepositorio.inserirLimite(dadosRecebidos.limiteCpu, 1)
+
+                        println("Informe o uso máximo de RAM: ")
+                        dadosRecebidos.limiteRam = readln().toDouble();
+                        dadosRecebidos.alertar(dadosRecebidos.limiteRam);
+                        dadosRepositorio.inserirLimite(dadosRecebidos.limiteRam, 2)
+
+                        println("Informe o limite de uso do disco: ")
+                        dadosRecebidos.limiteDisco = readln().toDouble();
+                        dadosRecebidos.alertar(dadosRecebidos.limiteDisco);
+                        dadosRepositorio.inserirLimite(dadosRecebidos.limiteDisco, 3)
+
                     }
 
                     7 -> {
