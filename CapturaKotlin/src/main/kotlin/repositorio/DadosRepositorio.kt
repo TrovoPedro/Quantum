@@ -78,10 +78,11 @@ class DadosRepositorio {
         ) ?: ""
     }
 
-    fun inserirLimite(limiteUsuario:Double):Boolean{
+    fun inserirLimite(limiteUsuario:Double, idComponente: Int):Boolean{
         var qtdLinhasAfetadas = jdbcTemplate.update("""
-            insert into LimiteComponente(valorLimite, fkComponente) values (?, 4)
-        """, limiteUsuario)
+            insert into LimiteComponente(valorLimite, fkComponente) values (?, ?)
+        """, limiteUsuario,
+            idComponente)
 
         println("limite adicionado com sucesso")
         return qtdLinhasAfetadas > 0
