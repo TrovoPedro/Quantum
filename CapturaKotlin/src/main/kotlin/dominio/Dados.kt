@@ -11,7 +11,10 @@ class Dados {
     var totalDadosRecebidos = 0.0
     var totalPacotesEnviados = 0
     var totalPacotesRecebidos = 0
-    var limeteUsuario: Double = 0.0
+    var limiteRede: Double = 0.0
+    var limiteCpu: Double = 0.0
+    var limiteRam: Double = 0.0
+    var limiteDisco: Double = 0.0
 
     val looca = Looca()
     var dadosRepositorio = DadosRepositorio()
@@ -41,7 +44,7 @@ class Dados {
 
                 exibirDados()
 
-                alertar(limeteUsuario)
+                alertar(limiteRede)
 
                 Thread.sleep(5000)
             }
