@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas</title>
+
+    <!-- Icone  -->
+    <link rel="icon" href="img/novalogo.svg" type="image/x-icon">
+
+    <!-- Links Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/Tela_Alertas.css">
+    <link rel="stylesheet" href="css/navbarServidores.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="listarServidor()">
+    <div class="navBar">
+        <div class="CaixalogoNav">
+            <img src="img/novalogo.svg" class="logoNav" alt="">
+        </div>
+        <div class="linksNav">
+            <div class="botoesNav">
+                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
+                <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
+                <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
+            </div>
+        </div>
+
+        <div class="exitNav">
+
+            <div class="botoesNav">
+                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
+                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+            </div>
+
+            <div class="borrar">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="pai-lista">
+
+        <div class="tituloLista" >
+
+            <img class="img-servidores" src="assets/Alertas.svg" alt="">
+            
+        </div>
+
+        <!-- <div class="div-btn">
+            <button class="btn-novoServidor" onclick="mostrarServidor()">Novo servidor</button>
+        </div> -->
+
+        <div class="listaServidores" id="tabela-servidores" >
+
+
+            <div class="div_Server">
+
+                <div class="serverContent">
+
+                    <img src="assets/servidor.svg" alt="Servidor" class="serverImage">
+                    
+                    <div class="serverDetails">
+                        <div class="detailRow"><strong>Id servidor:</strong> 001</div>
+                        <div class="detailRow"><strong>Nome:</strong> Servidor A</div>
+                        <div class="detailRow"><strong>Empresa:</strong> Empresa X</div>
+                        <div class="detailRow"><strong>Situação:</strong> Ativo</div>
+                    </div>
+
+                    
+                <tbody>              
+                    
+                </tbody>
+                
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="boxCadastroServidor" id="aparecerBoxServidor">
+
+        <div class="logoCadastroServidor">
+
+            <img src="img/novalogo.svg" class="logoCadastroImagem">
+            <h2>Cadastre um Servidor</h2>
+        </div>
+
+        <div class="nomeServidor">
+            <div class="divNomeServidor">
+                <p>Nome do Servidor</p>
+            </div>
+            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor" id="inputNomeServidor">
+            <div class="divNomeServidor">
+                <p>Situação do Servidor</p>
+            </div>
+            <select id="situacaoServidor">
+                <option id="ativo" value="Ativo">Ativo</option>
+                <option id="desativado" value="Desativado">Desativado</option>
+            </select>
+        </div>
+
+        <button class="botaoAvancar" onclick="cadastrarServidor()">Cadastrar</button>
+    </div>
+
+    <div class="boxEditarServidor" id="aparecerBoxEditar">
+        <div class="logoCadastroServidor">
+            <img src="img/novalogo.svg" class="logoCadastroImagem">
+            <h2>Editar Servidor</h2>
+        </div>
+        <div class="nomeServidorEditado">
+            <div class="divNomeServidorEditado">
+                <p>Nome do Servidor</p>
+            </div>
+            <input type="text" placeholder="Insira o novo nome do servidor" class="inputNomeServidor" id="inputNomeEditado">
+            <div class="divNomeServidorEditado">
+                <p>Situação do Servidor</p>
+            </div>
+            <select id="situacaoServidorEditado">
+                <option id="ativo" value="Ativo">Ativo</option>
+                <option id="desativado" value="Desativado">Desativado</option>
+            </select>
+        </div>
+
+        <button class="botaoAvancar" onclick="editarServidor()">Editar</button>
+    </div>
+
+    <div class="filtro"></div>
+    
+</body>
+
+<script src="js/listaAlertas.js"></script>
+
+</html>

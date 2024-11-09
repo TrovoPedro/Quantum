@@ -1,0 +1,413 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Lato;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: #151a22;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.div-btn {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.btn-novoServidor {
+    background-color: #a098d3;
+    color: white;
+    height: 2rem;
+    width: 8.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10%;
+}
+
+.pai-lista {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5%;
+}
+
+.tituloTabela {
+    color: #a098d3;
+}
+
+
+.tituloLista {
+    margin-top: 15px;
+    width: 95%;
+
+    & img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding-left: 10rem;
+    }
+}
+
+.camposTabela,
+
+td {
+    padding: 12px;
+    text-align: center;
+    color: #fff;
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+}
+
+.btn-icon:hover {
+    cursor: pointer;
+}
+
+.img-iconsEdit {
+    width: 25%;
+}
+
+
+.listaServidores {
+    padding-top: 30px;
+    width: 95%;
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+
+    & .div_Server {
+
+        width: 430px;
+        background-color: #8A2BE2; 
+        padding: 20px;
+        height: 105px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+        border-radius: 15px;  
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2); 
+        }
+
+        & .serverContent {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        & .serverImage {
+            width: 70px;
+            height: 70px;
+            margin-right: 35px;
+        }
+
+        & .serverDetails {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: center;
+        }
+
+        & .detailRow {
+            font-size: 18px;
+            color: #fff;  
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;  
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+.listaServidores::-webkit-scrollbar {
+    width: 12px;
+    /* Largura da barra de rolagem vertical */
+    height: 12px;
+    /* Altura da barra de rolagem horizontal */
+}
+
+/* Parte deslizante (thumb) da barra de rolagem */
+.listaServidores::-webkit-scrollbar-thumb {
+    background-color: #a098d3;
+    /* Cor da parte deslizante */
+    border-radius: 10px;
+    /* Borda arredondada */
+}
+
+/* Parte deslizante ao passar o mouse (hover) */
+.listaServidores::-webkit-scrollbar-thumb:hover {
+    background-color: #351d79;
+    /* Cor mais escura no hover */
+}
+
+
+.cardServidor {
+    margin-top: 2.5%;
+    height: 87%;
+    width: 95%;
+    background-color: #a098d3;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    border: 5px;
+}
+
+.boxServidores {
+    height: 25%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+.boxEditarServidor {
+    height: 25%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+.boxEditarServidor {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 60%;
+    right: 0;
+    bottom: 0;
+    background-color: #111111;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+    border-radius: 6px;
+    border: solid 1px;
+    border-color: #a098d3;
+}
+
+.boxCadastroServidor {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 60%;
+    right: 0;
+    bottom: 0;
+    background-color: #151a22;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+    border-radius: 6px;
+    border: solid 1px;
+    border-color: #a098d3;
+}
+
+#situacaoServidor {
+    width: 15%;
+    border: solid 1px #9598C1;
+    background: transparent;
+    color: #fff;
+}
+
+option {
+    color: #111111;
+}
+
+.logoCadastroServidor {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 35%;
+    align-items: center;
+    color: white;
+    font-family: Lato;
+    gap: 20%;
+
+}
+
+.nomeServidor {
+    height: 25%;
+    width: 80%;
+    gap: 5%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.divNomeServidor {
+    height: 20%;
+    width: 100%;
+    color: white;
+    font-family: Lato;
+}
+
+.inputNomeServidor {
+    width: 97.5%;
+    height: 30%;
+    border: 0.8px solid #9598C1;
+    background-color: #111111;
+    color: white;
+    outline: none;
+    padding-left: 5px;
+}
+
+.boxSelecionarComponentes {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 88%;
+    right: 0;
+    bottom: 0;
+    background-color: #111111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.selecionarComponentes {
+    height: 15%;
+    width: 91%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputQtdProcessador {
+    width: 85%;
+    height: 50%;
+    border: 0.8px solid #9598C1;
+    background-color: #222121;
+    color: white;
+    outline: none;
+    padding-left: 10px;
+    margin-top: 2%;
+}
+
+.btSelecionar {
+    width: 87.9%;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+}
+
+.btProcessador {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botaoAvancar {
+    width: 80%;
+    height: 10%;
+    background-color: #a098d3;
+    color: white;
+    font-family: Lato;
+    cursor: pointer;
+    border: none;
+}
+
+.logoCadastroImagem {
+    height: 50%;
+}
+
+
+#aparecerSelecionarComponentes {
+    display: none;
+}
+
+#inputNomeEditado {
+    width: 97.5%;
+    height: 30%;
+    border: 0.8px solid #9598C1;
+    background-color: #222121;
+    color: white;
+    outline: none;
+    padding-left: 5px;
+}
+
+#situacaoServidorEditado {
+    width: 15%;
+    border: solid 1px #9598C1;
+    background: transparent;
+    color: #fff;
+}
+
+.divNomeServidorEditado {
+    height: 20%;
+    width: 100%;
+    color: white;
+    font-family: Lato;
+}
+
+.nomeServidorEditado {
+    height: 25%;
+    width: 80%;
+    gap: 5%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}

@@ -21,6 +21,7 @@ function mostrarServidor() {
         mostrar.style.display = "none";
     }
 }
+
 function mostrarEditar(idServidor) {
 
     sessionStorage.setItem("ID_SERVIDOR", idServidor);
