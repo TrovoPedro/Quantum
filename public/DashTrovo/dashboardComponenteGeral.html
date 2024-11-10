@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="shortcut icon" href="../assets/Logo Quantum.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/dashboardComponenteGeral.css">
 </head>
+
 <body>
     <div class="pai">
         <header class="pai-menu">
@@ -17,29 +19,77 @@
         </header>
         <img src="../assets/blurEscolher.png" alt="" class="blurEscolher">
         <div class="button-escolher">
-                <select id="select-escolher">
-                    <option selected disabled value="#">Escolher componente</option>
-                    <option value="1">CPU</option>
-                    <option value="2">RAM</option>
-                    <option value="3">Disco</option>
-                    <option value="4">Rede</option>
-                </select>
+            <select id="select-escolher">
+                <option selected disabled value="#">Escolher componente</option>
+                <option value="1">CPU</option>
+                <option value="2">RAM</option>
+                <option value="3">Disco</option>
+                <option value="4">Rede</option>
+            </select>
         </div>
+        <img class="blurEsquerda" src="../assets/blurEsquerda.png" alt="">
+        <img class="blurDireita" src="../assets/blurDireita.png" alt="">
         <div class="pai-conteudo">
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
-                    <div class="circulo-home">
-                        <img class="icon-menu-bg" src="../assets/home.png" alt="">
-                    </div>
-                    <img class="icon-menu" src="../assets/send.png" alt="">
-                    <img class="icon-menu" src="../assets/user.png" alt="">
+                    <button onclick="voltarHome()" class="circulo-home">
+                        <div class="circulo-home">
+                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        </div>
+                    </button>
+                    <button onclick="enviarFormulario()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    </button>
+                    <button onclick="verPerfil()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/user.png" alt="">
+                    </button>
                 </div>
-                <img class="icon-menu-exit" src="../assets/exit.png" alt="">
+                <button onclick="sair()" class="icon-menu">
+                    <img class="icon-menu" src="../assets/exit.png" alt="">
+                </button>
             </div>
             <div class="filho-conteudo">
-    
+                <div class="conteudo-menu">
+                    <p id="p-menu-conteudo">Olá, usuário</p>
+                </div>
+                <div class="dash-pai">
+                    <div class="dash-filho1">
+                        <div class="dash-cpuConsumo">
+                            <p class="title-dashConsumo">Consumo de CPU</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                        <div class="card-contexto">
+                            <p class="title-dashMudanca">Mudança de contexto</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                    </div>
+                    <div class="dash-filho2">
+                        <div class="card-numeros">
+                            <div class="card-risco">
+                                <p class="title-card">Risco de alerta</p>
+                                <p class="subtitle-card">desse componente</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                            <div class="card-risco">
+                                <p class="title-card">Número de alertas</p>
+                                <p class="subtitle-card">emitidos</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                            <div class="card">
+                                <p class="title-card">Número de serviços</p>
+                                <p class="subtitle-card">ativos</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                        </div>
+                        <div class="dash-cpuConsumo2">
+                            <p class="title-dashConsumo">Carga do Sistema</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </body>
+<script src="../js/dashTrovo.js"></script>
+
 </html>

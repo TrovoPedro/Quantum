@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Lato", serif;
 }
 
 body{
@@ -65,6 +66,10 @@ body{
     justify-content: center;
 }
 
+.button-escolher:hover{
+    cursor: pointer;
+}
+
 .blurEscolher{
     width: 30%;
     position: absolute;
@@ -78,6 +83,10 @@ body{
     outline: none;
 }
 
+#select-escolher{
+    cursor: pointer;
+}
+
 option{
     background: #121212;
 }
@@ -87,6 +96,7 @@ option{
     height: 100%;
     background: transparent;
     border-radius: 27px;
+    display: flex;
 }
 
 .pai-menu-lateral{
@@ -97,6 +107,7 @@ option{
     flex-direction: column;
     justify-content: space-between;
     margin-top: 3%;
+    z-index: 999;
 }   
 
 .menu-lateral{
@@ -120,19 +131,193 @@ option{
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
 .icon-menu-bg{
     width: 35px;
 }
 
+.icon-menu-bg:hover{
+    cursor: pointer;
+}
+
 .icon-menu{
     width: 35px;
+    background: transparent;
+    border: none;
+}
+
+.icon-menu:hover{
+    cursor: pointer;
+}
+
+.blurEsquerda{
+    position: absolute;
+    width: 24%;
+    z-index: 1;
+    left: 0;
 }
 
 .icon-menu-exit{
     width: 35px;
     margin-left: 5%;
 }
+
+.icon-menu-exit:hover{
+    cursor: pointer;
+}
+
+.filho-conteudo{
+    width: 100%;
+    height: 90%;
+    border-radius: 27px;
+    margin-left: -150px;
+    margin-top: 3.7%;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudo-menu{
+    width: 17%;
+    color: #D9D9D9;
+    font-size: 30px;
+}
+
+.dash-pai{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.dash-filho1{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 27px;
+}
+
+.title-dashConsumo{
+    font-weight: bold;
+    font-size: 30px;
+    background: linear-gradient(180deg, #999999, #AAAAAA, #ccc, #fff, #fff, #fff,#fff, #fff); /* Gradiente com mais transições */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.dash-cpuConsumo{
+    width: 92%;
+    height: 45%;
+    background: #5532b6af;
+    backdrop-filter: blur(90px);
+    border: solid 2px #7449EB;
+    border-radius: 27px;
+    display: flex;
+    justify-content: center;
+}
+
+.card-contexto{
+    width: 92%;
+    height: 45%;
+    background: #5532b6af;
+    backdrop-filter: blur(90px);
+    border: solid 2px #7449EB;
+    border-radius: 27px;
+    display: flex;
+    justify-content: center;
+}
+
+.title-dashMudanca{
+    font-weight: bold;
+    font-size: 30px;
+    background: linear-gradient(180deg, #999999, #AAAAAA, #ccc, #fff, #fff, #fff,#fff, #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+#porcent-serv{
+    margin-top: 10%;
+    font-size: 35px;
+} 
+
+.dash-filho2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    border-radius: 27px;
+}
+
+.title-card{
+    margin-top: -20px;
+    background: linear-gradient(180deg, #999999, #AAAAAA, #ccc, #fff, #fff, #fff,#fff, #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.card-numeros{
+    width: 100%;
+    height: 45%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card{
+    width: 25%;
+    background: #5532b6bd;
+    border: solid 2px #7449EB;
+    border-radius: 27px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #D9D9D9;
+    font-weight: bold;
+    flex-direction: column;
+}
+
+.card-risco{
+    width: 25%;
+    background: #5532b6bd;
+    border: solid 2px #7449EB;
+    border-radius: 27px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #D9D9D9;
+    font-weight: bold;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+}
+
+.dash-cpuConsumo2{
+    width: 87%;
+    height: 45%;
+    background: #5532b6af;
+    backdrop-filter: blur(10px);
+    border: solid 2px #7449EB;
+    border-radius: 27px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.blurDireita{
+    position: absolute;
+    width: 30%;
+    z-index: 1;
+    right: 0;
+}
+
+
 
 
