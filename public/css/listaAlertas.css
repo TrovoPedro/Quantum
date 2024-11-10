@@ -58,7 +58,7 @@ table {
 
 
 .tituloLista {
-    margin-top: 15px;
+    margin-top: 8px;
     width: 95%;
 
     & img {
@@ -165,7 +165,27 @@ td {
                 text-decoration: underline;
             }
         }
+
     }
+}
+
+
+.servidor-titulo {
+    /* background-color: red; */
+    padding-top: 10px;
+    width: 90%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+
+    & h2 {
+        text-align: center;
+        font-size: 1rem;
+        color: #7e7979;
+        margin-bottom: 20px;
+        font-weight: bolder;
+    }
+
 }
 
 
@@ -178,7 +198,7 @@ td {
     align-items: center;
     width: 100%;
     padding: 10px;
-    
+
 
     & h3 {
         color: white;
@@ -198,7 +218,7 @@ td {
         background-color: #250445;
         color: #fff;
         font-weight: 500;
-        border-radius: 6px; 
+        border-radius: 6px;
         overflow: hidden;
         margin-bottom: 6px;
 
