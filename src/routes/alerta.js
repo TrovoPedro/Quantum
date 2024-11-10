@@ -12,4 +12,11 @@ router.get("/buscar", function (req, res) {
 });
 
 
+router.get("/mostrar", function (req, res) {
+    
+    alertaController.listarAlertas(req, res);
+
+});
+
+
 module.exports = router;

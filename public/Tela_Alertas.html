@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alertas</title>
 
-    <!-- Icone  -->
+
     <link rel="icon" href="img/novalogo.svg" type="image/x-icon">
 
-    <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -67,12 +66,15 @@
             
         </div>
 
-        <!-- <div class="div-btn">
-            <button class="btn-novoServidor" onclick="mostrarServidor()">Novo servidor</button>
-        </div> -->
+
+        <div class="topo_servers">
+
+            <h3>Selecione o servidor que deseja monitorar:</h3>
+        </div>
 
         <div class="listaServidores" id="tabela-servidores" >
 
+            
 
             <div class="div_Server">
 
@@ -94,58 +96,12 @@
                 
 
                 </div>
+
             </div>
 
         </div>
     </div>
 
-
-    <div class="boxCadastroServidor" id="aparecerBoxServidor">
-
-        <div class="logoCadastroServidor">
-
-            <img src="img/novalogo.svg" class="logoCadastroImagem">
-            <h2>Cadastre um Servidor</h2>
-        </div>
-
-        <div class="nomeServidor">
-            <div class="divNomeServidor">
-                <p>Nome do Servidor</p>
-            </div>
-            <input type="text" placeholder="Insira o nome do servidor" class="inputNomeServidor" id="inputNomeServidor">
-            <div class="divNomeServidor">
-                <p>Situação do Servidor</p>
-            </div>
-            <select id="situacaoServidor">
-                <option id="ativo" value="Ativo">Ativo</option>
-                <option id="desativado" value="Desativado">Desativado</option>
-            </select>
-        </div>
-
-        <button class="botaoAvancar" onclick="cadastrarServidor()">Cadastrar</button>
-    </div>
-
-    <div class="boxEditarServidor" id="aparecerBoxEditar">
-        <div class="logoCadastroServidor">
-            <img src="img/novalogo.svg" class="logoCadastroImagem">
-            <h2>Editar Servidor</h2>
-        </div>
-        <div class="nomeServidorEditado">
-            <div class="divNomeServidorEditado">
-                <p>Nome do Servidor</p>
-            </div>
-            <input type="text" placeholder="Insira o novo nome do servidor" class="inputNomeServidor" id="inputNomeEditado">
-            <div class="divNomeServidorEditado">
-                <p>Situação do Servidor</p>
-            </div>
-            <select id="situacaoServidorEditado">
-                <option id="ativo" value="Ativo">Ativo</option>
-                <option id="desativado" value="Desativado">Desativado</option>
-            </select>
-        </div>
-
-        <button class="botaoAvancar" onclick="editarServidor()">Editar</button>
-    </div>
 
     <div class="filtro"></div>
     

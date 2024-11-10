@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas</title>
+
+
+    <link rel="icon" href="img/novalogo.svg" type="image/x-icon">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/listaAlertas.css">
+    <link rel="stylesheet" href="css/navbarServidores.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="listarAlertas()">
+
+    <div class="navBar">
+        <div class="CaixalogoNav">
+            <img src="img/novalogo.svg" class="logoNav" alt="">
+        </div>
+        <div class="linksNav">
+            <div class="botoesNav">
+                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
+                <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
+                <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
+                <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
+            </div>
+            <div class="botoesNav">
+                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
+                <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
+            </div>
+        </div>
+
+        <div class="exitNav">
+
+            <div class="botoesNav">
+                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
+                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+            </div>
+
+            <div class="borrar">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="pai-lista">
+
+        <div class="tituloLista">
+
+            <img class="img-servidores" src="assets/Alertas.svg" alt="">
+
+        </div>
+
+        <div class="listaServidores">
+
+            <div class="servidorSection" id="section1">
+
+            </div>
+
+            <div class="servidorSection" id="section2">
+
+                <h3>Falhas por componente:</h3>
+
+                <div class="ranking">
+
+                    <div class="linha_ranking header">
+                        <span>COMPONENTE</span>
+                        <span>PERÍODO</span>
+                        <span>FALHAS</span>
+                    </div>
+
+                    <div class="linha_ranking">
+
+                        <span>CPU</span>
+                        <span>30 DIAS</span>
+                        <span>3</span>
+
+                    </div>
+                    <div class="linha_ranking">
+
+                        <span>RAM</span>
+                        <span>30 DIAS</span>
+                        <span>1</span>
+
+                    </div>
+                    <div class="linha_ranking">
+
+                        <span>DISCO</span>
+                        <span>30 DIAS</span>
+                        <span>2</span>
+
+                    </div>
+                    <div class="linha_ranking">
+
+                        <span>REDE</span>
+                        <span>30 DIAS</span>
+                        <span>1</span>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="servidorSection" id="section3">
+
+            </div>
+
+            <div class="servidorSection" id="section4">
+                <h3>Filtro de Alertas:</h3>
+                <div class="filterContainer">
+                    <div class="filterRow">
+                        <label for="componentSelect">Componente:</label>
+                        <select id="componentSelect" class="selectField">
+
+                            <option value="#" selected disabled>Selecione um componente:</option>
+                            <option value="CPU">CPU</option>
+                            <option value="RAM">RAM</option>
+                            <option value="DISCO">Disco</option>
+                            <option value="REDE">Rede</option>
+
+                        </select>
+                    </div>
+                    <div class="filterRow">
+                        <label for="periodSelect">Período:</label>
+                        <select id="periodSelect" class="selectField">
+
+                            <option value="#" selected disabled>Selecione um período de análise:</option>
+                            <option value="7">Últimos 7 dias</option>
+                            <option value="30">Últimos 15 dias</option>
+                            <option value="60">Últimos 30 dias</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="alertDescription">
+
+                    <span>Descrição:</span>
+
+                    <p id="alertDescriptionText">Uso da RAM ultrapassou 90% de uso, uso atual: 92%" </p>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="filtro"></div>
+
+</body>
+
+<script src="js/listaAlertas.js"></script>
+
+</html>
