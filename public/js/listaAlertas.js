@@ -1,26 +1,18 @@
-let nomeServer = 
-
-
+let nomeServer = "";
 
 function validarInformacoes() {
-    var nomeServidor = document.getElementById("inputNomeServidor").value;
-    var situacao = document.getElementById("situacaoServidor").value;
+    const nomeServidor = document.getElementById("inputNomeServidor").value;
+    const situacao = document.getElementById("situacaoServidor").value;
 
-    if (
-        nomeServidor === "" ||
-        situacao === ""
-    ) {
+    if (nomeServidor === "" || situacao === "") {
         alert("Por favor, preencha todos os campos.");
     } else {
         cadastrarServidor(nomeServidor, situacao);
     }
 }
 
-
-
 function mostrarServidor() {
-
-    var mostrar = document.getElementById("aparecerBoxServidor");
+    const mostrar = document.getElementById("aparecerBoxServidor");
 
     if (getComputedStyle(mostrar).display === "none") {
         mostrar.style.display = "flex";
@@ -30,14 +22,12 @@ function mostrarServidor() {
 }
 
 function listarServidor() {
-
     fetch(`/alerta/buscar`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
         }
     })
-
     .then(response => {
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);
@@ -61,8 +51,12 @@ function listarServidor() {
                 div.classList.add('div_Server');
 
                 div.onclick = () => {
-                    window.location.href = `/listaAlertas.html?id=${item.idServidor}`;
+
+                    const nomeServidor = item.nomeServidor;
+            
+                    window.location.href = `/listaAlertas.html?nome=${encodeURIComponent(nomeServidor)}`;
                 };
+                
 
                 div.innerHTML = `
                     <div class="serverContent">
@@ -82,11 +76,21 @@ function listarServidor() {
     .catch(error => {
         console.error('Houve um erro ao capturar os dados:', error);
     });
-
-    nomeServer = nomeServidor
 }
 
 function listarAlertas() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const nomeServidor = urlParams.get("nome");
+
+    if (nomeServidor) {
+        
+        document.getElementById("nome_server").textContent = nomeServidor;
+        console.log("Nome do servidor:", nomeServidor);
+
+    } else {
+        console.warn("Nome do servidor não encontrado na URL.");
+    }
 
     fetch(`/alerta/mostrar`, {
         method: "GET",
@@ -94,22 +98,16 @@ function listarAlertas() {
             "Content-Type": "application/json"
         }
     })
-
     .then(response => {
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);
         }
         return response.json();
     })
-    
     .then(data => {
         console.log("Dados recebidos da API:", data);  
 
         const section2 = document.getElementById('section2');
-        section2.innerHTML = '';
-
-        nome_server = nomeServer.value
-
         section2.innerHTML = `
             <h3>Falhas por componente:</h3>
             <div class="ranking">
@@ -122,20 +120,15 @@ function listarAlertas() {
         `;
 
         if (data.length === 0) {
-
             const noAlertsDiv = document.createElement('div');
             noAlertsDiv.classList.add('noAlertsMessage');
             noAlertsDiv.innerHTML = "<p>Nenhum alerta encontrado.</p>";
             section2.appendChild(noAlertsDiv);
         } else {
-
             data.forEach(item => {
-                console.log("Item do alerta:", item);  
-
                 const componente = item.Componente || "Desconhecido";  
                 const quantidade = item.Alertas || "0";  
                 const periodo = item.Periodo || "Desconhecido";  
-
 
                 const alertaDiv = document.createElement('div');
                 alertaDiv.classList.add('linha_ranking');
@@ -145,7 +138,6 @@ function listarAlertas() {
                     <span>${periodo}</span> 
                     <span>${quantidade}</span>
                 `;
-
 
                 section2.querySelector('.ranking').appendChild(alertaDiv);
             });
