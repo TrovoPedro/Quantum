@@ -6,7 +6,7 @@
     font-family: "Lato", serif;
 }
 
-body{
+body {
     background: #464646;
     display: flex;
     align-items: center;
@@ -15,17 +15,16 @@ body{
     height: 100vh;
 }
 
-.pai{
+.pai {
     background: #121212;
-    border-radius: 27px;
-    width: 97%;
-    height: 93%;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.pai-menu{
+.pai-menu {
     background: transparent;
     width: 70%;
     height: 14%;
@@ -34,7 +33,7 @@ body{
     margin-left: -18%;
 }
 
-.filho-menu{
+.filho-menu {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -47,16 +46,16 @@ body{
     gap: 10px;
 }
 
-.logo{
+.logo {
     width: 40px;
     height: 40px;
 }
 
-.button-escolher{
+.button-escolher {
     width: 16%;
     height: 7%;
     border-radius: 90px;
-    border: solid 2px #7449EB;
+    border: solid 2px #e234d4;
     background: #5532b6bd;
     z-index: 9;
     position: absolute;
@@ -66,32 +65,32 @@ body{
     justify-content: center;
 }
 
-.button-escolher:hover{
+.button-escolher:hover {
     cursor: pointer;
 }
 
-.blurEscolher{
+.blurEscolher {
     width: 30%;
     position: absolute;
     top: 16px;
 }
 
-#select-escolher{
+#select-escolher {
     background: transparent;
     border: none;
     color: #fff;
     outline: none;
 }
 
-#select-escolher{
+#select-escolher {
     cursor: pointer;
 }
 
-option{
+option {
     background: #121212;
 }
 
-.pai-conteudo{
+.pai-conteudo {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -99,7 +98,15 @@ option{
     display: flex;
 }
 
-.pai-menu-lateral{
+.pai-conteudo2 {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-radius: 27px;
+    display: flex;
+}
+
+.pai-menu-lateral {
     height: 80%;
     width: 20%;
     margin-left: 4.9%;
@@ -108,9 +115,9 @@ option{
     justify-content: space-between;
     margin-top: 3%;
     z-index: 999;
-}   
+}
 
-.menu-lateral{
+.menu-lateral {
     display: flex;
     flex-direction: column;
     background: #5532b6bd;
@@ -123,7 +130,7 @@ option{
     margin-top: 4%;
 }
 
-.circulo-home{
+.circulo-home {
     background: #D9D9D9;
     border-radius: 50px;
     width: 95%;
@@ -134,41 +141,41 @@ option{
     border: none;
 }
 
-.icon-menu-bg{
+.icon-menu-bg {
     width: 35px;
 }
 
-.icon-menu-bg:hover{
+.icon-menu-bg:hover {
     cursor: pointer;
 }
 
-.icon-menu{
+.icon-menu {
     width: 35px;
     background: transparent;
     border: none;
 }
 
-.icon-menu:hover{
+.icon-menu:hover {
     cursor: pointer;
 }
 
-.blurEsquerda{
+.blurEsquerda {
     position: absolute;
-    width: 24%;
-    z-index: 1;
+    width: 30.8%;
+    z-index: 999;
     left: 0;
 }
 
-.icon-menu-exit{
+.icon-menu-exit {
     width: 35px;
     margin-left: 5%;
 }
 
-.icon-menu-exit:hover{
+.icon-menu-exit:hover {
     cursor: pointer;
 }
 
-.filho-conteudo{
+.filho-conteudo {
     width: 100%;
     height: 90%;
     border-radius: 27px;
@@ -178,19 +185,19 @@ option{
     flex-direction: column;
 }
 
-.conteudo-menu{
+.conteudo-menu {
     width: 17%;
     color: #D9D9D9;
     font-size: 30px;
 }
 
-.dash-pai{
+.dash-pai {
     width: 100%;
     height: 100%;
     display: flex;
 }
 
-.dash-filho1{
+.dash-filho1 {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -200,53 +207,55 @@ option{
     border-radius: 27px;
 }
 
-.title-dashConsumo{
+.title-dashConsumo {
     font-weight: bold;
     font-size: 30px;
-    background: linear-gradient(180deg, #999999, #AAAAAA, #ccc, #fff, #fff, #fff,#fff, #fff); /* Gradiente com mais transições */
-    -webkit-background-clip: text;
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(150, 150, 150), rgb(69, 70, 70));
     background-clip: text;
-    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: black;
 }
 
-.dash-cpuConsumo{
+.dash-cpuConsumo {
     width: 92%;
     height: 45%;
     background: #5532b6af;
     backdrop-filter: blur(90px);
-    border: solid 2px #7449EB;
+    border: solid 2px #e234d4;
     border-radius: 27px;
     display: flex;
     justify-content: center;
 }
 
-.card-contexto{
+.card-contexto {
     width: 92%;
     height: 45%;
     background: #5532b6af;
     backdrop-filter: blur(90px);
-    border: solid 2px #7449EB;
+    border: solid 2px #e234d4;
     border-radius: 27px;
     display: flex;
     justify-content: center;
 }
 
-.title-dashMudanca{
+.title-dashMudanca {
     font-weight: bold;
     font-size: 30px;
-    background: linear-gradient(180deg, #999999, #AAAAAA, #ccc, #fff, #fff, #fff,#fff, #fff);
-    -webkit-background-clip: text;
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(150, 150, 150), rgb(69, 70, 70));
     background-clip: text;
-    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: black;
 }
 
 
-#porcent-serv{
+#porcent-serv {
     margin-top: 10%;
     font-size: 35px;
-} 
+}
 
-.dash-filho2{
+.dash-filho2 {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -255,25 +264,22 @@ option{
     border-radius: 27px;
 }
 
-.title-card{
+.title-card {
     margin-top: -20px;
-    background: linear-gradient(180deg, #999999, #AAAAAA, #ccc, #fff, #fff, #fff,#fff, #fff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #D9D9D9;
 }
 
-.card-numeros{
+.card-numeros {
     width: 100%;
     height: 45%;
     display: flex;
     justify-content: space-evenly;
 }
 
-.card{
+.card {
     width: 25%;
     background: #5532b6bd;
-    border: solid 2px #7449EB;
+    border: solid 2px #e234d4;
     border-radius: 27px;
     height: 150px;
     display: flex;
@@ -284,10 +290,10 @@ option{
     flex-direction: column;
 }
 
-.card-risco{
+.card-risco {
     width: 25%;
     background: #5532b6bd;
-    border: solid 2px #7449EB;
+    border: solid 2px #e234d4;
     border-radius: 27px;
     height: 150px;
     display: flex;
@@ -299,25 +305,21 @@ option{
     backdrop-filter: blur(5px);
 }
 
-.dash-cpuConsumo2{
+.dash-cpuConsumo2 {
     width: 87%;
     height: 45%;
     background: #5532b6af;
     backdrop-filter: blur(10px);
-    border: solid 2px #7449EB;
+    border: solid 2px #e234d4;
     border-radius: 27px;
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
 }
 
-.blurDireita{
+.blurDireita {
     position: absolute;
     width: 30%;
     z-index: 1;
     right: 0;
 }
-
-
-
-

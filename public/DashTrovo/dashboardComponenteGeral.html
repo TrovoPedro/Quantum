@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="pai">
+    <div class="pai" style="display: flex;">
         <header class="pai-menu">
             <nav class="filho-menu">
                 <img src="../assets/Logo Quantum.png" alt="" class="logo">
@@ -89,6 +89,65 @@
             </div>
         </div>
     </div>
+    <div class="pai-conteudo2" style="display: none;">
+            <div class="pai-menu-lateral">
+                <div class="menu-lateral">
+                    <button onclick="voltarHome()" class="circulo-home">
+                        <div class="circulo-home">
+                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        </div>
+                    </button>
+                    <button onclick="enviarFormulario()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    </button>
+                    <button onclick="verPerfil()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/user.png" alt="">
+                    </button>
+                </div>
+                <button onclick="sair()" class="icon-menu">
+                    <img class="icon-menu" src="../assets/exit.png" alt="">
+                </button>
+            </div>
+            <div class="filho-conteudo">
+                <div class="conteudo-menu">
+                    <p id="p-menu-conteudo">Olá, usuário</p>
+                </div>
+                <div class="dash-pai">
+                    <div class="dash-filho1">
+                        <div class="dash-cpuConsumo">
+                            <p class="title-dashConsumo">Consumo de CPU</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                        <div class="card-contexto">
+                            <p class="title-dashMudanca">Mudança de contexto</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                    </div>
+                    <div class="dash-filho2">
+                        <div class="card-numeros">
+                            <div class="card-risco">
+                                <p class="title-card">Risco de alerta</p>
+                                <p class="subtitle-card">desse componente</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                            <div class="card-risco">
+                                <p class="title-card">Número de alertas</p>
+                                <p class="subtitle-card">emitidos</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                            <div class="card">
+                                <p class="title-card">Número de serviços</p>
+                                <p class="subtitle-card">ativos</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                        </div>
+                        <div class="dash-cpuConsumo2">
+                            <p class="title-dashConsumo">Carga do Sistema</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 <script src="../js/dashTrovo.js"></script>
 
