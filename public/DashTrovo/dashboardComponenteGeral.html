@@ -19,17 +19,17 @@
         </header>
         <img src="../assets/blurEscolher.png" alt="" class="blurEscolher">
         <div class="button-escolher">
-            <select id="select-escolher">
-                <option selected disabled value="#">Escolher componente</option>
+            <select id="escolher" onchange="validarEscolha()">
+                <option selected disabled value="0">Escolher componente</option>
                 <option value="1">CPU</option>
-                <option value="2">RAM</option>
-                <option value="3">Disco</option>
-                <option value="4">Rede</option>
+                <option value="2">Rede</option>
+                <option value="3">Ram</option>
+                <option value="4">Disco</option>
             </select>
         </div>
         <img class="blurEsquerda" src="../assets/blurEsquerda.png" alt="">
         <img class="blurDireita" src="../assets/blurDireita.png" alt="">
-        <div class="pai-conteudo">
+        <div id="pai-conteudo" class="pai-conteudo" style="display: none;">
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
                     <button onclick="voltarHome()" class="circulo-home">
@@ -88,67 +88,196 @@
                 </div>
             </div>
         </div>
+        <div id="pai-conteudo2" class="pai-conteudo2" style="display: none;">
+            <div class="pai-menu-lateral">
+                <div class="menu-lateral">
+                    <button onclick="voltarHome()" class="circulo-home">
+                        <div class="circulo-home">
+                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        </div>
+                    </button>
+                    <button onclick="enviarFormulario()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    </button>
+                    <button onclick="verPerfil()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/user.png" alt="">
+                    </button>
+                </div>
+                <button onclick="sair()" class="icon-menu">
+                    <img class="icon-menu" src="../assets/exit.png" alt="">
+                </button>
+            </div>
+            <div class="filho-conteudo">
+                <div class="conteudo-menu">
+                    <p id="p-menu-conteudo">Olá, usuário</p>
+                </div>
+                <div class="dash-pai">
+                    <div class="dash-filho1">
+                        <div class="dash-cpuConsumo">
+                            <p class="title-dashConsumo">Taxa de transferência</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                        <div class="card-contexto">
+                            <p class="title-dashMudanca">Perda de pacotes</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                    </div>
+                    <div class="dash-filho2">
+                        <div class="card-numeros">
+                            <div class="card-risco">
+                                <p class="title-card">Risco de alerta</p>
+                                <p class="subtitle-card">desse componente</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                            <div class="card-risco">
+                                <p class="title-card">Número de alertas</p>
+                                <p class="subtitle-card">emitidos</p>
+                                <p id="porcent-serv">50%</p>
+                            </div>
+                        </div>
+                        <div class="dash-cpuConsumo2">
+                            <p class="title-dashConsumo">Erros TCP</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pai-conteudo3" class="pai-conteudo3" style="display: flex;">
+            <div class="pai-menu-lateral">
+                <div class="menu-lateral">
+                    <button onclick="voltarHome()" class="circulo-home">
+                        <div class="circulo-home">
+                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        </div>
+                    </button>
+                    <button onclick="enviarFormulario()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    </button>
+                    <button onclick="verPerfil()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/user.png" alt="">
+                    </button>
+                </div>
+                <button onclick="sair()" class="icon-menu">
+                    <img class="icon-menu" src="../assets/exit.png" alt="">
+                </button>
+            </div>
+            <div class="filho-conteudo">
+                <div class="conteudo-menu">
+                    <p id="p-menu-conteudo">Olá, usuário</p>
+                </div>
+                <div class="dash-pai">
+                    <div class="dash-filho1">
+                        <div class="dash-cpuConsumo">
+                            <p class="title-dashConsumo">Consumo de memória RAM</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                        <div class="card-contexto">
+                            <p class="title-dashMudanca">Consumo de memória SWAP</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                    </div>
+                    <div class="dash-filho2">
+                        <div class="card-numeros">
+                            <div class="card-numeros-memoria2">
+                                <div class="card-risco-pai">
+                                    <div class="card-risco3">
+                                        <p class="title-card">Total de memória</p>
+                                        <p class="subtitle-card">RAM</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                    <div class="card-risco3">
+                                        <p class="title-card">Total de memória</p>
+                                        <p class="subtitle-card">SWAP</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                </div>
+                                <div class="card-risco-pai">
+                                    <div class="card-risco3">
+                                        <p class="title-card">Risco de alerta</p>
+                                        <p class="subtitle-card">desse componente</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                    <div class="card-risco3">
+                                        <p class="title-card">Número de alertas</p>
+                                        <p class="subtitle-card">emitidos</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pai-conteudo4" class="pai-conteudo4" style="display: none;">
+            <div class="pai-menu-lateral">
+                <div class="menu-lateral">
+                    <button onclick="voltarHome()" class="circulo-home">
+                        <div class="circulo-home">
+                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        </div>
+                    </button>
+                    <button onclick="enviarFormulario()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    </button>
+                    <button onclick="verPerfil()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/user.png" alt="">
+                    </button>
+                </div>
+                <button onclick="sair()" class="icon-menu">
+                    <img class="icon-menu" src="../assets/exit.png" alt="">
+                </button>
+            </div>
+            <div class="filho-conteudo">
+                <div class="conteudo-menu">
+                    <p id="p-menu-conteudo">Olá, usuário</p>
+                </div>
+                <div class="dash-pai">
+                    <div class="dash-filho1">
+                        <div class="dash-cpuConsumo">
+                            <p class="title-dashConsumo">Uso total do disco</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                        <div class="card-contexto">
+                            <p class="title-dashMudanca">I/O de disco</p>
+                            <p id="porcent-serv"></p>
+                        </div>
+                    </div>
+                    <div class="dash-filho2">
+                        <div class="card-numeros">
+                            <div class="card-numeros-memoria2">
+                                <div class="card-risco-pai">
+                                    <div class="card-risco3">
+                                        <p class="title-card">Espaço total do</p>
+                                        <p class="subtitle-card">Disco</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                    <div class="card-risco3">
+                                        <p class="title-card">Espaço livre do</p>
+                                        <p class="subtitle-card">Disco</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                </div>
+                                <div class="card-risco-pai">
+                                    <div class="card-risco3">
+                                        <p class="title-card">Risco de alerta</p>
+                                        <p class="subtitle-card">desse componente</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                    <div class="card-risco3">
+                                        <p class="title-card">Número de alertas</p>
+                                        <p class="subtitle-card">emitidos</p>
+                                        <p id="porcent-serv">50%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
     </div>
-    <div class="pai-conteudo2" style="display: none;">
-            <div class="pai-menu-lateral">
-                <div class="menu-lateral">
-                    <button onclick="voltarHome()" class="circulo-home">
-                        <div class="circulo-home">
-                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
-                        </div>
-                    </button>
-                    <button onclick="enviarFormulario()" class="icon-menu">
-                        <img class="icon-menu" src="../assets/send.png" alt="">
-                    </button>
-                    <button onclick="verPerfil()" class="icon-menu">
-                        <img class="icon-menu" src="../assets/user.png" alt="">
-                    </button>
-                </div>
-                <button onclick="sair()" class="icon-menu">
-                    <img class="icon-menu" src="../assets/exit.png" alt="">
-                </button>
-            </div>
-            <div class="filho-conteudo">
-                <div class="conteudo-menu">
-                    <p id="p-menu-conteudo">Olá, usuário</p>
-                </div>
-                <div class="dash-pai">
-                    <div class="dash-filho1">
-                        <div class="dash-cpuConsumo">
-                            <p class="title-dashConsumo">Consumo de CPU</p>
-                            <p id="porcent-serv"></p>
-                        </div>
-                        <div class="card-contexto">
-                            <p class="title-dashMudanca">Mudança de contexto</p>
-                            <p id="porcent-serv"></p>
-                        </div>
-                    </div>
-                    <div class="dash-filho2">
-                        <div class="card-numeros">
-                            <div class="card-risco">
-                                <p class="title-card">Risco de alerta</p>
-                                <p class="subtitle-card">desse componente</p>
-                                <p id="porcent-serv">50%</p>
-                            </div>
-                            <div class="card-risco">
-                                <p class="title-card">Número de alertas</p>
-                                <p class="subtitle-card">emitidos</p>
-                                <p id="porcent-serv">50%</p>
-                            </div>
-                            <div class="card">
-                                <p class="title-card">Número de serviços</p>
-                                <p class="subtitle-card">ativos</p>
-                                <p id="porcent-serv">50%</p>
-                            </div>
-                        </div>
-                        <div class="dash-cpuConsumo2">
-                            <p class="title-dashConsumo">Carga do Sistema</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</body>
 <script src="../js/dashTrovo.js"></script>
 
 </html>
