@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard-geral-adm.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Dashboard Geral</title>
+</head>
+
+<body>
+
+    <div class="menu-pai">
+        <div class="menu">
+            <nav class="filho-menu">
+                <img src="../img/novalogo.svg" alt="" class="logo">
+            </nav>
+            <div class="button-filho" style=" margin-top: 30px;">
+                <a href="dashboard-geral-adm.html">
+                    <i class="fa-solid fa-house" style="color: #a098d3;"></i>
+                </a>
+               
+            </div>
+            <div class="button-filho">
+                <a href="../listaEmpresas.html">
+                    <i class="fa-regular fa-building" style="color: #a098d3;"></i>
+                </a>
+               
+            </div>
+            <div class="button-filho">
+                <a href="../cadastrar.html">
+                    <i class="fa-regular fa-address-card" style="color: #a098d3;"></i>
+                </a>
+              
+            </div>
+
+            <div class="exitNav">
+
+                <div class="botoesNav">
+                    <i class="fa-solid fa-door-open" style="color: #a098d3;"></i>
+                    <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="corpo-graficos">
+        <div class="div-esquerda">
+            <div class="card-hospitais"></div>
+            <div class="cards">
+                <div class="card-contagem">Hospitais Cadastrados</div>
+                <div class="card-contagem">Contas Desativadas</div>
+            </div>
+
+            <table class="tabela-zebrada">
+                <thead>
+                    <tr>
+                        <th>Endereço IP</th>
+                        <th>Data - Hora</th>
+                        <th>Qtd. Acessos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="color: red;">
+                        <td>246.212.57.122</td>
+                        <td>06/10/2024 20:17:57</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>120.194.129.0</td>
+                        <td>08/11/2024 07:56:26</td>
+                        <td>3</td>
+                    </tr>
+                    <tr style="color: red;">
+                        <td>194.226.53.190</td>
+                        <td>10/11/2024 15:43:27</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>67.210.52.69</td>
+                        <td>07/11/2024 04:47:27</td>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="div-direita">
+            <div class="grafico">
+                <div class="card-grafico">
+                    <canvas id="grafico-linhas"></canvas>
+                </div>
+                <div class="card-grafico">
+                    <canvas id="grafico-barras"></canvas>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+
+
+</body>
+<script src="../js/dashJulia.js"></script>
+</html>

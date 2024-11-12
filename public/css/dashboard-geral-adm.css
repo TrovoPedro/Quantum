@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", serif;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #151a22;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo do contêiner pai do menu */
+.menu-pai {
+    width: 10vw;  /* Largura do menu-pai em porcentagem da largura da tela */
+    height: 100%; /* Altura do menu-pai em porcentagem da altura da tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo do menu */
+.menu {
+    width: 100vw; /* Largura 100% em relação ao .menu-pai */
+    height: 100vh; /* Altura 100% do menu-pai */
+    display: flex;
+    flex-direction: column; /* Alinha os botões na vertical */
+    align-items: center; /* Alinha os botões no centro horizontal */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    padding: 0 10%; /* Adiciona padding para garantir que o conteúdo não grude nas bordas */
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    justify-content: start;
+    margin-left: 5%;
+}
+
+/* Estilo do botão circular */
+.button-filho {
+    background-color: #3d28a3;
+    height: 10%;  /* Altura do botão como porcentagem da altura do menu */
+    width: 45%;   /* Largura do botão como porcentagem da largura do menu */
+    border-radius: 50%; /* Faz o botão circular */
+    border: none;  /* Remove a borda */
+    cursor: pointer; /* Adiciona cursor de ponteiro ao passar o mouse */
+    display: flex; /* Ativa o flexbox dentro do botão */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    transition: background-color 0.3s ease; /* Transição suave na cor ao passar o mouse */
+    margin-bottom: 6%; /* Ajusta a margem entre os botões */
+}
+
+/* Efeito quando o botão é clicado ou o mouse passa por cima */
+.button-filho:hover {
+    background-color: #b1ade9;
+    box-shadow: 0 0 20px 5px rgba(61, 40, 163, 0.7); /* Sombra neon roxa */
+}
+
+/* Tamanho do ícone dentro do botão */
+.button-filho i {
+    font-size: 100%; /* O tamanho do ícone será 50% do tamanho do botão */
+}
+
+/* Estilo do logout (botão de sair) */
+.exitNav {
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;  /* Posiciona o botão de logout à esquerda */
+    align-items: end;
+    padding: 10px 20px; /* Adiciona um padding para garantir que o conteúdo não grude nas bordas */
+    margin-top: 100%;
+}
+
+.botoesNav {
+    display: flex;
+    align-items: end;
+}
+
+.botoesNav i {
+    margin-right: 10px;
+}
+
+.botoesNav:hover {
+    background-color: #b1ade9;
+    box-shadow: 0 0 20px 5px rgba(61, 40, 163, 0.7); /* Sombra neon roxa */
+}
+
+/* Links do menu */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+/* Estilo do contêiner dos gráficos */
+.corpo-graficos {
+    width: 90vw;
+    height: 100%;
+    display: flex; /* Flexbox para alinhar as divs lado a lado */
+}
+
+/* Estilo para a div esquerda */
+.div-esquerda {
+    height: 100%;
+    width: 50vw; /* 50% da largura da tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 20px; /* Adiciona um pequeno espaçamento do topo */
+}
+
+.cards{
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* Card de Contagem */
+.card-contagem {
+    background-color: #777099;
+    width: 40%;  /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
+    height: 30vh;
+    border-radius: 10px; /* Arredonda mais as bordas do card */
+    margin-top: 20px; /* Afastando o card do topo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* Estilo da tabela */
+.tabela-zebrada {
+    width: 90%;  /* Ajusta a largura da tabela para 80% da largura da div-esquerda */
+    border-collapse: collapse;
+    margin-top: 20px; /* Espaçamento acima da tabela */
+    margin-bottom: 20px; /* Espaço abaixo da tabela */
+    border-radius: 10px; /* Arredonda as bordas da tabela */
+}
+
+/* Estilo das células da tabela */
+.tabela-zebrada th, .tabela-zebrada td {
+    text-align: center;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd; /* Borda leve para as células */
+}
+
+/* Cores alternadas para as linhas da tabela (zebra) */
+.tabela-zebrada tr:nth-child(even) {
+    background-color: #777099; /* Cor clara para as linhas pares */
+}
+
+.tabela-zebrada tr:nth-child(odd) {
+    background-color: #bfbccc; /* Cor branca para as linhas ímpares */
+}
+
+/* Estilo para os cabeçalhos da tabela */
+.tabela-zebrada th {
+    background-color: #d4cbfc;   /* Cor de fundo dos cabeçalhos */
+    color: white; /* Cor do texto nos cabeçalhos */
+}
+
+/* Estilo de hover para as linhas */
+.tabela-zebrada tr:hover {
+    background-color: #ddd; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para a div direita */
+.div-direita {
+    height: 100%;
+    width:50vw; /* 50% da largura da tela */
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+}
+
+.grafico{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column  ;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.card-grafico {
+    background-color: #777099;
+    width: 90%;  /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
+    height: 40vh;
+    border-radius: 10px; /* Arredonda mais as bordas do card */
+    margin-top: 20px; /* Afastando o card do topo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+#grafico{
+    width: 100%;
+    height: 90%;
+}
