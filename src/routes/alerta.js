@@ -18,5 +18,11 @@ router.get("/mostrar", function (req, res) {
 
 });
 
+router.get("/componentes/:componente/:tempo", function (req, res) {
+    
+    alertaController.listarComponentes(req, res);
+
+});
+
 
 module.exports = router;

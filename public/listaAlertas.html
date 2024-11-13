@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="listarAlertas()">
+<body onload="listarAlertas(), listarComponentes()">
 
     <div class="navBar">
         <div class="CaixalogoNav">  
@@ -39,17 +39,26 @@
                 <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
                 <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
             </div>
+
+            <div class="botoesNav">
+                <img src="assets/icons8-alerta-50.png" class="LinkImgNav" alt="">
+                <p><a href="Tela_Alertas.html" style="text-decoration: none; color: #ffff">Alertas</a></p>
+            </div>
+
             <div class="botoesNav">
                 <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
                 <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
             </div>
+
         </div>
 
         <div class="exitNav">
 
             <div class="botoesNav">
+
                 <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
                 <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+
             </div>
 
             <div class="borrar">
@@ -80,7 +89,7 @@
 
             </div>
 
-            <div class="servidorSection" id="section2">
+            <div class="servidorSection"  id="section2">
 
                 <h3>Falhas por componente:</h3>
 
@@ -127,39 +136,47 @@
             <div class="servidorSection" id="section3">
 
             </div>
+            
 
             <div class="servidorSection" id="section4">
-                <h3>Filtro de Alertas:</h3>
-                <div class="filterContainer">
-                    <div class="filterRow">
-                        <label for="componentSelect">Componente:</label>
-                        <select id="componentSelect" class="selectField">
 
-                            <option value="#" selected disabled>Selecione um componente:</option>
-                            <option value="CPU">CPU</option>
-                            <option value="RAM">RAM</option>
-                            <option value="DISCO">Disco</option>
-                            <option value="REDE">Rede</option>
+                <h3>Filtro de Alertas:</h3>
+
+                <div class="filterContainer">
+
+                    <div class="filterRow">
+
+                        <label for="componenteSelect">Componente:</label>
+
+                        <select id="componenteSelect" class="selectField" onchange="listarComponentes()">
+
+                            <option value="0" selected disabled>Selecione um componente:</option>
+                            <option value="1">CPU</option>
+                            <option value="2">RAM</option>
+                            <option value="3">Disco</option>
+                            <option value="4">Rede</option>
 
                         </select>
-                    </div>
-                    <div class="filterRow">
-                        <label for="periodSelect">Período:</label>
-                        <select id="periodSelect" class="selectField">
 
-                            <option value="#" selected disabled>Selecione um período de análise:</option>
+                    </div>
+
+                    <div class="filterRow">
+                        <label for="periodoSelect">Período:</label>
+                        <select id="periodoSelect" class="selectField"  onchange="listarComponentes()">
+
+                            <option value="0" selected disabled>Selecione um período de análise:</option>
                             <option value="7">Últimos 7 dias</option>
-                            <option value="30">Últimos 15 dias</option>
-                            <option value="60">Últimos 30 dias</option>
+                            <option value="15">Últimos 15 dias</option>
+                            <option value="30">Últimos 30 dias</option>
 
                         </select>
                     </div>
                 </div>
-                <div class="alertDescription">
+                <div class="alertDescription"  style="overflow-y: scroll; max-height: 200px;">
 
                     <span>Descrição:</span>
 
-                    <p id="alertDescriptionText">Uso da RAM ultrapassou 90% de uso, uso atual: 92%" </p>
+                
 
                 </div>
             </div>

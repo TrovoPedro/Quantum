@@ -105,6 +105,11 @@ td {
 
 }
 
+
+
+
+
+
 .listaServidores {
 
     /* background-color: red; */
@@ -118,9 +123,10 @@ td {
     grid-template-rows: repeat(2, 1fr);
     gap: 15px;
     justify-content: center;
-    align-items: start;
+    align-items: start; 
 
     & .servidorSection {
+        
         background-color: #8A2BE2;
         height: 220px;
         padding: 15px;
@@ -170,8 +176,10 @@ td {
 }
 
 
+
+
 .servidor-titulo {
-    /* background-color: red; */
+    
     padding-top: 10px;
     width: 90%;
     height: 20px;

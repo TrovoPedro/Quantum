@@ -21,6 +21,30 @@ function buscarServidores(idServidor) {
     return database.executar(instrucaoSql);
 }
 
+function listarComponentes(idComponente, componente_lt, tempo_lt) {
+
+    console.log("Componente selecionado:", componente_lt);
+    console.log("Período selecionado:", tempo_lt);
+
+    console.log("ACESSEI O MEDIDA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n")
+    var instrucaoSql = `
+
+    
+SELECT 
+    a.descricao AS DescricaoAlerta
+FROM alerta a
+JOIN log l ON a.fkLog = l.idLog
+JOIN componente c ON l.fkComponente = c.idComponente
+WHERE c.nomeComponente = '${componente_lt}'
+  AND a.data >= CURDATE() - INTERVAL ${tempo_lt} DAY;  
+
+ `
+ ;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 
 function listarAlertas(idAlertas) {
@@ -54,6 +78,7 @@ ORDER BY Alertas DESC;
 module.exports = {
 
     buscarServidores,
-    listarAlertas
+    listarAlertas,
+    listarComponentes
 
 };
