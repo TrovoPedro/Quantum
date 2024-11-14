@@ -24,6 +24,8 @@ var empresasRouter = require("./src/routes/empresas");
 var servidoresRouter = require("./src/routes/servidores");
 var alertaRouter = require("./src/routes/alerta");
 var previsaoRouter = require("./src/routes/previsao");
+var previsaoRouter = require("./src/routes/estatisticasTrovo");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +42,7 @@ app.use("/empresas", empresasRouter);
 app.use("/servidores", servidoresRouter)
 app.use("/alerta", alertaRouter)
 app.use("/previsao", previsaoRouter)
+app.use("/estatisticaTrovo", previsaoRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`

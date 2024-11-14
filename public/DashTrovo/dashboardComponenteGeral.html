@@ -7,9 +7,10 @@
     <title>Componente Geral</title>
     <link rel="shortcut icon" href="../assets/Logo Quantum.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/dashboardComponenteGeral.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="buscarConsumoCpu()">
     <div class="pai" style="display: flex;">
         <header class="pai-menu">
             <nav class="filho-menu">
@@ -29,11 +30,11 @@
         </div>
         <img class="blurEsquerda" src="../assets/blurEsquerda.png" alt="">
         <img class="blurDireita" src="../assets/blurDireita.png" alt="">
-        <div id="pai-conteudo" class="pai-conteudo" style="display: none;">
+        <div id="pai-conteudo" class="pai-conteudo" style="display: flex;">
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
                     <button onclick="voltarHome()" class="circulo-home">
-                        <div class="circulo-home">
+                        <div class="circulo-home1">
                             <img class="icon-menu-bg" src="../assets/home.png" alt="">
                         </div>
                     </button>
@@ -50,17 +51,15 @@
             </div>
             <div class="filho-conteudo">
                 <div class="conteudo-menu">
-                    <p id="p-menu-conteudo">Olá, usuário</p>
+                    <p id="nome_usuario"></p>
                 </div>
                 <div class="dash-pai">
                     <div class="dash-filho1">
                         <div class="dash-cpuConsumo">
-                            <p class="title-dashConsumo">Consumo de CPU</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoUsoCpu" width="100%" height="100%"></canvas>
                         </div>
                         <div class="card-contexto">
-                            <p class="title-dashMudanca">Mudança de contexto</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoContexto" width="100%" height="100%"></canvas>
                         </div>
                     </div>
                     <div class="dash-filho2">
@@ -82,7 +81,7 @@
                             </div>
                         </div>
                         <div class="dash-cpuConsumo2">
-                            <p class="title-dashConsumo">Carga do Sistema</p>
+                            <canvas id="graficoCarga"></canvas>
                         </div>
                     </div>
                 </div>
@@ -109,40 +108,38 @@
             </div>
             <div class="filho-conteudo">
                 <div class="conteudo-menu">
-                    <p id="p-menu-conteudo">Olá, usuário</p>
+                    <p id="nome_usuario"></p>
                 </div>
                 <div class="dash-pai">
                     <div class="dash-filho1">
                         <div class="dash-cpuConsumo">
-                            <p class="title-dashConsumo">Taxa de transferência</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoTransferencia"></canvas>
                         </div>
                         <div class="card-contexto">
-                            <p class="title-dashMudanca">Perda de pacotes</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoPerda"></canvas>
                         </div>
                     </div>
                     <div class="dash-filho2">
                         <div class="card-numeros">
-                            <div class="card-risco">
-                                <p class="title-card">Risco de alerta</p>
+                            <div class="card-risco-rede">
+                                <p class="title-card-rede">Risco de alerta</p>
                                 <p class="subtitle-card">desse componente</p>
                                 <p id="porcent-serv">50%</p>
                             </div>
-                            <div class="card-risco">
+                            <div class="card-risco-rede">
                                 <p class="title-card">Número de alertas</p>
                                 <p class="subtitle-card">emitidos</p>
                                 <p id="porcent-serv">50%</p>
                             </div>
                         </div>
                         <div class="dash-cpuConsumo2">
-                            <p class="title-dashConsumo">Erros TCP</p>
+                            <canvas id="graficoErro"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="pai-conteudo3" class="pai-conteudo3" style="display: flex;">
+        <div id="pai-conteudo3" class="pai-conteudo3" style="display: none;">
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
                     <button onclick="voltarHome()" class="circulo-home">
@@ -163,21 +160,19 @@
             </div>
             <div class="filho-conteudo">
                 <div class="conteudo-menu">
-                    <p id="p-menu-conteudo">Olá, usuário</p>
+                    <p id="nome_usuario"></p>
                 </div>
                 <div class="dash-pai">
                     <div class="dash-filho1">
                         <div class="dash-cpuConsumo">
-                            <p class="title-dashConsumo">Consumo de memória RAM</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoUsoRam" width="100%" height="100%"></canvas>
                         </div>
                         <div class="card-contexto">
-                            <p class="title-dashMudanca">Consumo de memória SWAP</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoUsoSwap" width="100%" height="100%"></canvas>
                         </div>
                     </div>
-                    <div class="dash-filho2">
-                        <div class="card-numeros">
+                    <div class="dash-filho3">
+                        <div class="card-numeros1">
                             <div class="card-numeros-memoria2">
                                 <div class="card-risco-pai">
                                     <div class="card-risco3">
@@ -230,31 +225,29 @@
             </div>
             <div class="filho-conteudo">
                 <div class="conteudo-menu">
-                    <p id="p-menu-conteudo">Olá, usuário</p>
+                    <p id="nome_usuario"></p>
                 </div>
                 <div class="dash-pai">
                     <div class="dash-filho1">
                         <div class="dash-cpuConsumo">
-                            <p class="title-dashConsumo">Uso total do disco</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoDisco" width="100%" height="100%"></canvas>
                         </div>
                         <div class="card-contexto">
-                            <p class="title-dashMudanca">I/O de disco</p>
-                            <p id="porcent-serv"></p>
+                            <canvas id="graficoIo" width="100%" height="100%"></canvas>
                         </div>
                     </div>
-                    <div class="dash-filho2">
-                        <div class="card-numeros">
+                    <div class="dash-filho3">
+                        <div class="card-numeros1">
                             <div class="card-numeros-memoria2">
                                 <div class="card-risco-pai">
                                     <div class="card-risco3">
                                         <p class="title-card">Espaço total do</p>
-                                        <p class="subtitle-card">Disco</p>
+                                        <p class="subtitle-card">disco</p>
                                         <p id="porcent-serv">50%</p>
                                     </div>
                                     <div class="card-risco3">
                                         <p class="title-card">Espaço livre do</p>
-                                        <p class="subtitle-card">Disco</p>
+                                        <p class="subtitle-card">disco</p>
                                         <p id="porcent-serv">50%</p>
                                     </div>
                                 </div>

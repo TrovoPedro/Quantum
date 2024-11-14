@@ -1,5 +1,7 @@
+nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
 function validarEscolha() {
-    var escolher = document.getElementById('escolher');  
+    var escolher = document.getElementById('escolher');
     var valorInput = Number(escolher.value);
 
     if (isNaN(valorInput) || valorInput < 1 || valorInput > 4) {
@@ -14,28 +16,255 @@ function validarEscolha() {
 
     if (valorInput == 1) {
         document.getElementById('pai-conteudo').style.display = 'flex';
+        plotarGraficos()
     } else if (valorInput == 2) {
         document.getElementById('pai-conteudo2').style.display = 'flex';
+        buscarPerdaPacote()
     } else if (valorInput == 3) {
         document.getElementById('pai-conteudo3').style.display = 'flex';
+        plotarGraficosRam()
     } else if (valorInput == 4) {
         document.getElementById('pai-conteudo4').style.display = 'flex';
+        plotarGraficosDisco()
     }
 }
 
-function voltarHome(){
+function voltarHome() {
     window.location.href = "dashboardComponenteGeral.html";
 }
 
-function enviarFormulario(){
+function enviarFormulario() {
 
 }
 
-function verPerfil(){
+function verPerfil() {
     window.location.href = "../Tela_Perfil.html";
 }
 
-function sair(){
+function sair() {
     sessionStorage.clear();
     window.location = "../login.html";
 }
+
+function buscarConsumoCpu() {
+
+    fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                plotarGraficos(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficos(resposta) {
+    const ctx = document.getElementById('graficoUsoCpu').getContext('2d');
+
+    // Destruir o gráfico anterior, se existir
+    if (window.meuGrafico) {
+        window.meuGrafico.destroy();
+    }
+
+    // Extrair os valores de "usoComponente" da resposta
+    const dados = resposta.map(item => item.usoComponente);  // Array com os valores de uso
+    console.log('Dados extraídos:', dados); // Verifique os dados extraídos
+
+    // Gerar rótulos para o eixo X (pode ser algo como "Jan", "Fev", etc., ou números, dependendo da sua necessidade)
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];  // Ajuste conforme necessário
+
+    if (dados.length === 0) {
+        console.error('Nenhum dado encontrado para o gráfico.');
+        return; // Evita criar um gráfico vazio
+    }
+
+    // Criar o gráfico com os dados e rótulos extraídos
+    window.meuGrafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,  // Rótulos para o eixo X
+            datasets: [{
+                label: 'Uso de CPU',  // Rótulo da linha
+                data: dados,  // Dados de uso de CPU extraídos
+                backgroundColor: '#e234d4',
+                borderColor: '#e234d4',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                    },
+                    border: {
+                        color: '#6c6877af', // Cor da linha do eixo Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        display: false,  // Esconde os rótulos do eixo X
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade verticais
+                    },
+                    border: {
+                        color: '#6c6877af' // Cor da linha do eixo X
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: '#FFFF' // Cor da legenda
+                    }
+                },
+                tooltip: {
+                    titleColor: '#FFFF', // Cor do título do tooltip
+                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                },
+                title: {
+                    display: true,
+                    text: 'Consumo de CPU', // Título do gráfico
+                    color: '#FFFF',
+                    font: {
+                        size: 25,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function buscarPerdaPacote() {
+
+    fetch(`/estatisticaTrovo/buscarPerdaPacote`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                plotarGraficosPerdaPacote(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficosPerdaPacote(resposta) {
+    const ctx = document.getElementById('graficoPerda').getContext('2d');
+
+    // Destruir o gráfico anterior, se existir
+    if (window.meuGrafico) {
+        window.meuGrafico.destroy();
+    }
+
+    // Verificar se 'resposta' é um array válido
+    if (!Array.isArray(resposta)) {
+        console.error('Resposta não é um array válido', resposta);
+        return; // Evita continuar se a resposta não for válida
+    }
+
+    // Verificar se a resposta contém dados
+    const dados = resposta.map(item => item.usoComponente);  
+    console.log('Dados extraídos:', dados); 
+
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+    if (dados.length === 0) {
+        console.error('Nenhum dado encontrado para o gráfico.');
+        return; // Evita criar o gráfico se os dados estiverem vazios
+    }
+
+    // Criar o gráfico
+    window.meuGrafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Perda de pacotes',
+                data: dados,
+                backgroundColor: '#e234d4',
+                borderColor: '#e234d4',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FFFF'
+                    },
+                    grid: {
+                        color: '#6c6877af', 
+                    },
+                    border: {
+                        color: '#6c6877af', 
+                    }
+                },
+                x: {
+                    ticks: {
+                        display: false, 
+                    },
+                    grid: {
+                        color: '#6c6877af', 
+                    },
+                    border: {
+                        color: '#6c6877af' 
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: '#FFFF'
+                    }
+                },
+                tooltip: {
+                    titleColor: '#FFFF',
+                    bodyColor: '#FFFF',  
+                },
+                title: {
+                    display: true,
+                    text: 'Porcentagem de perda de pacotes',
+                    color: '#FFFF',
+                    font: {
+                        size: 25,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function plotarGraficosRam() {
+    const ctx2 = document.getElementById('graficoUsoSwap').getContext('2d');
+
+}
+
+function plotarGraficosDisco() {
+    const ctx = document.getElementById('graficoDisco').getContext('2d');
+    
+}
+
+

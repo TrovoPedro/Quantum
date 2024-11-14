@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     font-family: "Lato", serif;
+    overflow-x: hidden;
 }
 
 body {
@@ -17,8 +18,8 @@ body {
 
 .pai {
     background: #121212;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -123,21 +124,23 @@ option {
     align-items: center;
     gap: 15px;
     margin-top: 4%;
+    overflow: hidden;
 }
 
 .circulo-home {
     background: #D9D9D9;
     border-radius: 50px;
-    width: 95%;
-    height: 26%;
+    width: 100%;
+    height: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
+    overflow: hidden;
 }
 
 .icon-menu-bg {
-    width: 35px;
+    width: 100%;
 }
 
 .icon-menu-bg:hover {
@@ -184,6 +187,7 @@ option {
     width: 17%;
     color: #D9D9D9;
     font-size: 30px;
+    overflow-y: hidden;
 }
 
 .dash-pai {
@@ -221,6 +225,7 @@ option {
     border-radius: 27px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .card-contexto {
@@ -232,6 +237,8 @@ option {
     border-radius: 27px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title-dashMudanca {
@@ -257,6 +264,17 @@ option {
     align-items: center;
     width: 50%;
     border-radius: 27px;
+    height: 100%;
+}
+
+.dash-filho3{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    border-radius: 27px;
+    height: 100%;
 }
 
 .title-card {
@@ -270,6 +288,14 @@ option {
     display: flex;
     justify-content: space-evenly;
 }
+
+.card-numeros1 {
+    width: 80%;
+    height: 90%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 
 .card-numeros-memoria {
     width: 100%;
@@ -298,7 +324,7 @@ option {
     height: 100%;
     justify-content: center;
     align-items: center;
-    gap: 3px;
+    gap: 20px;
 }
 
 .card {
@@ -330,6 +356,21 @@ option {
     backdrop-filter: blur(5px);
 }
 
+.card-risco-rede {
+    width: 35%;
+    background: #5532b6bd;
+    border: solid 2px #e234d4;
+    border-radius: 27px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #D9D9D9;
+    font-weight: bold;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+}
+
 .card-risco2 {
     width: 45%;
     background: #5532b6bd;
@@ -346,8 +387,8 @@ option {
 }
 
 .card-risco3 {
-    width: 45%;
-    height: 10px;
+    width: 50%;
+    height: 100%;
     background: #5532b6bd;
     border: solid 2px #e234d4;
     border-radius: 27px;
@@ -372,6 +413,7 @@ option {
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
+    align-items: center;
 }
 
 .blurDireita {
@@ -379,4 +421,11 @@ option {
     width: 30%;
     z-index: 1;
     right: 0;
+}
+
+/*Estilização gráficos*/
+
+canvas{
+    width: 80% !important;
+    height: 85% !important;
 }
