@@ -46,6 +46,8 @@ function sair() {
     window.location = "../login.html";
 }
 
+/** fetch e plotagem do gráfico de uso de CPU */
+
 function buscarConsumoCpu() {
 
     fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' }).then(function (response) {
@@ -66,24 +68,20 @@ function buscarConsumoCpu() {
 function plotarGraficos(resposta) {
     const ctx = document.getElementById('graficoUsoCpu').getContext('2d');
 
-    // Destruir o gráfico anterior, se existir
     if (window.meuGrafico) {
         window.meuGrafico.destroy();
     }
 
-    // Extrair os valores de "usoComponente" da resposta
-    const dados = resposta.map(item => item.usoComponente);  // Array com os valores de uso
-    console.log('Dados extraídos:', dados); // Verifique os dados extraídos
+    const dados = resposta.map(item => item.usoComponente)
+    console.log('Dados extraídos:', dados);
 
-    // Gerar rótulos para o eixo X (pode ser algo como "Jan", "Fev", etc., ou números, dependendo da sua necessidade)
-    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];  // Ajuste conforme necessário
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
 
     if (dados.length === 0) {
         console.error('Nenhum dado encontrado para o gráfico.');
-        return; // Evita criar um gráfico vazio
+        return
     }
 
-    // Criar o gráfico com os dados e rótulos extraídos
     window.meuGrafico = new Chart(ctx, {
         type: 'line',
         data: {
@@ -148,6 +146,16 @@ function plotarGraficos(resposta) {
         }
     });
 }
+
+/** fetch e plotagem do gráfico de mudança de contexto*/
+
+/** fetch e plotagem do gráfico de Carga do sistema*/
+
+/** fetch e plotagem do gráfico de taxa de transferencia*/
+
+/** fetch e plotagem do gráfico de erros de TCP*/
+
+/** fetch e plotagem do gráfico de perda de pacote*/
 
 function buscarPerdaPacote() {
 
@@ -257,14 +265,23 @@ function plotarGraficosPerdaPacote(resposta) {
     });
 }
 
+/** fetch e plotagem do gráfico de uso de memoria RAM*/
+
 function plotarGraficosRam() {
     const ctx2 = document.getElementById('graficoUsoSwap').getContext('2d');
 
 }
 
+/** fetch e plotagem do gráfico de uso de memoria SWAP*/
+
+/** fetch e plotagem do gráfico de uso total de disco*/
+
 function plotarGraficosDisco() {
     const ctx = document.getElementById('graficoDisco').getContext('2d');
     
 }
+
+/** fetch e plotagem do gráfico de I/O de disco*/
+
 
 
