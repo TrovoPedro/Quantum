@@ -46,7 +46,7 @@ function sair() {
     window.location = "../login.html";
 }
 
-/** fetch e plotagem do gráfico de uso de CPU */
+
 
 function buscarConsumoCpu() {
 
@@ -63,9 +63,13 @@ function buscarConsumoCpu() {
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
+
+
+
 }
 
 function plotarGraficos(resposta) {
+
     const ctx = document.getElementById('graficoUsoCpu').getContext('2d');
 
     if (window.meuGrafico) {
@@ -145,6 +149,8 @@ function plotarGraficos(resposta) {
             }
         }
     });
+
+    
 }
 
 /** fetch e plotagem do gráfico de mudança de contexto*/

@@ -12,11 +12,20 @@ router.get("/buscar", function (req, res) {
 });
 
 
+
 router.get("/mostrar", function (req, res) {
     
     alertaController.listarAlertas(req, res);
 
 });
+
+
+router.get("/buscaGrafico", function (req, res) {
+    
+    alertaController.buscarAlertas(req, res);
+
+}); 
+
 
 router.get("/componentes/:componente/:tempo", function (req, res) {
     

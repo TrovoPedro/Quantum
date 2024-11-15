@@ -21,6 +21,7 @@ function buscarServidores(idServidor) {
     return database.executar(instrucaoSql);
 }
 
+
 function listarComponentes(idComponente, componente_lt, tempo_lt) {
 
     console.log("Componente selecionado:", componente_lt);
@@ -69,6 +70,29 @@ ORDER BY Alertas DESC;
     return database.executar(instrucaoSql);
 }
 
+function buscarAlertas() {
+
+    var instrucaoSql = `SELECT 
+    MONTH(a.data) AS mes,
+    COUNT(*) AS quantidade_alertas
+FROM 
+    alerta a
+JOIN 
+    log l ON a.fkLog = l.idLog 
+WHERE 
+    l.fkComponente = 1
+GROUP BY 
+    MONTH(a.data)
+ORDER BY 
+    MONTH(a.data);
+
+`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 
 
 
@@ -79,6 +103,7 @@ module.exports = {
 
     buscarServidores,
     listarAlertas,
-    listarComponentes
+    listarComponentes,
+    buscarAlertas
 
 };

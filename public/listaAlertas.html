@@ -12,6 +12,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
@@ -20,10 +21,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="listarAlertas(), listarComponentes()">
+<body>
+
+    <style>
+        .nav{
+            color: #6d0fa4 ;
+        }
+    </style>
 
     <div class="navBar">
-        <div class="CaixalogoNav">  
+        <div class="CaixalogoNav">
             <img src="img/novalogo.svg" class="logoNav" alt="">
         </div>
         <div class="linksNav">
@@ -31,10 +38,12 @@
                 <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
                 <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
             </div>
+
             <div class="botoesNav">
                 <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
                 <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
             </div>
+
             <div class="botoesNav">
                 <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
                 <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
@@ -79,17 +88,21 @@
 
         <div class="servidor-titulo">
 
-            <h2 id="nome_server">X</h2> 
-            
+            <h2 id="nome_server">X</h2>
+
         </div>
 
         <div class="listaServidores">
 
+
             <div class="servidorSection" id="section1">
+
+                <canvas id="myChartCanvas"></canvas>
 
             </div>
 
-            <div class="servidorSection"  id="section2">
+
+            <div class="servidorSection" id="section2">
 
                 <h3>Falhas por componente:</h3>
 
@@ -136,7 +149,7 @@
             <div class="servidorSection" id="section3">
 
             </div>
-            
+
 
             <div class="servidorSection" id="section4">
 
@@ -162,7 +175,7 @@
 
                     <div class="filterRow">
                         <label for="periodoSelect">Período:</label>
-                        <select id="periodoSelect" class="selectField"  onchange="listarComponentes()">
+                        <select id="periodoSelect" class="selectField" onchange="listarComponentes()">
 
                             <option value="0" selected disabled>Selecione um período de análise:</option>
                             <option value="7">Últimos 7 dias</option>
@@ -172,11 +185,11 @@
                         </select>
                     </div>
                 </div>
-                <div class="alertDescription"  style="overflow-y: scroll; max-height: 200px;">
+                <div class="alertDescription" style="overflow-y: scroll; max-height: 200px;">
 
                     <span>Descrição:</span>
 
-                
+
 
                 </div>
             </div>
@@ -186,6 +199,7 @@
 
     </div>
 
+    
 
     <div class="filtro"></div>
 
