@@ -25,6 +25,7 @@ var servidoresRouter = require("./src/routes/servidores");
 var alertaRouter = require("./src/routes/alerta");
 var previsaoRouter = require("./src/routes/previsao");
 var previsaoRouter = require("./src/routes/estatisticasTrovo");
+var graficosRouterLazaro = require("./src/routes/graficosLazaro");
 
 
 app.use(express.json());
@@ -43,6 +44,7 @@ app.use("/servidores", servidoresRouter)
 app.use("/alerta", alertaRouter)
 app.use("/previsao", previsaoRouter)
 app.use("/estatisticaTrovo", previsaoRouter)
+app.use("/graficosLazaro", graficosRouterLazaro);
 
 app.listen(PORTA_APP, function () {
     console.log(`
