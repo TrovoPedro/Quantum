@@ -1,8 +1,9 @@
 nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+var valorInput = 2
 
 function validarEscolha() {
     var escolher = document.getElementById('escolher');
-    var valorInput = Number(escolher.value);
+    valorInput = Number(escolher.value);
 
     if (isNaN(valorInput) || valorInput < 1 || valorInput > 4) {
         console.log("Valor inválido");
@@ -15,17 +16,17 @@ function validarEscolha() {
     document.getElementById('pai-conteudo4').style.display = 'none';
 
     if (valorInput == 1) {
-        document.getElementById('pai-conteudo').style.display = 'flex';
-        plotarGraficos()
-    } else if (valorInput == 2) {
-        document.getElementById('pai-conteudo2').style.display = 'flex';
-        buscarPerdaPacote()
-    } else if (valorInput == 3) {
         document.getElementById('pai-conteudo3').style.display = 'flex';
         plotarGraficosRam()
-    } else if (valorInput == 4) {
+    } else if (valorInput == 2) {
+        document.getElementById('pai-conteudo').style.display = 'flex';
+        plotarGraficosCpu()
+    } else if (valorInput == 3) {
         document.getElementById('pai-conteudo4').style.display = 'flex';
         plotarGraficosDisco()
+    } else if (valorInput == 4) {
+        document.getElementById('pai-conteudo2').style.display = 'flex';
+        buscarPerdaPacote()
     }
 }
 
@@ -46,47 +47,45 @@ function sair() {
     window.location = "../login.html";
 }
 
-
+let graficoCpu;
+let graficoContexto;
+let graficoCarga;
 
 function buscarConsumoCpu() {
-
-    fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                plotarGraficos(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
+    fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficosCpu(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
-
-
-
 }
 
-function plotarGraficos(resposta) {
-
+function plotarGraficosCpu(resposta) {
     const ctx = document.getElementById('graficoUsoCpu').getContext('2d');
 
-    if (window.meuGrafico) {
-        window.meuGrafico.destroy();
+    if (graficoCpu) {
+        graficoCpu.destroy();
     }
 
-    const dados = resposta.map(item => item.usoComponente)
+    const dados = resposta.map(item => item.usoComponente);
     console.log('Dados extraídos:', dados);
 
     const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
 
     if (dados.length === 0) {
         console.error('Nenhum dado encontrado para o gráfico.');
-        return
+        return;
     }
 
-    window.meuGrafico = new Chart(ctx, {
+    graficoCpu = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,  // Rótulos para o eixo X
@@ -149,13 +148,210 @@ function plotarGraficos(resposta) {
             }
         }
     });
-
-    
 }
 
 /** fetch e plotagem do gráfico de mudança de contexto*/
 
+function buscarMudancaContexto() {
+    fetch(`/estatisticaTrovo/buscarMudancaContexto`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarMudancaContexto(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarMudancaContexto(resposta) {
+    const ctx = document.getElementById('graficoContexto').getContext('2d');
+
+    if (graficoContexto) {
+        graficoContexto.destroy();
+    }
+
+    const dados = resposta.map(item => item.usoComponente);
+    console.log('Dados extraídos:', dados);
+
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+    if (dados.length === 0) {
+        console.error('Nenhum dado encontrado para o gráfico.');
+        return;
+    }
+
+    graficoContexto = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,  // Rótulos para o eixo X
+            datasets: [{
+                label: 'Uso de CPU',  // Rótulo da linha
+                data: dados,  // Dados de uso de CPU extraídos
+                backgroundColor: '#e234d4',
+                borderColor: '#e234d4',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                    },
+                    border: {
+                        color: '#6c6877af', // Cor da linha do eixo Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        display: false,  // Esconde os rótulos do eixo X
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade verticais
+                    },
+                    border: {
+                        color: '#6c6877af' // Cor da linha do eixo X
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: '#FFFF' // Cor da legenda
+                    }
+                },
+                tooltip: {
+                    titleColor: '#FFFF', // Cor do título do tooltip
+                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                },
+                title: {
+                    display: true,
+                    text: 'Mudança de Contexto', // Título do gráfico
+                    color: '#FFFF',
+                    font: {
+                        size: 25,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+}
+
+
 /** fetch e plotagem do gráfico de Carga do sistema*/
+
+function buscarCarga() {
+    fetch(`/estatisticaTrovo/buscarCargaSistema`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarCarga(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarCarga(resposta) {
+    const ctx = document.getElementById('graficoCarga').getContext('2d');
+
+    if (graficoCarga) {
+        graficoCarga.destroy();
+    }
+
+    const dados = resposta.map(item => item.usoComponente);
+    console.log('Dados extraídos:', dados);
+
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+    if (dados.length === 0) {
+        console.error('Nenhum dado encontrado para o gráfico.');
+        return;
+    }
+
+    graficoCarga = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Uso de CPU',
+                data: dados,  // Dados de uso de CPU extraídos
+                backgroundColor: '#e234d4',
+                borderColor: '#e234d4',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                    },
+                    border: {
+                        color: '#6c6877af', // Cor da linha do eixo Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        display: false,  // Esconde os rótulos do eixo X
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade verticais
+                    },
+                    border: {
+                        color: '#6c6877af' // Cor da linha do eixo X
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: '#FFFF' // Cor da legenda
+                    }
+                },
+                tooltip: {
+                    titleColor: '#FFFF', // Cor do título do tooltip
+                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                },
+                title: {
+                    display: true,
+                    text: 'Carga de sistema', // Título do gráfico
+                    color: '#FFFF',
+                    font: {
+                        size: 25,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+}
 
 /** fetch e plotagem do gráfico de taxa de transferencia*/
 
@@ -195,8 +391,8 @@ function plotarGraficosPerdaPacote(resposta) {
     }
 
     // Verificar se a resposta contém dados
-    const dados = resposta.map(item => item.usoComponente);  
-    console.log('Dados extraídos:', dados); 
+    const dados = resposta.map(item => item.usoComponente);
+    console.log('Dados extraídos:', dados);
 
     const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
 
@@ -228,21 +424,21 @@ function plotarGraficosPerdaPacote(resposta) {
                         color: '#FFFF'
                     },
                     grid: {
-                        color: '#6c6877af', 
+                        color: '#6c6877af',
                     },
                     border: {
-                        color: '#6c6877af', 
+                        color: '#6c6877af',
                     }
                 },
                 x: {
                     ticks: {
-                        display: false, 
+                        display: false,
                     },
                     grid: {
-                        color: '#6c6877af', 
+                        color: '#6c6877af',
                     },
                     border: {
-                        color: '#6c6877af' 
+                        color: '#6c6877af'
                     }
                 }
             },
@@ -255,7 +451,7 @@ function plotarGraficosPerdaPacote(resposta) {
                 },
                 tooltip: {
                     titleColor: '#FFFF',
-                    bodyColor: '#FFFF',  
+                    bodyColor: '#FFFF',
                 },
                 title: {
                     display: true,
@@ -284,10 +480,39 @@ function plotarGraficosRam() {
 
 function plotarGraficosDisco() {
     const ctx = document.getElementById('graficoDisco').getContext('2d');
-    
+
 }
 
 /** fetch e plotagem do gráfico de I/O de disco*/
+
+// Fetch do numero de alertas
+
+function buscarQtdAlerta() {
+    const n_alertas = document.getElementById('n_alertas');
+
+    fetch(`/estatisticaTrovo/buscarQtdAlerta?parametro=${valorInput}`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.text().then(function (resposta) {
+                    console.log(`Dados recebidos: ${resposta}`);
+                    
+                    // Aqui a resposta é um número direto, sem JSON
+                    const count = parseInt(resposta, 10);
+                    console.log(`Valor de count como inteiro: ${count}`);
+
+                    // Atualiza o conteúdo HTML com o número de alertas
+                    n_alertas.innerHTML = count;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
+
+
 
 
 

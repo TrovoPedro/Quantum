@@ -1,5 +1,33 @@
 var estatisticaTrovoModel = require("../models/estatisticaTrovoModel");
 
+// Função geral de quantidade de alertas
+
+function buscarQtdAlerta(req, res) {
+    var valorInput = req.query.parametro;
+    estatisticaTrovoModel.buscarQtdAlerta(valorInput).then(resultado => {
+        res.json(resultado)
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
+function buscarRiscoAlerta(req, res) {
+    var valorInput = req.query.parametro;
+    estatisticaTrovoModel.buscarRiscoAlerta(valorInput).then(resultado => {
+        res.json(resultado)
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 // funções para buscar os dados de CPU
 
 function buscarConsumoCpu(req, res) {
@@ -50,29 +78,6 @@ function buscarServicosAtivos(req, res) {
     );
 }
 
-function buscarRiscoAlertaCpu(req, res) {
-    estatisticaTrovoModel.buscarRiscoAlertaCpu().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
-function buscarQtdAlertaCpu(req, res) {
-    estatisticaTrovoModel.buscarQtdAlertaCpu().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
 
 // Funções para buscar dados de Rede
 
@@ -103,30 +108,6 @@ function buscarPerdaPacote(req, res) {
 
 function buscarErroTcp(req, res) {
     estatisticaTrovoModel.buscarErroTcp().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
-function buscarRiscoAlertaRede(req, res) {
-    estatisticaTrovoModel.buscarRiscoAlertaRede().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
-function buscarQtdAlertaRede(req, res) {
-    estatisticaTrovoModel.buscarQtdAlertaRede().then(resultado => {
         res.json(resultado)
     }).catch(
         function (erro) {
@@ -187,30 +168,6 @@ function buscarTotalMemoriaSwap(req, res) {
     );
 }
 
-function buscarRiscoAlertaRam(req, res) {
-    estatisticaTrovoModel.buscarRiscoAlertaRam().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
-function buscarQtdAlertaRam(req, res) {
-    estatisticaTrovoModel.buscarQtdAlertaRam().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
 // Funções para buscar dados de Disco
 
 function buscarUsoDisco(req, res) {
@@ -261,54 +218,22 @@ function buscarEspacoLivre(req, res) {
     );
 }
 
-function buscarRiscoAlertaDisco(req, res) {
-    estatisticaTrovoModel.buscarRiscoAlertaDisco().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
-function buscarQtdAlertaDisco(req, res) {
-    estatisticaTrovoModel.buscarQtdAlertaDisco().then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
-}
-
-
-
 module.exports = {
+    buscarQtdAlerta,
+    buscarRiscoAlerta,
     buscarConsumoCpu,
     buscarMudancaContexto,
     buscarCargaSistema,
     buscarServicosAtivos,
-    buscarRiscoAlertaCpu,
-    buscarQtdAlertaCpu,
     buscarTaxaTransferencia,
     buscarPerdaPacote,
     buscarErroTcp,
-    buscarRiscoAlertaRede,
-    buscarQtdAlertaRede,
     buscarUsoMemoriaRam,
     buscarUsoMemoriaSwap,
     buscarTotalMemoriaRam,
     buscarTotalMemoriaSwap,
-    buscarRiscoAlertaRam,
-    buscarQtdAlertaRam,
     buscarUsoDisco,
     buscarIODisco,
     buscarTotalDisco,
     buscarEspacoLivre,
-    buscarRiscoAlertaDisco,
-    buscarQtdAlertaDisco
 }
