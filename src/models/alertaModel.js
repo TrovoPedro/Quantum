@@ -70,7 +70,8 @@ ORDER BY Alertas DESC;
     return database.executar(instrucaoSql);
 }
 
-function buscarAlertas() {
+
+function buscarAlertas(componente_DLT) {
 
     var instrucaoSql = `SELECT 
     MONTH(a.data) AS mes,
@@ -80,7 +81,29 @@ FROM
 JOIN 
     log l ON a.fkLog = l.idLog 
 WHERE 
-    l.fkComponente = 1
+    l.fkComponente = ${componente_DLT} 
+GROUP BY 
+    MONTH(a.data)
+ORDER BY 
+    MONTH(a.data);
+
+`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarAlertasModal(componente_DLT) {
+
+    var instrucaoSql = `SELECT 
+    MONTH(a.data) AS mes,
+    COUNT(*) AS quantidade_alertas
+FROM 
+    alerta a
+JOIN 
+    log l ON a.fkLog = l.idLog 
+WHERE 
+    l.fkComponente = ${componente_DLT} 
 GROUP BY 
     MONTH(a.data)
 ORDER BY 
@@ -99,11 +122,14 @@ ORDER BY
 
 
 
+
 module.exports = {
 
     buscarServidores,
     listarAlertas,
     listarComponentes,
+    buscarAlertas,
     buscarAlertas
+
 
 };

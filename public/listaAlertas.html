@@ -23,11 +23,12 @@
 
 <body>
 
-    <style>
-        .nav{
-            color: #6d0fa4 ;
+
+    <!-- <style>
+        .nav {
+            color: #070ca7;
         }
-    </style>
+    </style> -->
 
     <div class="navBar">
         <div class="CaixalogoNav">
@@ -100,6 +101,42 @@
                 <canvas id="myChartCanvas"></canvas>
 
             </div>
+
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+
+                    <img onclick="closeModal()" src="assets/icone_apagar.png" alt="Fechar"
+                        style="width: 30px; height: 30px;">
+
+                    <div class="modal-left">
+
+                        <canvas id="modalChartCanvas"  height="400" width="400"></canvas>
+                    </div>
+
+                    <div class="modal-right">
+
+                        <h3>Selecione o Componente:</h3>
+                    
+                        <div class="component-options" id="Selecao_Modal">
+
+                            <select id="modal_componente" onchange="obterDadosGraficoModal()">
+
+                                <option value="1">CPU</option>
+                                <option value="2">RAM</option>
+                                <option value="3">Disco</option>
+                                <option value="4">Rede</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
 
 
             <div class="servidorSection" id="section2">
@@ -185,13 +222,14 @@
                         </select>
                     </div>
                 </div>
+
+
                 <div class="alertDescription" style="overflow-y: scroll; max-height: 200px;">
 
                     <span>Descrição:</span>
 
-
-
                 </div>
+
             </div>
 
 
@@ -199,7 +237,7 @@
 
     </div>
 
-    
+
 
     <div class="filtro"></div>
 

@@ -1,5 +1,9 @@
 let nomeServer = "";
 
+
+
+
+
 function validarInformacoes() {
     const nomeServidor = document.getElementById("inputNomeServidor").value;
     const situacao = document.getElementById("situacaoServidor").value;
@@ -316,38 +320,72 @@ function graficoComponente() {
 }
 
 window.onload = obterDadosGrafico();
+window.onload = obterDadosGraficoModal();
+
+
+let myChart;
+let myChartModal;
 
 
 function obterDadosGrafico() {
+    let componente_DLT = document.getElementById("modal_componente").value;
+    let selecao = componente_DLT;
 
+    if (componente_DLT == 1) {
+        selecao = '1';
+    } else if (componente_DLT == 2) {
+        selecao = '2';
+    } else if (componente_DLT == 3) {
+        selecao = '3';
+    } else if (componente_DLT == 4) {
+        selecao = '4';
+    }
 
-    fetch(`/alerta/buscaGrafico`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/alerta/buscaGrafico/${selecao}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
-
             response.json().then(function (resposta) {
-
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
                 plotarGrafico(resposta);
             });
-
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
         }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+    }).catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
 }
 
+function obterDadosGraficoModal() {
+    let componente_DLT = document.getElementById("modal_componente").value;
+    let selecao = componente_DLT;
+
+    if (componente_DLT == 1) {
+        selecao = '1';
+    } else if (componente_DLT == 2) {
+        selecao = '2';
+    } else if (componente_DLT == 3) {
+        selecao = '3';
+    } else if (componente_DLT == 4) {
+        selecao = '4';
+    }
+
+    fetch(`/alerta/buscaModal/${selecao}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                plotarGraficoModal(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    }).catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+}
 
 function plotarGrafico(resposta) {
     let labels = [];
-
-    const nomesMeses = [
-        "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
-    ];
-
+    const nomesMeses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     let dados = {
         labels: labels,
         datasets: [
@@ -356,20 +394,19 @@ function plotarGrafico(resposta) {
                 data: [],
                 fill: true,
                 borderColor: 'white',
-                backgroundColor: '#6d0fa4',  // Cor roxa para as barras
+                backgroundColor: '#070ca7',
                 tension: 0.4,
                 borderWidth: 2,
-                hoverBorderColor: 'rgb(255, 99, 132)',
-                hoverBackgroundColor: 'rgba(255, 99, 132, 0.4)',
-                pointBackgroundColor: 'rgb(255, 99, 132)',
+                hoverBorderColor: '#070ca7',
+                hoverBackgroundColor: '#070ca7',
+                pointBackgroundColor: '#070ca7',
                 pointBorderColor: 'white',
             }
         ]
     };
 
     for (let i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-
+        const registro = resposta[i];
         const mesNome = nomesMeses[registro.mes - 1];
         labels.push(mesNome);
         dados.datasets[0].data.push(registro.quantidade_alertas);
@@ -383,58 +420,122 @@ function plotarGrafico(resposta) {
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: {
-                        color: '#6d0fa4'  // Cor roxa para a legenda
-                    }
+                    labels: { color: 'white' }
                 },
                 tooltip: {
-                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    backgroundColor: '#130228',
                     titleColor: 'white',
                     bodyColor: 'white',
                 }
             },
             scales: {
-                x: {
-                    ticks: {
-                        color: 'white'
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: 'white'
-                    }
-                }
-            },
-            animation: {
-                duration: 1000,
-                easing: 'easeInOutBounce',
-                onProgress: function (animation) {
-                    const chart = animation.chart;
-                    const dataset = chart.data.datasets[0];
-
-                    // Alterando a cor das barras durante a animação
-                    dataset.backgroundColor = dataset.data.map((value, index) => {
-                        return value > 10 ? 'rgba(255, 99, 132, 0.6)' : 'rgba(75, 192, 192, 0.2)';
-                    });
-
-                    chart.update();
-                }
+                x: { ticks: { color: 'white' } },
+                y: { ticks: { color: 'white' } }
             }
         }
     };
 
-    let myChart = new Chart(
-        document.getElementById('myChartCanvas'),
-        config
-    );
+    if (myChart) {
+        myChart.destroy();  // Destroy existing chart before creating a new one
+    }
+
+    myChart = new Chart(document.getElementById('myChartCanvas'), config);
 }
+
+function plotarGraficoModal(resposta) {
+    let labels = [];
+    const nomesMeses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+    let dados = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Alertas',
+                data: [],
+                fill: true,
+                borderColor: 'white',
+                backgroundColor: '#070ca7',
+                tension: 0.4,
+                borderWidth: 2,
+                hoverBorderColor: '#070ca7',
+                hoverBackgroundColor: '#070ca7',
+                pointBackgroundColor: '#070ca7',
+                pointBorderColor: 'white',
+            }
+        ]
+    };
+
+    for (let i = 0; i < resposta.length; i++) {
+        const registro = resposta[i];
+        const mesNome = nomesMeses[registro.mes - 1];
+        labels.push(mesNome);
+        dados.datasets[0].data.push(registro.quantidade_alertas);
+    }
+
+    const config = {
+        type: 'bar',
+        data: dados,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { color: 'white' }
+                },
+                tooltip: {
+                    backgroundColor: '#130228',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                }
+            },
+            scales: {
+                x: { ticks: { color: 'white' } },
+                y: { ticks: { color: 'white' } }
+            }
+        }
+    };
+
+    if (myChartModal) {
+        myChartModal.destroy();  // Destroy existing modal chart before creating a new one
+    }
+
+    myChartModal = new Chart(document.getElementById('modalChartCanvas'), config);
+}
+
 
 window.onload = function () {
     listarAlertas();
     listarComponentes();
     plotarGrafico();
+    plotarGraficoModal();
 };
 
 
 
 
+
+
+
+
+
+
+
+function openModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "block";
+}
+
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const section1 = document.getElementById("section1");
+    if (section1) {
+        section1.addEventListener("click", () => {
+            console.log("Div section1 clicada! Abrindo modal...");
+            openModal();
+        });
+    }
+});

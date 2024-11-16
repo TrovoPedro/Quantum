@@ -20,7 +20,13 @@ router.get("/mostrar", function (req, res) {
 });
 
 
-router.get("/buscaGrafico", function (req, res) {
+router.get("/buscaGrafico/:selecao", function (req, res) {
+    
+    alertaController.buscarAlertas(req, res);
+
+}); 
+
+router.get("/buscaModal/:selecao", function (req, res) {
     
     alertaController.buscarAlertas(req, res);
 

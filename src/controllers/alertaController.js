@@ -80,12 +80,36 @@ function listarComponentes(req, res) {
 
 function buscarAlertas(req, res) {
 
+    var componente_DLT = req.params.selecao;
    
+    alertaModel.buscarAlertas(componente_DLT)
 
-    var idComponente = req.params.idComponente;
+        .then(resultadoAutenticar => {
+            console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+
+            if (resultadoAutenticar.length > 0) {
+                res.status(200).json(resultadoAutenticar);
+            } else {
+                res.status(200).json([]);
+            }
+
+        })
+        
+        .catch(erro => {
+            console.log(erro);
+            console.log("\nHouve um Erro: ", erro.sqlMessage);
+            res.status(500).json({ error: "Houve um erro", details: erro.sqlMessage });
+        });
+        
+}
+
+
+function buscarAlertasModal(req, res) {
+
+    var componente_DLT = req.params.selecao;
    
-
-    alertaModel.buscarAlertas(idComponente)
+    alertaModel.buscarAlertasModal(componente_DLT)
 
         .then(resultadoAutenticar => {
             console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -114,6 +138,7 @@ module.exports = {
     buscarServidores,
     listarAlertas,
     listarComponentes,
-    buscarAlertas
+    buscarAlertas,
+    buscarAlertasModal
 
 }
