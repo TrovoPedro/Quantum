@@ -14,6 +14,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; /* Remove barras de rolagem */
+
 }
 
 /* Estilo do contêiner pai do menu */
@@ -107,8 +109,20 @@ body {
     display: flex; /* Flexbox para alinhar as divs lado a lado */
 }
 
+#titulo{
+    height: 15vh;
+  
+
+}
+
+#titulo , span{
+    color: #ffff;
+    font-size: 40px;
+   
+}
+
 /* Estilo para a div esquerda */
-.div-esquerda {
+.div-esquerda , .div-direita{
     height: 100%;
     width: 50vw; /* 50% da largura da tela */
     display: flex;
@@ -127,23 +141,12 @@ body {
     align-items: center;
 }
 
-/* Card de Contagem */
-.card-contagem {
-    background-color: #777099;
-    width: 40%;  /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
-    height: 30vh;
-    border-radius: 10px; /* Arredonda mais as bordas do card */
-    margin-top: 20px; /* Afastando o card do topo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 1.5rem;
-}
+
 
 /* Estilo da tabela */
 .tabela-zebrada {
-    width: 90%;  /* Ajusta a largura da tabela para 80% da largura da div-esquerda */
+    width: 70%;  /* Ajusta a largura da tabela para 80% da largura da div-esquerda */
+    height: 20vh;
     border-collapse: collapse;
     margin-top: 20px; /* Espaçamento acima da tabela */
     margin-bottom: 20px; /* Espaço abaixo da tabela */
@@ -178,31 +181,23 @@ body {
     background-color: #ddd; /* Cor de fundo ao passar o mouse */
 }
 
-/* Estilo para a div direita */
-.div-direita {
-    height: 100%;
-    width:50vw; /* 50% da largura da tela */
-    display: flex;
-    justify-content: end;
-    flex-direction: column;
-}
 
 .grafico{
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column  ;
-    justify-content: space-evenly;
     align-items: center;
+    justify-content: center;
 
 }
 
 .card-grafico {
     background-color: #777099;
-    width: 90%;  /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
-    height: 40vh;
+    width: 70%;  /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
+    height: 20vh;
     border-radius: 10px; /* Arredonda mais as bordas do card */
-    margin-top: 20px; /* Afastando o card do topo */
+    margin-top: 5px; /* Afastando o card do topo */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,6 +206,6 @@ body {
 }
 
 #grafico{
-    width: 100%;
-    height: 90%;
+    width: 100wv;
+    height: 80vh;
 }
