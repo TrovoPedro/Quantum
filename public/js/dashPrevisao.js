@@ -73,8 +73,6 @@ async function buscarDadosHeatmap() {
     }
 }
 
-window.onload = listarServidor();
-
 
 // Função para gerar o gráfico de heatmap
 async function gerarHeatmap() {

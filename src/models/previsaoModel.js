@@ -23,16 +23,14 @@ JOIN
      WHERE 
         log.usoComponente <= 0 OR log.usoComponente >= 85
      ) AS downtime ON servidor.idServidor = downtime.fkServidor
-GROUP BY 
+    GROUP BY 
     servidor.idServidor, servidor.nomeServidor
-HAVING 
+    HAVING 
     total_downtime > 0
-ORDER BY 
-    total_downtime;`;
+    ORDER BY 
+    total_downtime DESC;`;
 
     return database.executar(instrucaoSql);
-
-
 }
 
 function buscarTendenciaUsoRamPorDiaSemana() {

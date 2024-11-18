@@ -23,7 +23,7 @@ var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
 var servidoresRouter = require("./src/routes/servidores");
 var alertaRouter = require("./src/routes/alerta");
-var previsaoRouter = require("./src/routes/previsao");
+var previsaoRouterRebeca = require("./src/routes/previsao");
 var previsaoRouter = require("./src/routes/estatisticasTrovo");
 var graficosRouterLazaro = require("./src/routes/graficosLazaro");
 
@@ -42,7 +42,7 @@ app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 app.use("/servidores", servidoresRouter)
 app.use("/alerta", alertaRouter)
-app.use("/previsao", previsaoRouter)
+app.use("/previsao", previsaoRouterRebeca)
 app.use("/estatisticaTrovo", previsaoRouter)
 app.use("/graficosLazaro", graficosRouterLazaro);
 
