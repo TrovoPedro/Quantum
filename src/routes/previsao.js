@@ -11,4 +11,8 @@ router.get("/tendenciaUsoRam", function (req, res) {
     previsaoController.buscarTendenciaUsoRam(req, res);
 });
 
+router.get("/buscarHeatmap", function (req, res) {
+    previsaoController.buscarHeatmap(req, res);
+});
+
 module.exports = router;

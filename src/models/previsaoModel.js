@@ -1,34 +1,37 @@
 var database = require("../database/config");
 
 function buscarPorId(idServidor) {
-
-
-  var instrucaoSql = `
+    var instrucaoSql = `
    SELECT 
-    empresa.razao_social AS nomeEmpresa,
+    servidor.idServidor,
     servidor.nomeServidor,
-    MIN(log.dtHora) AS inicio_downtime,  
-    MAX(log.dtHora) AS fim_downtime,  
-    TIMESTAMPDIFF(MINUTE, MIN(log.dtHora), MAX(log.dtHora)) AS downtime_minutos
+    SUM(downtime.downtime_minutos) AS total_downtime
 FROM 
-    log
+    servidor
 JOIN 
-    componente ON log.fkComponente = componente.idComponente
-JOIN 
-    servidor ON componente.fkServidor = servidor.idServidor
-JOIN 
-    empresa ON servidor.fkEmpresa = empresa.idEmpresa
-WHERE 
-    log.usoComponente <= 0 OR log.usoComponente >= 85 
+    (SELECT 
+        log.fkServidor,
+        TIMESTAMPDIFF(MINUTE, log.dtHora, 
+            (SELECT MIN(dtHora) 
+             FROM log AS next_log 
+             WHERE next_log.fkServidor = log.fkServidor 
+               AND next_log.dtHora > log.dtHora 
+             LIMIT 1)
+        ) AS downtime_minutos
+     FROM 
+        log
+     WHERE 
+        log.usoComponente <= 0 OR log.usoComponente >= 85
+     ) AS downtime ON servidor.idServidor = downtime.fkServidor
 GROUP BY 
-    servidor.idServidor, DATE(log.dtHora) 
+    servidor.idServidor, servidor.nomeServidor
 HAVING 
-    downtime_minutos > 0  
+    total_downtime > 0
 ORDER BY 
-    downtime_minutos DESC;`;
+    total_downtime;`;
 
-  return database.executar(instrucaoSql);
-  
+    return database.executar(instrucaoSql);
+
 
 }
 
@@ -55,9 +58,35 @@ function buscarTendenciaUsoRamPorDiaSemana() {
 }
 
 
+async function calcularPrevisaoDowntime() {
+    const instrucaoSql = `
+         SELECT 
+    servidor.nomeServidor,
+    DAYOFWEEK(log.dtHora) AS dia_semana, -- Número do dia da semana (1=Domingo, 7=Sábado)
+    SUM(TIMESTAMPDIFF(MINUTE, log.dtHora, 
+        (SELECT MIN(next_log.dtHora) 
+         FROM log AS next_log 
+         WHERE next_log.fkServidor = log.fkServidor 
+           AND next_log.dtHora > log.dtHora 
+         LIMIT 1)
+    )) AS total_downtime_minutos -- Soma do downtime em minutos por dia da semana
+FROM 
+    log
+JOIN 
+    servidor ON log.fkServidor = servidor.idServidor
+WHERE 
+    log.usoComponente <= 0 OR log.usoComponente >= 85
+GROUP BY 
+    servidor.nomeServidor, dia_semana
+ORDER BY 
+    servidor.nomeServidor, dia_semana;
+
+    `;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-
-  buscarPorId, 
-  buscarTendenciaUsoRamPorDiaSemana,
-
+    buscarPorId,
+    buscarTendenciaUsoRamPorDiaSemana,
+    calcularPrevisaoDowntime
 };
