@@ -32,6 +32,7 @@ function listarServidor() {
             "Content-Type": "application/json"
         }
     })
+
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Erro HTTP: ${response.status}`);
@@ -164,7 +165,7 @@ function listarComponentes() {
 
 
     if (componente_SLC == 0) {
-        componente = '%'
+        componente = 'a'
     } else if (componente_SLC == 1) {
         componente = 'CPU'
     } else if (componente_SLC == 2) {
@@ -341,6 +342,7 @@ function obterDadosGrafico() {
         selecao = '4';
     }
 
+
     fetch(`/alerta/buscaGrafico/${selecao}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
@@ -355,6 +357,8 @@ function obterDadosGrafico() {
     });
 }
 
+let Cp_modal;
+
 function obterDadosGraficoModal() {
     let componente_DLT = document.getElementById("modal_componente").value;
     let selecao = componente_DLT;
@@ -368,6 +372,9 @@ function obterDadosGraficoModal() {
     } else if (componente_DLT == 4) {
         selecao = '4';
     }
+
+
+    // Cp_modal = selecao
 
     fetch(`/alerta/buscaModal/${selecao}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -384,21 +391,22 @@ function obterDadosGraficoModal() {
 }
 
 function plotarGrafico(resposta) {
+
     let labels = [];
     const nomesMeses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     let dados = {
         labels: labels,
         datasets: [
             {
-                label: 'Alertas',
+                label: 'CPU',
                 data: [],
                 fill: true,
                 borderColor: 'white',
-                backgroundColor: '#070ca7',
+                backgroundColor: '#290135',
                 tension: 0.4,
                 borderWidth: 2,
-                hoverBorderColor: '#070ca7',
-                hoverBackgroundColor: '#070ca7',
+                hoverBorderColor: 'white',
+                hoverBackgroundColor: '#710991',
                 pointBackgroundColor: '#070ca7',
                 pointBorderColor: 'white',
             }
@@ -436,15 +444,18 @@ function plotarGrafico(resposta) {
     };
 
     if (myChart) {
-        myChart.destroy();  // Destroy existing chart before creating a new one
+        myChart.destroy();
     }
 
     myChart = new Chart(document.getElementById('myChartCanvas'), config);
 }
 
 function plotarGraficoModal(resposta) {
+
     let labels = [];
+
     const nomesMeses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+
     let dados = {
         labels: labels,
         datasets: [
@@ -452,14 +463,14 @@ function plotarGraficoModal(resposta) {
                 label: 'Alertas',
                 data: [],
                 fill: true,
-                borderColor: 'white',
-                backgroundColor: '#070ca7',
+                borderColor: 'black',
+                backgroundColor: '#290135',
                 tension: 0.4,
                 borderWidth: 2,
-                hoverBorderColor: '#070ca7',
-                hoverBackgroundColor: '#070ca7',
+                hoverBorderColor: 'white',
+                hoverBackgroundColor: '#710991',
                 pointBackgroundColor: '#070ca7',
-                pointBorderColor: 'white',
+                pointBorderColor: 'black',
             }
         ]
     };
@@ -479,7 +490,7 @@ function plotarGraficoModal(resposta) {
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: { color: 'white' }
+                    labels: { color: 'black' }
                 },
                 tooltip: {
                     backgroundColor: '#130228',
@@ -495,7 +506,7 @@ function plotarGraficoModal(resposta) {
     };
 
     if (myChartModal) {
-        myChartModal.destroy();  // Destroy existing modal chart before creating a new one
+        myChartModal.destroy();
     }
 
     myChartModal = new Chart(document.getElementById('modalChartCanvas'), config);
@@ -503,18 +514,135 @@ function plotarGraficoModal(resposta) {
 
 
 window.onload = function () {
+
     listarAlertas();
     listarComponentes();
     plotarGrafico();
     plotarGraficoModal();
+    obterDadosDoBanco();
+
 };
 
 
 
+async function obterDadosDoBanco() {
+    try {
+
+        const resultadoComPrevisao = await fetch('/alerta/tendenciaUso');
+        const data = await resultadoComPrevisao.json();
+        console.log(data)
+        return data;
 
 
 
+    }
 
+    catch (error) {
+
+        console.error('Erro ao obter dados:', error);
+        return [];
+
+    }
+}
+
+
+
+async function criarGrafico() {
+    const dados = await obterDadosDoBanco();  
+
+    const dadosAno = dados[0]; 
+    const scatterData = dadosAno.data.map((item, index) => ({
+        x: index + 1, 
+        y: item.y 
+    }));
+
+    const regressionLine = scatterData.map(point => ({
+        x: point.x,
+        y: point.y  
+    }));
+
+    const ctx = document.getElementById('myChartPrevisao').getContext('2d');
+    new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Alertas de Uso',
+                    data: scatterData,
+                    backgroundColor: 'black',
+                    borderColor: 'black',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Tendência de Uso',
+                    data: regressionLine,
+                    type: 'line',
+                    borderColor: 'white',
+                    borderWidth: 2,
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        font: {
+                            size: 16
+                        },
+                        color: 'white'  
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        display: true,
+                        text: 'Mês',
+                        color: 'white' 
+                    },
+                    ticks: {
+                        color: 'white'  
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'  
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Número de Alertas',
+                        color: 'white' 
+                    },
+                    ticks: {
+                        color: 'white'  
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'  
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 5,
+                    backgroundColor: 'white'  
+                }
+            },
+            layout: {
+                padding: 10
+            },
+            backgroundColor: 'white'
+        }
+    });
+}
+
+criarGrafico();
 
 
 

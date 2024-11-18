@@ -93,6 +93,8 @@ ORDER BY
     return database.executar(instrucaoSql);
 }
 
+
+
 function buscarAlertasModal(componente_DLT) {
 
     var instrucaoSql = `SELECT 
@@ -116,6 +118,32 @@ ORDER BY
 }
 
 
+function tendenciaUsoPrev() {
+
+
+ const instrucaoSql = `
+        
+SELECT 
+    YEAR(a.data) AS ano,
+    MONTH(a.data) AS mes,
+    COUNT(*) AS quantidade_alertas
+FROM 
+    alerta a
+JOIN 
+    log l ON a.fkLog = l.idLog  
+WHERE 
+    l.fkComponente = 2
+GROUP BY 
+    YEAR(a.data), MONTH(a.data)
+ORDER BY 
+    ano, mes
+LIMIT 0, 1000;
+
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 
 
@@ -129,7 +157,8 @@ module.exports = {
     listarAlertas,
     listarComponentes,
     buscarAlertas,
-    buscarAlertas
+    buscarAlertas,
+    tendenciaUsoPrev
 
 
 };

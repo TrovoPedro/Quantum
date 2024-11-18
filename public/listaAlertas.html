@@ -30,55 +30,7 @@
         }
     </style> -->
 
-    <div class="navBar">
-        <div class="CaixalogoNav">
-            <img src="img/novalogo.svg" class="logoNav" alt="">
-        </div>
-        <div class="linksNav">
-            <div class="botoesNav">
-                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
-                <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
-                <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
-                <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="assets/icons8-alerta-50.png" class="LinkImgNav" alt="">
-                <p><a href="Tela_Alertas.html" style="text-decoration: none; color: #ffff">Alertas</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
-                <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
-            </div>
-
-        </div>
-
-        <div class="exitNav">
-
-            <div class="botoesNav">
-
-                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
-                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
-
-            </div>
-
-            <div class="borrar">
-
-            </div>
-
-        </div>
-
-    </div>
-
+   k
     <div class="pai-lista">
 
         <div class="tituloLista">
@@ -96,14 +48,20 @@
         <div class="listaServidores">
 
 
-            <div class="servidorSection" id="section1">
+            <div  style=" height: 250px;" class="servidorSection" id="section1">
+
+                <h3 style="color: white;">Visão Geral Anual de Alertas de Componentes</h3>
 
                 <canvas id="myChartCanvas"></canvas>
+
+                <!-- <h3 style="color: white;">Clique no quandrante para mais informações</h3> -->
+
 
             </div>
 
 
             <div id="modal" class="modal">
+
                 <div class="modal-content">
 
                     <img onclick="closeModal()" src="assets/icone_apagar.png" alt="Fechar"
@@ -184,6 +142,8 @@
 
 
             <div class="servidorSection" id="section3">
+
+                <canvas id="myChartPrevisao"></canvas>
 
             </div>
 

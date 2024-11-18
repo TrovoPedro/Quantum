@@ -107,6 +107,7 @@ function buscarAlertas(req, res) {
 
 function buscarAlertasModal(req, res) {
 
+
     var componente_DLT = req.params.selecao;
    
     alertaModel.buscarAlertasModal(componente_DLT)
@@ -133,12 +134,87 @@ function buscarAlertasModal(req, res) {
 
 
 
+async function tendenciaUsoPrev(req, res) {
+    try {
+        const dados = await alertaModel.tendenciaUsoPrev();
+
+
+        const resultado = dados.reduce((acc, { ano, mes, quantidade_alertas }) => {
+            if (!acc[ano]) {
+                acc[ano] = Array(12).fill(0); 
+            }
+            acc[ano][mes - 1] = quantidade_alertas; // Ajustar índice (1 a 12 para os meses)
+            return acc;
+        }, {});
+
+        // Adicionar previsão com base na regressão linear
+        const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
+            const x = []; // Meses com dados
+            const y = []; // Quantidade de alertas nos meses com dados
+
+            // Coletar dados para a regressão linear
+            dados.forEach((quantidade, index) => {
+                if (quantidade > 0) {
+                    x.push(index + 1); // Mês (1 a 12)
+                    y.push(quantidade);
+                }
+            });
+
+            // Calcular coeficientes da regressão linear (y = mx + b)
+            const n = x.length;
+            if (n > 1) {
+                const xSum = x.reduce((a, b) => a + b, 0);
+                const ySum = y.reduce((a, b) => a + b, 0);
+                const xySum = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+                const xSquaredSum = x.reduce((sum, xi) => sum + xi ** 2, 0);
+
+                const m = (n * xySum - xSum * ySum) / (n * xSquaredSum - xSum ** 2);
+                const b = (ySum - m * xSum) / n;
+
+
+                const previsao = dados.map((quantidade, index) => {
+                    if (quantidade === 0) {
+                        return Math.max(0, Math.round(m * (index + 1) + b)); // Previsão com regressão
+                    }
+                    return quantidade;
+                });
+
+                // Formatar os dados para o gráfico
+                return {
+                    name: ano,
+                    data: previsao.map((alertas, index) => ({
+                        x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'][index],
+                        y: alertas,
+                    })),
+                };
+            } else {
+
+                return {
+                    name: ano,
+                    data: dados.map((alertas, index) => ({
+                        x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'][index],
+                        y: alertas,
+                    })),
+                };
+            }
+        });
+
+        res.status(200).json(resultadoComPrevisao);
+    } catch (erro) {
+        console.error('Erro ao buscar tendência de alertas:', erro);
+        res.status(500).json({ erro: 'Erro ao buscar dados para a tendência de alertas' });
+    }
+}
+
+
+
 module.exports = {
 
     buscarServidores,
     listarAlertas,
     listarComponentes,
     buscarAlertas,
-    buscarAlertasModal
+    buscarAlertasModal,
+    tendenciaUsoPrev
 
 }
