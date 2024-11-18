@@ -78,7 +78,6 @@ function buscarServicosAtivos(req, res) {
     );
 }
 
-
 // Funções para buscar dados de Rede
 
 function buscarTaxaTransferencia(req, res) {

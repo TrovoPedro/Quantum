@@ -18,6 +18,8 @@ function validarEscolha() {
     if (valorInput == 1) {
         document.getElementById('pai-conteudo3').style.display = 'flex';
         plotarGraficosRam()
+        buscarQtdAlerta()
+        buscarRiscoAlerta()
     } else if (valorInput == 2) {
         document.getElementById('pai-conteudo').style.display = 'flex';
         plotarGraficosCpu()
@@ -71,27 +73,37 @@ function buscarConsumoCpu() {
 function plotarGraficosCpu(resposta) {
     const ctx = document.getElementById('graficoUsoCpu').getContext('2d');
 
-    if (graficoCpu) {
-        graficoCpu.destroy();
+    if (!resposta || !Array.isArray(resposta)) {
+        console.error("Dados inválidos recebidos para o gráfico:", resposta);
+        return;
+    }
+
+    if (resposta.length === 0) {
+        console.warn('Nenhum dado encontrado para o gráfico.');
+        return;
     }
 
     const dados = resposta.map(item => item.usoComponente);
     console.log('Dados extraídos:', dados);
 
+    if (!dados.every(d => typeof d === 'number')) {
+        console.error("Os dados extraídos contêm valores não numéricos:", dados);
+        return;
+    }
+
     const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
 
-    if (dados.length === 0) {
-        console.error('Nenhum dado encontrado para o gráfico.');
-        return;
+    if (graficoCpu) {
+        graficoCpu.destroy();
     }
 
     graficoCpu = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,  // Rótulos para o eixo X
+            labels: labels,
             datasets: [{
-                label: 'Uso de CPU',  // Rótulo da linha
-                data: dados,  // Dados de uso de CPU extraídos
+                label: 'Uso de CPU',
+                data: dados,
                 backgroundColor: '#e234d4',
                 borderColor: '#e234d4',
                 borderWidth: 1,
@@ -104,24 +116,24 @@ function plotarGraficosCpu(resposta) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                        color: '#FFFF'
                     },
                     grid: {
-                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                        color: '#6c6877af'
                     },
                     border: {
-                        color: '#6c6877af', // Cor da linha do eixo Y
+                        color: '#6c6877af'
                     }
                 },
                 x: {
                     ticks: {
-                        display: false,  // Esconde os rótulos do eixo X
+                        display: false
                     },
                     grid: {
-                        color: '#6c6877af', // Cor das linhas de grade verticais
+                        color: '#6c6877af'
                     },
                     border: {
-                        color: '#6c6877af' // Cor da linha do eixo X
+                        color: '#6c6877af'
                     }
                 }
             },
@@ -129,16 +141,16 @@ function plotarGraficosCpu(resposta) {
                 legend: {
                     display: false,
                     labels: {
-                        color: '#FFFF' // Cor da legenda
+                        color: '#FFFF'
                     }
                 },
                 tooltip: {
-                    titleColor: '#FFFF', // Cor do título do tooltip
-                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                    titleColor: '#FFFF',
+                    bodyColor: '#FFFF'
                 },
                 title: {
                     display: true,
-                    text: 'Consumo de CPU', // Título do gráfico
+                    text: 'Consumo de CPU',
                     color: '#FFFF',
                     font: {
                         size: 25,
@@ -149,6 +161,7 @@ function plotarGraficosCpu(resposta) {
         }
     });
 }
+
 
 /** fetch e plotagem do gráfico de mudança de contexto*/
 
@@ -353,6 +366,33 @@ function plotarCarga(resposta) {
     });
 }
 
+/** fetch para busca de serviços ativos*/
+
+function buscarServicosAtivos() {
+    const n_servicos = document.getElementById('n_servicos');
+
+    fetch(`/estatisticaTrovo/buscarQtdAlerta?parametro=${valorInput}`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.text().then(function (resposta) {
+                    console.log(`Dados recebidos: ${resposta}`);
+                    
+                    // Aqui a resposta é um número direto, sem JSON
+                    const count = parseInt(resposta, 10);
+                    console.log(`Valor de count como inteiro: ${count}`);
+
+                    // Atualiza o conteúdo HTML com o número de alertas
+                    n_servicos.innerHTML = count;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
+
 /** fetch e plotagem do gráfico de taxa de transferencia*/
 
 /** fetch e plotagem do gráfico de erros de TCP*/
@@ -472,6 +512,7 @@ function plotarGraficosPerdaPacote(resposta) {
 function plotarGraficosRam() {
     const ctx2 = document.getElementById('graficoUsoSwap').getContext('2d');
 
+
 }
 
 /** fetch e plotagem do gráfico de uso de memoria SWAP*/
@@ -512,6 +553,43 @@ function buscarQtdAlerta() {
         });
 }
 
+// Fetch da probabilidade de alerta
+
+function buscarRiscoAlerta() {
+    const porcent_alerta = document.getElementById('porcent_alerta');
+
+    fetch(`/estatisticaTrovo/buscarRiscoAlerta?parametro=${valorInput}`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    if (!resposta || resposta.length === 0) {
+                        console.warn("Nenhum dado encontrado na resposta.");
+                        porcent_alerta.innerHTML = "0%";
+                        return;
+                    }
+
+                    const chancePercentual = parseFloat(resposta[0].chance_alerta_percentual);
+
+                    if (isNaN(chancePercentual)) {
+                        console.error("Valor de chance_alerta_percentual inválido.");
+                        porcent_alerta.innerHTML = "Erro nos dados.";
+                        return;
+                    }
+
+                    porcent_alerta.innerHTML = `${chancePercentual.toFixed(0)}%`;
+                });
+            } else {
+                console.error("Erro na API:", response.status);
+                porcent_alerta.innerHTML = "";
+            }
+        })
+        .catch(function (error) {
+            console.error("Erro na comunicação com a API:", error.message);
+            porcent_alerta.innerHTML = "Erro na conexão.";
+        });
+}
 
 
 
