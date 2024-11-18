@@ -36,8 +36,6 @@ router.get('/selecionar/:idUsuario', function (req, res) {
     usuarioController.selecionar(req, res);
 });
 
-router.post("/registrarTentativa", function (req, res) {
-    usuarioController.registrarTentativa(req, res);
-});
+
 
 module.exports = router;
