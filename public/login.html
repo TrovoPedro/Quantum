@@ -6,10 +6,12 @@
     <link rel="shortcut icon" href="./src/img/LogoQuantum.icon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/login.css">
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
     <title>Login</title>
 </head>
 
-<body>
+<body onload="getIP()">
     <div class="main">
         <div class="left">
             <div class="container">
@@ -54,5 +56,6 @@
     </div>
 </body>
 <script src="js/logar.js"></script>
+<script src="js/dashJulia.js"></script>
 
 </html>

@@ -103,17 +103,7 @@ function excluirFuncionario(idUsuario, situacaoEditada) {
 }
 
 
-function registrarTentativa(email, ip, status) {
-    console.log("Acessando o model para registrar tentativa de login...");
 
-    var instrucaoSql = `
-        INSERT INTO tentativa_login (email, ip, status, data_hora)
-        VALUES ('${email}', '${ip}', '${status}', NOW());
-    `;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
 
 
 module.exports = {
@@ -125,5 +115,4 @@ module.exports = {
     editarFuncionario,
     excluirFuncionario,
     selecionar,
-    registrarTentativa
 };

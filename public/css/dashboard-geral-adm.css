@@ -107,19 +107,10 @@ body {
     width: 90vw;
     height: 100%;
     display: flex; /* Flexbox para alinhar as divs lado a lado */
+    align-items: center;
+    justify-content: space-between;
 }
 
-#titulo{
-    height: 15vh;
-  
-
-}
-
-#titulo , span{
-    color: #ffff;
-    font-size: 40px;
-   
-}
 
 /* Estilo para a div esquerda */
 .div-esquerda , .div-direita{
@@ -137,7 +128,7 @@ body {
     height: 30vh;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -145,20 +136,25 @@ body {
 
 /* Estilo da tabela */
 .tabela-zebrada {
-    width: 70%;  /* Ajusta a largura da tabela para 80% da largura da div-esquerda */
-    height: 20vh;
+    width: 100%;  /* Definir 100% da largura do contêiner pai */
+    max-width: 100%; /* Garante que a tabela não ultrapasse o tamanho da div-esquerda */
+    height: auto;   /* Definindo altura automática */
+    max-height: 15vh; /* Limita a altura máxima para 50% da altura da tela */
     border-collapse: collapse;
     margin-top: 20px; /* Espaçamento acima da tabela */
-    margin-bottom: 20px; /* Espaço abaixo da tabela */
+    margin-bottom: 100px; /* Espaço abaixo da tabela */
     border-radius: 10px; /* Arredonda as bordas da tabela */
+    display: block; /* Garante que a tabela se comporte como um bloco */
+    margin-left: 30%;
 }
 
 /* Estilo das células da tabela */
 .tabela-zebrada th, .tabela-zebrada td {
     text-align: center;
-    padding: 12px;
+    padding: 8px;
     text-align: left;
     border: 1px solid #ddd; /* Borda leve para as células */
+    word-wrap: break-word; /* Garante que o texto longo quebre dentro da célula */
 }
 
 /* Cores alternadas para as linhas da tabela (zebra) */
@@ -182,9 +178,10 @@ body {
 }
 
 
+
 .grafico{
     width: 100%;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column  ;
     align-items: center;
@@ -195,7 +192,7 @@ body {
 .card-grafico {
     background-color: #777099;
     width: 70%;  /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
-    height: 20vh;
+    height: 30%;
     border-radius: 10px; /* Arredonda mais as bordas do card */
     margin-top: 5px; /* Afastando o card do topo */
     display: flex;

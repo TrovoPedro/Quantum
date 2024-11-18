@@ -46,7 +46,7 @@ function entrar() {
                 console.log("Redirecionando para a página apropriada...");
 
                 setTimeout(function () {
-                    window.location = "../listaEmpresas.html";
+                    window.location = "../Dash(Julia)/dashboard-geral-adm.html";
                 }, 500);
             }
             if (sessionStorage.FKTIPO_USUARIO == 2) {
@@ -93,3 +93,4 @@ function tentativa(email, loginBemSucedido) {
         console.log("Erro de rede ou servidor:", erro);
     });
 }
+

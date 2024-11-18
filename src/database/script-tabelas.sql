@@ -11,7 +11,6 @@ CREATE TABLE tipoUsuario(
 INSERT INTO tipoUsuario (nome) 
 VALUES ('Administrador'), ('Gerente'), ('Tecnico');
 
-select * from usuario;
 
 CREATE TABLE situacao(
     idSituacao INT PRIMARY KEY AUTO_INCREMENT,
@@ -175,3 +174,86 @@ SELECT servidor.nomeServidor, empresa.razao_social, situacao.tipo
 FROM servidor
 JOIN empresa ON servidor.fkEmpresa = empresa.idEmpresa
 JOIN situacao ON servidor.fkSituacao = situacao.idSituacao;
+
+INSERT INTO usuario(nome,email,senha,fktipoUsuario) VALUES ("Julia Araujo", "julia.araujo","12345",1);
+CREATE VIEW usuarioDados AS SELECT 
+	usuario.idUsuario as idUsuario,
+    usuario.nome AS nomeUsuario,
+    usuario.data_cadastro AS dataCadastro,
+    usuario.email,
+    empresa.razao_social AS nomeEmpresa,
+    tipoUsuario.nome AS cargoUsuario
+FROM usuario
+JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa
+JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
+
+SELECT * FROM tipoUsuario;
+SELECT * FROM usuario;
+
+
+-- TABELAS DASHBOARD JULIA ARAUJO
+CREATE TABLE tentativa_login (
+    idTentativa INT PRIMARY KEY AUTO_INCREMENT,
+    ipUsuario VARCHAR(45) NOT NULL,
+    email VARCHAR(255),
+    dataHora DATETIME NOT NULL DEFAULT NOW(),
+    status VARCHAR(20) NOT NULL,
+    fkUsuario INT,
+    FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
+);
+
+SELECT ipUsuario, dataHora,COUNT(*) AS tentativas
+FROM tentativa_login
+GROUP BY ipUsuario LIMIT 4;
+
+
+CREATE TABLE erros (
+    idErro INT PRIMARY KEY AUTO_INCREMENT,
+    descricaoErro VARCHAR(255) NOT NULL,
+    dataHora DATETIME NOT NULL DEFAULT NOW(),
+    fkUsuario INT,
+    enderecoIp VARCHAR(45),
+    modulo VARCHAR(100),
+    FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
+);
+
+SELECT descricaoErro, COUNT(*) AS frequencia
+FROM erros
+GROUP BY descricaoErro
+ORDER BY frequencia DESC;
+
+
+CREATE TABLE sessoes (
+    idSessao INT PRIMARY KEY AUTO_INCREMENT,
+    fkUsuario INT,
+    inicioSessao DATETIME NOT NULL DEFAULT NOW(),
+    fimSessao DATETIME,
+    cpuUsado DOUBLE,
+    ramUsada DOUBLE,
+    discoUsado DOUBLE,
+    FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
+);
+
+SELECT fkUsuario, AVG(cpuUsado) AS mediaCpu, AVG(ramUsada) AS mediaRam, AVG(discoUsado) AS mediaDisco
+FROM sessoes
+GROUP BY fkUsuario;
+
+
+-- Inserindo tentativas de login na tabela tentativa_login
+INSERT INTO tentativa_login (ipUsuario, email, dataHora, status, fkUsuario) 
+VALUES 
+('192.168.0.1', 'usuario1@teste.com', '2024-11-16 10:05:00', 'sucesso', 2),
+('192.168.0.2', 'usuario2@teste.com', '2024-11-16 10:10:00', 'falha', NULL),
+('192.168.0.3', 'usuario3@teste.com', '2024-11-16 10:20:00', 'sucesso', 2),
+('192.168.0.1', 'usuario1@teste.com', '2024-11-16 10:25:00', 'falha', NULL),
+('192.168.0.4', 'usuario4@teste.com', '2024-11-16 10:30:00', 'sucesso', 2),
+('192.168.0.2', 'usuario2@teste.com', '2024-11-16 10:40:00', 'falha', NULL),
+('192.168.0.5', 'usuario5@teste.com', '2024-11-16 11:00:00', 'falha', NULL),
+('192.168.0.1', 'usuario1@teste.com', '2024-11-16 11:15:00', 'sucesso', 2),
+('192.168.0.6', 'usuario6@teste.com', '2024-11-16 11:20:00', 'falha', NULL),
+('192.168.0.4', 'usuario4@teste.com', '2024-11-16 11:30:00', 'sucesso', 2),
+('192.168.0.3', 'usuario3@teste.com', '2024-11-16 11:40:00', 'sucesso', 2),
+('192.168.0.7', 'usuario7@teste.com', '2024-11-16 11:50:00', 'falha', NULL),
+('192.168.0.2', 'usuario2@teste.com', '2024-11-16 12:00:00', 'falha', NULL),
+('192.168.0.1', 'usuario1@teste.com', '2024-11-16 12:10:00', 'sucesso', 2);
+
