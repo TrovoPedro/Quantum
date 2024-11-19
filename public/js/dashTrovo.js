@@ -615,7 +615,7 @@ function buscarRiscoAlerta() {
         if (data.length > 0 && data[0].chance_alerta_percentua) {
             h1.textContent = `${data[0].chance_alerta_percentua}%`
         } else {
-            h1.textContent = "0%";
+            h1.textContent = "0%"
         }
     
     })
