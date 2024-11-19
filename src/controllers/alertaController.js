@@ -228,7 +228,7 @@ async function tendenciaGeralComp(req, res) {
         }, {});
 
 
-        const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
+        const resultadoComPrevisaoMuda = Object.entries(resultado).map(([ano, dados]) => {
             const x = [];
             const y = [];
 
@@ -279,7 +279,7 @@ async function tendenciaGeralComp(req, res) {
             }
         });
 
-        res.status(200).json(resultadoComPrevisao);
+        res.status(200).json(resultadoComPrevisaoMuda);
     } catch (erro) {
         console.error('Erro ao buscar tendência de alertas:', erro);
         res.status(500).json({ erro: 'Erro ao buscar dados para a tendência de alertas' });

@@ -756,8 +756,8 @@ async function obterDadosDoBancoMudanca() {
 
     try {
 
-        const resultadoComPrevisao = await fetch(`/alerta/tendenciaGeral/${previsto}`);
-        const data = await resultadoComPrevisao.json();
+        const resultadoComPrevisaoMuda = await fetch(`/alerta/tendenciaGeral/${previsto}`);
+        const data = await resultadoComPrevisaoMuda.json();
         console.log(data)
         return data;
 
@@ -774,8 +774,11 @@ async function obterDadosDoBancoMudanca() {
 }
 
 
+let modalChartInstance = null; 
+
+
 async function criarGraficoMudanca() {
-    const dados = await obterDadosDoBancoMudanca();  
+    const dados = await obterDadosDoBancoMudanca(); 
 
     const dadosAno = dados[0]; 
     const scatterData = dadosAno.data.map((item, index) => ({
@@ -785,19 +788,25 @@ async function criarGraficoMudanca() {
 
     const regressionLine = scatterData.map(point => ({
         x: point.x,
-        y: point.y  
+        y: point.y
     }));
 
     const ctx = document.getElementById('modalChartCanvasPrev').getContext('2d');
 
-    new Chart(ctx, {
+
+    if (modalChartInstance) {
+        modalChartInstance.destroy();
+    }
+
+
+    modalChartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
             datasets: [
                 {
                     label: 'Alertas de Uso',
                     data: scatterData,
-                    backgroundColor: '#290135', 
+                    backgroundColor: '#290135',
                     borderColor: '#290135',
                     borderWidth: 1,
                 },
@@ -806,7 +815,7 @@ async function criarGraficoMudanca() {
                     data: regressionLine,
                     type: 'line',
                     backgroundColor: '#290135',
-                    borderColor: '#ffff', 
+                    borderColor: '#ffff',
                     borderWidth: 2,
                     fill: false,
                     pointRadius: 0
@@ -823,7 +832,7 @@ async function criarGraficoMudanca() {
                         font: {
                             size: 16
                         },
-                        color: '#FFFFFF'  // Legenda branca
+                        color: '#FFFFFF' 
                     }
                 }
             },
@@ -834,33 +843,33 @@ async function criarGraficoMudanca() {
                     title: {
                         display: true,
                         text: 'Mês',
-                        color: '#FFFFFF' 
+                        color: '#FFFFFF'
                     },
                     ticks: {
-                        color: '#FFFFFF' 
+                        color: '#FFFFFF'
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.2)' 
+                        color: 'rgba(255, 255, 255, 0.2)'
                     }
                 },
                 y: {
                     title: {
                         display: true,
                         text: 'Número de Alertas',
-                        color: '#FFFFFF' 
+                        color: '#FFFFFF'
                     },
                     ticks: {
-                        color: '#FFFFFF'  
+                        color: '#FFFFFF'
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.2)' 
+                        color: 'rgba(255, 255, 255, 0.2)'
                     }
                 }
             },
             elements: {
                 point: {
                     radius: 5,
-                    backgroundColor: '#FFC300'  
+                    backgroundColor: '#FFC300'
                 }
             },
             layout: {
@@ -868,13 +877,12 @@ async function criarGraficoMudanca() {
             }
         }
     });
-
-
-
-
 }
 
-criarGraficoMudanca();
+
+document.getElementById('modal_componente_prev').addEventListener('change', () => {
+    criarGraficoMudanca(); 
+});
 
 
 function buscarProbabilidade() {
