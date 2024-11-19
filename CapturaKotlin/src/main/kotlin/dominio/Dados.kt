@@ -1,6 +1,7 @@
 package dominio
 
 import com.github.britooo.looca.api.core.Looca
+import com.github.britooo.looca.api.group.servicos.Servico
 import repositorio.DadosRepositorio
 import dominio.Slack
 import org.json.JSONObject;
@@ -15,6 +16,9 @@ class Dados {
     var limiteCpu: Double = 0.0
     var limiteRam: Double = 0.0
     var limiteDisco: Double = 0.0
+    var qtdServicosAtivos: Int = 0
+    var cargaSistema: Int = 0
+    var nThreads: Int = 0
 
     val looca = Looca()
     var dadosRepositorio = DadosRepositorio()
@@ -39,12 +43,21 @@ class Dados {
                     totalPacotesRecebidos += interfaceDeRede.pacotesRecebidos.toInt()
                 }
 
+                qtdServicosAtivos += looca.grupoDeServicos.servicosAtivos.size
+                inserirServicos(qtdServicosAtivos)
+
+                cargaSistema += looca.grupoDeProcessos.processos.size
+                inserirCargaSistema(cargaSistema)
+
+                nThreads += looca.grupoDeProcessos.totalThreads
+                inserirThreads(nThreads)
+
                 val totalDadosRecebidosMB = converterParaMb(totalDadosRecebidos)
                 inserirDados(totalDadosRecebidosMB)
 
                 exibirDados()
 
-                alertar(limiteRede)
+                //alertar(limiteRede)
 
                 Thread.sleep(5000)
             }
@@ -53,6 +66,18 @@ class Dados {
 
     fun inserirDados(totalDadosRecebidosMB: Double) {
         dadosRepositorio.inserir(totalDadosRecebidosMB)
+    }
+
+    fun inserirServicos(qtdServico: Int){
+        dadosRepositorio.inserirServicos(qtdServico)
+    }
+
+    fun inserirCargaSistema(cargaSistema: Int){
+        dadosRepositorio.inserirCargaSistema(cargaSistema)
+    }
+
+    fun inserirThreads(nThread: Int){
+        dadosRepositorio.inserirThreads(nThread)
     }
 
     fun exibirDados() {
@@ -64,6 +89,7 @@ class Dados {
         println("Total de Dados Recebidos: %.2f MB".format(dadosRede.recebidos))
         println("Total de Pacotes Enviados: $totalPacotesEnviados")
         println("Total de Pacotes Recebidos: $totalPacotesRecebidos")
+
     }
 
     fun iniciarCaptura() {
@@ -75,7 +101,7 @@ class Dados {
         capturando = false
     }
 
-    fun alertar(alertaUsuario: Double) {
+    /*fun alertar(alertaUsuario: Double) {
         if (totalDadosRecebidos >= alertaUsuario) {
             val slack = Slack("https://hooks.slack.com/services/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")
             val mensagem = JSONObject().apply {
@@ -88,5 +114,5 @@ class Dados {
         } else {
             println("Estável")
         }
-    }
+    }*/
 }

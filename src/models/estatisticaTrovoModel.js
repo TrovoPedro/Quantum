@@ -46,10 +46,10 @@ function buscarConsumoCpu() {
     return database.executar(instrucaoSql);
 }
 
-
 function buscarMudancaContexto() {
 
-    var instrucaoSql = `select usoComponente from log where fkComponente = 1;`;
+    var instrucaoSql = `SELECT COALESCE(mudancaContexto, 0) AS mudancaContexto 
+    FROM tabelaTrovo;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -57,19 +57,20 @@ function buscarMudancaContexto() {
 
 function buscarCargaSistema() {
 
-    var instrucaoSql = `select usoComponente from log where fkComponente = 1;`;
+    var instrucaoSql = `SELECT COALESCE(cargaSistema, 0) AS cargaSistema 
+    FROM tabelaTrovo;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 function buscarServicosAtivos(valorInput) {
-    var instrucaoSql = `SELECT COUNT(*) AS quantidade_alertas FROM alerta WHERE fkComponente = ${valorInput};`;
+    var instrucaoSql = `select qtdServicosAtivos from tabelaTrovo;`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
     return database.executar(instrucaoSql, valorInput)
         .then(function(resultado) {
-            return resultado[0].quantidade_alertas;
+            return resultado[0].qtdServicosAtivos;
         })
         .catch(function(error) {
             console.error("Erro ao executar a consulta: ", error);

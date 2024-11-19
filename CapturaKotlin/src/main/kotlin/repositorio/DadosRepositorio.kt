@@ -26,6 +26,7 @@ class DadosRepositorio {
 
         return qtdLinhasAfetadas > 0;
     }
+
     fun inserir(dadosRecebidos: Double): Boolean{
         var qtdLinhasAfetadas = jdbcTemplate.update("""
             insert into log (dtHora, usoComponente, fkComponente) values(NOW(), ?, 3); 
@@ -86,5 +87,32 @@ class DadosRepositorio {
 
         println("limite adicionado com sucesso")
         return qtdLinhasAfetadas > 0
+    }
+
+    fun inserirServicos(dadosRecebidos: Int): Boolean{
+        var qtdLinhasAfetadas = jdbcTemplate.update("""
+            insert into tabelaTrovo (qtdServicosAtivos) values(?); 
+        """, dadosRecebidos,
+        );
+
+        return qtdLinhasAfetadas > 0;
+    }
+
+    fun inserirCargaSistema(dadosRecebidos: Int): Boolean{
+        var qtdLinhasAfetadas = jdbcTemplate.update("""
+            insert into tabelaTrovo (cargaSistema) values(?); 
+        """, dadosRecebidos,
+        );
+
+        return qtdLinhasAfetadas > 0;
+    }
+
+    fun inserirThreads(dadosRecebidos: Int): Boolean{
+        var qtdLinhasAfetadas = jdbcTemplate.update("""
+            insert into tabelaTrovo (mudancaContexto) values(?); 
+        """, dadosRecebidos,
+        );
+
+        return qtdLinhasAfetadas > 0;
     }
 }
