@@ -69,7 +69,7 @@ class DadosRepositorio {
             delete from componente where idComponente = ?;
         """,
             id)
-        return qtdLinhasAfetadas > 0;
+        return qtdLinhasAfetadas > 0
     }
 
     fun inserirLimite(limiteUsuario:Double, idComponente: Int):Boolean{

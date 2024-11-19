@@ -25,7 +25,7 @@ function buscarRiscoAlerta(valorInput) {
 
         database.executar(instrucaoSql)
             .then(resultado => {
-                console.log("Valores das variáveis @qtdLog e @qtdAlerta: ", resultado);
+                console.log("Valores das variáveis @qtdLog e @qtdAlerta: ", resultado)
 
                 resolve(resultado);
             })

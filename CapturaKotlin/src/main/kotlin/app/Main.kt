@@ -14,7 +14,7 @@ open class Main {
             dadosRepositorio.configurar();
 
             val dadosRecebidos = Dados();
-            dadosRecebidos.dadosRepositorio = dadosRepositorio;
+            dadosRecebidos.dadosRepositorio = dadosRepositorio
 
             val looca = Looca();
 

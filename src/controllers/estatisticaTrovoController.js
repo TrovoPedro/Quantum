@@ -19,7 +19,7 @@ function buscarRiscoAlerta(req, res) {
     var valorInput = req.query.parametro;
 
     if (!valorInput || isNaN(valorInput)) {
-        return res.status(400).json({ error: "O parâmetro 'parametro' é inválido." });
+        return res.status(400).json({ error: "O parâmetro 'parametro' é inválido." })
     }
 
     estatisticaTrovoModel.buscarRiscoAlerta(valorInput)
