@@ -3,7 +3,6 @@ CREATE DATABASE QuantumDB;
 USE QuantumDB;
 
 
-
 CREATE TABLE tipoUsuario(
     idTipoUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45)
@@ -138,7 +137,9 @@ CREATE TABLE log(
     tempoAtividade DATETIME,
     usoComponente DOUBLE,
     fkComponente INT,
-    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
+    fkServidor INT,
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente),
+    FOREIGN KEY (fkServidor) REFERENCES servidor(idServidor)
 );
 
 -- Tabela limiteComponente
@@ -156,8 +157,10 @@ CREATE TABLE alerta(
     descricao VARCHAR(45),
     fkLog INT,
     fkLimiteComponente INT,
+    fkComponente INT,
     FOREIGN KEY (fkLog) REFERENCES log(idLog),
-    FOREIGN KEY (fkLimiteComponente) REFERENCES limiteComponente(idLimiteComponente)
+    FOREIGN KEY (fkLimiteComponente) REFERENCES limiteComponente(idLimiteComponente),
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );
 
 -- View para análise do uso dos componentes
@@ -177,6 +180,8 @@ JOIN empresa ON servidor.fkEmpresa = empresa.idEmpresa
 JOIN situacao ON servidor.fkSituacao = situacao.idSituacao;
 
 INSERT INTO usuario(nome,email,senha,fktipoUsuario) VALUES ("Julia Araujo", "julia.araujo","12345",1);
+
+
 CREATE VIEW usuarioDados AS SELECT 
 	usuario.idUsuario as idUsuario,
     usuario.nome AS nomeUsuario,
@@ -190,84 +195,6 @@ JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
 
 SELECT * FROM tipoUsuario;
 SELECT * FROM usuario;
-
-
-
--- Inserir 10 registros na tabela usuario
--- Inserir 6 registros na tabela usuario (somente Gerente e Técnico)
-INSERT INTO usuario (nome, email, senha, data_cadastro, fkEmpresa, fkTipoUsuario, fkSituacao)
-VALUES
-    ('Maria Oliveira', 'maria.oliveira@santamarcelina.com', 'senha123', NOW(), 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
-    ('Carlos Santos', 'carlos.santos@doutorconsulta.com', 'senha123', NOW(), 2, 3, 2),  -- Técnico, Doutor consulta, Ativo
-    ('Fernanda Souza', 'fernanda.souza@doutorconsulta.com', 'senha123', NOW(), 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
-    ('Luciana Costa', 'luciana.costa@accamargo.com', 'senha123', NOW(), 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
-    ('Ricardo Almeida', 'ricardo.almeida@santamarcelina.com', 'senha123', NOW(), 1, 3, 2),  -- Técnico, Santa Marcelina, Ativo
-    ('Eduardo Gomes', 'eduardo.gomes@accamargo.com', 'senha123', NOW(), 3, 2, 2);  -- Gerente, A.C Camargo, Ativo
-    
-    -- Inserir 6 novos registros na tabela usuario (somente Gerente e Técnico), com datas diferentes e sem foto de perfil
-INSERT INTO usuario (nome, email, senha, data_cadastro, fkEmpresa, fkTipoUsuario, fkSituacao)
-VALUES
-    ('João Martins', 'joao.martins@santamarcelina.com', 'senha456', '2024-05-10 14:23:10', 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
-    ('Luana Ferreira', 'luana.ferreira@doutorconsulta.com', 'senha456', '2024-06-15 09:10:05', 2, 3, 2),  -- Técnico, Doutor consulta, Ativo
-    ('Ricardo Souza', 'ricardo.souza@santamarcelina.com', 'senha456', '2024-04-21 16:45:30', 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
-    ('Tatiane Lima', 'tatiane.lima@accamargo.com', 'senha456', '2024-07-05 13:15:20', 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
-    ('Vitor Costa', 'vitor.costa@doutorconsulta.com', 'senha456', '2024-06-10 11:20:55', 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
-    ('Mariana Alves', 'mariana.alves@accamargo.com', 'senha456', '2024-03-18 18:30:45', 3, 3, 2);  -- Técnico, A.C Camargo, Ativo
-    
-    
-SELECT 
-    YEAR(data_cadastro) AS ano,  -- Ano do cadastro
-    MONTH(data_cadastro) AS mes,  -- Mês do cadastro
-    DAY(data_cadastro) AS dia,  -- Dia do cadastro
-    COUNT(idUsuario) AS usuarios_cadastrados  -- Contagem de usuários cadastrados
-FROM 
-    usuario
-GROUP BY 
-    YEAR(data_cadastro), MONTH(data_cadastro), DAY(data_cadastro)  -- Agrupar por ano, mês e dia
-ORDER BY 
-    ano ASC, mes ASC, dia ASC;  -- Ordenar por ano, mês e dia
-
-    
-    
-    -- Inserir usuários cadastrados em outubro de 2024 até hoje (19/10/2024)
-INSERT INTO usuario (nome, email, senha, data_cadastro, fkEmpresa, fkTipoUsuario, fkSituacao)
-VALUES
-    ('Alice Oliveira', 'alice.oliveira@santamarcelina.com', 'senha789', '2024-10-01 09:00:00', 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
-    ('Bruno Mendes', 'bruno.mendes@santamarcelina.com', 'senha789', '2024-10-02 10:15:20', 1, 3, 2),  -- Técnico, Santa Marcelina, Ativo
-    ('Cláudia Ferreira', 'claudia.ferreira@doutorconsulta.com', 'senha789', '2024-10-05 11:45:30', 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
-    ('Daniel Costa', 'daniel.costa@doutorconsulta.com', 'senha789', '2024-10-07 14:10:45', 2, 3, 2),  -- Técnico, Doutor consulta, Ativo
-    ('Eliane Rocha', 'eliane.rocha@accamargo.com', 'senha789', '2024-10-09 08:30:00', 3, 2, 2),  -- Gerente, A.C Camargo, Ativo
-    ('Felipe Lima', 'felipe.lima@accamargo.com', 'senha789', '2024-10-10 12:00:00', 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
-    ('Gustavo Almeida', 'gustavo.almeida@santamarcelina.com', 'senha789', '2024-10-12 13:50:30', 1, 3, 2),  -- Técnico, Santa Marcelina, Ativo
-    ('Heloísa Martins', 'heloisa.martins@doutorconsulta.com', 'senha789', '2024-10-14 10:25:00', 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
-    ('Igor Silva', 'igor.silva@accamargo.com', 'senha789', '2024-10-16 15:20:00', 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
-    ('Juliana Souza', 'juliana.souza@santamarcelina.com', 'senha789', '2024-10-19 09:30:00', 1, 2, 2);  -- Gerente, Santa Marcelina, Ativo
-SELECT 
-    YEAR(data_cadastro) AS ano,  -- Ano do cadastro
-    CASE 
-        WHEN MONTH(data_cadastro) = 1 THEN 'Janeiro'
-        WHEN MONTH(data_cadastro) = 2 THEN 'Fevereiro'
-        WHEN MONTH(data_cadastro) = 3 THEN 'Março'
-        WHEN MONTH(data_cadastro) = 4 THEN 'Abril'
-        WHEN MONTH(data_cadastro) = 5 THEN 'Maio'
-        WHEN MONTH(data_cadastro) = 6 THEN 'Junho'
-        WHEN MONTH(data_cadastro) = 7 THEN 'Julho'
-        WHEN MONTH(data_cadastro) = 8 THEN 'Agosto'
-        WHEN MONTH(data_cadastro) = 9 THEN 'Setembro'
-        WHEN MONTH(data_cadastro) = 10 THEN 'Outubro'
-        WHEN MONTH(data_cadastro) = 11 THEN 'Novembro'
-        WHEN MONTH(data_cadastro) = 12 THEN 'Dezembro'
-    END AS nome_mes,  -- Nome do mês em português
-    DAY(data_cadastro) AS dia,  -- Dia do cadastro
-    COUNT(idUsuario) AS usuarios_cadastrados  -- Contagem de usuários cadastrados
-FROM 
-    usuario
-GROUP BY 
-    YEAR(data_cadastro), MONTH(data_cadastro), DAY(data_cadastro)  -- Agrupar por ano, mês e dia
-ORDER BY 
-    ano ASC, MONTH(data_cadastro) ASC, dia ASC;  -- Ordenar por ano, nome do mês e dia
-
-
 
 
 

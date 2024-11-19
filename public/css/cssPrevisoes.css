@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .pai {
@@ -17,42 +18,45 @@ body {
     
 }
 
-/* Navegação */
-.header {
-    width: 100%;
-    background-color: #000000;
-    padding: 10px 0;
-    border-bottom: #b19cd9 2px solid;
-    box-shadow: 0px 6px 10px rgba(220, 168, 236, 0.664);
-}
-
-.navbar {
+.NavBar {
     display: flex;
-    justify-content: right;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    flex-direction: row; /* Mantém os itens na horizontal */
+    width: 100vw;
+    height: 7%;
+    border-bottom: 2px #7449EB solid;
+    align-items: center;
+    justify-content: space-between; /* Distribui o espaço entre logo e itens */
+    padding: 0 20px; /* Adiciona espaçamento interno */
+    box-sizing: border-box; /* Garante que padding não afete o tamanho total */
 }
 
-.item-nav {
-    margin: 0 20px;
+.div1 {
+    display: flex;
+    flex-direction: row; /* Coloca os itens lado a lado */
+    gap: 20px; /* Espaçamento entre os itens */
 }
 
-.item-nav a {
-    color: #ffffff;
+.botaoNavBar {
     text-decoration: none;
-    font-size: 18px;
+    color: white;
+    font-size: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.item-nav a:hover {
-    color: #b19cd9;
-    /* Cor de destaque para hover */
-}
+.LogoNavBar {
+    display: flex;
+    height: 45px;
+    width: 45px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  
 
 /* Título e sessão de previsões */
 .previsao {
     width: 80%;
-    margin-right: 200px;
+    margin-right: 180px;
     margin-bottom: 10px;
 }
 
@@ -106,7 +110,6 @@ body {
     /* Pode ajustar para 'absolute' se necessário */
     display: flex;
     justify-content: flex-start;
-    padding-left: 10px;
     padding-bottom: 10px;
     width: 100%;
     height: 80%;
@@ -117,12 +120,12 @@ body {
     align-items: center;
     margin-left: 18px;
     height: 550px;
-
+    transform: translate(0%, -11%);
 }
 
 .listaRanking {
     background-color: #7449EB;
-    height: 500px;
+    height: 470px;
     width: 500px;
     border-radius: 3px;
     color: #fff;
@@ -145,6 +148,7 @@ body {
 .tendencia {
     margin-top: 80px;
     margin-left: 55px;
+    transform: translate(0%, -18%);
 }
 
 .graficoTendencia {
@@ -158,12 +162,12 @@ body {
     align-items: center;
     margin-top: 80px;
     margin-left: 70px;
-
+    transform: translate(0%, -12%);
 }
 
 .graficoMapaDeCalor {
     background-color: #7449EB;
-    height: 420px;
+    height: 390px;
     width: 500px;
     border-radius: 3px;
 }
@@ -171,4 +175,66 @@ body {
 .apexcharts-tooltip {
     color: #000 !important; /* Define o texto do tooltip como preto */
     background-color: #fff !important; /* Altere o fundo, se necessário */
+}
+
+.tendencia select {
+    width: 100%; /* Ajusta para preencher toda a largura da div */
+    height: 40px; /* Altura do campo */
+    padding: 8px 12px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho do texto */
+    font-weight: 500;
+    color: #ffffff; /* Cor do texto */
+    background-color: #7449EB; /* Fundo roxo */
+    border: 2px solid #ab7cd6; /* Borda roxa escura */
+    border-radius: 8px; /* Arredondamento */
+    appearance: none; /* Remove o estilo padrão do navegador */
+    outline: none; /* Remove o contorno padrão ao focar */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra */
+    transition: all 0.3s ease;
+}
+
+/* Adicionando seta customizada para o select */
+.tendencia select::-ms-expand {
+    display: none; /* Remove a seta padrão no IE */
+}
+
+.tendencia select::after {
+    content: "▼"; /* Adiciona uma seta como ícone */
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+}
+
+/* Efeito ao passar o mouse */
+.tendencia select:hover {
+    background-color: #9C27B0; /* Fundo roxo mais claro */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
+}
+
+/* Efeito ao focar (quando clicado) */
+.tendencia select:focus {
+    border-color: #D1C4E9; /* Borda roxa clara */
+    background-color: #7B1FA2; /* Fundo roxo escuro */
+}
+
+/* Estilização opcional para os itens do dropdown */
+.tendencia select option {
+    color: #333; /* Cor do texto das opções */
+    background: #F3E5F5; /* Fundo claro */
+    padding: 8px;
+}
+
+/* Centraliza a div do select */
+.tendencia .select-server .select-componente {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+.alinha-select {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
 }

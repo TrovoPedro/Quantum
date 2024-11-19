@@ -1,3 +1,4 @@
+const { buscarComponente } = require("../controllers/previsaoController");
 var database = require("../database/config");
 
 function buscarPorId(idServidor) {
@@ -21,14 +22,27 @@ JOIN
      FROM 
         log
      WHERE 
-        log.usoComponente <= 0 OR log.usoComponente >= 85
+        (log.usoComponente <= 0 OR log.usoComponente >= 85)
+        AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
      ) AS downtime ON servidor.idServidor = downtime.fkServidor
-    GROUP BY 
+GROUP BY 
     servidor.idServidor, servidor.nomeServidor
-    HAVING 
+HAVING 
     total_downtime > 0
-    ORDER BY 
+ORDER BY 
     total_downtime DESC;`;
+
+    return database.executar(instrucaoSql);
+}
+
+function buscarSelectComponente() {
+    var instrucaoSql = `
+    SELECT 
+    componente.idComponente,
+    componente.nome
+   FROM 
+    componente 
+    WHERE idComponente = 1 OR idComponente = 2;`;
 
     return database.executar(instrucaoSql);
 }
@@ -73,7 +87,8 @@ FROM
 JOIN 
     servidor ON log.fkServidor = servidor.idServidor
 WHERE 
-    log.usoComponente <= 0 OR log.usoComponente >= 85
+    (log.usoComponente <= 0 OR log.usoComponente >= 85)
+    AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Filtro para os últimos 7 dias
 GROUP BY 
     servidor.nomeServidor, dia_semana
 ORDER BY 
@@ -85,6 +100,7 @@ ORDER BY
 
 module.exports = {
     buscarPorId,
+    buscarSelectComponente,
     buscarTendenciaUsoRamPorDiaSemana,
     calcularPrevisaoDowntime
 };

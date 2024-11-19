@@ -8,6 +8,22 @@ function buscarPorId(req, res) {
   });
 }
 
+function buscarSelect(req, res) {
+  var idServidor = req.params.idServidor;
+
+  previsaoModel.buscarPorId(idServidor).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
+function buscarComponente(req, res) {
+  var idServidor = req.params.idServidor;
+
+  previsaoModel.buscarSelectComponente(idServidor).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
 function buscarTendenciaUsoRam(req, res) {
   previsaoModel.buscarTendenciaUsoRamPorDiaSemana().then((resultado) => {
     res.status(200).json(resultado);
@@ -66,6 +82,8 @@ async function buscarHeatmap(req, res) {
 
 module.exports = {
   buscarPorId,
+  buscarSelect,
+  buscarComponente,
   buscarTendenciaUsoRam,
   buscarHeatmap
 };
