@@ -79,9 +79,9 @@
 
                         <div class="component-options" id="Selecao_Modal">
 
-                            <select id="modal_componente" onchange="obterDadosGraficoModal()">
+                            <select id="modal_componente" onchange="obterDadosGraficoModal(), listarVariacao()">
 
-                                <option value="1">CPU</option>
+                                <option selected value="1">CPU</option>
                                 <option value="2">RAM</option>
                                 <option value="3">Disco</option>
                                 <option value="4">Rede</option>
@@ -89,12 +89,14 @@
                             </select>
 
                         </div> <br>
+
+
                         <div class="div_var" id="div_var">
                             <h3>Resumo Mensal de Alertas: Quantidade e Variação</h3>
                         
                             <div id="loading" style="display: none;">Carregando...</div>
                         
-                            <table class="alertas-table" id="Variacao_Lista">
+                            <table class="alertas-table" id="Variacao_Lista"  >
                                 <thead>
                                     <tr>
                                         <th>Mês</th>
@@ -164,6 +166,7 @@
             </div>
 
 
+
             <div class="servidorSection" id="section3">
 
                 <h3  style="color: white;">Gráfico de tendência de alerta</h3>
@@ -171,6 +174,62 @@
                 <canvas id="myChartPrevisao"></canvas>
 
             </div>
+
+
+            <div id="modal_Previsao" class="modal">
+
+
+                <div  style="background-color: #000;" class="modal-content">
+
+                    <img onclick="closeModalPrevisao()" src="assets/x_roxo.png" alt="Fechar"
+                        style="width: 30px; height: 30px;">
+
+                    <div class="modal-left">
+
+                        <canvas id="modalChartCanvasPrev" height="400" width="400"></canvas>
+                    </div>
+
+                    <div class="modal-right"  id="modal-right">
+
+                        <h3 style="color: white;">Selecione o Componente:</h3>
+
+                        <div class="component-options" id="Selecao_Modal">
+
+                            <select id="modal_componente_prev"  onchange="obterDadosDoBancoMudanca()">
+
+                                <option selected value="1">CPU</option>
+                                <option value="2">RAM</option>
+                                <option value="3">Disco</option>
+                                <option value="4">Rede</option>
+
+                            </select>
+
+                        </div> <br>
+
+                        <div style="color: white;" class="div_percentual" id="div_percentual">
+
+                            <div id="loading" style="display: none;">Carregando...</div>
+
+                            <h4>Probabilidade da previsão estar correta</h4>
+
+                            <h1  id="mudanca">87%</h1>
+
+                        </div>
+                        
+
+
+
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
 
 
             <div class="servidorSection" id="section4">

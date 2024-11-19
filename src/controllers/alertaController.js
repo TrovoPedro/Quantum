@@ -17,7 +17,7 @@ function buscarServidores(req, res) {
             }
 
         })
-        
+
         .catch(erro => {
             console.log(erro);
             console.log("\nHouve um Erro: ", erro.sqlMessage);
@@ -44,13 +44,15 @@ function listarAlertas(req, res) {
             }
 
         })
-        
+
         .catch(erro => {
             console.log(erro);
             console.log("\nHouve um Erro: ", erro.sqlMessage);
             res.status(500).json({ error: "Houve um erro", details: erro.sqlMessage });
         });
 }
+
+
 function listarComponentes(req, res) {
 
     var idComponente = req.params.idComponente;
@@ -70,7 +72,7 @@ function listarComponentes(req, res) {
             }
 
         })
-        
+
         .catch(erro => {
             console.log(erro);
             console.log("\nHouve um Erro: ", erro.sqlMessage);
@@ -81,7 +83,7 @@ function listarComponentes(req, res) {
 function buscarAlertas(req, res) {
 
     var componente_DLT = req.params.selecao;
-   
+
     alertaModel.buscarAlertas(componente_DLT)
 
         .then(resultadoAutenticar => {
@@ -95,13 +97,13 @@ function buscarAlertas(req, res) {
             }
 
         })
-        
+
         .catch(erro => {
             console.log(erro);
             console.log("\nHouve um Erro: ", erro.sqlMessage);
             res.status(500).json({ error: "Houve um erro", details: erro.sqlMessage });
         });
-        
+
 }
 
 
@@ -109,7 +111,7 @@ function buscarAlertasModal(req, res) {
 
 
     var componente_DLT = req.params.selecao;
-   
+
     alertaModel.buscarAlertasModal(componente_DLT)
 
         .then(resultadoAutenticar => {
@@ -123,13 +125,13 @@ function buscarAlertasModal(req, res) {
             }
 
         })
-        
+
         .catch(erro => {
             console.log(erro);
             console.log("\nHouve um Erro: ", erro.sqlMessage);
             res.status(500).json({ error: "Houve um erro", details: erro.sqlMessage });
         });
-        
+
 }
 
 
@@ -141,21 +143,21 @@ async function tendenciaUsoPrev(req, res) {
 
         const resultado = dados.reduce((acc, { ano, mes, quantidade_alertas }) => {
             if (!acc[ano]) {
-                acc[ano] = Array(12).fill(0); 
+                acc[ano] = Array(12).fill(0);
             }
-            acc[ano][mes - 1] = quantidade_alertas; 
+            acc[ano][mes - 1] = quantidade_alertas;
             return acc;
         }, {});
 
 
         const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
-            const x = []; 
-            const y = []; 
+            const x = [];
+            const y = [];
 
 
             dados.forEach((quantidade, index) => {
                 if (quantidade > 0) {
-                    x.push(index + 1); 
+                    x.push(index + 1);
                     y.push(quantidade);
                 }
             });
@@ -174,7 +176,7 @@ async function tendenciaUsoPrev(req, res) {
 
                 const previsao = dados.map((quantidade, index) => {
                     if (quantidade === 0) {
-                        return Math.max(0, Math.round(m * (index + 1) + b)); 
+                        return Math.max(0, Math.round(m * (index + 1) + b));
                     }
                     return quantidade;
                 });
@@ -208,6 +210,83 @@ async function tendenciaUsoPrev(req, res) {
 
 
 
+
+async function tendenciaGeralComp(req, res) {
+
+    var componente_prev = req.params.previsto;
+
+    try {
+
+        const dados = await alertaModel.tendenciaGeralComp(componente_prev);
+
+        const resultado = dados.reduce((acc, { ano, mes, quantidade_alertas }) => {
+            if (!acc[ano]) {
+                acc[ano] = Array(12).fill(0);
+            }
+            acc[ano][mes - 1] = quantidade_alertas;
+            return acc;
+        }, {});
+
+
+        const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
+            const x = [];
+            const y = [];
+
+
+            dados.forEach((quantidade, index) => {
+                if (quantidade > 0) {
+                    x.push(index + 1);
+                    y.push(quantidade);
+                }
+            });
+
+
+            const n = x.length;
+            if (n > 1) {
+                const xSum = x.reduce((a, b) => a + b, 0);
+                const ySum = y.reduce((a, b) => a + b, 0);
+                const xySum = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+                const xSquaredSum = x.reduce((sum, xi) => sum + xi ** 2, 0);
+
+                const m = (n * xySum - xSum * ySum) / (n * xSquaredSum - xSum ** 2);
+                const b = (ySum - m * xSum) / n;
+
+
+                const previsao = dados.map((quantidade, index) => {
+                    if (quantidade === 0) {
+                        return Math.max(0, Math.round(m * (index + 1) + b));
+                    }
+                    return quantidade;
+                });
+
+
+                return {
+                    name: ano,
+                    data: previsao.map((alertas, index) => ({
+                        x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'][index],
+                        y: alertas,
+                    })),
+                };
+            } else {
+
+                return {
+                    name: ano,
+                    data: dados.map((alertas, index) => ({
+                        x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'][index],
+                        y: alertas,
+                    })),
+                };
+            }
+        });
+
+        res.status(200).json(resultadoComPrevisao);
+    } catch (erro) {
+        console.error('Erro ao buscar tendência de alertas:', erro);
+        res.status(500).json({ erro: 'Erro ao buscar dados para a tendência de alertas' });
+    }
+}
+
+
 function ResumoVariacao(req, res) {
 
 
@@ -226,7 +305,32 @@ function ResumoVariacao(req, res) {
             }
 
         })
-        
+
+        .catch(erro => {
+            console.log(erro);
+            console.log("\nHouve um Erro: ", erro.sqlMessage);
+            res.status(500).json({ error: "Houve um erro", details: erro.sqlMessage });
+        });
+}
+
+
+function ProbabilidadeAlerta(req, res) {
+
+
+    alertaModel.ProbabilidadeAlerta()
+
+        .then(resultadoAutenticar => {
+            console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+
+            if (resultadoAutenticar.length > 0) {
+                res.status(200).json(resultadoAutenticar);
+            } else {
+                res.status(200).json([]);
+            }
+
+        })
+
         .catch(erro => {
             console.log(erro);
             console.log("\nHouve um Erro: ", erro.sqlMessage);
@@ -244,6 +348,8 @@ module.exports = {
     buscarAlertas,
     buscarAlertasModal,
     tendenciaUsoPrev,
-    ResumoVariacao
+    tendenciaGeralComp,
+    ResumoVariacao,
+    ProbabilidadeAlerta
 
 }

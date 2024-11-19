@@ -45,9 +45,23 @@ router.get("/tendenciaUso", function (req, res) {
 
 });
 
+router.get("/tendenciaGeral/:previsto", function (req, res) {
+    
+    alertaController.tendenciaGeralComp(req, res);
+
+});
+
+
 router.get("/variacao/:Cp_modal", function (req, res) {
     
     alertaController.ResumoVariacao(req, res);
+
+});
+
+
+router.get("/buscarProbabilidade", function (req, res) {
+    
+    alertaController.ProbabilidadeAlerta(req, res);
 
 });
 

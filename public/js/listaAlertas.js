@@ -1,9 +1,6 @@
 let nomeServer = "";
 
 
-
-
-
 function validarInformacoes() {
     const nomeServidor = document.getElementById("inputNomeServidor").value;
     const situacao = document.getElementById("situacaoServidor").value;
@@ -329,8 +326,12 @@ window.addEventListener('load', function() {
 
 
 
+
 let myChart;
 let myChartModal;
+
+let mychartPrev;
+let mychartPrev_Modal;
 
 
 function obterDadosGrafico() {
@@ -378,7 +379,7 @@ function obterDadosGraficoModal() {
         selecao = '4';
     }
 
-     Cp_modal = selecao
+     Cp_modal = selecao;
 
 
     fetch(`/alerta/buscaModal/${selecao}`, { cache: 'no-store' }).then(function (response) {
@@ -521,9 +522,7 @@ function plotarGraficoModal(resposta) {
 
 function listarVariacao() {
 
-   Cp_modal;
-
-    console.log("Função listarVariacao chamada!");
+    console.log(`Variavel cp_modal chamada ${Cp_modal}` );
 
     document.getElementById('loading').style.display = 'block';
 
@@ -590,17 +589,20 @@ function listarVariacao() {
 
 
 window.onload = function () {
+    
+    listarServidor();
     listarAlertas();
     listarComponentes();
     plotarGrafico();
     plotarGraficoModal();
     obterDadosDoBanco();
+    obterDadosDoBancoMudanca();
 
 };
 
-document.addEventListener("DOMContentLoaded", function() {
-    listarVariacao();
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     buscarProbabilidade();
+// });
 
 
 
@@ -722,24 +724,220 @@ async function criarGrafico() {
             backgroundColor: 'white'
         }
     });
+
+    
+    
+    
 }
 
 criarGrafico();
 
+//#############################################################################################################
+
+
+
+async function obterDadosDoBancoMudanca() {
+
+
+    let componente_prev = document.getElementById("modal_componente_prev").value;
+
+    let previsto = componente_prev;
+
+    if (componente_prev == 1) {
+        previsto = '1';
+    } else if (componente_prev == 2) {
+        previsto = '2';
+    } else if (componente_prev == 3) {
+        previsto = '3';
+    } else if (componente_prev == 4) {
+        previsto = '4';
+    }
+
+
+    try {
+
+        const resultadoComPrevisao = await fetch(`/alerta/tendenciaGeral/${previsto}`);
+        const data = await resultadoComPrevisao.json();
+        console.log(data)
+        return data;
+
+
+
+    }
+
+    catch (error) {
+
+        console.error('Erro ao obter dados:', error);
+        return [];
+
+    }
+}
+
+
+async function criarGraficoMudanca() {
+    const dados = await obterDadosDoBancoMudanca();  
+
+    const dadosAno = dados[0]; 
+    const scatterData = dadosAno.data.map((item, index) => ({
+        x: index + 1, 
+        y: item.y 
+    }));
+
+    const regressionLine = scatterData.map(point => ({
+        x: point.x,
+        y: point.y  
+    }));
+
+    const ctx = document.getElementById('modalChartCanvasPrev').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Alertas de Uso',
+                    data: scatterData,
+                    backgroundColor: '#290135', 
+                    borderColor: '#290135',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Tendência de Uso',
+                    data: regressionLine,
+                    type: 'line',
+                    backgroundColor: '#290135',
+                    borderColor: '#ffff', 
+                    borderWidth: 2,
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        font: {
+                            size: 16
+                        },
+                        color: '#FFFFFF'  // Legenda branca
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        display: true,
+                        text: 'Mês',
+                        color: '#FFFFFF' 
+                    },
+                    ticks: {
+                        color: '#FFFFFF' 
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)' 
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Número de Alertas',
+                        color: '#FFFFFF' 
+                    },
+                    ticks: {
+                        color: '#FFFFFF'  
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)' 
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 5,
+                    backgroundColor: '#FFC300'  
+                }
+            },
+            layout: {
+                padding: 10
+            }
+        }
+    });
+
+
+
+
+}
+
+criarGraficoMudanca();
+
+
+function buscarProbabilidade() {
+    fetch(`/alerta/buscarProbabilidade`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Dados recebidos de PROBABILIDADE:", data);
+
+        const h1 = document.querySelector('#div_percentual h1');
+        
+        if (data.length > 0 && data[0].chance_alerta_percentual) {
+            h1.textContent = `${data[0].chance_alerta_percentual}%`;
+        } else {
+            h1.textContent = "0%";
+        }
+
+        document.getElementById('loading').style.display = 'none';
+    })
+    .catch(error => {
+        console.error('Houve um erro ao capturar os dados:', error);
+        document.getElementById('loading').style.display = 'none';
+    });
+}
 
 
 
 
 function openModal() {
+
     const modal = document.getElementById("modal");
     modal.style.display = "block";
+
+    listarVariacao();
 }
 
+function openModalPrevisao() {
+
+    const modalPrev = document.getElementById("modal_Previsao");
+    modalPrev.style.display = "block";
+    buscarProbabilidade();
+
+}
+
+function closeModalPrevisao() {
+    const modalPrev = document.getElementById("modal_Previsao");
+    modalPrev.style.display = "none";
+}
 
 function closeModal() {
     const modal = document.getElementById("modal");
     modal.style.display = "none";
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const section1 = document.getElementById("section1");
@@ -749,6 +947,21 @@ document.addEventListener("DOMContentLoaded", () => {
             openModal();
         });
     }
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const section3 = document.getElementById("section3");
+
+    if (section3) {
+        section3.addEventListener("click", () => {
+            console.log("Div section3 clicada! Abrindo modal...");
+            openModalPrevisao();
+        });
+    }
+
 });
 
 

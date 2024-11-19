@@ -1,4 +1,4 @@
-const { mostrarAlertas } = require("../controllers/alertaController");
+const { mostrarAlertas, tendenciaGeralPrev } = require("../controllers/alertaController");
 var database = require("../database/config")
 
 
@@ -146,6 +146,34 @@ LIMIT 0, 1000;
 }
 
 
+function tendenciaGeralComp(componente_prev) {
+
+
+    const instrucaoSql = `
+           
+   SELECT 
+       YEAR(a.data) AS ano,
+       MONTH(a.data) AS mes,
+       COUNT(*) AS quantidade_alertas
+   FROM 
+       alerta a
+   JOIN 
+       log l ON a.fkLog = l.idLog  
+   WHERE 
+       l.fkComponente = ${componente_prev}
+   GROUP BY 
+       YEAR(a.data), MONTH(a.data)
+   ORDER BY 
+       ano, mes
+   LIMIT 0, 1000;
+   
+       `;
+   
+       console.log("Executando a instrução SQL: \n" + instrucaoSql);
+       return database.executar(instrucaoSql);
+   }
+
+
 
 function ResumoVariacao(variante) {
 
@@ -164,7 +192,7 @@ JOIN
 JOIN
     componente c ON l.fkComponente = c.idComponente
 WHERE 
-    c.idComponente = 1
+    c.idComponente = ${variante}
 GROUP BY 
     MONTH(a.data)
 ORDER BY 
@@ -178,6 +206,33 @@ ORDER BY
 
 
 
+function ProbabilidadeAlerta() {
+    var instrucaoSql = `
+
+    SELECT 
+    ROUND(IFNULL((COUNT(a.idAlerta) / COUNT(l.idLog)) * 100, 0), 0) AS chance_alerta_percentual
+FROM 
+    log l
+LEFT JOIN 
+    alerta a ON l.idLog = a.fkLog
+LEFT JOIN 
+    componente c ON l.fkComponente = c.idComponente
+WHERE 
+    l.fkComponente = 2
+GROUP BY 
+    l.fkComponente
+LIMIT 0, 1000;
+
+
+
+`;
+
+    console.log("PROBABILIDADE DE ALERTA \n" + instrucaoSql + "ESSA É A PROBABILIDADE");
+
+    return database.executar(instrucaoSql);
+}
+
+
 
 
 
@@ -189,7 +244,9 @@ module.exports = {
     buscarAlertas,
     buscarAlertas,
     tendenciaUsoPrev,
-    ResumoVariacao
+    tendenciaGeralComp,
+    ResumoVariacao,
+    ProbabilidadeAlerta
 
 
 };
