@@ -1,26 +1,42 @@
 var express = require("express");
 var router = express.Router();
 
-var graficosController = require("../controllers/graficosLazaroController");
+var graficosLazaroController = require("../controllers/graficosLazaroController");
+
+router.get("/numeroTotal:idServidor", function (req, res) {
+    graficosLazaroController.buscarNumeroServidoresTotal(req, res);
+});
+
+router.get("/numeroDesativados:idServidor", function (req, res) {
+    graficosLazaroController.buscarNumeroServidoresDesativado(req, res);
+});
+
+router.get("/numeroAtivados:idServidor", function (req, res) {
+    graficosLazaroController.buscarNumeroServidoresAtivado(req, res);
+});
+
+router.get("/alertasPorComponente:idServidor", function (req, res) {
+    graficosLazaroController.buscarAlertasPorServidor(req, res);
+});
+
+router.get("/ComponentePorServidor:idServidor", function (req, res) {
+    graficosLazaroController.buscarComponentePorServidor(req, res);
+});
 
 router.get("/uptime:idServidor", function (req, res) {
-    graficosController.buscarUptimeSemanal(req, res);
+    graficosLazaroController.buscarUptimeSemanal(req, res);
 });
 
 router.get("/MediaCPU:idServidor", function (req, res) {
-    graficosController.buscarMediaCPU(req, res);  // Chama a função do controlador sem validação
+    graficosLazaroController.buscarMediaCPU(req, res);  
 });
 
 router.get("/MediaRAM:idServidor", function (req, res) {
-    graficosController.buscarMediaRAM(req, res);  // Chama a função do controlador sem validação
+    graficosLazaroController.buscarMediaRAM(req, res); 
 });
 
 router.get("/MediaDisco:idServidor", function (req, res) {
-    graficosController.buscarMediaDisco(req, res);  // Chama a função do controlador sem validação
-});
-
-router.get("/NumeroAtividade:idServidor", function (req, res) {
-    graficosController.buscarNumeroAtividade(req, res);  // Chama a função do controlador sem validação
+    graficosLazaroController.buscarMediaDisco(req, res);  
 });
 
 module.exports = router;
