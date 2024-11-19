@@ -3,6 +3,7 @@ CREATE DATABASE QuantumDB;
 USE QuantumDB;
 
 
+
 CREATE TABLE tipoUsuario(
     idTipoUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45)
@@ -191,69 +192,83 @@ SELECT * FROM tipoUsuario;
 SELECT * FROM usuario;
 
 
--- TABELAS DASHBOARD JULIA ARAUJO
-CREATE TABLE tentativa_login (
-    idTentativa INT PRIMARY KEY AUTO_INCREMENT,
-    ipUsuario VARCHAR(45) NOT NULL,
-    email VARCHAR(255),
-    dataHora DATETIME NOT NULL DEFAULT NOW(),
-    status VARCHAR(20) NOT NULL,
-    fkUsuario INT,
-    FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
-);
 
-SELECT ipUsuario, dataHora,COUNT(*) AS tentativas
-FROM tentativa_login
-GROUP BY ipUsuario LIMIT 4;
+-- Inserir 10 registros na tabela usuario
+-- Inserir 6 registros na tabela usuario (somente Gerente e Técnico)
+INSERT INTO usuario (nome, email, senha, data_cadastro, fkEmpresa, fkTipoUsuario, fkSituacao)
+VALUES
+    ('Maria Oliveira', 'maria.oliveira@santamarcelina.com', 'senha123', NOW(), 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
+    ('Carlos Santos', 'carlos.santos@doutorconsulta.com', 'senha123', NOW(), 2, 3, 2),  -- Técnico, Doutor consulta, Ativo
+    ('Fernanda Souza', 'fernanda.souza@doutorconsulta.com', 'senha123', NOW(), 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
+    ('Luciana Costa', 'luciana.costa@accamargo.com', 'senha123', NOW(), 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
+    ('Ricardo Almeida', 'ricardo.almeida@santamarcelina.com', 'senha123', NOW(), 1, 3, 2),  -- Técnico, Santa Marcelina, Ativo
+    ('Eduardo Gomes', 'eduardo.gomes@accamargo.com', 'senha123', NOW(), 3, 2, 2);  -- Gerente, A.C Camargo, Ativo
+    
+    -- Inserir 6 novos registros na tabela usuario (somente Gerente e Técnico), com datas diferentes e sem foto de perfil
+INSERT INTO usuario (nome, email, senha, data_cadastro, fkEmpresa, fkTipoUsuario, fkSituacao)
+VALUES
+    ('João Martins', 'joao.martins@santamarcelina.com', 'senha456', '2024-05-10 14:23:10', 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
+    ('Luana Ferreira', 'luana.ferreira@doutorconsulta.com', 'senha456', '2024-06-15 09:10:05', 2, 3, 2),  -- Técnico, Doutor consulta, Ativo
+    ('Ricardo Souza', 'ricardo.souza@santamarcelina.com', 'senha456', '2024-04-21 16:45:30', 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
+    ('Tatiane Lima', 'tatiane.lima@accamargo.com', 'senha456', '2024-07-05 13:15:20', 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
+    ('Vitor Costa', 'vitor.costa@doutorconsulta.com', 'senha456', '2024-06-10 11:20:55', 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
+    ('Mariana Alves', 'mariana.alves@accamargo.com', 'senha456', '2024-03-18 18:30:45', 3, 3, 2);  -- Técnico, A.C Camargo, Ativo
+    
+    
+SELECT 
+    YEAR(data_cadastro) AS ano,  -- Ano do cadastro
+    MONTH(data_cadastro) AS mes,  -- Mês do cadastro
+    DAY(data_cadastro) AS dia,  -- Dia do cadastro
+    COUNT(idUsuario) AS usuarios_cadastrados  -- Contagem de usuários cadastrados
+FROM 
+    usuario
+GROUP BY 
+    YEAR(data_cadastro), MONTH(data_cadastro), DAY(data_cadastro)  -- Agrupar por ano, mês e dia
+ORDER BY 
+    ano ASC, mes ASC, dia ASC;  -- Ordenar por ano, mês e dia
+
+    
+    
+    -- Inserir usuários cadastrados em outubro de 2024 até hoje (19/10/2024)
+INSERT INTO usuario (nome, email, senha, data_cadastro, fkEmpresa, fkTipoUsuario, fkSituacao)
+VALUES
+    ('Alice Oliveira', 'alice.oliveira@santamarcelina.com', 'senha789', '2024-10-01 09:00:00', 1, 2, 2),  -- Gerente, Santa Marcelina, Ativo
+    ('Bruno Mendes', 'bruno.mendes@santamarcelina.com', 'senha789', '2024-10-02 10:15:20', 1, 3, 2),  -- Técnico, Santa Marcelina, Ativo
+    ('Cláudia Ferreira', 'claudia.ferreira@doutorconsulta.com', 'senha789', '2024-10-05 11:45:30', 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
+    ('Daniel Costa', 'daniel.costa@doutorconsulta.com', 'senha789', '2024-10-07 14:10:45', 2, 3, 2),  -- Técnico, Doutor consulta, Ativo
+    ('Eliane Rocha', 'eliane.rocha@accamargo.com', 'senha789', '2024-10-09 08:30:00', 3, 2, 2),  -- Gerente, A.C Camargo, Ativo
+    ('Felipe Lima', 'felipe.lima@accamargo.com', 'senha789', '2024-10-10 12:00:00', 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
+    ('Gustavo Almeida', 'gustavo.almeida@santamarcelina.com', 'senha789', '2024-10-12 13:50:30', 1, 3, 2),  -- Técnico, Santa Marcelina, Ativo
+    ('Heloísa Martins', 'heloisa.martins@doutorconsulta.com', 'senha789', '2024-10-14 10:25:00', 2, 2, 2),  -- Gerente, Doutor consulta, Ativo
+    ('Igor Silva', 'igor.silva@accamargo.com', 'senha789', '2024-10-16 15:20:00', 3, 3, 2),  -- Técnico, A.C Camargo, Ativo
+    ('Juliana Souza', 'juliana.souza@santamarcelina.com', 'senha789', '2024-10-19 09:30:00', 1, 2, 2);  -- Gerente, Santa Marcelina, Ativo
+SELECT 
+    YEAR(data_cadastro) AS ano,  -- Ano do cadastro
+    CASE 
+        WHEN MONTH(data_cadastro) = 1 THEN 'Janeiro'
+        WHEN MONTH(data_cadastro) = 2 THEN 'Fevereiro'
+        WHEN MONTH(data_cadastro) = 3 THEN 'Março'
+        WHEN MONTH(data_cadastro) = 4 THEN 'Abril'
+        WHEN MONTH(data_cadastro) = 5 THEN 'Maio'
+        WHEN MONTH(data_cadastro) = 6 THEN 'Junho'
+        WHEN MONTH(data_cadastro) = 7 THEN 'Julho'
+        WHEN MONTH(data_cadastro) = 8 THEN 'Agosto'
+        WHEN MONTH(data_cadastro) = 9 THEN 'Setembro'
+        WHEN MONTH(data_cadastro) = 10 THEN 'Outubro'
+        WHEN MONTH(data_cadastro) = 11 THEN 'Novembro'
+        WHEN MONTH(data_cadastro) = 12 THEN 'Dezembro'
+    END AS nome_mes,  -- Nome do mês em português
+    DAY(data_cadastro) AS dia,  -- Dia do cadastro
+    COUNT(idUsuario) AS usuarios_cadastrados  -- Contagem de usuários cadastrados
+FROM 
+    usuario
+GROUP BY 
+    YEAR(data_cadastro), MONTH(data_cadastro), DAY(data_cadastro)  -- Agrupar por ano, mês e dia
+ORDER BY 
+    ano ASC, MONTH(data_cadastro) ASC, dia ASC;  -- Ordenar por ano, nome do mês e dia
 
 
-CREATE TABLE erros (
-    idErro INT PRIMARY KEY AUTO_INCREMENT,
-    descricaoErro VARCHAR(255) NOT NULL,
-    dataHora DATETIME NOT NULL DEFAULT NOW(),
-    fkUsuario INT,
-    enderecoIp VARCHAR(45),
-    modulo VARCHAR(100),
-    FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
-);
-
-SELECT descricaoErro, COUNT(*) AS frequencia
-FROM erros
-GROUP BY descricaoErro
-ORDER BY frequencia DESC;
 
 
-CREATE TABLE sessoes (
-    idSessao INT PRIMARY KEY AUTO_INCREMENT,
-    fkUsuario INT,
-    inicioSessao DATETIME NOT NULL DEFAULT NOW(),
-    fimSessao DATETIME,
-    cpuUsado DOUBLE,
-    ramUsada DOUBLE,
-    discoUsado DOUBLE,
-    FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
-);
 
-SELECT fkUsuario, AVG(cpuUsado) AS mediaCpu, AVG(ramUsada) AS mediaRam, AVG(discoUsado) AS mediaDisco
-FROM sessoes
-GROUP BY fkUsuario;
-
-
--- Inserindo tentativas de login na tabela tentativa_login
-INSERT INTO tentativa_login (ipUsuario, email, dataHora, status, fkUsuario) 
-VALUES 
-('192.168.0.1', 'usuario1@teste.com', '2024-11-16 10:05:00', 'sucesso', 2),
-('192.168.0.2', 'usuario2@teste.com', '2024-11-16 10:10:00', 'falha', NULL),
-('192.168.0.3', 'usuario3@teste.com', '2024-11-16 10:20:00', 'sucesso', 2),
-('192.168.0.1', 'usuario1@teste.com', '2024-11-16 10:25:00', 'falha', NULL),
-('192.168.0.4', 'usuario4@teste.com', '2024-11-16 10:30:00', 'sucesso', 2),
-('192.168.0.2', 'usuario2@teste.com', '2024-11-16 10:40:00', 'falha', NULL),
-('192.168.0.5', 'usuario5@teste.com', '2024-11-16 11:00:00', 'falha', NULL),
-('192.168.0.1', 'usuario1@teste.com', '2024-11-16 11:15:00', 'sucesso', 2),
-('192.168.0.6', 'usuario6@teste.com', '2024-11-16 11:20:00', 'falha', NULL),
-('192.168.0.4', 'usuario4@teste.com', '2024-11-16 11:30:00', 'sucesso', 2),
-('192.168.0.3', 'usuario3@teste.com', '2024-11-16 11:40:00', 'sucesso', 2),
-('192.168.0.7', 'usuario7@teste.com', '2024-11-16 11:50:00', 'falha', NULL),
-('192.168.0.2', 'usuario2@teste.com', '2024-11-16 12:00:00', 'falha', NULL),
-('192.168.0.1', 'usuario1@teste.com', '2024-11-16 12:10:00', 'sucesso', 2);
 
