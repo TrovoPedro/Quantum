@@ -576,11 +576,9 @@ function buscarQtdAlerta() {
                 response.text().then(function (resposta) {
                     console.log(`Dados recebidos: ${resposta}`);
 
-                    // Aqui a resposta é um número direto, sem JSON
                     const count = parseInt(resposta, 10);
                     console.log(`Valor de count como inteiro: ${count}`);
 
-                    // Atualiza o conteúdo HTML com o número de alertas
                     n_alertas.innerHTML = count;
                 });
             } else {
@@ -595,40 +593,41 @@ function buscarQtdAlerta() {
 // Fetch da probabilidade de alerta
 
 function buscarRiscoAlerta() {
-    const porcent_alerta = document.getElementById('porcent_alerta');
 
-    fetch(`/estatisticaTrovo/buscarRiscoAlerta?parametro=${valorInput}`, { cache: 'no-store' })
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-                    if (!resposta || resposta.length === 0) {
-                        console.warn("Nenhum dado encontrado na resposta.");
-                        porcent_alerta.innerHTML = "0%";
-                        return;
-                    }
-
-                    const chancePercentual = parseFloat(resposta[0].chance_alerta_percentual);
-
-                    if (isNaN(chancePercentual)) {
-                        console.error("Valor de chance_alerta_percentual inválido.");
-                        porcent_alerta.innerHTML = "Erro nos dados.";
-                        return;
-                    }
-
-                    porcent_alerta.innerHTML = `${chancePercentual.toFixed(0)}%`;
-                });
-            } else {
-                console.error("Erro na API:", response.status);
-                porcent_alerta.innerHTML = "";
-            }
-        })
-        .catch(function (error) {
-            console.error("Erro na comunicação com a API:", error.message);
-            porcent_alerta.innerHTML = "Erro na conexão.";
-        });
+    fetch(`/estatisticaTrovo/buscarRiscoAlerta?parametro=${valorInput}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+    
+        console.log("Dados recebidos de PROBABILIDADE:", data);
+    
+        const h1 = document.getElementById('porcent_alerta');
+    
+        if (data.length > 0 && data[0].chance_alerta_percentua) {
+            h1.textContent = `${data[0].chance_alerta_percentua}%`;
+        } else {
+            h1.textContent = "0%";
+        }
+    
+    })
+    .catch(error => {
+        console.error('Houve um erro ao capturar os dados:', error);
+    });
 }
+
+
+
+
+
 
 
 

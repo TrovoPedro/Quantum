@@ -7,10 +7,10 @@ function buscarQtdAlerta(valorInput) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
     return database.executar(instrucaoSql, valorInput)
-        .then(function(resultado) {
+        .then(function (resultado) {
             return resultado[0].quantidade_alertas;
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error("Erro ao executar a consulta: ", error);
             throw error;
         });
@@ -18,24 +18,22 @@ function buscarQtdAlerta(valorInput) {
 
 
 function buscarRiscoAlerta(valorInput) {
-    var instrucaoSql = `SELECT 
-    l.fkComponente, 
-    COUNT(a.idAlerta) AS quantidade_alertas, 
-    COUNT(l.idLog) AS quantidade_logs,
-    ROUND(IFNULL((COUNT(a.idAlerta) / COUNT(l.idLog)) * 100, 0), 0) AS chance_alerta_percentual
-FROM 
-    log l
-LEFT JOIN 
-    alerta a ON l.fkComponente = a.fkComponente
-WHERE 
-    l.fkComponente = ${valorInput}
-GROUP BY 
-    l.fkComponente;
-`;
+    return new Promise((resolve, reject) => {
+        const instrucaoSql = `
+            SELECT calcular_chance_alerta(${valorInput}) AS chance_alerta_percentual;
+        `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        database.executar(instrucaoSql)
+            .then(resultado => {
+                console.log("Valores das variáveis @qtdLog e @qtdAlerta: ", resultado);
 
-    return database.executar(instrucaoSql);
+                resolve(resultado);
+            })
+            .catch(error => {
+                console.error("Erro ao testar as variáveis: ", error);
+                reject(error);
+            });
+    });
 }
 
 function buscarConsumoCpu() {
@@ -69,10 +67,10 @@ function buscarServicosAtivos(valorInput) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
     return database.executar(instrucaoSql, valorInput)
-        .then(function(resultado) {
+        .then(function (resultado) {
             return resultado[0].qtdServicosAtivos;
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error("Erro ao executar a consulta: ", error);
             throw error;
         });
