@@ -30,7 +30,7 @@
         }
     </style> -->
 
-   k
+    
     <div class="pai-lista">
 
         <div class="tituloLista">
@@ -48,7 +48,7 @@
         <div class="listaServidores">
 
 
-            <div  style=" height: 250px;" class="servidorSection" id="section1">
+            <div style=" height: 250px;" class="servidorSection" id="section1">
 
                 <h3 style="color: white;">Visão Geral Anual de Alertas de Componentes</h3>
 
@@ -62,6 +62,7 @@
 
             <div id="modal" class="modal">
 
+
                 <div class="modal-content">
 
                     <img onclick="closeModal()" src="assets/icone_apagar.png" alt="Fechar"
@@ -69,13 +70,13 @@
 
                     <div class="modal-left">
 
-                        <canvas id="modalChartCanvas"  height="400" width="400"></canvas>
+                        <canvas id="modalChartCanvas" height="400" width="400"></canvas>
                     </div>
 
-                    <div class="modal-right">
+                    <div class="modal-right"  id="modal-right">
 
                         <h3>Selecione o Componente:</h3>
-                    
+
                         <div class="component-options" id="Selecao_Modal">
 
                             <select id="modal_componente" onchange="obterDadosGraficoModal()">
@@ -87,10 +88,32 @@
 
                             </select>
 
+                        </div> <br>
+                        <div class="div_var" id="div_var">
+                            <h3>Resumo Mensal de Alertas: Quantidade e Variação</h3>
+                        
+                            <div id="loading" style="display: none;">Carregando...</div>
+                        
+                            <table class="alertas-table" id="Variacao_Lista">
+                                <thead>
+                                    <tr>
+                                        <th>Mês</th>
+                                        <th>Quantidade de Alertas</th>
+                                        <th>Variação de Alertas</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="color: black;">
+
+                                </tbody>
+                            </table>
                         </div>
+                        
+                        
+
                     </div>
-                    
+
                 </div>
+
             </div>
 
 
@@ -142,6 +165,8 @@
 
 
             <div class="servidorSection" id="section3">
+
+                <h3  style="color: white;">Gráfico de tendência de alerta</h3>
 
                 <canvas id="myChartPrevisao"></canvas>
 

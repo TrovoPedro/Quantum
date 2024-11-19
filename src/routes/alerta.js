@@ -19,11 +19,6 @@ router.get("/mostrar", function (req, res) {
 
 });
 
-
-
-
-
-
 router.get("/buscaGrafico/:selecao", function (req, res) {
     
     alertaController.buscarAlertas(req, res);
@@ -50,7 +45,11 @@ router.get("/tendenciaUso", function (req, res) {
 
 });
 
+router.get("/variacao/:Cp_modal", function (req, res) {
+    
+    alertaController.ResumoVariacao(req, res);
 
+});
 
 
 

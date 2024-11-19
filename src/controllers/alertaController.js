@@ -143,24 +143,24 @@ async function tendenciaUsoPrev(req, res) {
             if (!acc[ano]) {
                 acc[ano] = Array(12).fill(0); 
             }
-            acc[ano][mes - 1] = quantidade_alertas; // Ajustar índice (1 a 12 para os meses)
+            acc[ano][mes - 1] = quantidade_alertas; 
             return acc;
         }, {});
 
-        // Adicionar previsão com base na regressão linear
-        const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
-            const x = []; // Meses com dados
-            const y = []; // Quantidade de alertas nos meses com dados
 
-            // Coletar dados para a regressão linear
+        const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
+            const x = []; 
+            const y = []; 
+
+
             dados.forEach((quantidade, index) => {
                 if (quantidade > 0) {
-                    x.push(index + 1); // Mês (1 a 12)
+                    x.push(index + 1); 
                     y.push(quantidade);
                 }
             });
 
-            // Calcular coeficientes da regressão linear (y = mx + b)
+
             const n = x.length;
             if (n > 1) {
                 const xSum = x.reduce((a, b) => a + b, 0);
@@ -174,12 +174,12 @@ async function tendenciaUsoPrev(req, res) {
 
                 const previsao = dados.map((quantidade, index) => {
                     if (quantidade === 0) {
-                        return Math.max(0, Math.round(m * (index + 1) + b)); // Previsão com regressão
+                        return Math.max(0, Math.round(m * (index + 1) + b)); 
                     }
                     return quantidade;
                 });
 
-                // Formatar os dados para o gráfico
+
                 return {
                     name: ano,
                     data: previsao.map((alertas, index) => ({
@@ -208,6 +208,34 @@ async function tendenciaUsoPrev(req, res) {
 
 
 
+function ResumoVariacao(req, res) {
+
+
+    var variante = req.params.Cp_modal;
+
+    alertaModel.ResumoVariacao(variante)
+
+        .then(resultadoAutenticar => {
+            console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+
+            if (resultadoAutenticar.length > 0) {
+                res.status(200).json(resultadoAutenticar);
+            } else {
+                res.status(200).json([]);
+            }
+
+        })
+        
+        .catch(erro => {
+            console.log(erro);
+            console.log("\nHouve um Erro: ", erro.sqlMessage);
+            res.status(500).json({ error: "Houve um erro", details: erro.sqlMessage });
+        });
+}
+
+
+
 module.exports = {
 
     buscarServidores,
@@ -215,6 +243,7 @@ module.exports = {
     listarComponentes,
     buscarAlertas,
     buscarAlertasModal,
-    tendenciaUsoPrev
+    tendenciaUsoPrev,
+    ResumoVariacao
 
 }

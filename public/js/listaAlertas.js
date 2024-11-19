@@ -85,6 +85,7 @@ function listarServidor() {
 }
 
 function listarAlertas() {
+
     const urlParams = new URLSearchParams(window.location.search);
     const nomeServidor = urlParams.get("nome");
 
@@ -155,6 +156,7 @@ function listarAlertas() {
         });
 
 }
+
 function listarComponentes() {
 
     let componente_SLC = document.getElementById("componenteSelect").value;
@@ -320,8 +322,11 @@ function graficoComponente() {
         });
 }
 
-window.onload = obterDadosGrafico();
-window.onload = obterDadosGraficoModal();
+window.addEventListener('load', function() {
+    obterDadosGrafico();
+    obterDadosGraficoModal();
+});
+
 
 
 let myChart;
@@ -373,8 +378,8 @@ function obterDadosGraficoModal() {
         selecao = '4';
     }
 
+     Cp_modal = selecao
 
-    // Cp_modal = selecao
 
     fetch(`/alerta/buscaModal/${selecao}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -513,8 +518,78 @@ function plotarGraficoModal(resposta) {
 }
 
 
-window.onload = function () {
 
+function listarVariacao() {
+
+   Cp_modal;
+
+    console.log("Função listarVariacao chamada!");
+
+    document.getElementById('loading').style.display = 'block';
+
+    fetch(`/alerta/variacao/${Cp_modal}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        console.log("Dados recebidos da API:", data);
+
+        const tabelaBody = document.getElementById('Variacao_Lista').getElementsByTagName('tbody')[0];
+
+        tabelaBody.innerHTML = ""; 
+        if (data.length === 0) {
+
+            const noAlertsMessage = document.createElement('tr');
+            noAlertsMessage.innerHTML = "<td colspan='3'>Nenhum alerta encontrado.</td>";
+            tabelaBody.appendChild(noAlertsMessage);
+        } else {
+            data.forEach(item => {
+                const mes = item.mes || "Desconhecido";
+                const quantidade = item.quantidade_alertas || "0";
+                let variacao = item.variacao_alertas || "0";
+
+
+                variacao = parseFloat(variacao);
+
+                let corMudada = 'green';  
+                if (variacao < 0) {
+                    corMudada = 'red';  
+                }
+
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="color: black;">${mes}</td>
+                    <td style="color: black;">${quantidade}</td>
+                    <td style="color: ${corMudada};">${variacao}</td>
+                `;
+                tabelaBody.appendChild(row);
+            });
+        }
+
+        document.getElementById('loading').style.display = 'none';
+    })
+    .catch(error => {
+        console.error('Houve um erro ao capturar os dados:', error);
+        document.getElementById('loading').style.display = 'none';
+    });
+}
+
+
+
+
+
+
+window.onload = function () {
     listarAlertas();
     listarComponentes();
     plotarGrafico();
@@ -522,6 +597,12 @@ window.onload = function () {
     obterDadosDoBanco();
 
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+    listarVariacao();
+});
+
+
 
 
 
@@ -548,6 +629,7 @@ async function obterDadosDoBanco() {
 
 
 async function criarGrafico() {
+    
     const dados = await obterDadosDoBanco();  
 
     const dadosAno = dados[0]; 
@@ -569,8 +651,8 @@ async function criarGrafico() {
                 {
                     label: 'Alertas de Uso',
                     data: scatterData,
-                    backgroundColor: 'black',
-                    borderColor: 'black',
+                    backgroundColor: '#290135',
+                    borderColor: '#290135',
                     borderWidth: 1,
                 },
                 {
@@ -647,6 +729,7 @@ criarGrafico();
 
 
 
+
 function openModal() {
     const modal = document.getElementById("modal");
     modal.style.display = "block";
@@ -667,3 +750,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+

@@ -132,7 +132,7 @@ FROM
 JOIN 
     log l ON a.fkLog = l.idLog  
 WHERE 
-    l.fkComponente = 2
+    l.fkComponente = 1
 GROUP BY 
     YEAR(a.data), MONTH(a.data)
 ORDER BY 
@@ -147,6 +147,36 @@ LIMIT 0, 1000;
 
 
 
+function ResumoVariacao(variante) {
+
+
+    console.log("ACESSEI O MEDIDA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n")
+    var instrucaoSql = `
+
+   SELECT 
+    MONTH(a.data) AS mes,
+    COUNT(*) AS quantidade_alertas,
+    COUNT(*) - LAG(COUNT(*)) OVER (ORDER BY MONTH(a.data)) AS variacao_alertas
+FROM 
+    alerta a
+JOIN 
+    log l ON a.fkLog = l.idLog  
+JOIN
+    componente c ON l.fkComponente = c.idComponente
+WHERE 
+    c.idComponente = 1
+GROUP BY 
+    MONTH(a.data)
+ORDER BY 
+    mes;
+
+ `;
+    console.log("Seleção variação alertas dentro do modal")
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 
 
 
@@ -158,7 +188,8 @@ module.exports = {
     listarComponentes,
     buscarAlertas,
     buscarAlertas,
-    tendenciaUsoPrev
+    tendenciaUsoPrev,
+    ResumoVariacao
 
 
 };
