@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="buscarConsumoCpu(); buscarMudancaContexto(); buscarCarga(); buscarQtdAlerta()">
+<body onload="buscarConsumoCpu(); buscarMudancaContexto(); buscarCarga(); buscarQtdAlerta(); buscarRiscoAlerta(); buscarServicosAtivos()">
     
     <div class="pai" style="display: flex;">
         <header class="pai-menu">
@@ -68,7 +68,7 @@
                             <div class="card-risco">
                                 <p class="title-card">Risco de alerta</p>
                                 <p class="subtitle-card">desse componente</p>
-                                <p id="porcent_serv">50%</p>
+                                <p id="porcent_alerta"></p>
                             </div>
                             <div class="card-risco">
                                 <p class="title-card">Número de alertas</p>
@@ -78,7 +78,7 @@
                             <div class="card">
                                 <p class="title-card">Número de serviços</p>
                                 <p class="subtitle-card">ativos</p>
-                                <p id="porcent_serv">50%</p>
+                                <p id="n_servicos"></p>
                             </div>
                         </div>
                         <div class="dash-cpuConsumo2">
@@ -125,12 +125,12 @@
                             <div class="card-risco-rede">
                                 <p class="title-card-rede">Risco de alerta</p>
                                 <p class="subtitle-card">desse componente</p>
-                                <p id="porcent_serv">50%</p>
+                                <p id="porcent_serv"></p>
                             </div>
                             <div class="card-risco-rede">
                                 <p class="title-card">Número de alertas</p>
                                 <p class="subtitle-card">emitidos</p>
-                                <p id="porcent_serv">50%</p>
+                                <p id="porcent_serv"></p>
                             </div>
                         </div>
                         <div class="dash-cpuConsumo2">
@@ -177,26 +177,26 @@
                             <div class="card-numeros-memoria2">
                                 <div class="card-risco-pai">
                                     <div class="card-risco3">
-                                        <p class="title-card">Total de memória</p>
-                                        <p class="subtitle-card">RAM</p>
-                                        <p id="porcent_serv">50%</p>
+                                        <p class="title-card">Risco de alerta</p>
+                                        <p class="subtitle-card">desse componente</p>
+                                        <p id="n_alertas"></p>
                                     </div>
                                     <div class="card-risco3">
-                                        <p class="title-card">Total de memória</p>
+                                        <p class="title-card">Número de alertas</p>
                                         <p class="subtitle-card">SWAP</p>
-                                        <p id="porcent_serv">50%</p>
+                                        <p id="porcent_serv"></p>
                                     </div>
                                 </div>
                                 <div class="card-risco-pai">
                                     <div class="card-risco3">
-                                        <p class="title-card">Risco de alerta</p>
-                                        <p class="subtitle-card">desse componente</p>
-                                        <p id="porcent_serv">50%</p>
+                                        <p class="title-card">Total de memória</p>
+                                        <p class="subtitle-card">Ram</p>
+                                        <p id="n_alertas"></p>
                                     </div>
                                     <div class="card-risco3">
-                                        <p class="title-card">Número de alertas</p>
-                                        <p class="subtitle-card">emitidos</p>
-                                        <p id="porcent_serv">50%</p>
+                                        <p class="title-card">Total de memória</p>
+                                        <p class="subtitle-card">SWAP</p>
+                                        <p id="porcent_alerta"></p>
                                     </div>
                                 </div>
                             </div>

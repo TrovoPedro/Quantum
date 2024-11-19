@@ -1,285 +1,232 @@
-<!DOCTYPE html>
-<html lang="en">
+        <!DOCTYPE html>
+        <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/cssPrevisoes.css">
-    <title>Dashboard Previsões Rebeca</title>
-    <!-- Carregando a biblioteca do Google Charts -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="css/cssPrevisoes.css">
+            <title>Dashboard Previsões Rebeca</title>
+            <!-- Carregando a biblioteca do Google Charts -->
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </head>
 
-<body onload="listarServidor()"></body>
-<div class="pai">
-    <div class="header">
-        <ul class="navbar">
-            <li class="item-nav"><a href="Home">Home</a></li>
-            <li class="item-nav"><a href="Previsoes">Previsões</a></li>
-            <li class="item-nav"><a href="Funcionario">Funcionário</a></li>
-            <li class="item-nav"><a href="Servidor">Servidor</a></li>
-            <li class="item-nav"><a href="perfil.html">Perfil</a></li>
-        </ul>
-    </div>
+        <body onload="listarServidor()" >
 
-    <div class="alinha">
-        <div class="previsao">
-            <h2>Previsões</h2>
-            <p>Monitoramento da semana <br> 04/11/24 - 10/11/24</p>
-        </div>
-        <div class="mediaepico">
-            <div class="media">
-                <h3> Média de uso - RAM e CPU</h3>
-                <p style="font-size: x-small;">Clique no ícone para vizualizar a média por servidor</p>
-                <div class="componentes">
-                    <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM">
-                    <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU">
+        <div class="pai">
+            <div class="header">
+                <ul class="navbar">
+                    <li class="item-nav"><a href="Home">Home</a></li>
+                    <li class="item-nav"><a href="Previsoes">Previsões</a></li>
+                    <li class="item-nav"><a href="Funcionario">Funcionário</a></li>
+                    <li class="item-nav"><a href="Servidor">Servidor</a></li>
+                    <li class="item-nav"><a href="perfil.html">Perfil</a></li>
+                </ul>
+            </div>
+
+            <div class="alinha">
+                <div class="previsao">
+                    <h2>Previsões</h2>
+                    <p>Monitoramento da semana <br> 04/11/24 - 10/11/24</p>
+                </div>
+                <div class="mediaepico">
+                    <div class="media">
+                        <h3> Média de uso - RAM e CPU</h3>
+                        <p style="font-size: x-small;">Clique no ícone para vizualizar a média por servidor</p>
+                        <div class="componentes">
+                            <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM">
+                            <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU">
+                        </div>
+                    </div>
+                    <div class="media">
+                        <h3> Pico de uso - RAM e CPU</h3>
+                        <p style="font-size: x-small;">Clique no ícone para vizualizar o pico de uso por servidor</p>
+                        <div class="componentes">
+                            <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM">
+                            <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="media">
-                <h3> Pico de uso - RAM e CPU</h3>
-                <p style="font-size: x-small;">Clique no ícone para vizualizar o pico de uso por servidor</p>
-                <div class="componentes">
-                    <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM">
-                    <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU">
+
+            <div class="abaixo">
+                <div class="ranking">
+                    <h4>Servidores mais críticos em relação ao downtime
+                        <hr>
+                    </h4>
+                    <div class="listaRanking">
+                        <table>
+                            <thead>
+                                <tr class="table-header">
+                                    <th>Servidor</th>
+                                    <th>Tempo de dowtime semanal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tendencia">
+                    <h4>Tendência de uso dos servidores
+                        <hr>
+                    </h4>
+                    <div class="graficoTendencia">
+                        <canvas id="myChart"
+                            style="height: 390px; width: 460px; text-align: center; padding-left: 20px; padding-top: 16px;"></canvas>
+                    </div>
+                </div>
+
+                <div class="MapaCalor">
+                    <h4>Heat map Downtime
+                        <hr>
+                    </h4>
+                    <div class="graficoMapaDeCalor" id="chart"></div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="abaixo">
-        <div class="ranking">
-            <h4>Servidores mais críticos em relação ao downtime
-                <hr>
-            </h4>
-            <div class="listaRanking">
-                <table>
-                    <thead>
-                        <tr class="table-header">
-                            <th>Servidor</th>
-                            <th>Tempo de dowtime semanal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="tendencia">
-            <h4>Tendência de uso dos servidores
-                <hr>
-            </h4>
-            <div class="graficoTendencia">
-                <canvas id="myChart"
-                    style="height: 390px; width: 460px; text-align: center; padding-left: 20px; padding-top: 16px;"></canvas>
-            </div>
-        </div>
-
-        <div class="MapaCalor">
-            <h4>Heat map Downtime
-                <hr>
-            </h4>
-            <div class="graficoMapaDeCalor" id="chart"></div>
-        </div>
-    </div>
-</div>
 
 
-</body>
-<script src="js/previsao.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        </body>
 
-<script>
+        <script src="js/dashPrevisao.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    // Função para gerar dados de exemplo
-    function generateData(count, yrange) {
-        var series = [];
-        for (var i = 0; i < count; i++) {
-            var data = [];
-            for (var j = 0; j < count; j++) {
-                data.push({
-                    x: 'Coluna ' + (j + 1),
-                    y: Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min
+        <script>
+
+            // Função para calcular a regressão linear
+            // Função para fazer o fetch dos dados do backend
+            async function obterDadosDoBanco() {
+                try {
+                    // Fazendo a requisição ao backend para obter os dados
+                    const response = await fetch('/previsao/tendenciaUsoRam');
+                    const data = await response.json();  // Convertendo a resposta em JSON
+                    console.log(data)
+                    return data;  // Retorna os dados para uso posterior
+                } catch (error) {
+                    console.error('Erro ao obter dados:', error);
+                    return [];  // Retorna um array vazio em caso de erro
+                }
+            }
+
+            // Função de regressão linear (já explicada anteriormente)
+            function calcularRegressao(data) {
+                const n = data.length;
+                let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+
+                data.forEach(point => {
+                    sumX += point.x;
+                    sumY += point.y;
+                    sumXY += point.x * point.y;
+                    sumXX += point.x * point.x;
+                });
+
+                const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+                const intercept = (sumY - slope * sumX) / n;
+
+                return { slope, intercept };
+            }
+
+            // Função para criar o gráfico de tendência com a regressão linear
+            async function criarGrafico() {
+                const dadosRam = await obterDadosDoBanco();  // Obtém os dados do banco
+
+                // Transforma os dados para o formato necessário (x: dia da semana, y: uso de RAM)
+                const scatterData = dadosRam.map((dado, index) => ({
+                    x: index + 4,  // Usando o índice como valor de 'x' (dias da semana)
+                    y: dado.media_uso_ram
+                }));
+
+                // Calcula a linha de regressão linear
+                const { slope, intercept } = calcularRegressao(scatterData);
+
+                // Gere os pontos da linha de regressão
+                const regressionLine = scatterData.map(point => ({
+                    x: point.x,
+                    y: slope * point.x + intercept
+                }));
+
+                // Criação do gráfico com Chart.js
+                const ctx = document.getElementById('myChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [
+                            {
+                                color: 'rgba(255, 255, 255, 1)',
+                                label: 'Uso de RAM',
+                                data: scatterData,
+                                backgroundColor: 'red',
+                            },
+                            {
+                                label: 'Tendência de Uso',
+                                data: regressionLine,
+                                type: 'line',
+                                borderColor: 'rgba(255, 99, 132, 0.8)',
+                                borderWidth: 2,
+                                fill: false,
+                                pointRadius: 0  // Remove os pontos da linha de regressão
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom',
+                                title: {
+                                    display: true,
+                                    color: 'rgba(255, 255, 255, 1)',
+                                    text: 'Dia da Semana'
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 1)',
+                                    callback: function (value) {
+                                        const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+                                        return dias[value - 1]; // Ajusta para os dias da semana
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 1)', // Cor branca para a linha de grade no eixo X
+                                },
+                            },
+                            y: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 1)', // Cor branca para a linha de grade no eixo Y
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 1)' // Cor branca para os números no eixo Y
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Uso de RAM (%)',
+                                    color:  'rgba(255, 255, 255, 1)',
+                                    font: {
+                                        size: 15
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    color: 'rgba(255, 255, 255, 1)',// Cor das letras das legendas
+                                    font: {
+                                        size: 16 // Tamanho da fonte
+                                    }
+                                }
+                            }
+                        }
+                    }
                 });
             }
-            series.push({
-                name: 'Linha ' + (i + 1),
-                data: data
-            });
-        }
-        return series;
-    }
 
-    // Configuração do heatmap
-    var options = {
-        series: generateData(10, { min: 0, max: 100 }),
-        chart: {
-            height: 350,
-            type: 'heatmap'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        colors: ["#008FFB"],
-        title: {
-            text: '',
-            style: {
-                color: '#fff'
-            }
-        },
-        xaxis: {
-            labels: {
-                style: {
-                    colors: '#fff'
-                }
-            }
-        },
-        yaxis: {
-            labels: {
-                style: {
-                    colors: '#fff'
-                }
-            }
-        },
-    };
+            // Chama a função para criar o gráfico
+            criarGrafico();
 
-    var chart = new ApexCharts(document.getElementById("chart"), options);
-    chart.render();
+        </script>
 
-    // Função para calcular a regressão linear
-    // Função para fazer o fetch dos dados do backend
-    async function obterDadosDoBanco() {
-        try {
-            // Fazendo a requisição ao backend para obter os dados
-            const response = await fetch('/previsao/tendenciaUsoRam');
-            const data = await response.json();  // Convertendo a resposta em JSON
-            console.log(data)
-            return data;  // Retorna os dados para uso posterior
-        } catch (error) {
-            console.error('Erro ao obter dados:', error);
-            return [];  // Retorna um array vazio em caso de erro
-        }
-    }
-
-    // Função de regressão linear (já explicada anteriormente)
-    function calcularRegressao(data) {
-        const n = data.length;
-        let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
-
-        data.forEach(point => {
-            sumX += point.x;
-            sumY += point.y;
-            sumXY += point.x * point.y;
-            sumXX += point.x * point.x;
-        });
-
-        const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
-        const intercept = (sumY - slope * sumX) / n;
-
-        return { slope, intercept };
-    }
-
-    // Função para criar o gráfico de tendência com a regressão linear
-    async function criarGrafico() {
-        const dadosRam = await obterDadosDoBanco();  // Obtém os dados do banco
-
-        // Transforma os dados para o formato necessário (x: dia da semana, y: uso de RAM)
-        const scatterData = dadosRam.map((dado, index) => ({
-            x: index + 1,  // Usando o índice como valor de 'x' (dias da semana)
-            y: dado.media_uso_ram
-        }));
-
-        // Calcula a linha de regressão linear
-        const { slope, intercept } = calcularRegressao(scatterData);
-
-        // Gere os pontos da linha de regressão
-        const regressionLine = scatterData.map(point => ({
-            x: point.x,
-            y: slope * point.x + intercept
-        }));
-
-        // Criação do gráfico com Chart.js
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'scatter',
-            data: {
-                datasets: [
-                    {
-                        color: 'rgba(255, 255, 255, 1)',
-                        label: 'Uso de RAM',
-                        data: scatterData,
-                        backgroundColor: 'red',
-                    },
-                    {
-                        label: 'Tendência de Uso',
-                        data: regressionLine,
-                        type: 'line',
-                        borderColor: 'rgba(255, 99, 132, 0.8)',
-                        borderWidth: 2,
-                        fill: false,
-                        pointRadius: 0  // Remove os pontos da linha de regressão
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom',
-                        title: {
-                            display: true,
-                            color: 'rgba(255, 255, 255, 1)',
-                            text: 'Dia da Semana'
-                        },
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 1)',
-                            callback: function (value) {
-                                const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-                                return dias[value - 1]; // Ajusta para os dias da semana
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 1)', // Cor branca para a linha de grade no eixo X
-                        },
-                    },
-                    y: {
-                        grid: {
-                            color: 'rgba(255, 255, 255, 1)', // Cor branca para a linha de grade no eixo Y
-                        },
-                        ticks: {
-                            color: 'rgba(255, 255, 255, 1)' // Cor branca para os números no eixo Y
-                        },
-                        title: {
-                            display: true,
-                            text: 'Uso de RAM (%)',
-                            color:  'rgba(255, 255, 255, 1)',
-                            font: {
-                                size: 15
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true,
-                        labels: {
-                            color: 'rgba(255, 255, 255, 1)',// Cor das letras das legendas
-                            font: {
-                                size: 16 // Tamanho da fonte
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // Chama a função para criar o gráfico
-    criarGrafico();
-
-</script>
-
-</html>
+        </html>

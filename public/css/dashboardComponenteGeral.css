@@ -262,6 +262,21 @@ option {
     font-size: 35px;
 }
 
+#porcent_alerta{
+    margin-top: 10%;
+    font-size: 35px;
+}
+
+#n_servicos{
+    margin-top: 10%;
+    font-size: 35px;
+}
+
+#n_servicos{
+    margin-top: 10%;
+    font-size: 35px;
+}
+
 .dash-filho2 {
     display: flex;
     flex-direction: column;

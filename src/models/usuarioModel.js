@@ -103,6 +103,9 @@ function excluirFuncionario(idUsuario, situacaoEditada) {
 }
 
 
+
+
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -111,5 +114,5 @@ module.exports = {
     buscarPorId,
     editarFuncionario,
     excluirFuncionario,
-    selecionar
+    selecionar,
 };

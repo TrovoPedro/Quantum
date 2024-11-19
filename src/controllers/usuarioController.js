@@ -193,6 +193,9 @@ function excluirFuncionario(req, res) {
             res.status(500).json(erro.sqlMessage || erro.message);
         });
 }
+
+
+
   
 
 module.exports = {
@@ -203,5 +206,5 @@ module.exports = {
     buscarPorId,
     editarFuncionario,
     excluirFuncionario,
-    selecionar
+    selecionar,
 }

@@ -46,7 +46,7 @@ function entrar() {
                 console.log("Redirecionando para a página apropriada...");
 
                 setTimeout(function () {
-                    window.location = "../listaEmpresas.html";
+                    window.location = "../Dash(Julia)/dashboard-geral-adm.html";
                 }, 500);
             }
             if (sessionStorage.FKTIPO_USUARIO == 2) {
@@ -70,3 +70,27 @@ function entrar() {
 
     return false;
 }
+
+function tentativa(email, loginBemSucedido) {
+    fetch("/registrarTentativa", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email: email,
+            status: loginBemSucedido ? "sucesso" : "falha"
+        }),
+    })
+    .then((resposta) => {
+        if (!resposta.ok) {
+            console.log("Erro ao registrar tentativa");
+        } else {
+            console.log("Tentativa de login registrada com sucesso!");
+        }
+    })
+    .catch((erro) => {
+        console.log("Erro de rede ou servidor:", erro);
+    });
+}
+

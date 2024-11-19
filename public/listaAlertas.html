@@ -23,61 +23,14 @@
 
 <body>
 
-    <style>
-        .nav{
-            color: #6d0fa4 ;
+
+    <!-- <style>
+        .nav {
+            color: #070ca7;
         }
-    </style>
+    </style> -->
 
-    <div class="navBar">
-        <div class="CaixalogoNav">
-            <img src="img/novalogo.svg" class="logoNav" alt="">
-        </div>
-        <div class="linksNav">
-            <div class="botoesNav">
-                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
-                <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
-                <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
-                <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="assets/icons8-alerta-50.png" class="LinkImgNav" alt="">
-                <p><a href="Tela_Alertas.html" style="text-decoration: none; color: #ffff">Alertas</a></p>
-            </div>
-
-            <div class="botoesNav">
-                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
-                <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
-            </div>
-
-        </div>
-
-        <div class="exitNav">
-
-            <div class="botoesNav">
-
-                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
-                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
-
-            </div>
-
-            <div class="borrar">
-
-            </div>
-
-        </div>
-
-    </div>
-
+    
     <div class="pai-lista">
 
         <div class="tituloLista">
@@ -95,11 +48,78 @@
         <div class="listaServidores">
 
 
-            <div class="servidorSection" id="section1">
+            <div style=" height: 250px;" class="servidorSection" id="section1">
+
+                <h3 style="color: white;">Visão Geral Anual de Alertas de Componentes</h3>
 
                 <canvas id="myChartCanvas"></canvas>
 
+                <!-- <h3 style="color: white;">Clique no quandrante para mais informações</h3> -->
+
+
             </div>
+
+
+            <div id="modal" class="modal">
+
+
+                <div class="modal-content">
+
+                    <img onclick="closeModal()" src="assets/icone_apagar.png" alt="Fechar"
+                        style="width: 30px; height: 30px;">
+
+                    <div class="modal-left">
+
+                        <canvas id="modalChartCanvas" height="400" width="400"></canvas>
+                    </div>
+
+                    <div class="modal-right"  id="modal-right">
+
+                        <h3>Selecione o Componente:</h3>
+
+                        <div class="component-options" id="Selecao_Modal">
+
+                            <select id="modal_componente" onchange="obterDadosGraficoModal(), listarVariacao()">
+
+                                <option selected value="1">CPU</option>
+                                <option value="2">RAM</option>
+                                <option value="3">Disco</option>
+                                <option value="4">Rede</option>
+
+                            </select>
+
+                        </div> <br>
+
+
+                        <div class="div_var" id="div_var">
+                            <h3>Resumo Mensal de Alertas: Quantidade e Variação</h3>
+                        
+                            <div id="loading" style="display: none;">Carregando...</div>
+                        
+                            <table class="alertas-table" id="Variacao_Lista"  >
+                                <thead>
+                                    <tr>
+                                        <th>Mês</th>
+                                        <th>Quantidade de Alertas</th>
+                                        <th>Variação de Alertas</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="color: black;">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
 
 
             <div class="servidorSection" id="section2">
@@ -146,9 +166,70 @@
             </div>
 
 
+
             <div class="servidorSection" id="section3">
 
+                <h3  style="color: white;">Gráfico de tendência de alerta</h3>
+
+                <canvas id="myChartPrevisao"></canvas>
+
             </div>
+
+
+            <div id="modal_Previsao" class="modal">
+
+
+                <div  style="background-color: #000;" class="modal-content">
+
+                    <img onclick="closeModalPrevisao()" src="assets/x_roxo.png" alt="Fechar"
+                        style="width: 30px; height: 30px;">
+
+                    <div class="modal-left">
+
+                        <canvas id="modalChartCanvasPrev" height="400" width="400"></canvas>
+                    </div>
+
+                    <div class="modal-right"  id="modal-right">
+
+                        <h3 style="color: white;">Selecione o Componente:</h3>
+
+                        <div class="component-options" id="Selecao_Modal">
+
+                            <select id="modal_componente_prev"  onchange="obterDadosDoBancoMudanca()">
+
+                                <option selected value="1">CPU</option>
+                                <option value="2">RAM</option>
+                                <option value="3">Disco</option>
+                                <option value="4">Rede</option>
+
+                            </select>
+
+                        </div> <br>
+
+                        <div style="color: white;" class="div_percentual" id="div_percentual">
+
+                            <div id="loading" style="display: none;">Carregando...</div>
+
+                            <h4>Probabilidade da previsão estar correta</h4>
+
+                            <h1  id="mudanca">87%</h1>
+
+                        </div>
+                        
+
+
+
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
 
 
             <div class="servidorSection" id="section4">
@@ -185,13 +266,14 @@
                         </select>
                     </div>
                 </div>
+
+
                 <div class="alertDescription" style="overflow-y: scroll; max-height: 200px;">
 
                     <span>Descrição:</span>
 
-
-
                 </div>
+
             </div>
 
 
@@ -199,7 +281,7 @@
 
     </div>
 
-    
+
 
     <div class="filtro"></div>
 

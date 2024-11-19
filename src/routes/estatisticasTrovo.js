@@ -28,7 +28,7 @@ router.get("/buscarCargaSistema", function (req, res) {
 })
 
 router.get("/buscarServicosAtivos", function (req, res) {
-  estatisticaTrovoController.buscarCargaSistema(req, res);
+  estatisticaTrovoController.buscarServicosAtivos(req, res);
 })
 
 // Rotas para dados de Rede

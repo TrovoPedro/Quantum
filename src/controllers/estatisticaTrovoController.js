@@ -17,15 +17,20 @@ function buscarQtdAlerta(req, res) {
 
 function buscarRiscoAlerta(req, res) {
     var valorInput = req.query.parametro;
-    estatisticaTrovoModel.buscarRiscoAlerta(valorInput).then(resultado => {
-        res.json(resultado)
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
+
+    if (!valorInput || isNaN(valorInput)) {
+        return res.status(400).json({ error: "O parâmetro 'parametro' é inválido." })
+    }
+
+    estatisticaTrovoModel.buscarRiscoAlerta(valorInput)
+        .then(resultado => {
+            res.json(resultado);  // Retorna os dados ao cliente
+        })
+        .catch(erro => {
+            console.log(erro);  // Loga o erro no servidor
+            console.log("Houve um erro ao buscar as estatísticas:", erro.sqlMessage);
+            res.status(500).json({ error: erro.sqlMessage });  // Retorna o erro detalhado
+        });
 }
 
 // funções para buscar os dados de CPU
@@ -77,7 +82,6 @@ function buscarServicosAtivos(req, res) {
         }
     );
 }
-
 
 // Funções para buscar dados de Rede
 

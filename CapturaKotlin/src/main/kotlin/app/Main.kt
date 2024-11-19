@@ -14,7 +14,7 @@ open class Main {
             dadosRepositorio.configurar();
 
             val dadosRecebidos = Dados();
-            dadosRecebidos.dadosRepositorio = dadosRepositorio;
+            dadosRecebidos.dadosRepositorio = dadosRepositorio
 
             val looca = Looca();
 
@@ -63,7 +63,7 @@ open class Main {
                         capturaAtiva = if (!capturaAtiva) {
                             println("Iniciando captura de rede...");
                             dadosRecebidos.iniciarCaptura();
-                            dadosRecebidos.alertar(10.0);
+                            //dadosRecebidos.alertar(10.0);
                             true
                         } else {
                             println("Captura de rede finalizada.");
@@ -131,22 +131,22 @@ open class Main {
                     6 -> {
                         println("Informe a quantidade limite de dados a serem recebidos pelo componente de rede: ")
                         dadosRecebidos.limiteRede = readln().toDouble();
-                        dadosRecebidos.alertar(dadosRecebidos.limiteRede);
+                        //dadosRecebidos.alertar(dadosRecebidos.limiteRede);
                         dadosRepositorio.inserirLimite(dadosRecebidos.limiteRede, 4)
 
                         println("Informe o uso máximo de CPU: ")
                         dadosRecebidos.limiteCpu = readln().toDouble();
-                        dadosRecebidos.alertar(dadosRecebidos.limiteCpu);
+                        //dadosRecebidos.alertar(dadosRecebidos.limiteCpu);
                         dadosRepositorio.inserirLimite(dadosRecebidos.limiteCpu, 1)
 
                         println("Informe o uso máximo de RAM: ")
                         dadosRecebidos.limiteRam = readln().toDouble();
-                        dadosRecebidos.alertar(dadosRecebidos.limiteRam);
+                        //dadosRecebidos.alertar(dadosRecebidos.limiteRam);
                         dadosRepositorio.inserirLimite(dadosRecebidos.limiteRam, 2)
 
                         println("Informe o limite de uso do disco: ")
                         dadosRecebidos.limiteDisco = readln().toDouble();
-                        dadosRecebidos.alertar(dadosRecebidos.limiteDisco);
+                        //dadosRecebidos.alertar(dadosRecebidos.limiteDisco);
                         dadosRepositorio.inserirLimite(dadosRecebidos.limiteDisco, 3)
 
                     }

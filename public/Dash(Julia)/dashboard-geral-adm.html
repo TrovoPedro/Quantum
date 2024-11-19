@@ -22,85 +22,55 @@
                 <a href="dashboard-geral-adm.html">
                     <i class="fa-solid fa-house" style="color: #a098d3;"></i>
                 </a>
-               
             </div>
             <div class="button-filho">
                 <a href="../listaEmpresas.html">
                     <i class="fa-regular fa-building" style="color: #a098d3;"></i>
                 </a>
-               
             </div>
             <div class="button-filho">
                 <a href="../cadastrar.html">
                     <i class="fa-regular fa-address-card" style="color: #a098d3;"></i>
                 </a>
-              
             </div>
 
             <div class="exitNav">
-
                 <div class="botoesNav">
                     <i class="fa-solid fa-door-open" style="color: #a098d3;"></i>
-                    <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+                    <p><a style="text-decoration: none; color: white;" href="../login.html" class="nav-link">Logout</a></p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="corpo-graficos">
+        <!-- Parte esquerda (gráficos de previsão de custo e aumento de usuários) -->
         <div class="div-esquerda">
-            <div class="card-hospitais"></div>
-            <div class="cards">
-                <div class="card-contagem">Hospitais Cadastrados</div>
-                <div class="card-contagem">Contas Desativadas</div>
+            <div class="grafico">
+                <div class="card-grafico">
+                    <canvas id="grafico-previsao-custo"></canvas>
+                </div>
+                <div class="card-grafico">
+                    <canvas id="grafico-aumento-usuarios"></canvas>
+                </div>
             </div>
-
-            <table class="tabela-zebrada">
-                <thead>
-                    <tr>
-                        <th>Endereço IP</th>
-                        <th>Data - Hora</th>
-                        <th>Qtd. Acessos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="color: red;">
-                        <td>246.212.57.122</td>
-                        <td>06/10/2024 20:17:57</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>120.194.129.0</td>
-                        <td>08/11/2024 07:56:26</td>
-                        <td>3</td>
-                    </tr>
-                    <tr style="color: red;">
-                        <td>194.226.53.190</td>
-                        <td>10/11/2024 15:43:27</td>
-                        <td>7</td>
-                    </tr>
-                    <tr>
-                        <td>67.210.52.69</td>
-                        <td>07/11/2024 04:47:27</td>
-                        <td>4</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+
+        <!-- Parte direita (gráficos de uso de CPU, RAM e Armazenamento) -->
         <div class="div-direita">
             <div class="grafico">
                 <div class="card-grafico">
-                    <canvas id="grafico-linhas"></canvas>
+                    <canvas id="grafico-uso-cpu"></canvas>
                 </div>
                 <div class="card-grafico">
-                    <canvas id="grafico-barras"></canvas>
+                    <canvas id="grafico-uso-ram"></canvas>
+                </div>
+                <div class="card-grafico">
+                    <canvas id="grafico-uso-rede"></canvas>
                 </div>
             </div>
-           
         </div>
     </div>
-
-
 
 </body>
 <script src="../js/dashJulia.js"></script>
