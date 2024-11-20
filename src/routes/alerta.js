@@ -66,5 +66,11 @@ router.get("/buscarProbabilidade", function (req, res) {
 });
 
 
+router.get("/buscarProbabilidade", function (req, res) {
+    alertaController.buscarProbabilidade(req, res);
+});
+
+
+
 
 module.exports = router;

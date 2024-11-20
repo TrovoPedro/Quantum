@@ -319,7 +319,7 @@ function graficoComponente() {
         });
 }
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     obterDadosGrafico();
     obterDadosGraficoModal();
 });
@@ -335,6 +335,7 @@ let mychartPrev_Modal;
 
 
 function obterDadosGrafico() {
+
     let componente_DLT = document.getElementById("modal_componente").value;
     let selecao = componente_DLT;
 
@@ -379,7 +380,7 @@ function obterDadosGraficoModal() {
         selecao = '4';
     }
 
-     Cp_modal = selecao;
+    Cp_modal = selecao;
 
 
     fetch(`/alerta/buscaModal/${selecao}`, { cache: 'no-store' }).then(function (response) {
@@ -522,7 +523,7 @@ function plotarGraficoModal(resposta) {
 
 function listarVariacao() {
 
-    console.log(`Variavel cp_modal chamada ${Cp_modal}` );
+    console.log(`Variavel cp_modal chamada ${Cp_modal}`);
 
     document.getElementById('loading').style.display = 'block';
 
@@ -532,55 +533,55 @@ function listarVariacao() {
             "Content-Type": "application/json"
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
 
-        console.log("Dados recebidos da API:", data);
+            console.log("Dados recebidos da API:", data);
 
-        const tabelaBody = document.getElementById('Variacao_Lista').getElementsByTagName('tbody')[0];
+            const tabelaBody = document.getElementById('Variacao_Lista').getElementsByTagName('tbody')[0];
 
-        tabelaBody.innerHTML = ""; 
-        if (data.length === 0) {
+            tabelaBody.innerHTML = "";
+            if (data.length === 0) {
 
-            const noAlertsMessage = document.createElement('tr');
-            noAlertsMessage.innerHTML = "<td colspan='3'>Nenhum alerta encontrado.</td>";
-            tabelaBody.appendChild(noAlertsMessage);
-        } else {
-            data.forEach(item => {
-                const mes = item.mes || "Desconhecido";
-                const quantidade = item.quantidade_alertas || "0";
-                let variacao = item.variacao_alertas || "0";
-
-
-                variacao = parseFloat(variacao);
-
-                let corMudada = 'green';  
-                if (variacao < 0) {
-                    corMudada = 'red';  
-                }
+                const noAlertsMessage = document.createElement('tr');
+                noAlertsMessage.innerHTML = "<td colspan='3'>Nenhum alerta encontrado.</td>";
+                tabelaBody.appendChild(noAlertsMessage);
+            } else {
+                data.forEach(item => {
+                    const mes = item.mes || "Desconhecido";
+                    const quantidade = item.quantidade_alertas || "0";
+                    let variacao = item.variacao_alertas || "0";
 
 
-                const row = document.createElement('tr');
-                row.innerHTML = `
+                    variacao = parseFloat(variacao);
+
+                    let corMudada = 'green';
+                    if (variacao < 0) {
+                        corMudada = 'red';
+                    }
+
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                     <td style="color: black;">${mes}</td>
                     <td style="color: black;">${quantidade}</td>
                     <td style="color: ${corMudada};">${variacao}</td>
                 `;
-                tabelaBody.appendChild(row);
-            });
-        }
+                    tabelaBody.appendChild(row);
+                });
+            }
 
-        document.getElementById('loading').style.display = 'none';
-    })
-    .catch(error => {
-        console.error('Houve um erro ao capturar os dados:', error);
-        document.getElementById('loading').style.display = 'none';
-    });
+            document.getElementById('loading').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados:', error);
+            document.getElementById('loading').style.display = 'none';
+        });
 }
 
 
@@ -589,7 +590,7 @@ function listarVariacao() {
 
 
 window.onload = function () {
-    
+
     listarServidor();
     listarAlertas();
     listarComponentes();
@@ -629,20 +630,29 @@ async function obterDadosDoBanco() {
 }
 
 
+async function obterDadosDoBanco() {
+    try {
+        const resultadoComPrevisao = await fetch('/alerta/tendenciaUso');
+        const data = await resultadoComPrevisao.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Erro ao obter dados:', error);
+        return { resultadoComPrevisao: [], probabilidadeAcerto: 0 };
+    }
+}
 
 async function criarGrafico() {
-    
-    const dados = await obterDadosDoBanco();  
-
-    const dadosAno = dados[0]; 
+    const dados = await obterDadosDoBanco();
+    const dadosAno = dados.resultadoComPrevisao[0];
     const scatterData = dadosAno.data.map((item, index) => ({
-        x: index + 1, 
-        y: item.y 
+        x: index + 1,
+        y: item.y
     }));
 
     const regressionLine = scatterData.map(point => ({
         x: point.x,
-        y: point.y  
+        y: point.y
     }));
 
     const ctx = document.getElementById('myChartPrevisao').getContext('2d');
@@ -678,7 +688,7 @@ async function criarGrafico() {
                         font: {
                             size: 16
                         },
-                        color: 'white'  
+                        color: 'white'
                     }
                 }
             },
@@ -689,48 +699,48 @@ async function criarGrafico() {
                     title: {
                         display: true,
                         text: 'Mês',
-                        color: 'white' 
+                        color: 'white'
                     },
                     ticks: {
-                        color: 'white'  
+                        color: 'white'
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'  
+                        color: 'rgba(255, 255, 255, 0.1)'
                     }
                 },
                 y: {
                     title: {
                         display: true,
                         text: 'Número de Alertas',
-                        color: 'white' 
+                        color: 'white'
                     },
                     ticks: {
-                        color: 'white'  
+                        color: 'white'
                     },
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'  
+                        color: 'rgba(255, 255, 255, 0.1)'
                     }
                 }
             },
             elements: {
                 point: {
                     radius: 5,
-                    backgroundColor: 'white'  
+                    backgroundColor: 'white'
                 }
             },
             layout: {
                 padding: 10
-            },
-            backgroundColor: 'white'
+            }
         }
     });
 
-    
-    
-    
+    // Exibir probabilidade de acerto no painel
+    document.getElementById('probabilidadeAcerto').textContent = `Probabilidade de Acerto: ${dados.probabilidadeAcerto.toFixed(2)}%`;
 }
 
+// Executar função ao carregar a página
 criarGrafico();
+
 
 //#############################################################################################################
 
@@ -774,16 +784,16 @@ async function obterDadosDoBancoMudanca() {
 }
 
 
-let modalChartInstance = null; 
+let modalChartInstance = null;
 
 
 async function criarGraficoMudanca() {
-    const dados = await obterDadosDoBancoMudanca(); 
+    const dados = await obterDadosDoBancoMudanca();
 
-    const dadosAno = dados[0]; 
+    const dadosAno = dados[0];
     const scatterData = dadosAno.data.map((item, index) => ({
-        x: index + 1, 
-        y: item.y 
+        x: index + 1,
+        y: item.y
     }));
 
     const regressionLine = scatterData.map(point => ({
@@ -832,7 +842,7 @@ async function criarGraficoMudanca() {
                         font: {
                             size: 16
                         },
-                        color: '#FFFFFF' 
+                        color: '#FFFFFF'
                     }
                 }
             },
@@ -881,7 +891,7 @@ async function criarGraficoMudanca() {
 
 
 document.getElementById('modal_componente_prev').addEventListener('change', () => {
-    criarGraficoMudanca(); 
+    criarGraficoMudanca();
 });
 
 
@@ -892,32 +902,31 @@ function buscarProbabilidade() {
             "Content-Type": "application/json"
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Dados recebidos de PROBABILIDADE:", data);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Dados recebidos de PROBABILIDADE:", data);
 
-        const h1 = document.querySelector('#div_percentual h1');
-        
-        if (data.length > 0 && data[0].chance_alerta_percentual) {
-            h1.textContent = `${data[0].chance_alerta_percentual}%`;
-        } else {
-            h1.textContent = "0%";
-        }
 
-        document.getElementById('loading').style.display = 'none';
-    })
-    .catch(error => {
-        console.error('Houve um erro ao capturar os dados:', error);
-        document.getElementById('loading').style.display = 'none';
-    });
+            const h1 = document.querySelector('#div_percentual h1');
+
+            if (data && data.chance_alerta_percentual !== undefined) {
+                h1.textContent = `${data.chance_alerta_percentual}%`;
+            } else {
+                h1.textContent = "0%";
+            }
+
+            document.getElementById('loading').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados:', error);
+            document.getElementById('loading').style.display = 'none';
+        });
 }
-
-
 
 
 function openModal() {

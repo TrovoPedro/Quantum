@@ -137,9 +137,13 @@ function buscarAlertasModal(req, res) {
 
 
 async function tendenciaUsoPrev(req, res) {
+
     try {
         const dados = await alertaModel.tendenciaUsoPrev();
+        const limiteErro = 10; 
 
+        let totalMeses = 0;
+        let acertos = 0;
 
         const resultado = dados.reduce((acc, { ano, mes, quantidade_alertas }) => {
             if (!acc[ano]) {
@@ -149,11 +153,10 @@ async function tendenciaUsoPrev(req, res) {
             return acc;
         }, {});
 
-
         const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
             const x = [];
             const y = [];
-
+            const previsao = [];
 
             dados.forEach((quantidade, index) => {
                 if (quantidade > 0) {
@@ -161,7 +164,6 @@ async function tendenciaUsoPrev(req, res) {
                     y.push(quantidade);
                 }
             });
-
 
             const n = x.length;
             if (n > 1) {
@@ -173,14 +175,20 @@ async function tendenciaUsoPrev(req, res) {
                 const m = (n * xySum - xSum * ySum) / (n * xSquaredSum - xSum ** 2);
                 const b = (ySum - m * xSum) / n;
 
-
-                const previsao = dados.map((quantidade, index) => {
+                dados.forEach((quantidade, index) => {
+                    let previsaoValor = quantidade;
                     if (quantidade === 0) {
-                        return Math.max(0, Math.round(m * (index + 1) + b));
+                        previsaoValor = Math.max(0, Math.round(m * (index + 1) + b));
                     }
-                    return quantidade;
-                });
+                    previsao.push(previsaoValor);
 
+
+                    const erro = Math.abs((quantidade - previsaoValor) / quantidade) * 100;
+                    if (erro <= limiteErro) {
+                        acertos++;
+                    }
+                    totalMeses++;
+                });
 
                 return {
                     name: ano,
@@ -189,24 +197,26 @@ async function tendenciaUsoPrev(req, res) {
                         y: alertas,
                     })),
                 };
-            } else {
-
-                return {
-                    name: ano,
-                    data: dados.map((alertas, index) => ({
-                        x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'][index],
-                        y: alertas,
-                    })),
-                };
             }
+
+            return {
+                name: ano,
+                data: dados.map((alertas, index) => ({
+                    x: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'][index],
+                    y: alertas,
+                })),
+            };
         });
 
-        res.status(200).json(resultadoComPrevisao);
+        const probabilidadeAcerto = (acertos / totalMeses) * 100;
+
+        res.status(200).json({ resultadoComPrevisao, probabilidadeAcerto });
     } catch (erro) {
         console.error('Erro ao buscar tendência de alertas:', erro);
         res.status(500).json({ erro: 'Erro ao buscar dados para a tendência de alertas' });
     }
 }
+
 
 
 
