@@ -8,13 +8,13 @@ function buscarServidores(idServidor) {
     var instrucaoSql = `
 
     SELECT servidor.nomeServidor, servidor.idServidor, empresa.razao_social, situacao.tipo
-    FROM servidor
-        JOIN empresa
-            ON servidor.fkEmpresa = empresa.idEmpresa
-        JOIN situacao
-            ON servidor.fkSituacao = situacao.idSituacao
-    ORDER BY idServidor;
-
+FROM servidor
+    JOIN empresa
+        ON servidor.fkEmpresa = empresa.idEmpresa
+    JOIN situacao
+        ON servidor.fkSituacao = situacao.idSituacao
+WHERE situacao.tipo = 'Ativado'  
+ORDER BY idServidor;
  `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -36,7 +36,7 @@ SELECT
 FROM alerta a
 JOIN log l ON a.fkLog = l.idLog
 JOIN componente c ON l.fkComponente = c.idComponente
-WHERE c.nomeComponente = '${componente_lt}'
+WHERE c.nome = '${componente_lt}'
   AND a.data >= CURDATE() - INTERVAL ${tempo_lt} DAY;  
 
  `
@@ -54,7 +54,7 @@ function listarAlertas(idAlertas) {
     var instrucaoSql = `
 
    SELECT 
-    c.nomeComponente AS Componente,
+    c.nome AS Componente,
     '30 dias' AS Periodo,  
     COUNT(a.idAlerta) AS Alertas
 FROM alerta a
