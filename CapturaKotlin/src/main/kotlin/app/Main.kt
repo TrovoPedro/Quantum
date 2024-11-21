@@ -3,6 +3,7 @@ package app
 import com.github.britooo.looca.api.core.Looca
 import dominio.Componente;
 import dominio.Dados;
+import oshi.SystemInfo
 import repositorio.DadosRepositorio;
 
 open class Main {

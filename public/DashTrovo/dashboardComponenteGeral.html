@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="buscarConsumoCpu(); buscarMudancaContexto(); buscarCarga(); buscarQtdAlerta(); buscarRiscoAlerta(); buscarServicosAtivos()">
+<body>
     
     <div class="pai" style="display: flex;">
         <header class="pai-menu">
@@ -179,24 +179,24 @@
                                     <div class="card-risco3">
                                         <p class="title-card">Risco de alerta</p>
                                         <p class="subtitle-card">desse componente</p>
-                                        <p id="n_alertas"></p>
+                                        <p id="porcent_serv"></p>
                                     </div>
                                     <div class="card-risco3">
                                         <p class="title-card">Número de alertas</p>
-                                        <p class="subtitle-card">SWAP</p>
-                                        <p id="porcent_serv"></p>
+                                        <p class="subtitle-card">emitidos</p>
+                                        <p id="n_alertasRam"></p>
                                     </div>
                                 </div>
                                 <div class="card-risco-pai">
                                     <div class="card-risco3">
                                         <p class="title-card">Total de memória</p>
                                         <p class="subtitle-card">Ram</p>
-                                        <p id="n_alertas"></p>
+                                        <p id="totalRam"></p>
                                     </div>
                                     <div class="card-risco3">
                                         <p class="title-card">Total de memória</p>
                                         <p class="subtitle-card">SWAP</p>
-                                        <p id="porcent_alerta"></p>
+                                        <p id="totalSwap"></p>
                                     </div>
                                 </div>
                             </div>

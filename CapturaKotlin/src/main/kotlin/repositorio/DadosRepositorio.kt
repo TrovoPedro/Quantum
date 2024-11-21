@@ -12,8 +12,8 @@ class DadosRepositorio {
         val dataSource = BasicDataSource();
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver";
         dataSource.url = "jdbc:mysql://localhost/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
-        dataSource.username = "aluno"
-        dataSource.password = "sptech"
+        dataSource.username = "root"
+        dataSource.password = "Semsenha13"
 
         jdbcTemplate = JdbcTemplate(dataSource);
     }
@@ -109,5 +109,23 @@ class DadosRepositorio {
         return qtdLinhasAfetadas > 0;
     }
 
+    fun inserirTotalRam(dadosRecebidos: Long): Boolean{
+        println("Esses sao os dados recebidos "+dadosRecebidos)
+        var qtdLinhasAfetadas = jdbcTemplate.update("""
+            insert into tabelaTrovo (totalMemoriaRam) values(?); 
+        """, dadosRecebidos
+        );
+
+        return qtdLinhasAfetadas > 0;
+    }
+
+    fun inserirTotalSwap(dadosRecebidos: Long): Boolean {
+        println("Esses são os dados recebidos: $dadosRecebidos")
+        val qtdLinhasAfetadas = jdbcTemplate.update("""
+        INSERT INTO tabelaTrovo (totalMemoriaSwap) VALUES (?);
+    """, dadosRecebidos)
+
+        return qtdLinhasAfetadas > 0
+    }
 
 }

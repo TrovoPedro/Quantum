@@ -4,21 +4,13 @@ CREATE DATABASE QuantumDB;
 
 USE QuantumDB;
 
-
-
-
-
 CREATE TABLE tipoUsuario(
     idTipoUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45)
 );
 
-
-
-
 INSERT INTO tipoUsuario (nome) 
 VALUES ('Administrador'), ('Gerente'), ('Tecnico');
-
 
 CREATE TABLE situacao(
     idSituacao INT PRIMARY KEY AUTO_INCREMENT,
@@ -104,8 +96,6 @@ FROM usuario
 JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa
 JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
 
-
-
 CREATE TABLE servidor(
     idServidor INT PRIMARY KEY AUTO_INCREMENT,
     nomeServidor VARCHAR(45),
@@ -124,7 +114,6 @@ INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, d
 VALUES ('Servidor 1', 1, 1, 1, null ,2),
        ('Servidor 2', 2, 2, 2, null ,1),
        ('Servidor 3', 3, 3, 1, null ,2);
-       
        
 select * from servidor;       
        
@@ -149,9 +138,6 @@ VALUES ('CPU', 'Intel', 1, 2),
        ('RAM', 'Corsair', 1, 1),
        ('DISCO', 'Seagate', 1, 3);
        
-
-      
-
 -- Tabela log
 CREATE TABLE log(
     idLog INT PRIMARY KEY AUTO_INCREMENT,
@@ -187,8 +173,6 @@ INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (84.0, 2);
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (90.0, 3); 
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (3.0, 4);
 
-
-
 select * from componente;
 select * from limitecomponente;
 
@@ -205,7 +189,24 @@ CREATE TABLE alerta(
     FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );
 
+create table tabelaTrovo(
+	idTrovo int primary key auto_increment,
+    qtdServicosAtivos int,
+    mudancaContexto int,
+    cargaSistema int,
+    taxaTransfarencia int,
+    errosTcp int,
+    consumoMemoriaSwap int,
+    totalMemoriaRam bigint,
+    totalMemoriaSwap bigint,
+    ioDisco int,
+    espacoLivreDisco int,
+    espacoTotalDisco int,
+    fkComponente int,
+	FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
+);
 
+SELECT COALESCE(totalMemoriaSwap, 0) AS totalMemoriaSwap FROM tabelaTrovo;
 
  SELECT 
     c.nome AS Componente,
@@ -218,16 +219,11 @@ WHERE a.data >= CURDATE() - INTERVAL 30 DAY
 GROUP BY c.nome
 ORDER BY Alerta DESC;
 
-
 select * from alerta;
 
 SELECT * FROM alerta WHERE data IS NOT NULL;
 
 SELECT * FROM alerta WHERE data >= CURDATE() - INTERVAL 30 DAY;
-
-
-
-
 
 -- View para análise do uso dos componentes
 CREATE VIEW analiseUsoComponentes AS
@@ -247,7 +243,6 @@ JOIN situacao ON servidor.fkSituacao = situacao.idSituacao;
 
 INSERT INTO usuario(nome,email,senha,fktipoUsuario) VALUES ("Julia Araujo", "julia.araujo","12345",1);
 
-
 CREATE VIEW usuarioDados AS SELECT 
 	usuario.idUsuario as idUsuario,
     usuario.nome AS nomeUsuario,
@@ -261,7 +256,3 @@ JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
 
 SELECT * FROM tipoUsuario;
 SELECT * FROM usuario;
-
-
-
-

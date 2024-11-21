@@ -1,10 +1,8 @@
 package dominio
 
 import com.github.britooo.looca.api.core.Looca
-import com.github.britooo.looca.api.group.servicos.Servico
+import oshi.SystemInfo
 import repositorio.DadosRepositorio
-import dominio.Slack
-import org.json.JSONObject;
 
 class Dados {
     var id: Int = 0
@@ -21,6 +19,7 @@ class Dados {
     var nThreads: Int = 0
 
     val looca = Looca()
+    val oshi = SystemInfo()
     var dadosRepositorio = DadosRepositorio()
 
     private var capturando = false
@@ -34,6 +33,11 @@ class Dados {
     fun capturarDados() {
         Thread {
             capturando = true
+
+            var totalRam = looca.memoria.total / (1024 * 1024 * 1024)
+            println(totalRam)
+            inserirTotalRam(totalRam)
+
             while (capturando) {
                 val interfacesDeRede = looca.rede.grupoDeInterfaces.interfaces
                 interfacesDeRede.forEach { interfaceDeRede ->
@@ -51,6 +55,14 @@ class Dados {
 
                 nThreads += looca.grupoDeProcessos.totalThreads
                 inserirThreads(nThreads)
+
+                var totalSwap = oshi.hardware.memory.virtualMemory.swapTotal / (1024 * 1024 * 1024)
+                println(totalSwap)
+                if (totalSwap != null){
+                    inserirTotalSwap(totalSwap)
+                }else{
+                    inserirTotalSwap(0)
+                }
 
                 val totalDadosRecebidosMB = converterParaMb(totalDadosRecebidos)
                 inserirDados(totalDadosRecebidosMB)
@@ -78,6 +90,14 @@ class Dados {
 
     fun inserirThreads(nThread: Int){
         dadosRepositorio.inserirThreads(nThread)
+    }
+
+    fun inserirTotalRam(totalRam: Long){
+        dadosRepositorio.inserirTotalRam(totalRam)
+    }
+
+    fun inserirTotalSwap(totalSwap: Long){
+        dadosRepositorio.inserirTotalSwap(totalSwap)
     }
 
     fun exibirDados() {

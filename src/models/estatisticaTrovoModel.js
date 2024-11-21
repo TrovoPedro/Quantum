@@ -86,10 +86,39 @@ function buscarPerdaPacote() {
 
 function buscarUsoMemoriaRam() {
 
-    var instrucaoSql = `select usoComponente from log where fkComponente = 2;`;
+    var instrucaoSql = `select usoComponente from log where fkComponente = 1;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
+}
+
+
+function buscarTotalMemoriaRam(valorInput) {
+    var instrucaoSql = `select totalMemoriaRam from tabelaTrovo;`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql, valorInput)
+        .then(function (resultado) {
+            return resultado[0].totalMemoriaRam;
+        })
+        .catch(function (error) {
+            console.error("Erro ao executar a consulta: ", error);
+            throw error;
+        });
+}
+
+function buscarTotalMemoriaSwap(valorInput) {
+    var instrucaoSql = `SELECT COALESCE(totalMemoriaSwap, 0) AS totalMemoriaSwap FROM tabelaTrovo;`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql, valorInput)
+        .then(function (resultado) {
+            return resultado[0].totalMemoriaSwap;
+        })
+        .catch(function (error) {
+            console.error("Erro ao executar a consulta: ", error);
+            throw error;
+        });
 }
 
 module.exports = {
@@ -100,5 +129,7 @@ module.exports = {
     buscarServicosAtivos,
     buscarPerdaPacote,
     buscarCargaSistema,
-    buscarUsoMemoriaRam
+    buscarUsoMemoriaRam,
+    buscarTotalMemoriaRam,
+    buscarTotalMemoriaSwap
 }

@@ -17,12 +17,20 @@ function validarEscolha() {
 
     if (valorInput == 1) {
         document.getElementById('pai-conteudo3').style.display = 'flex';
-        plotarGraficosRam()
+        buscarConsumoRam()
+        buscarConsumoSwap()
+        buscarTotalMemoriaRam()
+        buscarTotalMemoriaSwap()
         buscarQtdAlerta()
         buscarRiscoAlerta()
     } else if (valorInput == 2) {
         document.getElementById('pai-conteudo').style.display = 'flex';
-        plotarGraficosCpu()
+        buscarConsumoCpu()
+        buscarMudancaContexto()
+        buscarCarga()
+        buscarQtdAlerta()
+        buscarRiscoAlerta()
+        buscarServicosAtivos()
     } else if (valorInput == 3) {
         document.getElementById('pai-conteudo4').style.display = 'flex';
         plotarGraficosDisco()
@@ -52,6 +60,8 @@ function sair() {
 let graficoCpu;
 let graficoContexto;
 let graficoCarga;
+let graficoRam;
+let graficoSwap;
 
 function buscarConsumoCpu() {
     fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' })
@@ -204,7 +214,7 @@ function plotarMudancaContexto(resposta) {
 
     const atualizarGrafico = () => {
         if (it >= dados.length) {
-            clearInterval(intervalo); 
+            clearInterval(intervalo);
             return;
         }
 
@@ -217,7 +227,7 @@ function plotarMudancaContexto(resposta) {
     graficoContexto = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [], 
+            labels: [],
             datasets: [{
                 label: 'Uso de CPU',
                 data: [],  // Começa com dados vazios
@@ -548,13 +558,301 @@ function plotarGraficosPerdaPacote(resposta) {
 
 /** fetch e plotagem do gráfico de uso de memoria RAM*/
 
-function plotarGraficosRam() {
-    const ctx2 = document.getElementById('graficoUsoSwap').getContext('2d');
+function buscarConsumoRam() {
+    fetch(`/estatisticaTrovo/buscarUsoMemoriaRam`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficosRam(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
 
+function plotarGraficosRam(resposta) {
+    const ctx2 = document.getElementById('graficoUsoRam').getContext('2d');
+
+    let index = 0;
+
+    if (graficoRam) {
+        graficoRam.destroy();
+    }
+
+    // Extração dos dados
+    const dados = resposta.map(item => item.usoComponente);
+    console.log('Dados extraídos:', dados);
+
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+    if (dados.length === 0) {
+        console.error('Nenhum dado encontrado para o gráfico.');
+        return;
+    }
+
+    // Função para atualizar o gráfico
+    const atualizarGrafico = () => {
+
+        if (index >= dados.length) {
+            clearInterval(intervalo);
+            return;
+        }
+
+        // Atualiza os dados do gráfico
+        graficoRam.data.datasets[0].data.push(dados[index]); 
+        graficoRam.data.labels.push(labels[index % labels.length]);
+
+        // Atualiza o gráfico
+        graficoRam.update();
+        index++;
+    };
+
+    // Inicializa o gráfico com os dados
+    graficoRam = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: [],  // Começa sem rótulos
+            datasets: [{
+                label: 'Uso de CPU',
+                data: [],  // Começa com dados vazios
+                backgroundColor: '#e234d4',
+                borderColor: '#e234d4',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                    },
+                    border: {
+                        color: '#6c6877af', // Cor da linha do eixo Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        display: false,  // Esconde os rótulos do eixo X
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade verticais
+                    },
+                    border: {
+                        color: '#6c6877af' // Cor da linha do eixo X
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: '#FFFF' // Cor da legenda
+                    }
+                },
+                tooltip: {
+                    titleColor: '#FFFF', // Cor do título do tooltip
+                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                },
+                title: {
+                    display: true,
+                    text: 'Consumo de memória RAM', // Título do gráfico
+                    color: '#FFFF',
+                    font: {
+                        size: 25,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+
+    // Atualiza o gráfico a cada 1 segundo, por exemplo
+    const intervalo = setInterval(atualizarGrafico, 1000);
 
 }
 
 /** fetch e plotagem do gráfico de uso de memoria SWAP*/
+
+function buscarConsumoSwap() {
+    fetch(`/estatisticaTrovo/buscarUsoMemoriaRam`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoSwap(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficoSwap(resposta) {
+    const ctx3 = document.getElementById('graficoUsoSwap').getContext('2d');
+
+    let index = 0;
+
+    if (graficoSwap) {
+        graficoSwap.destroy();
+    }
+
+    // Extração dos dados
+    const dados = resposta.map(item => item.usoComponente);
+    console.log('Dados extraídos:', dados);
+
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+    if (dados.length === 0) {
+        console.error('Nenhum dado encontrado para o gráfico.');
+        return;
+    }
+
+    // Função para atualizar o gráfico
+    const atualizarGrafico = () => {
+
+        if (index >= dados.length) {
+            clearInterval(intervalo);
+            return;
+        }
+
+        graficoSwap.data.datasets[0].data.push(dados[index]); 
+        graficoSwap.data.labels.push(labels[index % labels.length]);
+
+        graficoSwap.update();
+        index++;
+    };
+
+    graficoSwap = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Uso de CPU',
+                data: [],
+                backgroundColor: '#e234d4',
+                borderColor: '#e234d4',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                    },
+                    border: {
+                        color: '#6c6877af', // Cor da linha do eixo Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        display: false,  // Esconde os rótulos do eixo X
+                    },
+                    grid: {
+                        color: '#6c6877af', // Cor das linhas de grade verticais
+                    },
+                    border: {
+                        color: '#6c6877af' // Cor da linha do eixo X
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: '#FFFF' // Cor da legenda
+                    }
+                },
+                tooltip: {
+                    titleColor: '#FFFF', // Cor do título do tooltip
+                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                },
+                title: {
+                    display: true,
+                    text: 'Consumo de memória SWAP', // Título do gráfico
+                    color: '#FFFF',
+                    font: {
+                        size: 25,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+
+    // Atualiza o gráfico a cada 1 segundo, por exemplo
+    const intervalo = setInterval(atualizarGrafico, 1000);
+}
+
+/* fetch para buscar total de memoria RAM */
+
+function buscarTotalMemoriaRam(){
+    const totalRam = document.getElementById('totalRam');
+
+    fetch(`/estatisticaTrovo/buscarTotalMemoriaRam`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.text().then(function (resposta) {
+                    console.log(`Dados recebidos: ${resposta}`);
+
+                    const count = parseInt(resposta, 10);
+                    console.log(`Valor inteiro: ${count}`);
+
+                    totalRam.innerHTML = `${count}GB`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
+
+/* fetch para buscar total de memoria SWAP */
+
+function buscarTotalMemoriaSwap(){
+    const totalSwap = document.getElementById('totalSwap');
+
+    fetch(`/estatisticaTrovo/buscarTotalMemoriaSwap`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.text().then(function (resposta) {
+                    console.log(`Dados recebidos: ${resposta}`);
+
+                    const count = parseInt(resposta, 10);
+                    console.log(`Valor inteiro: ${count}`);
+
+                    totalSwap.innerHTML = `${count}GB`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
 
 /** fetch e plotagem do gráfico de uso total de disco*/
 
@@ -579,7 +877,16 @@ function buscarQtdAlerta() {
                     const count = parseInt(resposta, 10);
                     console.log(`Valor de count como inteiro: ${count}`);
 
-                    n_alertas.innerHTML = count;
+                    if(valorInput == 1){
+                        n_alertasRam.innerHTML = count;
+                    }else if(valorInput == 2){
+                        n_alertas.innerHTML = count;
+                    }else if(valorInput == 3){
+                        n_alertas.innerHTML = count;
+                    }else{
+                        n_alertas.innerHTML = count;
+                    }
+
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -600,28 +907,28 @@ function buscarRiscoAlerta() {
             "Content-Type": "application/json"
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-    
-        console.log("Dados recebidos de PROBABILIDADE:", data);
-    
-        const h1 = document.getElementById('porcent_alerta');
-    
-        if (data.length > 0 && data[0].chance_alerta_percentua) {
-            h1.textContent = `${data[0].chance_alerta_percentua}%`
-        } else {
-            h1.textContent = "0%"
-        }
-    
-    })
-    .catch(error => {
-        console.error('Houve um erro ao capturar os dados:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            console.log("Dados recebidos de PROBABILIDADE:", data);
+
+            const h1 = document.getElementById('porcent_alerta');
+
+            if (data.length > 0 && data[0].chance_alerta_percentua) {
+                h1.textContent = `${data[0].chance_alerta_percentua}%`
+            } else {
+                h1.textContent = "0%"
+            }
+
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados:', error);
+        });
 }
 
 
