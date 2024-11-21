@@ -14,8 +14,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 8px;
-    
+    justify-content: center;
+    padding: 0;
+    padding-left: 10px;
 }
 
 .NavBar {
@@ -103,6 +104,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     margin-top: 10px;
+    padding-right: 20px;
 }
 
 .abaixo {
@@ -148,12 +150,12 @@ body {
 .tendencia {
     margin-top: 80px;
     margin-left: 55px;
-    transform: translate(0%, -18%);
+    transform: translate(0%, -17.9%);
 }
 
 .graficoTendencia {
     background-color: #7449EB;
-    height: 420px;
+    height: 383px;
     width: 500px;
     border-radius: 3px;
 }
@@ -179,8 +181,8 @@ body {
 
 .tendencia select {
     width: 100%; /* Ajusta para preencher toda a largura da div */
-    height: 40px; /* Altura do campo */
-    padding: 8px 12px; /* Espaçamento interno */
+    height: 35px; /* Altura do campo */
+    padding: 5px 2px; /* Espaçamento interno */
     font-size: 16px; /* Tamanho do texto */
     font-weight: 500;
     color: #ffffff; /* Cor do texto */
@@ -192,6 +194,7 @@ body {
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra */
     transition: all 0.3s ease;
+    transform: translate(0%, -15%);
 }
 
 /* Adicionando seta customizada para o select */
