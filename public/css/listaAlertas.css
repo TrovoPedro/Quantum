@@ -581,11 +581,11 @@ option {
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
+    margin: 8% auto;
     padding: 20px;
     border-radius: 8px;
     width: 60%;
-    height: 60vh;
+    height: 69vh;
     display: flex;
     gap: 20px;
 }

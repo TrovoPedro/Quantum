@@ -1,12 +1,20 @@
 CREATE DATABASE QuantumDB;
 
+-- drop database QuantumDB;
+
 USE QuantumDB;
+
+
+
 
 
 CREATE TABLE tipoUsuario(
     idTipoUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45)
 );
+
+
+
 
 INSERT INTO tipoUsuario (nome) 
 VALUES ('Administrador'), ('Gerente'), ('Tecnico');
@@ -96,12 +104,15 @@ FROM usuario
 JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa
 JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
 
+
+
 CREATE TABLE servidor(
     idServidor INT PRIMARY KEY AUTO_INCREMENT,
     nomeServidor VARCHAR(45),
     fkEmpresa INT,
     fkLocalizacao INT,
     fkTempoAtividade INT,
+    descricao varchar(100),
     fkSituacao INT,
     FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
     FOREIGN KEY (fkLocalizacao) REFERENCES endereco(idEndereco),
@@ -109,10 +120,18 @@ CREATE TABLE servidor(
     FOREIGN KEY (fkTempoAtividade) REFERENCES periodoAtividade(idEstado)
 );
 
-INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
-VALUES ('Servidor 1', 1, 1, 1, 2),
-       ('Servidor 2', 2, 2, 2, 1),
-       ('Servidor 3', 3, 3, 1, 2);
+INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, descricao ,fkSituacao) 
+VALUES ('Servidor 1', 1, 1, 1, null ,2),
+       ('Servidor 2', 2, 2, 2, null ,1),
+       ('Servidor 3', 3, 3, 1, null ,2);
+       
+       
+select * from servidor;       
+       
+UPDATE servidor
+SET descricao = 'Servidor desativado por perda total de capacidade'
+WHERE idServidor = 2;
+    
 
 -- Tabela componente
 CREATE TABLE componente(
@@ -129,12 +148,15 @@ INSERT INTO componente(nome, fabricante, fkServidor, fkTipoComponente)
 VALUES ('CPU', 'Intel', 1, 2),
        ('RAM', 'Corsair', 1, 1),
        ('DISCO', 'Seagate', 1, 3);
+       
+
+      
 
 -- Tabela log
 CREATE TABLE log(
     idLog INT PRIMARY KEY AUTO_INCREMENT,
     dtHora DATETIME,
-    tempoAtividade DATETIME,
+    tempoAtividade INT,
     usoComponente DOUBLE,
     fkComponente INT,
     fkServidor INT,
@@ -142,13 +164,33 @@ CREATE TABLE log(
     FOREIGN KEY (fkServidor) REFERENCES servidor(idServidor)
 );
 
--- Tabela limiteComponente
+
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES ('2024-11-19 10:30:00', 120, 85.5, 1, 1);
+
+
+select * from log;
+select * from limitecomponente;
+
+
+
 CREATE TABLE limiteComponente(
     idLimiteComponente INT PRIMARY KEY AUTO_INCREMENT,
     valorLimite DOUBLE,
     fkComponente INT,
     FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );
+
+
+INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (88.0, 1); 
+INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (84.0, 2); 
+INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (90.0, 3); 
+INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (3.0, 4);
+
+
+
+select * from componente;
+select * from limitecomponente;
 
 -- Tabela alerta
 CREATE TABLE alerta(
@@ -162,6 +204,30 @@ CREATE TABLE alerta(
     FOREIGN KEY (fkLimiteComponente) REFERENCES limiteComponente(idLimiteComponente),
     FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );
+
+
+
+ SELECT 
+    c.nome AS Componente,
+    '30 dias' AS Periodo,  
+    COUNT(a.idAlerta) AS Alerta
+FROM alerta a
+JOIN log l ON a.fkLog = l.idLog
+JOIN componente c ON l.fkComponente = c.idComponente
+WHERE a.data >= CURDATE() - INTERVAL 30 DAY
+GROUP BY c.nome
+ORDER BY Alerta DESC;
+
+
+select * from alerta;
+
+SELECT * FROM alerta WHERE data IS NOT NULL;
+
+SELECT * FROM alerta WHERE data >= CURDATE() - INTERVAL 30 DAY;
+
+
+
+
 
 -- View para análise do uso dos componentes
 CREATE VIEW analiseUsoComponentes AS

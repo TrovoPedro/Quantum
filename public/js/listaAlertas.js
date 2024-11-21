@@ -113,13 +113,13 @@ function listarAlertas() {
             const section2 = document.getElementById('section2');
             section2.innerHTML = `
 
-            <h3>Falhas por componente:</h3>
+            <h3>Alertas por componente:</h3>
 
             <div class="ranking">
                 <div class="linha_ranking header">
                     <span>COMPONENTE</span>
                     <span>PERÍODO</span>
-                    <span>FALHAS</span>
+                    <span>ALERTAS</span>
                 </div>
             </div>
         `;
@@ -665,7 +665,7 @@ async function criarGrafico() {
                     label: 'Alertas de Uso',
                     data: scatterData,
                     backgroundColor: '#290135',
-                    borderColor: '#290135',
+                    borderColor: 'white',
                     borderWidth: 1,
                 },
                 {
@@ -673,6 +673,7 @@ async function criarGrafico() {
                     data: regressionLine,
                     type: 'line',
                     borderColor: 'white',
+                    backgroundColor: 'white',
                     borderWidth: 2,
                     fill: false,
                     pointRadius: 0
@@ -775,7 +776,7 @@ async function criarGraficoMudanca() {
     if (modalChartInstance) {
         modalChartInstance.destroy();
     }
-
+    
     modalChartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -809,7 +810,17 @@ async function criarGraficoMudanca() {
                         font: {
                             size: 16
                         },
-                        color: '#FFFFFF'
+                        color: '#FFFFFF',
+                        generateLabels: function(chart) {
+                            const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                            // Modify the color of the "Tendência de Uso" label
+                            labels.forEach(label => {
+                                if (label.text === 'Tendência de Uso') {
+                                    label.fillStyle = '#FFFFFF'; // Change the label color to white
+                                }
+                            });
+                            return labels;
+                        }
                     }
                 }
             },
