@@ -1,2 +1,2 @@
 # Quantum
-Desenvolvimento do Projeto de PI (Projeto e inovação) para o 2º Semestre de Sistemas da Informação 
+Desenvolvimento do Projeto de PI (Pesquisa e inovação) para o 2º Semestre de Sistemas da Informação 
