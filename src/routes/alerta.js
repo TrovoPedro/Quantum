@@ -39,19 +39,6 @@ router.get("/componentes/:componente/:tempo", function (req, res) {
 });
 
 
-router.get("/tendenciaUso", function (req, res) {
-    
-    alertaController.tendenciaUsoPrev(req, res);
-
-});
-
-router.get("/tendenciaGeral/:previsto", function (req, res) {
-    
-    alertaController.tendenciaGeralComp(req, res);
-
-});
-
-
 router.get("/variacao/:Cp_modal", function (req, res) {
     
     alertaController.ResumoVariacao(req, res);
@@ -69,6 +56,17 @@ router.get("/buscarProbabilidade", function (req, res) {
 router.get("/buscarProbabilidade", function (req, res) {
     alertaController.buscarProbabilidade(req, res);
 });
+
+
+
+router.get("/tendenciaUso", (req, res) => {
+    alertaController.tendenciaUsoPrev(req, res);
+});
+
+router.get("/tendenciaGeral/:previsto", (req, res) => {
+    alertaController.tendenciaGeralComp(req, res);
+});
+
 
 
 

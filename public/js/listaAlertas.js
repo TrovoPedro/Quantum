@@ -609,25 +609,26 @@ window.onload = function () {
 
 
 
-async function obterDadosDoBanco() {
-    try {
+// async function obterDadosDoBanco() {
+//     try {
 
-        const resultadoComPrevisao = await fetch('/alerta/tendenciaUso');
-        const data = await resultadoComPrevisao.json();
-        console.log(data)
-        return data;
+//         const resultadoComPrevisao = await fetch('/alerta/tendenciaUso');
+//         const data = await resultadoComPrevisao.json();
+//         console.log(data)
+//         return data;
 
 
 
-    }
+//     }
 
-    catch (error) {
+//     catch (error) {
 
-        console.error('Erro ao obter dados:', error);
-        return [];
+//         console.error('Erro ao obter dados:', error);
+//         return [];
 
-    }
-}
+//     }
+// }
+
 
 
 async function obterDadosDoBanco() {
@@ -733,56 +734,24 @@ async function criarGrafico() {
             }
         }
     });
-
-    // Exibir probabilidade de acerto no painel
-    document.getElementById('probabilidadeAcerto').textContent = `Probabilidade de Acerto: ${dados.probabilidadeAcerto.toFixed(2)}%`;
 }
 
-// Executar função ao carregar a página
-criarGrafico();
-
-
-//#############################################################################################################
-
+// #############################################################################################################
 
 
 async function obterDadosDoBancoMudanca() {
-
-
-    let componente_prev = document.getElementById("modal_componente_prev").value;
-
-    let previsto = componente_prev;
-
-    if (componente_prev == 1) {
-        previsto = '1';
-    } else if (componente_prev == 2) {
-        previsto = '2';
-    } else if (componente_prev == 3) {
-        previsto = '3';
-    } else if (componente_prev == 4) {
-        previsto = '4';
-    }
-
+    const componentePrev = document.getElementById("modal_componente_prev").value;
 
     try {
-
-        const resultadoComPrevisaoMuda = await fetch(`/alerta/tendenciaGeral/${previsto}`);
+        const resultadoComPrevisaoMuda = await fetch(`/alerta/tendenciaGeral/${componentePrev}`);
         const data = await resultadoComPrevisaoMuda.json();
-        console.log(data)
+        console.log(data);
         return data;
-
-
-
-    }
-
-    catch (error) {
-
+    } catch (error) {
         console.error('Erro ao obter dados:', error);
-        return [];
-
+        return { resultadoComPrevisao: [], probabilidadeAcerto: 0 };
     }
 }
-
 
 let modalChartInstance = null;
 
@@ -790,7 +759,7 @@ let modalChartInstance = null;
 async function criarGraficoMudanca() {
     const dados = await obterDadosDoBancoMudanca();
 
-    const dadosAno = dados[0];
+    const dadosAno = dados.resultadoComPrevisao[0];
     const scatterData = dadosAno.data.map((item, index) => ({
         x: index + 1,
         y: item.y
@@ -803,11 +772,9 @@ async function criarGraficoMudanca() {
 
     const ctx = document.getElementById('modalChartCanvasPrev').getContext('2d');
 
-
     if (modalChartInstance) {
         modalChartInstance.destroy();
     }
-
 
     modalChartInstance = new Chart(ctx, {
         type: 'scatter',
@@ -887,46 +854,52 @@ async function criarGraficoMudanca() {
             }
         }
     });
+
+
+    const probabilidadeElemento = document.getElementById('probabilidadeAcerto');
+    probabilidadeElemento.textContent = `Probabilidade de Acerto: ${dados.probabilidadeAcerto.toFixed(2)}%`;
 }
 
 
-document.getElementById('modal_componente_prev').addEventListener('change', () => {
-    criarGraficoMudanca();
-});
+document.getElementById('modal_componente_prev').addEventListener('change', criarGraficoMudanca);
 
 
-function buscarProbabilidade() {
-    fetch(`/alerta/buscarProbabilidade`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Dados recebidos de PROBABILIDADE:", data);
+criarGrafico();
 
 
-            const h1 = document.querySelector('#div_percentual h1');
 
-            if (data && data.chance_alerta_percentual !== undefined) {
-                h1.textContent = `${data.chance_alerta_percentual}%`;
-            } else {
-                h1.textContent = "0%";
-            }
+// function buscarProbabilidade() {
+//     fetch(`/alerta/buscarProbabilidade`, {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json"
+//         }
+//     })
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(`Erro HTTP: ${response.status}`);
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             console.log("Dados recebidos de PROBABILIDADE:", data);
 
-            document.getElementById('loading').style.display = 'none';
-        })
-        .catch(error => {
-            console.error('Houve um erro ao capturar os dados:', error);
-            document.getElementById('loading').style.display = 'none';
-        });
-}
+
+//             const h1 = document.querySelector('#div_percentual h1');
+
+//             if (data && data.chance_alerta_percentual !== undefined) {
+//                 h1.textContent = `${data.chance_alerta_percentual}%`;
+//             } else {
+//                 h1.textContent = "0%";
+//             }
+
+//             document.getElementById('loading').style.display = 'none';
+//         })
+//         .catch(error => {
+//             console.error('Houve um erro ao capturar os dados:', error);
+//             document.getElementById('loading').style.display = 'none';
+//         });
+// }
 
 
 function openModal() {
@@ -941,7 +914,7 @@ function openModalPrevisao() {
 
     const modalPrev = document.getElementById("modal_Previsao");
     modalPrev.style.display = "block";
-    buscarProbabilidade();
+    // buscarProbabilidade();
 
 }
 
