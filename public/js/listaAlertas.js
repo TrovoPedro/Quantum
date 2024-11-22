@@ -756,9 +756,14 @@ async function obterDadosDoBancoMudanca() {
 
 let modalChartInstance = null;
 
-
 async function criarGraficoMudanca() {
     const dados = await obterDadosDoBancoMudanca();
+
+    // Verifica se o array de resultados e o array de ranges estão definidos
+    if (!dados || !dados.resultadoComPrevisao || dados.resultadoComPrevisao.length === 0) {
+        console.error("Erro: Dados de previsão não encontrados.");
+        return;
+    }
 
     const dadosAno = dados.resultadoComPrevisao[0];
     const scatterData = dadosAno.data.map((item, index) => ({
@@ -776,7 +781,7 @@ async function criarGraficoMudanca() {
     if (modalChartInstance) {
         modalChartInstance.destroy();
     }
-    
+
     modalChartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -800,82 +805,64 @@ async function criarGraficoMudanca() {
                 }
             ]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        font: {
-                            size: 16
-                        },
-                        color: '#FFFFFF',
-                        generateLabels: function(chart) {
-                            const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-                            // Modify the color of the "Tendência de Uso" label
-                            labels.forEach(label => {
-                                if (label.text === 'Tendência de Uso') {
-                                    label.fillStyle = '#FFFFFF'; // Change the label color to white
-                                }
-                            });
-                            return labels;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    title: {
-                        display: true,
-                        text: 'Mês',
-                        color: '#FFFFFF'
-                    },
-                    ticks: {
-                        color: '#FFFFFF'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Número de Alertas',
-                        color: '#FFFFFF'
-                    },
-                    ticks: {
-                        color: '#FFFFFF'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                }
-            },
-            elements: {
-                point: {
-                    radius: 5,
-                    backgroundColor: '#FFC300'
-                }
-            },
-            layout: {
-                padding: 10
-            }
-        }
+        options: { }
     });
 
-
     const probabilidadeElemento = document.getElementById('probabilidadeAcerto');
-    probabilidadeElemento.textContent = `Probabilidade de Acerto: ${dados.probabilidadeAcerto.toFixed(2)}%`;
-}
+    const tbodyElemento = document.querySelector('#faixasPrevisaoTabela tbody');
+    
 
+    tbodyElemento.innerHTML = '';
+    
+    if (dados.ranges && dados.faixa) {
+        
+        probabilidadeElemento.innerHTML = `
+            Previsão: <strong>${dados.previsaoFinal}</strong> alertas <br />
+            Faixa de Confiança: <strong>${dados.faixa.prob}%</strong>
+        `;
+    
+
+        dados.ranges.forEach((range, index) => {
+
+            const faixa = (index === dados.ranges.length - 1 && range.max === null) 
+                ? `${range.min}+`
+                : `${range.min} - ${range.max}`;
+    
+            if (!isNaN(range.min) && !isNaN(range.prob)) {
+                const tr = document.createElement('tr');
+    
+
+                const faixaTd = document.createElement('td');
+                faixaTd.style.border = '1px solid white';
+                faixaTd.style.padding = '8px';
+                faixaTd.textContent = faixa;
+    
+
+                const probTd = document.createElement('td');
+                probTd.style.border = '1px solid white';
+                probTd.style.padding = '8px';
+                probTd.textContent = `${range.prob}%`;
+    
+
+                tr.appendChild(faixaTd);
+                tr.appendChild(probTd);
+    
+
+                tbodyElemento.appendChild(tr);
+            } else {
+                console.warn("Dados inválidos para um range:", range);
+            }
+        });
+    } else {
+        console.error("Erro: Dados de ranges ou faixa não encontrados.");
+    }
+    
+}
 
 document.getElementById('modal_componente_prev').addEventListener('change', criarGraficoMudanca);
 
-
 criarGrafico();
+
 
 
 
