@@ -189,7 +189,7 @@
 
                     <div class="modal-left">
 
-                        <canvas id="modalChartCanvasPrev" height="400" width="400"></canvas>
+                        <canvas id="modalChartCanvasPrev" height="400" width="300"></canvas>
                         
                     </div>
 
@@ -209,18 +209,28 @@
                             </select>
 
                         </div> <br>
-
                         <div style="color: white;" class="div_percentual" id="div_percentual">
-
                             <div id="loading" style="display: none;">Carregando...</div>
-
                             <h4>Probabilidade da previsão estar correta</h4>
-
+                        
                             <div id="probabilidadeAcerto" style="color: white; font-size: 18px; margin-top: 20px;">
-                                
-                            </div>
 
+                            </div>
+                        
+                            <h4 style="margin-top: 40px;">Faixas de Previsão</h4>
+                            <table id="faixasPrevisaoTabela" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th style="border: 1px solid white; padding: 8px;">Faixa</th>
+                                        <th style="border: 1px solid white; padding: 8px;">Probabilidade (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
+                        
                         
 
 

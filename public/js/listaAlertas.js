@@ -756,9 +756,14 @@ async function obterDadosDoBancoMudanca() {
 
 let modalChartInstance = null;
 
-
 async function criarGraficoMudanca() {
     const dados = await obterDadosDoBancoMudanca();
+
+    // Verifica se o array de resultados e o array de ranges estão definidos
+    if (!dados || !dados.resultadoComPrevisao || dados.resultadoComPrevisao.length === 0) {
+        console.error("Erro: Dados de previsão não encontrados.");
+        return;
+    }
 
     const dadosAno = dados.resultadoComPrevisao[0];
     const scatterData = dadosAno.data.map((item, index) => ({
@@ -776,7 +781,7 @@ async function criarGraficoMudanca() {
     if (modalChartInstance) {
         modalChartInstance.destroy();
     }
-    
+
     modalChartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -800,82 +805,47 @@ async function criarGraficoMudanca() {
                 }
             ]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        font: {
-                            size: 16
-                        },
-                        color: '#FFFFFF',
-                        generateLabels: function(chart) {
-                            const labels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-                            // Modify the color of the "Tendência de Uso" label
-                            labels.forEach(label => {
-                                if (label.text === 'Tendência de Uso') {
-                                    label.fillStyle = '#FFFFFF'; // Change the label color to white
-                                }
-                            });
-                            return labels;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    title: {
-                        display: true,
-                        text: 'Mês',
-                        color: '#FFFFFF'
-                    },
-                    ticks: {
-                        color: '#FFFFFF'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Número de Alertas',
-                        color: '#FFFFFF'
-                    },
-                    ticks: {
-                        color: '#FFFFFF'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                }
-            },
-            elements: {
-                point: {
-                    radius: 5,
-                    backgroundColor: '#FFC300'
-                }
-            },
-            layout: {
-                padding: 10
-            }
-        }
+        options: { }
     });
 
-
     const probabilidadeElemento = document.getElementById('probabilidadeAcerto');
-    probabilidadeElemento.textContent = `Probabilidade de Acerto: ${dados.probabilidadeAcerto.toFixed(2)}%`;
-}
+    
 
+    if (dados.ranges && dados.faixa) {
+        probabilidadeElemento.innerHTML = `
+            Previsão: <strong>${dados.previsaoFinal}</strong> alertas <br />
+            Faixa de Confiança: <strong>${dados.faixa.prob}%</strong> <br />
+            Ranges Avaliados:
+            <ul>
+                ${dados.ranges
+                    .map((range, index) => {
+                        // Se for o último range e range.max for null, exibir o número da previsão como "{previsão}+"
+                        if (index === dados.ranges.length - 1 && range.max === null) {
+                            return `<li>${range.min}+: ${range.prob}%</li>`;
+                        }
+    
+                        // Caso contrário, exibir o range normal
+                        if (range.min !== undefined && range.max !== undefined && range.prob !== undefined && 
+                            !isNaN(range.min) && !isNaN(range.prob)) {
+                            return `<li>${range.min} - ${range.max}: ${range.prob}%</li>`;
+                        } else {
+                            console.warn("Dados inválidos para um range:", range);
+                            return '';                         
+                        }
+                    })
+                    .join('')}
+            </ul>
+        `;
+    } else {
+        console.error("Erro: Dados de ranges ou faixa não encontrados.");
+    }
+    
+}
 
 document.getElementById('modal_componente_prev').addEventListener('change', criarGraficoMudanca);
 
-
 criarGrafico();
+
 
 
 

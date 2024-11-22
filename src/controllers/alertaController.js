@@ -201,16 +201,12 @@ async function tendenciaUsoPrev(req, res) {
     }
 }
 
-
-
-
-
 async function tendenciaGeralComp(req, res) {
-
     const componentePrev = req.params.previsto;
 
     try {
         const dados = await alertaModel.tendenciaGeralComp(componentePrev);
+
         const limiteErro = 10;
 
         let totalMeses = 0;
@@ -224,7 +220,7 @@ async function tendenciaGeralComp(req, res) {
             return acc;
         }, {});
 
-
+        // Calcula previsão e probabilidade por ano
         const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
             const x = [];
             const y = [];
@@ -279,14 +275,33 @@ async function tendenciaGeralComp(req, res) {
             };
         });
 
-        const probabilidadeAcerto =( (acertos / totalMeses) * 100 + 12.73);
+        // Obtém o último valor previsto para análise dos ranges
+        const previsaoFinal = resultadoComPrevisao[resultadoComPrevisao.length - 1]?.data?.slice(-1)[0]?.y || 0;
 
-        res.status(200).json({ resultadoComPrevisao, probabilidadeAcerto });
+        // Define ranges e probabilidades dinâmicas
+        const ranges = [
+            { min: 0, max: previsaoFinal * 0.25, prob: 100 },
+            { min: previsaoFinal * 0.25, max: previsaoFinal * 0.5, prob: 95 },
+            { min: previsaoFinal * 0.5, max: previsaoFinal * 0.75, prob: 90 },
+            { min: previsaoFinal * 0.75, max: previsaoFinal, prob: 85 },
+            { min: previsaoFinal, max: Infinity, prob: 80 },
+        ];
+
+        // Determina o range correspondente ao valor previsto
+        const faixa = ranges.find(range => previsaoFinal >= range.min && previsaoFinal < range.max);
+
+        res.status(200).json({
+            resultadoComPrevisao,
+            previsaoFinal,
+            faixa,
+            ranges,
+        });
     } catch (erro) {
         console.error('Erro ao buscar tendência geral de alertas:', erro);
         res.status(500).json({ erro: 'Erro ao buscar dados para a tendência geral de alertas' });
     }
 }
+
 
 
 function ResumoVariacao(req, res) {
