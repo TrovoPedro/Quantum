@@ -17,8 +17,6 @@ open class Main {
             val dadosRecebidos = Dados();
             dadosRecebidos.dadosRepositorio = dadosRepositorio
 
-            val looca = Looca();
-
             println("Informe seu nome: ");
             val nomeUsuario = readln();
 

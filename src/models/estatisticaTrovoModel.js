@@ -63,7 +63,7 @@ function buscarCargaSistema() {
 }
 
 function buscarServicosAtivos(valorInput) {
-    var instrucaoSql = `select qtdServicosAtivos from tabelaTrovo;`;
+    var instrucaoSql = `SELECT COALESCE(qtdServicosAtivos, 0) AS qtdServicosAtivos FROM tabelaTrovo;`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
     return database.executar(instrucaoSql, valorInput)
@@ -88,6 +88,13 @@ function buscarUsoMemoriaRam() {
 
     var instrucaoSql = `select usoComponente from log where fkComponente = 1;`;
 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarUsoMemoriaSwap() {
+
+    var instrucaoSql = `SELECT COALESCE(consumoMemoriaSwap, 0) AS consumoMemoriaSwap FROM tabelaTrovo;`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -121,6 +128,13 @@ function buscarTotalMemoriaSwap(valorInput) {
         });
 }
 
+function buscarUsoDisco() {
+    var instrucaoSql = `SELECT usoComponente FROM log where fkComponente = 3;`;
+
+    console.log("Executando a instrução SQL: cc\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarQtdAlerta,
     buscarRiscoAlerta,
@@ -130,6 +144,8 @@ module.exports = {
     buscarPerdaPacote,
     buscarCargaSistema,
     buscarUsoMemoriaRam,
+    buscarUsoMemoriaSwap,
     buscarTotalMemoriaRam,
-    buscarTotalMemoriaSwap
+    buscarTotalMemoriaSwap,
+    buscarUsoDisco
 }

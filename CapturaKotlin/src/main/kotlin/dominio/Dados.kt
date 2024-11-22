@@ -17,6 +17,7 @@ class Dados {
     var qtdServicosAtivos: Int = 0
     var cargaSistema: Int = 0
     var nThreads: Int = 0
+    var consumoSwap: Double = 0.0
 
     val looca = Looca()
     val oshi = SystemInfo()
@@ -64,6 +65,14 @@ class Dados {
                     inserirTotalSwap(0)
                 }
 
+                consumoSwap += oshi.hardware.memory.virtualMemory.swapUsed / (1024 * 1024)
+                if (consumoSwap != null){
+                    inserirConsumoSwap(consumoSwap)
+                }else{
+                    inserirTotalSwap(0)
+                }
+
+
                 val totalDadosRecebidosMB = converterParaMb(totalDadosRecebidos)
                 inserirDados(totalDadosRecebidosMB)
 
@@ -98,6 +107,10 @@ class Dados {
 
     fun inserirTotalSwap(totalSwap: Long){
         dadosRepositorio.inserirTotalSwap(totalSwap)
+    }
+
+    fun inserirConsumoSwap(consumoSwap: Double){
+        dadosRepositorio.inserirConsumoSwap(consumoSwap)
     }
 
     fun exibirDados() {
