@@ -809,33 +809,50 @@ async function criarGraficoMudanca() {
     });
 
     const probabilidadeElemento = document.getElementById('probabilidadeAcerto');
+    const tbodyElemento = document.querySelector('#faixasPrevisaoTabela tbody');
     
 
+    tbodyElemento.innerHTML = '';
+    
     if (dados.ranges && dados.faixa) {
+        
         probabilidadeElemento.innerHTML = `
             Previsão: <strong>${dados.previsaoFinal}</strong> alertas <br />
-            Faixa de Confiança: <strong>${dados.faixa.prob}%</strong> <br />
-            Ranges Avaliados:
-            <ul>
-                ${dados.ranges
-                    .map((range, index) => {
-                        // Se for o último range e range.max for null, exibir o número da previsão como "{previsão}+"
-                        if (index === dados.ranges.length - 1 && range.max === null) {
-                            return `<li>${range.min}+: ${range.prob}%</li>`;
-                        }
-    
-                        // Caso contrário, exibir o range normal
-                        if (range.min !== undefined && range.max !== undefined && range.prob !== undefined && 
-                            !isNaN(range.min) && !isNaN(range.prob)) {
-                            return `<li>${range.min} - ${range.max}: ${range.prob}%</li>`;
-                        } else {
-                            console.warn("Dados inválidos para um range:", range);
-                            return '';                         
-                        }
-                    })
-                    .join('')}
-            </ul>
+            Faixa de Confiança: <strong>${dados.faixa.prob}%</strong>
         `;
+    
+
+        dados.ranges.forEach((range, index) => {
+
+            const faixa = (index === dados.ranges.length - 1 && range.max === null) 
+                ? `${range.min}+`
+                : `${range.min} - ${range.max}`;
+    
+            if (!isNaN(range.min) && !isNaN(range.prob)) {
+                const tr = document.createElement('tr');
+    
+
+                const faixaTd = document.createElement('td');
+                faixaTd.style.border = '1px solid white';
+                faixaTd.style.padding = '8px';
+                faixaTd.textContent = faixa;
+    
+
+                const probTd = document.createElement('td');
+                probTd.style.border = '1px solid white';
+                probTd.style.padding = '8px';
+                probTd.textContent = `${range.prob}%`;
+    
+
+                tr.appendChild(faixaTd);
+                tr.appendChild(probTd);
+    
+
+                tbodyElemento.appendChild(tr);
+            } else {
+                console.warn("Dados inválidos para um range:", range);
+            }
+        });
     } else {
         console.error("Erro: Dados de ranges ou faixa não encontrados.");
     }
