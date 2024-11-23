@@ -136,5 +136,13 @@ class DadosRepositorio {
         return qtdLinhasAfetadas > 0
     }
 
+    fun inserirEscritaDisco(dadosRecebidos: Int): Boolean {
+        println("Esses são os dados recebidos: $dadosRecebidos")
+        val qtdLinhasAfetadas = jdbcTemplate.update("""
+        INSERT INTO tabelaTrovo (ioDisco) VALUES (?);
+    """, dadosRecebidos)
+
+        return qtdLinhasAfetadas > 0
+    }
 
 }

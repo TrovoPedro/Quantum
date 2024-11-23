@@ -69,8 +69,8 @@ router.get("/buscarUsoDisco", function (req, res) {
   estatisticaTrovoController.buscarUsoDisco(req, res);
 })
 
-router.get("/buscarIODisco", function (req, res) {
-  estatisticaTrovoController.buscarPerdaPacote(req, res);
+router.get("/buscarIoDisco", function (req, res) {
+  estatisticaTrovoController.buscarIoDisco(req, res);
 })
 
 router.get("/buscarTotalDisco", function (req, res) {

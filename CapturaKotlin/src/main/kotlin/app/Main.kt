@@ -62,6 +62,7 @@ open class Main {
                         capturaAtiva = if (!capturaAtiva) {
                             println("Iniciando captura de rede...");
                             dadosRecebidos.iniciarCaptura();
+                            dadosRecebidos.capturarIoDisco()
                             //dadosRecebidos.alertar(10.0);
                             true
                         } else {

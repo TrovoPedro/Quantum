@@ -38,7 +38,7 @@ function buscarRiscoAlerta(valorInput) {
 
 function buscarConsumoCpu() {
 
-    var instrucaoSql = `select usoComponente from log where fkComponente = 1;`;
+    var instrucaoSql = `select usoComponente from log where fkComponente = 2;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -129,7 +129,14 @@ function buscarTotalMemoriaSwap(valorInput) {
 }
 
 function buscarUsoDisco() {
-    var instrucaoSql = `SELECT usoComponente FROM log where fkComponente = 3;`;
+    var instrucaoSql = `SELECT LEFT(usoComponente, 2) AS dois_primeiros_digitos FROM log WHERE fkComponente = 3;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarIoDisco() {
+    var instrucaoSql = `SELECT COALESCE(ioDisco, 0) AS ioDisco FROM tabelaTrovo;`;
 
     console.log("Executando a instrução SQL: cc\n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -147,5 +154,6 @@ module.exports = {
     buscarUsoMemoriaSwap,
     buscarTotalMemoriaRam,
     buscarTotalMemoriaSwap,
-    buscarUsoDisco
+    buscarUsoDisco,
+    buscarIoDisco
 }

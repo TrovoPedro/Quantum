@@ -2,7 +2,10 @@ package dominio
 
 import com.github.britooo.looca.api.core.Looca
 import oshi.SystemInfo
+import oshi.hardware.HWDiskStore
+import oshi.hardware.HardwareAbstractionLayer
 import repositorio.DadosRepositorio
+import kotlin.math.round
 
 class Dados {
     var id: Int = 0
@@ -18,10 +21,14 @@ class Dados {
     var cargaSistema: Int = 0
     var nThreads: Int = 0
     var consumoSwap: Double = 0.0
+    var escritasNoDisco: Int = 0
 
     val looca = Looca()
     val oshi = SystemInfo()
     var dadosRepositorio = DadosRepositorio()
+
+    val hardware: HardwareAbstractionLayer = oshi.hardware
+    val disks: MutableList<HWDiskStore>? = hardware.diskStores
 
     private var capturando = false
 
@@ -72,9 +79,8 @@ class Dados {
                     inserirTotalSwap(0)
                 }
 
-
                 val totalDadosRecebidosMB = converterParaMb(totalDadosRecebidos)
-                inserirDados(totalDadosRecebidosMB)
+                inserirDados(round(totalDadosRecebidosMB * 100) / 100)
 
                 exibirDados()
 
@@ -113,6 +119,10 @@ class Dados {
         dadosRepositorio.inserirConsumoSwap(consumoSwap)
     }
 
+    fun inserirIoDisco(ioDisco: Int){
+        dadosRepositorio.inserirEscritaDisco(ioDisco)
+    }
+
     fun exibirDados() {
         val dadosRede = DadosDeRede(
             enviados = converterParaMb(totalDadosEnviados),
@@ -132,6 +142,21 @@ class Dados {
     }
     fun pararCaptura() {
         capturando = false
+    }
+
+    fun capturarIoDisco(){
+        while (capturando){
+            if (disks != null){
+                disks.forEach { it ->
+                    escritasNoDisco += it.writes.toInt()
+
+                    inserirIoDisco(escritasNoDisco)
+                }
+            }
+
+            Thread.sleep(3600000)
+        }
+
     }
 
     /*fun alertar(alertaUsuario: Double) {
