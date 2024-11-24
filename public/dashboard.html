@@ -62,6 +62,7 @@
         </div>
 
         <div class="midDash">
+
             <div class="monitoramentoGeral">
                 Monitoramento Geral
             </div>
@@ -69,14 +70,16 @@
             <div class="itensMonitorados" id="itensMonitorados">
 
             </div>
+            
         </div>
+
 
         <div class="lowDash">
 
             <div class="box1low">
 
                 <div class="tituloLow">
-                    Servidor Estado Crítico
+                    Estado dos Servidores
                 </div>
 
                 <div class="cardServidor">
@@ -104,16 +107,42 @@
 
             </div>
 
-
             <div class="box2low">
+
                 <div class="tituloLow">
-                    Serviços em Atividade
+
+                    Servidores em Estado Crítico
                 </div>
-                
+
                 <div class="cardServidor">
 
+                    <div class="boxServidores" id="Box_direita">
+
+                        <div class="serverImgName" id="Imagem_Server">
+
+                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
+
+                            <div class="TextServidorFuncionalidade" id="Nome_Direita">
+                                <p>SERVIDOR 1</p>
+                            </div>
+
+                        </div>
+                        <div class="status" id="Status_Direita">
+                            <p style="font-size: 13px;">CRÍTICO</p>
+                            <img src="assets/alert.svg" alt="" style="height: 13px;">
+                            
+                        </div>
+
+                    </div>
+
+
+
                 </div>
+
             </div>
+
+
+
         </div>
     </section>
 
@@ -125,6 +154,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             obterDadosGrafico();
             listarServidorPrioridade();
+            listarServidorEstado();
 
         });
 
@@ -278,6 +308,8 @@
                     }
                     return response.json();
                 })
+
+
                 .then(data => {
                     console.log(data);
                     const container = document.querySelector('.boxServidores');
@@ -296,9 +328,9 @@
 
                             let statusImage = '';
                             if (item.Situacao === 'Ativado') {
-                                statusImage = 'img/icons8-emoji-de-círculo-verde-48.png';  
+                                statusImage = 'img/icons8-emoji-de-círculo-verde-48.png';
                             } else if (item.Situacao === 'Desativado') {
-                                statusImage = 'assets/icons8-emoji-de-círculo-vermelho-48.png';  
+                                statusImage = 'assets/icons8-emoji-de-círculo-vermelho-48.png';
                             }
 
                             serverBox.innerHTML = `
@@ -320,6 +352,71 @@
                     console.error('Houve um erro ao capturar os dados', error);
                 });
         }
+
+
+        function listarServidorEstado() {
+            fetch(`/servidores/listarServidorEstado`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+
+                    const container = document.querySelector('#Box_direita');
+
+                    container.innerHTML = '';
+
+                    if (data.length === 0) {
+                        const message = document.createElement('p');
+                        message.textContent = 'Nenhum Registro encontrado.';
+                        message.style.textAlign = 'center';
+                        container.appendChild(message);
+                    } else {
+
+                        data.forEach(item => {
+
+                            const serverBox = document.createElement('div');
+                            serverBox.classList.add('serverBox');
+
+                            let statusImage = ''; 
+
+
+                            if (item.Estado === 'Crítico') {
+                                statusImage = 'img/alert.svg';  
+                            } else {
+                                statusImage = 'img/icons8-emoji-de-círculo-verde-48.png'; 
+                            }
+
+
+                            serverBox.innerHTML = `
+                    <div class="serverImgName">
+                        <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
+                        <p>${item.NomeServidor}</p>
+                    </div>
+
+                    <div class="status">
+                        <p style="font-size: 14px;">${item.Estado}</p>
+                        <img src="${statusImage}" alt="" class="alert">
+                    </div>
+                `;
+                            container.appendChild(serverBox);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Houve um erro ao capturar os dados', error);
+                });
+        }
+
+
 
 
 

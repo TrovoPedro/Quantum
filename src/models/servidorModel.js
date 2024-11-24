@@ -108,11 +108,45 @@ ORDER BY st.tipo = 'Desativado', s.nomeServidor;
 }
 
 
+
+function listarServidorEstado() {
+
+    var instrucaoSql = `
+
+    SELECT 
+    s.nomeServidor AS NomeServidor,
+    CASE
+        WHEN COUNT(c.idComponente) >= 2 THEN 'Crítico'
+        ELSE st.tipo
+    END AS Estado
+FROM servidor s
+JOIN situacao st ON s.fkSituacao = st.idSituacao
+LEFT JOIN log l ON l.fkServidor = s.idServidor
+LEFT JOIN componente c ON l.fkComponente = c.idComponente
+LEFT JOIN limiteComponente lc ON c.idComponente = lc.fkComponente
+WHERE l.dtHora >= CURDATE() - INTERVAL 1 DAY
+  AND l.usoComponente > lc.valorLimite
+GROUP BY s.nomeServidor, st.tipo
+ORDER BY s.nomeServidor
+LIMIT 0, 1000;
+
+
+`;
+
+
+    console.log('SERVIDORES LISTADOS EM ESTADO')
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     cadastrar,
     buscarServidores,
     editarServidor,
     excluirServidor,
     buscarPicos,
-    listarSituacao
+    listarSituacao,
+    listarServidorEstado
 };

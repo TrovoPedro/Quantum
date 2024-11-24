@@ -35,6 +35,13 @@ router.get("/listarSituacao", function (req, res) {
 });
 
 
+router.get("/listarServidorEstado", function (req, res) {
+    
+    servidorController.listarServidorEstado(req, res);
+
+});
+
+
 
 
 module.exports = router;
