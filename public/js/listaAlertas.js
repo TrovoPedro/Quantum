@@ -54,7 +54,7 @@ function listarServidor() {
 
                     div.onclick = () => {
 
-                        const nomeServidor = item.nomeServidor;
+                        let nomeServidor = item.nomeServidor;
 
                         window.location.href = `/listaAlertas.html?nome=${encodeURIComponent(nomeServidor)}`;
                     };
@@ -72,6 +72,8 @@ function listarServidor() {
                     </div>
                 `;
 
+                
+
                     listaServidores.appendChild(div);
                 });
             }
@@ -80,6 +82,9 @@ function listarServidor() {
             console.error('Houve um erro ao capturar os dados:', error);
         });
 }
+
+
+
 
 function listarAlertas() {
 
@@ -457,6 +462,7 @@ function plotarGrafico(resposta) {
     myChart = new Chart(document.getElementById('myChartCanvas'), config);
 }
 
+
 function plotarGraficoModal(resposta) {
 
     let labels = [];
@@ -781,7 +787,6 @@ async function criarGraficoMudanca() {
     if (modalChartInstance) {
         modalChartInstance.destroy();
     }
-
     modalChartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -797,7 +802,7 @@ async function criarGraficoMudanca() {
                     label: 'Tendência de Uso',
                     data: regressionLine,
                     type: 'line',
-                    backgroundColor: '#290135',
+                    backgroundColor: '#ffff',
                     borderColor: '#ffff',
                     borderWidth: 2,
                     fill: false,
@@ -805,48 +810,63 @@ async function criarGraficoMudanca() {
                 }
             ]
         },
-        options: { }
+        options: {
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgb(39, 39, 39)', 
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgb(39, 39, 39)', 
+                    }
+                }
+            }
+        }
     });
+    
 
     const probabilidadeElemento = document.getElementById('probabilidadeAcerto');
     const tbodyElemento = document.querySelector('#faixasPrevisaoTabela tbody');
-    
 
     tbodyElemento.innerHTML = '';
-    
+
     if (dados.ranges && dados.faixa) {
-        
+
+        const previsaoFinal = Math.round(dados.previsaoFinal);
+        const faixaProbabilidade = Math.round(dados.faixa.prob);
+
         probabilidadeElemento.innerHTML = `
-            Previsão: <strong>${dados.previsaoFinal}</strong> alertas <br />
-            Faixa de Confiança: <strong>${dados.faixa.prob}%</strong>
-        `;
-    
+        Previsão: <strong>${previsaoFinal}</strong> alertas <br />
+        Faixa de Confiança: <strong>${faixaProbabilidade}%</strong>
+    `;
 
         dados.ranges.forEach((range, index) => {
 
-            const faixa = (index === dados.ranges.length - 1 && range.max === null) 
-                ? `${range.min}+`
-                : `${range.min} - ${range.max}`;
-    
-            if (!isNaN(range.min) && !isNaN(range.prob)) {
+            const faixaMin = Math.round(range.min);
+            const faixaMax = range.max !== null ? Math.round(range.max) : null;
+
+            const faixa = faixaMax === null
+                ? `${faixaMin}+`
+                : `${faixaMin} - ${faixaMax}`;
+
+
+            if (!isNaN(faixaMin) && !isNaN(range.prob)) {
                 const tr = document.createElement('tr');
-    
 
                 const faixaTd = document.createElement('td');
                 faixaTd.style.border = '1px solid white';
                 faixaTd.style.padding = '8px';
                 faixaTd.textContent = faixa;
-    
 
                 const probTd = document.createElement('td');
                 probTd.style.border = '1px solid white';
                 probTd.style.padding = '8px';
-                probTd.textContent = `${range.prob}%`;
-    
+                probTd.textContent = `${Math.round(range.prob)}%`;
 
                 tr.appendChild(faixaTd);
                 tr.appendChild(probTd);
-    
 
                 tbodyElemento.appendChild(tr);
             } else {
@@ -856,7 +876,7 @@ async function criarGraficoMudanca() {
     } else {
         console.error("Erro: Dados de ranges ou faixa não encontrados.");
     }
-    
+
 }
 
 document.getElementById('modal_componente_prev').addEventListener('change', criarGraficoMudanca);

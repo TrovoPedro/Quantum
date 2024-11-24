@@ -21,4 +21,14 @@ router.put("/excluir/:idServidor", function (req, res) {
     servidorController.excluirServidor(req, res);
 });
 
+
+router.get("/buscaGrafico", function (req, res) {
+    
+    servidorController.buscarPicos(req, res);
+
+}); 
+
+
+
+
 module.exports = router;

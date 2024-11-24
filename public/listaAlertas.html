@@ -30,7 +30,7 @@
         }
     </style> -->
 
-    
+
     <div class="pai-lista">
 
         <div class="tituloLista">
@@ -73,11 +73,12 @@
                         <canvas id="modalChartCanvas" height="400" width="400"></canvas>
                     </div>
 
-                    <div class="modal-right"  id="modal-right">
+                    <div class="modal-right" id="modal-right">
 
                         <h3>Selecione o Componente:</h3>
 
                         <div class="component-options" id="Selecao_Modal">
+
 
                             <select id="modal_componente" onchange="obterDadosGraficoModal(), listarVariacao()">
 
@@ -88,15 +89,16 @@
 
                             </select>
 
+
                         </div> <br>
 
 
                         <div class="div_var" id="div_var">
                             <h3>Resumo Mensal de Alertas: Quantidade e Variação</h3>
-                        
+
                             <div id="loading" style="display: none;">Carregando...</div>
-                        
-                            <table class="alertas-table" id="Variacao_Lista"  >
+
+                            <table class="alertas-table" id="Variacao_Lista">
                                 <thead>
                                     <tr>
                                         <th>Mês</th>
@@ -109,8 +111,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                        
+
+
 
                     </div>
 
@@ -171,9 +173,9 @@
 
                 <h3 style="color: white;">Tendecia de alerta</h3>
 
-                                
+
                 <canvas id="myChartPrevisao"></canvas>
-                
+
 
             </div>
 
@@ -181,25 +183,25 @@
             <div id="modal_Previsao" class="modal">
 
 
-                <div  style="background-color: #000;" class="modal-content">
+                <div style="background-color: #000;  width: 65%;" class="modal-content">
 
                     <img onclick="closeModalPrevisao()" src="assets/x_roxo.png" alt="Fechar"
-                        style="width: 30px; height: 30px;">
+                        style="width: 30px; height: 30px;"> 
 
 
-                    <div class="modal-left">
+                    <div  class="modal-left">
 
-                        <canvas id="modalChartCanvasPrev" height="400" width="300"></canvas>
-                        
+                        <canvas id="modalChartCanvasPrev" height="370" width="420"></canvas>
+
                     </div>
 
-                    <div class="modal-right"  id="modal-right">
+                    <div  class="modal-right" id="modal-right">
 
                         <h3 style="color: white;">Selecione o Componente:</h3>
 
                         <div class="component-options" id="Selecao_Modal">
 
-                            <select id="modal_componente_prev"  onchange="obterDadosDoBancoMudanca()">
+                            <select id="modal_componente_prev" onchange="obterDadosDoBancoMudanca()">
 
                                 <option selected value="1">CPU</option>
                                 <option value="2">RAM</option>
@@ -209,16 +211,20 @@
                             </select>
 
                         </div> <br>
+
+
+
                         <div style="color: white;" class="div_percentual" id="div_percentual">
                             <div id="loading" style="display: none;">Carregando...</div>
                             <h4>Probabilidade da previsão estar correta</h4>
-                        
+
                             <div id="probabilidadeAcerto" style="color: white; font-size: 18px; margin-top: 20px;">
 
                             </div>
-                        
+
                             <h4 style="margin-top: 40px;">Faixas de Previsão</h4>
-                            <table id="faixasPrevisaoTabela" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
+                            <table id="faixasPrevisaoTabela"
+                                style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
                                 <thead>
                                     <tr>
                                         <th style="border: 1px solid white; padding: 8px;">Faixa</th>
@@ -229,13 +235,50 @@
 
                                 </tbody>
                             </table>
+
+                            <div style="padding-top: 3px; height: 100px; display: flex; align-items: flex-end; justify-content: end;"
+                                class="div_pergunta">
+
+                                <button class="faq-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                                        <path
+                                            d="M80 160c0-35.3 28.7-64 64-64h32c35.3 0 64 28.7 64 64v3.6c0 21.8-11.1 42.1-29.4 53.8l-42.2 27.1c-25.2 16.2-40.4 44.1-40.4 74V320c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.4c0-8.2 4.2-15.8 11-20.2l42.2-27.1c36.6-23.6 58.8-64.1 58.8-107.7V160c0-70.7-57.3-128-128-128H144C73.3 32 16 89.3 16 160c0 17.7 14.3 32 32 32s32-14.3 32-32zm80 320a40 40 0 1 0 0-80 40 40 0 1 0 0 80z">
+                                        </path>
+                                    </svg>
+                                    <span class="tooltip">
+                                        
+                                        <ul style="list-style-type: none;">
+
+                                            <li  style="color: rgb(3, 61, 3); font-weight: bold; ">Probabilidade acima de 80%: "Temos uma alta probabilidade de alertas do
+                                                sistema no próximo mês. Recomendamos a execução de um plano de
+                                                contingência."</li> <br>
+
+                                            <li  style="color: rgb(191, 202, 34); font-weight: bold; ">Probabilidade entre 70% e 80%: "A previsão indica uma boa chance de aumento nos
+                                                alertas, mas
+                                                com alguma incerteza. Monitoramento contínuo é recomendado."</li> <br>
+
+                                            <li  style="color: rgba(197, 3, 3, 0.936); font-weight: bold; ">Probabilidade abaixo de 70%: "A previsão tem um grau significativo de incerteza.
+                                                Precisamos de
+                                                mais dados ou uma revisão do modelo para tomar uma ação assertiva."</li>
+
+                                        </ul>
+
+                                    </span>
+
+
+                                
+                                </button>
+
+
+                            </div>
+
                         </div>
-                        
-                        
 
 
 
-                        
+
+
+
 
                     </div>
 

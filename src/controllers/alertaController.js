@@ -220,7 +220,7 @@ async function tendenciaGeralComp(req, res) {
             return acc;
         }, {});
 
-        // Calcula previsão e probabilidade por ano
+
         const resultadoComPrevisao = Object.entries(resultado).map(([ano, dados]) => {
             const x = [];
             const y = [];
@@ -275,10 +275,10 @@ async function tendenciaGeralComp(req, res) {
             };
         });
 
-        // Obtém o último valor previsto para análise dos ranges
+
         const previsaoFinal = resultadoComPrevisao[resultadoComPrevisao.length - 1]?.data?.slice(-1)[0]?.y || 0;
 
-        // Define ranges e probabilidades dinâmicas
+
         const ranges = [
             { min: 0, max: previsaoFinal * 0.25, prob: 100 },
             { min: previsaoFinal * 0.25, max: previsaoFinal * 0.5, prob: 95 },
@@ -287,7 +287,7 @@ async function tendenciaGeralComp(req, res) {
             { min: previsaoFinal, max: Infinity, prob: 80 },
         ];
 
-        // Determina o range correspondente ao valor previsto
+
         const faixa = ranges.find(range => previsaoFinal >= range.min && previsaoFinal < range.max);
 
         res.status(200).json({

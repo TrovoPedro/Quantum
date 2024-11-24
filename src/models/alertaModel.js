@@ -1,4 +1,4 @@
-const { mostrarAlertas, tendenciaGeralPrev } = require("../controllers/alertaController");
+// const { mostrarAlertas, tendenciaGeralPrev } = require("../controllers/alertaController");
 var database = require("../database/config")
 
 
@@ -242,7 +242,7 @@ module.exports = {
     listarAlertas,
     listarComponentes,
     buscarAlertas,
-    buscarAlertas,
+    buscarAlertasModal,
     tendenciaUsoPrev,
     tendenciaGeralComp,
     ResumoVariacao,

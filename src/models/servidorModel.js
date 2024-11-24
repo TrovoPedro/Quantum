@@ -54,9 +54,39 @@ function excluirServidor(idServidor, situacaoEditada) {
 
 
 
+function buscarPicos() {
+
+    var instrucaoSql = `
+
+    SELECT 
+    s.nomeServidor AS Servidor,
+    c.nome AS Componente,
+    MIN(l.usoComponente) AS MinimoDeUso,
+    MAX(l.usoComponente) AS MaximoDeUso
+FROM log l
+JOIN componente c ON l.fkComponente = c.idComponente
+JOIN servidor s ON l.fkServidor = s.idServidor
+JOIN situacao st ON s.fkSituacao = st.idSituacao
+WHERE DATE(l.dtHora) = CURDATE()
+  AND st.tipo = 'Ativado'
+GROUP BY s.nomeServidor, c.nome
+ORDER BY s.nomeServidor, c.nome;
+
+
+`;
+
+
+    console.log('PICOS DE CADA SERVIDOR')
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     cadastrar,
     buscarServidores,
     editarServidor,
-    excluirServidor
+    excluirServidor,
+    buscarPicos
 };

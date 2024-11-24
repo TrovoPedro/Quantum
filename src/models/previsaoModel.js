@@ -1,4 +1,4 @@
-const { buscarComponente } = require("../controllers/previsaoController");
+// const { buscarComponente } = require("../controllers/previsaoController");
 var database = require("../database/config");
 
 function buscarPorId(idServidor) {

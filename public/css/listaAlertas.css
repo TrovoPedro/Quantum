@@ -112,7 +112,7 @@ td {
 
 .listaServidores {
 
-    
+
     padding-top: 20px;
     width: 90%;
     height: 80vh;
@@ -123,10 +123,10 @@ td {
     grid-template-rows: repeat(2, 1fr);
     gap: 15px;
     justify-content: center;
-    align-items: start; 
+    align-items: start;
 
     & .servidorSection {
-        
+
         background-color: #8A2BE2;
         height: 220px;
         padding: 15px;
@@ -179,7 +179,7 @@ td {
 
 
 .servidor-titulo {
-    
+
     /* padding-top: 10px; */
     width: 90%;
     height: 20px;
@@ -588,6 +588,8 @@ option {
     height: 70vh;
     display: flex;
     gap: 20px;
+
+    /* color: rgb(39, 39, 39); */
 }
 
 .modal-left {
@@ -604,15 +606,15 @@ option {
 .component-options select {
     padding: 10px;
     background-color: #290135;
-    color: white;   
+    color: white;
     width: 100%;
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
-.component-options option{
+.component-options option {
     color: white;
 }
 
@@ -629,11 +631,111 @@ option {
 }
 
 .modal .close img {
-    width: 35px; 
-    height: 35px; 
-    cursor: pointer; 
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
 }
 
 .modal .close:hover {
     color: red;
+}
+
+
+
+
+
+
+
+.faq-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ffe53b;
+    background-image: linear-gradient(147deg, #120992 0%, #720b58 74%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.151);
+    position: relative;
+}
+
+.faq-button svg {
+    height: 1.5em;
+    fill: white;
+}
+
+.faq-button:hover svg {
+    animation: jello-vertical 0.7s both;
+    /* width: 80px; */
+}
+
+@keyframes jello-vertical {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    40% {
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    50% {
+        transform: scale3d(0.85, 1.15, 1);
+    }
+
+    65% {
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    75% {
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.tooltip {
+    position: absolute;
+    top: -20px;
+    opacity: 0;
+    background-color: white;
+    /* background-image: linear-gradient(147deg, #8b2fad 0%, #b214e3 74%); */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.2s;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+    border: 3px solid rgb(135, 6, 90);
+}
+
+.tooltip::before {
+    position: absolute;
+    content: "";
+    width: 80px;
+    height: 10px;
+    background-color: #ff2525;
+    background-size: 1000%;
+    background-position: center;
+    transform: rotate(45deg);
+    bottom: -15%;
+    transition-duration: 0.3s;
+}
+
+.faq-button:hover .tooltip {
+    top: -70px;
+    opacity: 1;
+    transition-duration: 0.3s;
+    width: 520px;
+    height: 170px;
 }

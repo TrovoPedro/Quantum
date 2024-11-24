@@ -23,10 +23,6 @@
 
 </head>
 
-<style>
-
-</style>
-
 <body>
 
     <div class="navBar">
@@ -49,407 +45,211 @@
         </div>
         <div class="exitNav">
             <div class="botoesNav">
-
                 <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
                 <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
-            </div>
-            <div class="borrar">
-
             </div>
         </div>
     </div>
 
-    <Section class="Dashboard">
+    <section class="Dashboard">
         <div class="topDash">
             <div class="boxUser-data">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
                 <p id="data">Monitoramento dia DD/MM/AAAA</p>
             </div>
-
         </div>
+
         <div class="midDash">
             <div class="monitoramentoGeral">
                 Monitoramento Geral
             </div>
-            <div class="itensMonitorados">
-                <div class="cardMonitorados">
-                    <div class="item">
-                        <h4>Servidor 1</h4>
-                    </div>
-                    <div>
-                        <canvas id="myChart" height="185" width="360"></canvas>
-                    </div>
-                </div>
-                <div class="cardMonitorados">
-                    <div class="item">
 
-                        <h4>Servidor 2</h4>
-                    </div>
-                    <div>
-                        <canvas id="myChart1" height="185" width="360"></canvas>
-                    </div>
-
-                </div>
-                <div class="cardMonitorados">
-                    <div class="item">
-                        <h4>Servidor 3</h4>
-                    </div>
-                    <div>
-                        <canvas id="myChart2" height="185" width="360"></canvas>
-                    </div>
-
-                </div>
+            <div class="itensMonitorados" id="itensMonitorados">
+                <!-- Gráficos serão adicionados dinamicamente aqui -->
             </div>
         </div>
-        <div class="lowDash">
 
+        <div class="lowDash">
             <div class="box1low">
                 <div class="tituloLow">
-                    Servidor Estado Critico
+                    Servidor Estado Crítico
                 </div>
                 <div class="cardServidor">
-
-                    <div class="boxServidores">
-                        <div class="serverImgName">
-                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-                            <p>Servidor 1</p>
-                        </div>
-                        <div class="status">
-                            <p style="font-size: 14px;">Crítico</p>
-                            <img src="img/alert.svg" alt="" class="alert">
-                            <!-- <img src="img/icons8-emoji-de-círculo-verde-48.png" alt="" class="alert"> -->
-                        </div>
-                    </div>
-
-                    <div class="boxServidores">
-                        <div class="serverImgName">
-                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-                            <p>Servidor 2</p>
-                        </div>
-                        <div class="status">
-                            <p style="font-size: 14px;">Estável</p>
-                            <img src="img/icons8-emoji-de-círculo-verde-48.png" alt="" class="alert">
-                            <!-- <img src="img/alert.svg" alt="" class="alert"> -->
-                        </div>
-
-                    </div>
-                    <div class="boxServidores">
-                        <div class="serverImgName">
-                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-                            <p>Servidor 3</p>
-                        </div>
-                        <div class="status">
-                            <p style="font-size: 14px;">Critico</p>
-                            <img src="img/alert.svg" alt="" class="alert">
-                        </div>
-
-                    </div>
-
+                    <!-- Card dos servidores críticos -->
                 </div>
             </div>
+
             <div class="box2low">
                 <div class="tituloLow">
                     Serviços em Atividade
                 </div>
                 <div class="cardServidor">
-                    <div class="boxServidores">
-                        <div class="serverImgName">
-                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-                            <div class="TextServidorFuncionalidade">
-                                <p>PEP - Jabaquara</p>
-                            </div>
-
-                        </div>
-                        <div class="status">
-                            <p style="font-size: 13px;">Ativo</p>
-                            <img src="img/circuloGreen.svg" alt="" style="height: 13px;">
-                        </div>
-                    </div>
-                    <div class="boxServidores">
-                        <div class="serverImgName">
-                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-
-                            <div class="TextServidorFuncionalidade">
-                                <p>PEP - Mooca</p>
-                            </div>
-
-                        </div>
-                        <div class="status">
-                            <p style="font-size: 13px;">Desativado</p>
-                            <img src="img/circuloRed.svg" alt="" style="height: 13px;">
-
-                        </div>
-                    </div>
-
-                    <div class="boxServidores">
-                        <div class="serverImgName">
-                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-                            <div class="TextServidorFuncionalidade">
-                                <p>PEP - Ipiranga</p>
-                            </div>
-
-                        </div>
-                        <div class="status">
-                            <p style="font-size: 13px;">Ativo</p>
-                            <img src="img/circuloGreen.svg" alt="" style="height: 13px;">
-                        </div>
-                    </div>
+                    <!-- Card de serviços ativos -->
                 </div>
             </div>
-
         </div>
+    </section>
+
+    <script>
 
 
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    </Section>
+        document.addEventListener('DOMContentLoaded', function () {
+            obterDadosGrafico();
+        });
+
+        function obterDadosGrafico() {
+            fetch(`/servidores/buscaGrafico`, { cache: 'no-store' })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                            organizarDados(resposta);
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        function organizarDados(resposta) {
+            const servidores = {};
+
+            resposta.forEach(item => {
+                if (!servidores[item.Servidor]) {
+                    servidores[item.Servidor] = [];
+                }
+                servidores[item.Servidor].push(item);
+            });
+
+            const container = document.getElementById('itensMonitorados');
+            container.innerHTML = '';
+
+            for (let servidor in servidores) {
+                const dadosServidor = servidores[servidor];
+                const card = document.createElement('div');
+                card.classList.add('cardMonitorados');
+
+                const header = document.createElement('div');
+                header.classList.add('item');
+                header.innerHTML = `<h4>${servidor}</h4>`;
+
+                const canvasContainer = document.createElement('div');
+                const canvas = document.createElement('canvas');
+                canvas.setAttribute('id', `graficoPicos_${servidor}`);
+                canvas.setAttribute('width', '400');
+                canvas.setAttribute('height', '200');
+                canvasContainer.appendChild(canvas);
+
+                card.appendChild(header);
+                card.appendChild(canvasContainer);
+                container.appendChild(card);
+
+
+                plotarGrafico(dadosServidor, servidor);
+            }
+        }
+
+
+        function plotarGrafico(dadosServidor, servidor) {
+            let labels = [];
+            let minData = [];
+            let maxData = [];
+
+
+            dadosServidor.forEach(item => {
+                if (!labels.includes(item.Componente)) {
+                    labels.push(item.Componente);
+                }
+
+
+                if (item.Componente === 'CPU') {
+                    minData.push(item.MinimoDeUso);
+                    maxData.push(item.MaximoDeUso);
+                } else if (item.Componente === 'DISCO') {
+                    minData.push(item.MinimoDeUso);
+                    maxData.push(item.MaximoDeUso);
+                } else if (item.Componente === 'RAM') {
+                    minData.push(item.MinimoDeUso);
+                    maxData.push(item.MaximoDeUso);
+                }
+            });
+
+
+            const data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Mínimo',
+                        data: minData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Máximo',
+                        data: maxData,
+                        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            };
+
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: 'black' }
+                        },
+                        tooltip: {
+                            backgroundColor: '#130228',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: 'black' }
+                        },
+                        y: {
+                            ticks: { color: 'black' },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+
+            const ctx = document.getElementById(`graficoPicos_${servidor}`).getContext('2d');
+            new Chart(ctx, config);
+        }
+
+
+        function formatarData(data) {
+            const dia = String(data.getDate()).padStart(2, '0');
+            const mes = String(data.getMonth() + 1).padStart(2, '0');
+            const ano = data.getFullYear();
+
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        const hoje = new Date();
+        const dataFormatada = formatarData(hoje);
+
+        document.getElementById('data').textContent = `Monitoramento dia ${dataFormatada}`;
+
+    </script>
+
 </body>
 
 </html>
-<script>
- b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
-    const ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['CPU', 'RAM', 'Disco', 'Rede'],
-            datasets: [{
-                label: 'Mínima',
-                data: [87, 82, 92, 2],
-                borderWidth: 1,
-                borderColor: '#bab5b5',
-                backgroundColor: '#bab5b5'
-            },
-            {
-                label: 'Máxima',
-                data: [96, 92, 94, 3.1],
-                borderWidth: 1,
-                borderColor: '#2e0a91',
-                backgroundColor: '#2e0a91'
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: 'white'
-                    }
-                },
-                datalabels: {
-                    anchor: 'end',
-                    align: 'bottom',
-                    color: 'white',
-                    font: {
-                        weight: 'bold'
-                    },
-                    formatter: function (value) {
-                        return value + '%';
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 16,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        }
-                    },
-                    grid: {
-                        display: false
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 15,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        }
-                    },
-                    grid: {
-                        display: false
-                    }
-                }
-            }
-        },
-        plugins: [ChartDataLabels]
-    });
-
-
-    const ctx1 = document.getElementById('myChart1').getContext('2d');
-    new Chart(ctx1, {
-        type: 'bar',
-        data: {
-            labels: ['CPU', 'RAM', 'Disco', 'Rede'],
-            datasets: [{
-                label: ' Mínima',
-                data: [82, 85, 89, 1.2],
-                borderWidth: 1,
-                borderColor: '#bab5b5',
-                backgroundColor: '#bab5b5'
-            },
-            {
-                label: ' Máxima',
-                data: [88, 87, 90, 2],
-                borderWidth: 1,
-                borderColor: '#2e0a91',
-                backgroundColor: '#2e0a91'
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: 'white'
-                    }
-                },
-                datalabels: {
-                    anchor: 'end',
-                    align: 'bottom',
-                    color: 'white',
-                    font: {
-                        weight: 'bold'
-                    },
-                    formatter: function (value) {
-                        return value + '%';
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 17,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        }
-                    },
-                    grid: {
-                        display: false
-                    },
-                },
-
-
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 15,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        }
-                    },
-                    grid: {
-                        display: false
-                    }
-                },
-
-            }
-        },
-        plugins: [ChartDataLabels]
-    });
-
-
-    const ctx2 = document.getElementById('myChart2').getContext('2d');
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['CPU', 'RAM', 'Disco', 'Rede'],
-            datasets: [{
-                label: ' Mínima',
-                data: [85, 84, 91, 2.4],
-                borderWidth: 1,
-                borderColor: '#9370DB',
-                backgroundColor: '#bab5b5'
-            },
-            {
-                label: ' Máxima',
-                data: [89, 90, 98, 4.1],
-                borderWidth: 1,
-                borderColor: '#2e0a91',
-                backgroundColor: '#2e0a91'
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: 'white'
-                    }
-                },
-                datalabels: {
-                    anchor: 'end',
-                    align: 'bottom',
-                    color: 'white',
-                    font: {
-                        weight: 'bold'
-                    },
-                    formatter: function (value) {
-                        return value + '%';
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 17,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        }
-                    },
-                    grid: {
-                        display: false
-                    },
-                },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: 'white',
-                        font: {
-                            size: 15,
-                            family: 'Arial',
-                            weight: 'Bold'
-                        }
-                    },
-                    grid: {
-                        display: false
-                    }
-                },
-            }
-        },
-        plugins: [ChartDataLabels]
-    });
-
-
-
-    function formatarData(data) {
-        const dia = String(data.getDate()).padStart(2, '0');
-        const mes = String(data.getMonth() + 1).padStart(2, '0');
-        const ano = data.getFullYear();
-
-        return `${dia}/${mes}/${ano}`;
-    }
-
-    const hoje = new Date();
-    const dataFormatada = formatarData(hoje);
-
-    document.getElementById('data').textContent = `Monitoramento dia ${dataFormatada}`;
-
-
-
-</script>
