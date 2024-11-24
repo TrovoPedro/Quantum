@@ -4,13 +4,20 @@ CREATE DATABASE QuantumDB;
 
 USE QuantumDB;
 
+
+SELECT * FROM componente;
+
+
+
 CREATE TABLE tipoUsuario(
     idTipoUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45)
 );
 
+
 INSERT INTO tipoUsuario (nome) 
 VALUES ('Administrador'), ('Gerente'), ('Tecnico');
+
 
 CREATE TABLE situacao(
     idSituacao INT PRIMARY KEY AUTO_INCREMENT,
@@ -20,6 +27,8 @@ CREATE TABLE situacao(
 INSERT INTO situacao (tipo) 
 VALUES ('Desativado'), ('Ativado');
 
+
+select * from usuario; 
 
 CREATE TABLE tipoComponente(
     idTipoComponente INT PRIMARY KEY AUTO_INCREMENT,
@@ -96,13 +105,14 @@ FROM usuario
 JOIN empresa ON usuario.fkEmpresa = empresa.idEmpresa
 JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
 
+
+
 CREATE TABLE servidor(
     idServidor INT PRIMARY KEY AUTO_INCREMENT,
     nomeServidor VARCHAR(45),
     fkEmpresa INT,
     fkLocalizacao INT,
     fkTempoAtividade INT,
-    descricao varchar(100),
     fkSituacao INT,
     FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
     FOREIGN KEY (fkLocalizacao) REFERENCES endereco(idEndereco),
@@ -110,17 +120,83 @@ CREATE TABLE servidor(
     FOREIGN KEY (fkTempoAtividade) REFERENCES periodoAtividade(idEstado)
 );
 
-INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, descricao ,fkSituacao) 
-VALUES ('Servidor 1', 1, 1, 1, null ,2),
-       ('Servidor 2', 2, 2, 2, null ,1),
-       ('Servidor 3', 3, 3, 1, null ,2);
-       
-select * from servidor;       
-       
-UPDATE servidor
-SET descricao = 'Servidor desativado por perda total de capacidade'
-WHERE idServidor = 2;
-    
+INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
+VALUES ('Servidor 1', 1, 1, 1, 2),
+       ('Servidor 2', 2, 2, 2, 1),
+       ('Servidor 3', 3, 3, 1, 2);
+
+
+SELECT 
+    s.nomeServidor AS Servidor,
+    c.nome AS Componente,
+    MIN(l.usoComponente) AS MinimoDeUso,
+    MAX(l.usoComponente) AS MaximoDeUso
+FROM log l
+JOIN componente c ON l.fkComponente = c.idComponente
+JOIN servidor s ON l.fkServidor = s.idServidor
+JOIN situacao st ON s.fkSituacao = st.idSituacao
+WHERE DATE(l.dtHora) = CURDATE()
+  AND st.tipo = 'Ativado'
+GROUP BY s.nomeServidor, c.nome
+ORDER BY s.nomeServidor, c.nome;
+
+
+
+SELECT 
+    s.nomeServidor AS NomeServidor,
+    e.razao_social AS Empresa,
+    st.tipo AS Situacao
+FROM servidor s
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+JOIN situacao st ON s.fkSituacao = st.idSituacao
+ORDER BY st.tipo = 'Desativado', s.nomeServidor;
+
+
+SELECT 
+    s.nomeServidor AS NomeServidor,
+    CASE
+        WHEN COUNT(c.idComponente) >= 2 THEN 'Crítico'
+        ELSE st.tipo
+    END AS Estado
+FROM servidor s
+JOIN situacao st ON s.fkSituacao = st.idSituacao
+LEFT JOIN log l ON l.fkServidor = s.idServidor
+LEFT JOIN componente c ON l.fkComponente = c.idComponente
+LEFT JOIN limiteComponente lc ON c.idComponente = lc.fkComponente
+WHERE l.dtHora >= CURDATE() - INTERVAL 1 DAY
+  AND l.usoComponente > lc.valorLimite
+GROUP BY s.nomeServidor, st.tipo
+ORDER BY s.nomeServidor
+LIMIT 0, 1000;
+
+
+
+
+select * from servidor;
+
+-- Logs para o Servidor 1
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 09:00:00'), 120, 82.9, 1, 1),  -- CPU
+    (CONCAT(CURDATE(), ' 11:00:00'), 120, 53.3, 2, 1),  -- RAM
+    (CONCAT(CURDATE(), ' 14:00:00'), 120, 67.9, 3, 1);-- DISCO
+ -- REDE
+
+-- Logs para o Servidor 2
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 08:30:00'), 120, 50.5, 1, 2),  -- CPU
+    (CONCAT(CURDATE(), ' 10:45:00'), 120, 78.4, 2, 2),  -- RAM
+    (CONCAT(CURDATE(), ' 13:15:00'), 120, 82.9, 3, 2); -- DISCO
+  -- REDE
+
+-- Logs para o Servidor 3
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 07:45:00'), 120, 85.1, 1, 3),  -- CPU
+    (CONCAT(CURDATE(), ' 09:30:00'), 120, 78.3, 2, 3),  -- RAM
+    (CONCAT(CURDATE(), ' 12:00:00'), 120, 56.0, 3, 3);  -- DISCO
+
 
 -- Tabela componente
 CREATE TABLE componente(
@@ -138,6 +214,9 @@ VALUES ('CPU', 'Intel', 1, 2),
        ('RAM', 'Corsair', 1, 1),
        ('DISCO', 'Seagate', 1, 3);
        
+
+      
+
 -- Tabela log
 CREATE TABLE log(
     idLog INT PRIMARY KEY AUTO_INCREMENT,
@@ -173,6 +252,8 @@ INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (84.0, 2);
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (90.0, 3); 
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (3.0, 4);
 
+
+
 select * from componente;
 select * from limitecomponente;
 
@@ -189,24 +270,7 @@ CREATE TABLE alerta(
     FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );
 
-create table tabelaTrovo(
-	idTrovo int primary key auto_increment,
-    qtdServicosAtivos int,
-    mudancaContexto int,
-    cargaSistema int,
-    taxaTransfarencia int,
-    errosTcp int,
-    consumoMemoriaSwap int,
-    totalMemoriaRam bigint,
-    totalMemoriaSwap bigint,
-    ioDisco int,
-    espacoLivreDisco int,
-    espacoTotalDisco int,
-    fkComponente int,
-	FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente)
-);
 
-SELECT COALESCE(totalMemoriaSwap, 0) AS totalMemoriaSwap FROM tabelaTrovo;
 
  SELECT 
     c.nome AS Componente,
@@ -219,11 +283,16 @@ WHERE a.data >= CURDATE() - INTERVAL 30 DAY
 GROUP BY c.nome
 ORDER BY Alerta DESC;
 
+
 select * from alerta;
 
 SELECT * FROM alerta WHERE data IS NOT NULL;
 
 SELECT * FROM alerta WHERE data >= CURDATE() - INTERVAL 30 DAY;
+
+
+
+
 
 -- View para análise do uso dos componentes
 CREATE VIEW analiseUsoComponentes AS
@@ -243,6 +312,7 @@ JOIN situacao ON servidor.fkSituacao = situacao.idSituacao;
 
 INSERT INTO usuario(nome,email,senha,fktipoUsuario) VALUES ("Julia Araujo", "julia.araujo","12345",1);
 
+
 CREATE VIEW usuarioDados AS SELECT 
 	usuario.idUsuario as idUsuario,
     usuario.nome AS nomeUsuario,
@@ -256,3 +326,7 @@ JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
 
 SELECT * FROM tipoUsuario;
 SELECT * FROM usuario;
+
+
+
+
