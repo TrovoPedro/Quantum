@@ -1,4 +1,3 @@
-
 function listarServidor() {
     fetch(`/previsao/buscarPorId`, {
         method: "GET",
@@ -42,7 +41,7 @@ function listarServidor() {
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                 <td>${item.nomeServidor}</td>
+                   <td>${item.nomeServidor}</td>
                     <td>${downtimeFormatado}</td>`
 
                         ;
@@ -181,12 +180,90 @@ async function gerarHeatmap() {
     chart.render();
 }
 
- gerarHeatmap()
+gerarHeatmap()
 
-//  LISTAGEM SELECT DE SERVIDOR
+/* Card dos servidores */
 
-function listarSelect() {
-    fetch(`/previsao/buscarSelect`, {
+function aparecerMediaRam() {
+    // Seleciona o modal pelo ID ou classe (ajuste de acordo com seu HTML)
+    const modalMediaRam = document.getElementById('mediaRam');
+    const pai = document.getElementById('div_pai');
+
+    // Altera o estilo do modal para torná-lo visível
+    modalMediaRam.style.display = 'block';
+    pai.style.filter = "blur(2px)";
+}
+
+function esconderMediaRam() {
+    const modalMediaRam = document.getElementById('mediaRam');
+    const pai = document.getElementById('div_pai');
+
+    modalMediaRam.style.display = 'none';
+    pai.style.filter = "blur(0)";
+}
+
+function aparecerPicoRam() {
+    // Seleciona o modal pelo ID ou classe (ajuste de acordo com seu HTML)
+    const modalPicoRam = document.getElementById('picoRam');
+    const pai = document.getElementById('div_pai');
+
+
+    // Altera o estilo do modal para torná-lo visível
+    modalPicoRam.style.display = 'block';
+    pai.style.filter = "blur(2px)";
+}
+
+function esconderPicoRam() {
+    const modalPicoRam = document.getElementById('picoRam');
+    const pai = document.getElementById('div_pai');
+
+    modalPicoRam.style.display = 'none';
+    pai.style.filter = "blur(0)";
+}
+
+
+function aparecerMediaCpu() {
+    // Seleciona o modal pelo ID ou classe (ajuste de acordo com seu HTML)
+    const modalMediaCpu = document.getElementById('mediaCpu');
+    const pai = document.getElementById('div_pai');
+
+    // Altera o estilo do modal para torná-lo visível
+    modalMediaCpu.style.display = 'block';
+    pai.style.filter = "blur(2px)";
+}
+
+function esconderMediaCpu() {
+    const modalMediaCpu = document.getElementById('mediaCpu');
+    const pai = document.getElementById('div_pai');
+
+    modalMediaCpu.style.display = 'none';
+    pai.style.filter = "blur(0)";
+}
+
+
+function aparecerPicoCpu() {
+    // Seleciona o modal pelo ID ou classe (ajuste de acordo com seu HTML)
+    const modalPicoCpu = document.getElementById('picoCpu');
+    const pai = document.getElementById('div_pai');
+
+    // Altera o estilo do modal para torná-lo visível
+    modalPicoCpu.style.display = 'block';
+    pai.style.filter = "blur(2px)";
+}
+
+function esconderPicoCpu() {
+    const modalPicoCpu = document.getElementById('picoCpu');
+    const pai = document.getElementById('div_pai');
+
+    modalPicoCpu.style.display = 'none';
+    pai.style.filter = "blur(0)";
+}
+
+// Obter a data atual
+const hoje = new Date();
+
+function listarmediaRam() {
+    fetch(`/previsao/buscarmediaRam`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -194,73 +271,45 @@ function listarSelect() {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json();
+            return response.json(); // Transformando a resposta em JSON
         })
         .then(data => {
-            console.log(data);
+            console.log(data); // Verifique no console se a resposta está conforme esperado
 
-            // Obtém a div onde o select será inserido
-            const tendenciaDiv = document.getElementById('select-server');
-            tendenciaDiv.innerHTML = ''; // Limpa o conteúdo anterior da div
+            const tbody = document.querySelector('.listamediaRam tbody');
+            tbody.innerHTML = ''; // Limpar a tabela antes de adicionar novas linhas
 
-            if (data.length === 0) {
-                // Se não houver servidores, exibe uma mensagem
-                const noDataMessage = document.createElement('p');
-                noDataMessage.textContent = 'Nenhum servidor encontrado.';
-                noDataMessage.style.color = '#fff';
-                noDataMessage.style.textAlign = 'center';
-                tendenciaDiv.appendChild(noDataMessage);
+            if (!data || data.length === 0) {  // Verificar se data é nulo ou um array vazio
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 2;  // Ajuste conforme o número de colunas da sua tabela
+                cell.textContent = 'Nenhum Registro encontrado.';
+                row.appendChild(cell);
+                tbody.appendChild(row);
             } else {
-                // Cria o elemento select
-                const selectElement = document.createElement('select');
-                selectElement.classList.add('custom-select'); // Adiciona uma classe para o CSS
-
-                // Adiciona as opções ao select
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = 'Selecione um servidor';
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                selectElement.appendChild(defaultOption);
-
+                // Percorrer os dados e adicionar as linhas à tabela
                 data.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.idServidor; // Valor da opção (ID do servidor)
-                    option.textContent = item.nomeServidor; // Texto da opção (nome do servidor)
-                    selectElement.appendChild(option);
-                });
 
-                // Insere o select na div
-                tendenciaDiv.appendChild(selectElement);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                   <td>${item.nomeServidor}</td>
+                    <td>${item.media_ram} %</td>`
 
-                // Adiciona um evento de mudança ao select (opcional)
-                selectElement.addEventListener('change', event => {
-                    const selectedValue = event.target.value;
-                    console.log(`Servidor selecionado: ${selectedValue}`);
-                    // Aqui você pode adicionar lógica para atualizar o gráfico ou outros elementos com base no servidor selecionado
+                        ;
+                    tbody.appendChild(row);
                 });
             }
         })
         .catch(error => {
-            console.error('Houve um erro ao capturar os dados:', error);
-
-            // Exibe uma mensagem de erro
-            const errorMessage = document.createElement('p');
-            errorMessage.textContent = 'Erro ao carregar os servidores.';
-            errorMessage.style.color = '#ff0000';
-            errorMessage.style.textAlign = 'center';
-            document.getElementById('select-server').appendChild(errorMessage);
+            console.error('Houve um erro ao capturar os dados', error);
         });
 }
 
-// Chama a função para listar os servidores ao carregar a página
-listarSelect();
 
-// LISTAGEM DE COMPONENTE
-function listarComponente() {
-    fetch(`/previsao/buscarComponente`, {
+function listarmediaCpu() {
+    fetch(`/previsao/buscarmediaCpu`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -268,66 +317,161 @@ function listarComponente() {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json();
+            return response.json(); // Transformando a resposta em JSON
         })
         .then(data => {
-            console.log(data);
+            console.log(data); // Verifique no console se a resposta está conforme esperado
 
-            // Obtém a div onde o select será inserido
-            const tendenciaDiv = document.getElementById('select-componente');
-            tendenciaDiv.innerHTML += ''; // Limpa o conteúdo anterior da div
+            const tbody = document.querySelector('.listamediaCpu tbody');
+            tbody.innerHTML = ''; // Limpar a tabela antes de adicionar novas linhas
 
-            if (data.length === 0) {
-                // Se não houver servidores, exibe uma mensagem
-                const noDataMessage = document.createElement('p');
-                noDataMessage.textContent = 'Nenhum componente encontrado.';
-                noDataMessage.style.color = '#fff';
-                noDataMessage.style.textAlign = 'center';
-                tendenciaDiv.appendChild(noDataMessage);
+            if (!data || data.length === 0) {  // Verificar se data é nulo ou um array vazio
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 2;  // Ajuste conforme o número de colunas da sua tabela
+                cell.textContent = 'Nenhum Registro encontrado.';
+                row.appendChild(cell);
+                tbody.appendChild(row);
             } else {
-                // Cria o elemento select
-                const selectElement = document.createElement('select');
-                selectElement.classList.add('custom-select'); // Adiciona uma classe para o CSS
-
-                // Adiciona as opções ao select
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = 'Selecione um componente';
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                selectElement.appendChild(defaultOption);
-
+                // Percorrer os dados e adicionar as linhas à tabela
                 data.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.idComponente; // Valor da opção (ID do servidor)
-                    option.textContent = item.nome; // Texto da opção (nome do servidor)
-                    selectElement.appendChild(option);
-                });
 
-                // Insere o select na div
-                tendenciaDiv.appendChild(selectElement);
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                   <td>${item.nomeServidor}</td>
+                    <td>${item.media_cpu} %</td>`
 
-                // Adiciona um evento de mudança ao select (opcional)
-                selectElement.addEventListener('change', event => {
-                    const selectedValue = event.target.value;
-                    console.log(`Servidor selecionado: ${selectedValue}`);
-                    // Aqui você pode adicionar lógica para atualizar o gráfico ou outros elementos com base no servidor selecionado
+                        ;
+                    tbody.appendChild(row);
                 });
             }
         })
         .catch(error => {
-            console.error('Houve um erro ao capturar os dados:', error);
-
-            // Exibe uma mensagem de erro
-            const errorMessage = document.createElement('p');
-            errorMessage.textContent = 'Erro ao carregar os servidores.';
-            errorMessage.style.color = '#ff0000';
-            errorMessage.style.textAlign = 'center';
-            document.getElementById('select-componente').appendChild(errorMessage);
+            console.error('Houve um erro ao capturar os dados', error);
         });
 }
 
-// Chama a função para listar os servidores ao carregar a página
-listarComponente();
+
+function listarpicoCpu() {
+    fetch(`/previsao/buscarpicoCpu`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Transformando a resposta em JSON
+        })
+        .then(data => {
+            console.log(data); // Verifique no console se a resposta está conforme esperado
+
+            const tbody = document.querySelector('.listapicoCpu tbody');
+            tbody.innerHTML = ''; // Limpar a tabela antes de adicionar novas linhas
+
+            if (!data || data.length === 0) {  // Verificar se data é nulo ou um array vazio
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 2;  // Ajuste conforme o número de colunas da sua tabela
+                cell.textContent = 'Nenhum Registro encontrado.';
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            } else {
+                // Percorrer os dados e adicionar as linhas à tabela
+                data.forEach(item => {
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                   <td>${item.nomeServidor}</td>
+                    <td>${item.maximo_usoCpu} %</td>
+                     <td>${item.minimo_usoCpu} %</td>`
+
+                        ;
+                    tbody.appendChild(row);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados', error);
+        });
+}
+
+
+function listarpicoRam() {
+    fetch(`/previsao/buscarpicoRam`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Transformando a resposta em JSON
+        })
+        .then(data => {
+            console.log(data); // Verifique no console se a resposta está conforme esperado
+
+            const tbody = document.querySelector('.listapicoRam tbody');
+            tbody.innerHTML = ''; // Limpar a tabela antes de adicionar novas linhas
+
+            if (!data || data.length === 0) {  // Verificar se data é nulo ou um array vazio
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 2;  // Ajuste conforme o número de colunas da sua tabela
+                cell.textContent = 'Nenhum Registro encontrado.';
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            } else {
+                // Percorrer os dados e adicionar as linhas à tabela
+                data.forEach(item => {
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                   <td>${item.nomeServidor}</td>
+                    <td>${item.maximo_usoRam} %</td>
+                     <td>${item.minimo_usoRam} %</td>`
+
+                        ;
+                    tbody.appendChild(row);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados', error);
+        });
+}
+
+// Função para calcular o primeiro e último dia da semana
+function calcularSemana(data) {
+    const primeiroDia = new Date(data); // Clonar a data
+    const ultimoDia = new Date(data);
+
+    // Ajustar para o início da semana (segunda-feira)
+    primeiroDia.setDate(data.getDate() - data.getDay() + 1);
+
+    // Ajustar para o final da semana (domingo)
+    // ultimoDia.setDate(data.getDate() - data.getDay() + 6);
+
+    return { primeiroDia, ultimoDia };
+}
+
+// Formatar uma data no formato DD/MM/YY
+function formatarData(data) {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
+// Calcular os limites da semana
+const { primeiroDia, ultimoDia } = calcularSemana(hoje);
+
+// Atualizar o conteúdo do parágrafo na div "previsao"
+const previsaoTexto = document.querySelector('.previsao p');
+previsaoTexto.innerHTML = `Monitoramento da semana <br> ${formatarData(primeiroDia)} - ${formatarData(ultimoDia)}`;

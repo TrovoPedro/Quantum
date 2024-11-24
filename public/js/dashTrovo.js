@@ -33,7 +33,7 @@ function validarEscolha() {
         buscarServicosAtivos()
     } else if (valorInput == 3) {
         document.getElementById('pai-conteudo4').style.display = 'flex';
-        plotarGraficosDisco()
+        buscarConsumoDisco()
     } else if (valorInput == 4) {
         document.getElementById('pai-conteudo2').style.display = 'flex';
         buscarPerdaPacote()
@@ -62,6 +62,8 @@ let graficoContexto;
 let graficoCarga;
 let graficoRam;
 let graficoSwap;
+let graficoDisco
+let graficoIo
 
 function buscarConsumoCpu() {
     fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' })
@@ -80,6 +82,7 @@ function buscarConsumoCpu() {
         });
 }
 
+
 function plotarGraficosCpu(resposta) {
     const ctx = document.getElementById('graficoUsoCpu').getContext('2d');
 
@@ -88,90 +91,114 @@ function plotarGraficosCpu(resposta) {
         return;
     }
 
-    if (resposta.length === 0) {
-        console.warn('Nenhum dado encontrado para o gráfico.');
-        return;
-    }
+    // Extração e conversão dos dados
+    const dados = resposta.map(item => parseFloat(item.usoComponente));
+    console.log('Dados extraídos e convertidos:', dados);
 
-    const dados = resposta.map(item => item.usoComponente);
-    console.log('Dados extraídos:', dados);
-
-    if (!dados.every(d => typeof d === 'number')) {
+    // Verifica se todos os valores são numéricos
+    if (!dados.every(d => !isNaN(d))) {
         console.error("Os dados extraídos contêm valores não numéricos:", dados);
         return;
     }
 
     const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
 
-    if (graficoCpu) {
-        graficoCpu.destroy();
-    }
+    let it = 0;  // Variável de controle para percorrer os dados
 
-    graficoCpu = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Uso de CPU',
-                data: dados,
-                backgroundColor: '#e234d4',
-                borderColor: '#e234d4',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#FFFF'
-                    },
-                    grid: {
-                        color: '#6c6877af'
-                    },
-                    border: {
-                        color: '#6c6877af'
-                    }
-                },
-                x: {
-                    ticks: {
-                        display: false
-                    },
-                    grid: {
-                        color: '#6c6877af'
-                    },
-                    border: {
-                        color: '#6c6877af'
-                    }
-                }
+    // Se o gráfico já existir, apenas atualiza os dados
+    if (graficoCpu) {
+        graficoCpu.data.datasets[0].data = [];  // Limpa os dados anteriores
+        graficoCpu.data.labels = [];            // Limpa as labels anteriores
+        graficoCpu.update();  // Atualiza o gráfico sem recriar
+    } else {
+        // Se o gráfico não existir, cria o gráfico
+        graficoCpu = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso de CPU',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
             },
-            plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        color: '#FFFF'
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10, // Garantir que o intervalo seja de 10 em 10
+                            max: 100,     // Forçar o valor máximo para 100
+                            min: 0,       // Forçar o valor mínimo para 0
+                            callback: function (value) {
+                                return value + '%'; // Adiciona o símbolo de porcentagem
+                            },
+                            color: '#FFFF'
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af',
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false
+                        },
+                        grid: {
+                            color: '#6c6877af'
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
                     }
                 },
-                tooltip: {
-                    titleColor: '#FFFF',
-                    bodyColor: '#FFFF'
-                },
-                title: {
-                    display: true,
-                    text: 'Consumo de CPU',
-                    color: '#FFFF',
-                    font: {
-                        size: 25,
-                        weight: 'bold'
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF'
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Uso de CPU',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
                     }
                 }
             }
-        }
-    });
-}
+        });
+    }
 
+    // Função para atualizar o gráfico com os dados
+    const atualizarGrafico = () => {
+        if (it >= dados.length) {
+            clearInterval(intervalo);  // Quando terminar, limpa o intervalo
+            return;
+        }
+
+        graficoCpu.data.datasets[0].data.push(dados[it]);
+        graficoCpu.data.labels.push(labels[it % labels.length]);
+        graficoCpu.update();  // Atualiza o gráfico com os novos dados
+        it++;  // Incrementa o índice para o próximo dado
+    };
+
+    // Inicia a atualização a cada 1 segundo (1000 ms)
+    const intervalo = setInterval(atualizarGrafico, 1000);
+}
 
 /** fetch e plotagem do gráfico de mudança de contexto*/
 
@@ -441,7 +468,6 @@ function buscarServicosAtivos() {
         });
 }
 
-
 /** fetch e plotagem do gráfico de taxa de transferencia*/
 
 /** fetch e plotagem do gráfico de erros de TCP*/
@@ -581,7 +607,7 @@ function plotarGraficosRam(resposta) {
     let index = 0;
 
     if (graficoRam) {
-        graficoRam.destroy();
+        graficoRam.destroy();  // Se já existir, destrói o gráfico anterior
     }
 
     // Extração dos dados
@@ -597,14 +623,13 @@ function plotarGraficosRam(resposta) {
 
     // Função para atualizar o gráfico
     const atualizarGrafico = () => {
-
         if (index >= dados.length) {
             clearInterval(intervalo);
             return;
         }
 
         // Atualiza os dados do gráfico
-        graficoRam.data.datasets[0].data.push(dados[index]); 
+        graficoRam.data.datasets[0].data.push(dados[index]);
         graficoRam.data.labels.push(labels[index % labels.length]);
 
         // Atualiza o gráfico
@@ -618,7 +643,7 @@ function plotarGraficosRam(resposta) {
         data: {
             labels: [],  // Começa sem rótulos
             datasets: [{
-                label: 'Uso de CPU',
+                label: 'Uso de RAM',
                 data: [],  // Começa com dados vazios
                 backgroundColor: '#e234d4',
                 borderColor: '#e234d4',
@@ -632,13 +657,19 @@ function plotarGraficosRam(resposta) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                        stepSize: 10, // Garantir que o intervalo seja de 10 em 10
+                        max: 100,     // Forçar o valor máximo para 100
+                        min: 0,       // Forçar o valor mínimo para 0
+                        callback: function (value) {
+                            return value + '%'; // Adiciona o símbolo de porcentagem
+                        },
+                        color: '#FFFF'
                     },
                     grid: {
-                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                        color: '#6c6877af',
                     },
                     border: {
-                        color: '#6c6877af', // Cor da linha do eixo Y
+                        color: '#6c6877af',
                     }
                 },
                 x: {
@@ -679,13 +710,13 @@ function plotarGraficosRam(resposta) {
 
     // Atualiza o gráfico a cada 1 segundo, por exemplo
     const intervalo = setInterval(atualizarGrafico, 1000);
-
 }
 
-/** fetch e plotagem do gráfico de uso de memoria SWAP*/
+
+/*fetch e plotagem do gráfico de uso de memoria SWAP*/
 
 function buscarConsumoSwap() {
-    fetch(`/estatisticaTrovo/buscarUsoMemoriaRam`, { cache: 'no-store' })
+    fetch(`/estatisticaTrovo/buscarUsoMemoriaSwap`)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -707,106 +738,119 @@ function plotarGraficoSwap(resposta) {
     let index = 0;
 
     if (graficoSwap) {
-        graficoSwap.destroy();
+        graficoSwap.data.datasets[0].data = [];
+        graficoSwap.data.labels = [];
+        graficoSwap.update();
     }
 
-    // Extração dos dados
-    const dados = resposta.map(item => item.usoComponente);
-    console.log('Dados extraídos:', dados);
+    if (Array.isArray(resposta)) {
+        const dados = resposta.map(item => item.consumoMemoriaSwap);
 
-    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+        console.log('Dados extraídos:', dados);
 
-    if (dados.length === 0) {
-        console.error('Nenhum dado encontrado para o gráfico.');
-        return;
-    }
+        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
 
-    // Função para atualizar o gráfico
-    const atualizarGrafico = () => {
-
-        if (index >= dados.length) {
-            clearInterval(intervalo);
+        if (dados.length === 0) {
+            console.error('Nenhum dado encontrado para o gráfico.');
             return;
         }
 
-        graficoSwap.data.datasets[0].data.push(dados[index]); 
-        graficoSwap.data.labels.push(labels[index % labels.length]);
+        // Função para atualizar o gráfico
+        const atualizarGrafico = () => {
+            if (index >= dados.length) {
+                clearInterval(intervalo);
+                return;
+            }
 
-        graficoSwap.update();
-        index++;
-    };
+            // Adiciona os dados no gráfico
+            graficoSwap.data.datasets[0].data.push(dados[index]);
+            graficoSwap.data.labels.push(labels[index % labels.length]);
 
-    graficoSwap = new Chart(ctx3, {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Uso de CPU',
-                data: [],
-                backgroundColor: '#e234d4',
-                borderColor: '#e234d4',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#FFFF' // Cor dos rótulos do eixo Y
-                    },
-                    grid: {
-                        color: '#6c6877af', // Cor das linhas de grade horizontais
-                    },
-                    border: {
-                        color: '#6c6877af', // Cor da linha do eixo Y
-                    }
-                },
-                x: {
-                    ticks: {
-                        display: false,  // Esconde os rótulos do eixo X
-                    },
-                    grid: {
-                        color: '#6c6877af', // Cor das linhas de grade verticais
-                    },
-                    border: {
-                        color: '#6c6877af' // Cor da linha do eixo X
-                    }
-                }
+            graficoSwap.update();  // Atualiza o gráfico
+            index++;
+        };
+
+        // Criação do gráfico
+        graficoSwap = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso de Memória SWAP',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
             },
-            plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        color: '#FFFF' // Cor da legenda
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10, // Garantir que o intervalo seja de 10 em 10
+                            max: 100,     // Forçar o valor máximo para 100
+                            min: 0,       // Forçar o valor mínimo para 0
+                            callback: function (value) {
+                                return value + 'MB'; // Adiciona o símbolo de porcentagem
+                            },
+                            color: '#FFFF'
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af',
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false,  // Esconde os rótulos do eixo X
+                        },
+                        grid: {
+                            color: '#6c6877af', // Cor das linhas de grade verticais
+                        },
+                        border: {
+                            color: '#6c6877af' // Cor da linha do eixo X
+                        }
                     }
                 },
-                tooltip: {
-                    titleColor: '#FFFF', // Cor do título do tooltip
-                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
-                },
-                title: {
-                    display: true,
-                    text: 'Consumo de memória SWAP', // Título do gráfico
-                    color: '#FFFF',
-                    font: {
-                        size: 25,
-                        weight: 'bold'
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF' // Cor da legenda
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF', // Cor do título do tooltip
+                        bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                    },
+                    title: {
+                        display: true,
+                        text: 'Consumo de memória SWAP', // Título do gráfico
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 
-    // Atualiza o gráfico a cada 1 segundo, por exemplo
-    const intervalo = setInterval(atualizarGrafico, 1000);
+        // Atualiza o gráfico a cada 1 segundo
+        const intervalo = setInterval(atualizarGrafico, 1000);
+    } else {
+        console.error('A resposta da API não é um array.', resposta);
+    }
 }
 
 /* fetch para buscar total de memoria RAM */
 
-function buscarTotalMemoriaRam(){
+function buscarTotalMemoriaRam() {
     const totalRam = document.getElementById('totalRam');
 
     fetch(`/estatisticaTrovo/buscarTotalMemoriaRam`, { cache: 'no-store' })
@@ -831,7 +875,7 @@ function buscarTotalMemoriaRam(){
 
 /* fetch para buscar total de memoria SWAP */
 
-function buscarTotalMemoriaSwap(){
+function buscarTotalMemoriaSwap() {
     const totalSwap = document.getElementById('totalSwap');
 
     fetch(`/estatisticaTrovo/buscarTotalMemoriaSwap`, { cache: 'no-store' })
@@ -856,12 +900,265 @@ function buscarTotalMemoriaSwap(){
 
 /** fetch e plotagem do gráfico de uso total de disco*/
 
-function plotarGraficosDisco() {
-    const ctx = document.getElementById('graficoDisco').getContext('2d');
+function buscarConsumoDisco() {
+    fetch(`/estatisticaTrovo/buscarUsoDisco`)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficosDisco(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficosDisco(resposta) {
+    const ctx4 = document.getElementById('graficoDisco').getContext('2d');
+
+    let index = 0;
+
+    if (graficoDisco) {
+        graficoDisco.data.datasets[0].data = [];
+        graficoDisco.data.labels = [];
+        graficoDisco.update();
+    }
+
+    if (Array.isArray(resposta)) {
+        const dados = resposta.map(item => item.dois_primeiros_digitos);
+
+        console.log('Dados extraídos:', dados);
+
+        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+        if (dados.length === 0) {
+            console.error('Nenhum dado encontrado para o gráfico.');
+            return;
+        }
+
+        const atualizarGrafico = () => {
+            if (index >= dados.length) {
+                clearInterval(intervalo);
+                return;
+            }
+
+            // Adiciona os dados no gráfico
+            graficoDisco.data.datasets[0].data.push(dados[index]);
+            graficoDisco.data.labels.push(labels[index % labels.length]);
+
+            graficoDisco.update();
+            index++;
+        };
+
+        // Criação do gráfico
+        graficoDisco = new Chart(ctx4, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso de Disco',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            },
+                            color: '#FFFF'
+                        },
+                        grid: {
+                            color: '#6c6877af', 
+                        },
+                        border: {
+                            color: '#6c6877af', 
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false, 
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF' 
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF', 
+                        bodyColor: '#FFFF',  
+                    },
+                    title: {
+                        display: true,
+                        text: 'Consumo de Disco',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Atualiza o gráfico a cada 1 segundo
+        const intervalo = setInterval(atualizarGrafico, 1000);
+    } else {
+        console.error('A resposta da API não é um array.', resposta);
+    }
 
 }
 
 /** fetch e plotagem do gráfico de I/O de disco*/
+
+function buscarConsumoIoDisco() {
+    fetch(`/estatisticaTrovo/buscarIoDisco`)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarIoDisco(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarIoDisco(resposta) {
+    const ctx5 = document.getElementById('graficoIo').getContext('2d');
+
+    let index = 0;
+
+    if (graficoIo) {
+        graficoIo.data.datasets[0].data = [];
+        graficoIo.data.labels = [];
+        graficoIo.update();
+    }
+
+    if (Array.isArray(resposta)) {
+        const dados = resposta.map(item => item.ioDisco);
+
+        console.log('Dados extraídos:', dados);
+
+        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+        if (dados.length === 0) {
+            console.error('Nenhum dado encontrado para o gráfico.');
+            return;
+        }
+
+        const atualizarGrafico = () => {
+            if (index >= dados.length) {
+                clearInterval(intervalo);
+                return;
+            }
+
+            // Adiciona os dados no gráfico
+            graficoIo.data.datasets[0].data.push(dados[index]);
+            graficoIo.data.labels.push(labels[index % labels.length]);
+
+            graficoIo.update();
+            index++;
+        };
+
+        // Criação do gráfico
+        graficoIo = new Chart(ctx5, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Escrita no Disco',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+                        grid: {
+                            color: '#6c6877af', 
+                        },
+                        border: {
+                            color: '#6c6877af', 
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false, 
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF' 
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF', 
+                        bodyColor: '#FFFF',  
+                    },
+                    title: {
+                        display: true,
+                        text: 'Consumo de Disco',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Atualiza o gráfico a cada 1 segundo
+        const intervalo = setInterval(atualizarGrafico, 1000);
+    } else {
+        console.error('A resposta da API não é um array.', resposta);
+    }
+
+}
 
 // Fetch do numero de alertas
 
@@ -877,13 +1174,13 @@ function buscarQtdAlerta() {
                     const count = parseInt(resposta, 10);
                     console.log(`Valor de count como inteiro: ${count}`);
 
-                    if(valorInput == 1){
+                    if (valorInput == 1) {
                         n_alertasRam.innerHTML = count;
-                    }else if(valorInput == 2){
+                    } else if (valorInput == 2) {
                         n_alertas.innerHTML = count;
-                    }else if(valorInput == 3){
+                    } else if (valorInput == 3) {
                         n_alertas.innerHTML = count;
-                    }else{
+                    } else {
                         n_alertas.innerHTML = count;
                     }
 

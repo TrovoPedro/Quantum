@@ -17,8 +17,6 @@ open class Main {
             val dadosRecebidos = Dados();
             dadosRecebidos.dadosRepositorio = dadosRepositorio
 
-            val looca = Looca();
-
             println("Informe seu nome: ");
             val nomeUsuario = readln();
 
@@ -64,6 +62,7 @@ open class Main {
                         capturaAtiva = if (!capturaAtiva) {
                             println("Iniciando captura de rede...");
                             dadosRecebidos.iniciarCaptura();
+                            dadosRecebidos.capturarIoDisco()
                             //dadosRecebidos.alertar(10.0);
                             true
                         } else {

@@ -8,10 +8,31 @@ function buscarPorId(req, res) {
   });
 }
 
-function buscarSelect(req, res) {
-  var idServidor = req.params.idServidor;
+function buscarmediaRam(req, res) {
 
-  previsaoModel.buscarPorId(idServidor).then((resultado) => {
+  previsaoModel.buscarmediaRam().then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
+function buscarmediaCpu(req, res) {
+
+  previsaoModel.buscarmediaCpu().then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
+
+function buscarpicoCpu(req, res) {
+
+  previsaoModel.buscarpicoCpu().then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
+function buscarpicoRam(req, res) {
+
+  previsaoModel.buscarpicoRam().then((resultado) => {
     res.status(200).json(resultado);
   });
 }
@@ -25,11 +46,17 @@ function buscarComponente(req, res) {
 }
 
 function buscarTendenciaUsoRam(req, res) {
-  previsaoModel.buscarTendenciaUsoRamPorDiaSemana().then((resultado) => {
+  var componenteSelect = req.params.componenteId;
+  var servidorSelect = req.params.servidorId;
+
+  console.log("Componente Selecionado:", componenteSelect);
+  console.log("Servidor Selecionado:", servidorSelect);
+
+  previsaoModel.buscarTendenciaUsoRamPorDiaSemana(componenteSelect, servidorSelect).then((resultado) => {
     res.status(200).json(resultado);
   }).catch((erro) => {
     console.log(erro);
-    res.status(500).json({ erro: "Erro ao buscar tendência de uso de RAM." });
+    res.status(500).json({ erro: "Erro ao buscar tendência de uso." });
   });
 }
 
@@ -82,7 +109,10 @@ async function buscarHeatmap(req, res) {
 
 module.exports = {
   buscarPorId,
-  buscarSelect,
+  buscarmediaRam,
+  buscarmediaCpu,
+  buscarpicoCpu,
+  buscarpicoRam,
   buscarComponente,
   buscarTendenciaUsoRam,
   buscarHeatmap

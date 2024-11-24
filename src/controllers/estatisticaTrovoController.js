@@ -186,8 +186,8 @@ function buscarUsoDisco(req, res) {
     );
 }
 
-function buscarIODisco(req, res) {
-    estatisticaTrovoModel.buscarIODisco().then(resultado => {
+function buscarIoDisco(req, res) {
+    estatisticaTrovoModel.buscarIoDisco().then(resultado => {
         res.json(resultado)
     }).catch(
         function (erro) {
@@ -237,7 +237,7 @@ module.exports = {
     buscarTotalMemoriaRam,
     buscarTotalMemoriaSwap,
     buscarUsoDisco,
-    buscarIODisco,
+    buscarIoDisco,
     buscarTotalDisco,
     buscarEspacoLivre,
 }
