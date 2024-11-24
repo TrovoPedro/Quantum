@@ -241,3 +241,66 @@ body {
     justify-content: space-evenly;
     width: 100%;
 }
+
+.fechar {
+    background-color: #8f46bc;
+    width: 70px;
+    height: 25px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(110, 17, 136, 0.3);
+    margin-top: 7px;
+}
+
+/*DIV COMPONENTES*/
+
+/* Estilo das seções para RAM e CPU */
+.mediaRam, .mediaCpu, .picoRam, .picoCpu {
+    display: none; /* Oculto por padrão */
+    position: fixed;
+    width: 500px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 20; /* Acima do overlay */
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.mediaRam h4, .mediaCpu h4, .picoRam h4, .picoCpu h4 {
+    color: #9b4dca;
+}
+
+.mediaRam hr, .mediaCpu hr, .picoRam hr, .picoCpu hr {
+    border: 1px solid #9b4dca;
+}
+
+/* Tabelas */
+.mediaRam table, .mediaCpu table, .picoRam table, .picoCpu table {
+    width: 500px;
+    border-collapse: collapse;
+}
+
+.mediaRam .table-header, .mediaCpu .table-header, .picoRam .table-header, .picoCpu .table-header {
+    background-color: #dedddda0;
+    text-align: left;
+    font-weight: bold;
+}
+
+.mediaRam th, td, .mediaCpu th, td, .picoRam th, td, .picoCpu th, td {
+    padding: 9px;
+    border: 1px solid #444;
+}
+
+.mediaRam th, .mediaCpu th, .picoRam th, .picoCpu th {
+    color: #9b4dca;
+}
+.mediaRam td, .mediaCpu td, .picoRam td, .picoCpu td {
+    color: #000;
+}

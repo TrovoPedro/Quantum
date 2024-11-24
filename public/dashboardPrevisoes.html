@@ -11,92 +11,173 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="listarServidor()" >
+<body onload="listarServidor()">
 
-<div class="pai">
-    <div class="NavBar">
-        <div>
-            <img class="LogoNavBar" src="./assets/Logo Quantum.svg" alt="">
+    <div class="pai" id="div_pai">
+        <div class="NavBar">
+            <div>
+                <img class="LogoNavBar" src="./assets/Logo Quantum.svg" alt="">
+            </div>
+            <div class="div1">
+                <a class="botaoNavBar" href="">Home</a>
+                <a class="botaoNavBar" href="">Previsões</a>
+                <a class="botaoNavBar" href="">Funcionário</a>
+                <a class="botaoNavBar" href="">Servidor</a>
+                <a class="botaoNavBar" href="">Perfil</a>
+            </div>
         </div>
-        <div class="div1">
-            <a class="botaoNavBar" href="">Home</a>
-            <a class="botaoNavBar" href="">Previsões</a>
-            <a class="botaoNavBar" href="">Funcionário</a>
-            <a class="botaoNavBar" href="">Servidor</a>
-            <a class="botaoNavBar" href="">Perfil</a>
-        </div>
-    </div>
 
-    <div class="alinha">
-        <div class="previsao">
-            <h2>Previsões</h2>
-            <p>Monitoramento da semana <br> 04/11/24 - 10/11/24</p>
-        </div>
-        <div class="mediaepico">
-            <div class="media">
-                <h3> Média de uso - RAM e CPU</h3>
-                <p style="font-size: x-small;">Clique no ícone para vizualizar a média por servidor</p>
-                <div class="componentes">
-                    <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM">
-                    <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU">
+        <div class="alinha">
+            <div class="previsao">
+                <h2>Previsões</h2>
+                <p>Monitoramento da semana <br> 04/11/24 - 10/11/24</p>
+            </div>
+            <div class="mediaepico">
+                <div class="media">
+                    <h3> Média de uso - RAM e CPU</h3>
+                    <p style="font-size: x-small;">Clique no ícone para vizualizar a média por servidor</p>
+                    <div class="componentes">
+                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM" onclick="aparecerMediaRam(), listarmediaRam()">
+                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU" onclick="aparecerMediaCpu(), listarmediaCpu()">
+                    </div>
+                </div>
+                <div class="media">
+                    <h3> Pico de uso - RAM e CPU</h3>
+                    <p style="font-size: x-small;">Clique no ícone para vizualizar o pico de uso por servidor</p>
+                    <div class="componentes">
+                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM" onclick="aparecerPicoRam(), listarpicoRam()">
+                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU" onclick="aparecerPicoCpu(), listarpicoCpu()">
+                    </div>
                 </div>
             </div>
-            <div class="media">
-                <h3> Pico de uso - RAM e CPU</h3>
-                <p style="font-size: x-small;">Clique no ícone para vizualizar o pico de uso por servidor</p>
-                <div class="componentes">
-                    <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM">
-                    <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU">
+        </div>
+
+        <div class="abaixo">
+            <div class="ranking">
+                <h4>Servidores mais críticos em relação ao downtime
+                    <hr>
+                </h4>
+                <div class="listaRanking">
+                    <table>
+                        <thead>
+                            <tr class="table-header">
+                                <th>Servidor</th>
+                                <th>Tempo de dowtime semanal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="MapaCalor">
+                <h4>Previsão de downtime para a próxima semana
+                    <hr>
+                </h4>
+                <div class="graficoMapaDeCalor" id="chart"></div>
+            </div>
+
+            <div class="tendencia">
+                <h4>Tendência de uso dos servidores
+                    <hr>
+                </h4>
+                <div class="alinha-select">
+                    <div class="select-server" id="select-server"></div>
+                    <div id="select-componente"></div>
+                </div>
+
+                <div class="graficoTendencia">
+                    <canvas id="myChart"
+                        style="height: 350px; width: 460px; text-align: center; padding-left: 15px; padding-top: 16px;"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="abaixo">
-        <div class="ranking">
-            <h4>Servidores mais críticos em relação ao downtime
-                <hr>
-            </h4>
-            <div class="listaRanking">
-                <table>
-                    <thead>
-                        <tr class="table-header">
-                            <th>Servidor</th>
-                            <th>Tempo de dowtime semanal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+    <div class="mediaRam" id="mediaRam">
+        <h4>Média de uso de memória RAM nessa semana
+            <hr>
+        </h4>
+        <div class="listamediaRam">
+            <table>
+                <thead>
+                    <tr class="table-header">
+                        <th>Servidor</th>
+                        <th>Média RAM</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
-
-
-        <div class="MapaCalor">
-            <h4>Previsão de downtime para a próxima semana
-                <hr>
-            </h4>
-            <div class="graficoMapaDeCalor" id="chart"></div>
-        </div>
-
-        <div class="tendencia">
-            <h4>Tendência de uso dos servidores
-                <hr>
-            </h4>
-            <div class="alinha-select">
-                <div class="select-server" id="select-server"></div>
-                <div id="select-componente"></div>
-            </div>
-
-            <div class="graficoTendencia">
-                <canvas id="myChart"
-                    style="height: 350px; width: 460px; text-align: center; padding-left: 15px; padding-top: 16px;"></canvas>
-            </div>
-        </div>
+        <button onclick="esconderMediaRam()" class="fechar">Fechar</button>
     </div>
-</div>
 
+    <div class="mediaCpu" id="mediaCpu">
+        <h4>Média de uso de memória CPU nessa semana
+            <hr>
+        </h4>
+        <div class="listamediaCpu">
+            <table>
+                <thead>
+                    <tr class="table-header">
+                        <th>Servidor</th>
+                        <th>Média CPU</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <button onclick="esconderMediaCpu()" class="fechar">Fechar</button>
+    </div>
+
+    <div class="picoRam" id="picoRam">
+        <h4>Pico de uso de memória RAM nessa semana
+            <hr>
+        </h4>
+        <div class="listapicoRam">
+            <table>
+                <thead>
+                    <tr class="table-header">
+                        <th>Servidor</th>
+                        <th>Pico mais alto RAM</th>
+                        <th>Pico mais baixo RAM</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <button onclick="esconderPicoRam()" class="fechar">Fechar</button>
+    </div>
+
+    <div class="picoCpu" id="picoCpu">
+        <h4>Pico de uso de memória CPU nessa semana
+            <hr>
+        </h4>
+        <div class="listapicoCpu">
+            <table>
+                <thead>
+                    <tr class="table-header">
+                        <th>Servidor</th>
+                        <th>Pico mais alto CPU</th>
+                        <th>Pico mais baixo CPU</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <button onclick="esconderPicoCpu()" class="fechar">Fechar</button>
+    </div>
 
 </body>
 
@@ -104,14 +185,171 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <script>
+    //  LISTAGEM SELECT DE SERVIDOR
+    function listarSelect() {
+        fetch(`/previsao/buscarPorId`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // Transformando a resposta em JSON
+            })
+            .then(data => {
+                console.log(data); // Verifique no console se a resposta está conforme esperado
 
-    // Função para calcular a regressão linear
-    // Função para fazer o fetch dos dados do backend
-    async function obterDadosDoBanco() {
+                const selectDiv = document.getElementById('select-server');
+                selectDiv.innerHTML = ''; // Limpar conteúdo anterior da div
+
+                if (!data || data.length === 0) {  // Verificar se data é nulo ou um array vazio
+                    const noDataMessage = document.createElement('p');
+                    noDataMessage.textContent = 'Nenhum Registro encontrado.';
+                    noDataMessage.style.color = '#fff';
+                    noDataMessage.style.textAlign = 'center';
+                    selectDiv.appendChild(noDataMessage);
+                } else {
+                    // Cria o elemento select
+                    const selectElement = document.createElement('select');
+                    selectElement.classList.add('custom-select'); // Adiciona uma classe CSS, se necessário
+
+                    // Adiciona a opção padrão
+                    selectElement.innerHTML = `<option value="" disabled selected>Selecione um servidor</option>`;
+
+                    // Percorrer os dados e adicionar as opções
+                    data.forEach(item => {
+                        // Adicionar uma opção ao select
+                        selectElement.innerHTML += `
+                        <option value="${item.idServidor}">
+                            ${item.nomeServidor}
+                        </option>
+                    `;
+                    });
+
+                    // Adiciona o select na div
+                    selectDiv.appendChild(selectElement);
+                    selectElement.addEventListener('change', () => {
+                        // Obtém os valores selecionados dinamicamente
+                        const servidorSelecionado = selectElement.value; // Valor do servidor selecionado
+                        const componenteSelecionado = document
+                            .getElementById('select-componente')
+                            .querySelector('select')?.value; // Valor do componente selecionado (se existir)
+
+                        console.log('Servidor Selecionado:', servidorSelecionado);
+                        console.log('Componente Selecionado:', componenteSelecionado);
+
+                        // Verifica se ambos os valores estão definidos antes de chamar a função
+                        if (servidorSelecionado && componenteSelecionado) {
+                            criarGrafico(servidorSelecionado, componenteSelecionado);
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Houve um erro ao capturar os dados:', error);
+
+                // Exibe uma mensagem de erro
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Erro ao carregar os servidores.';
+                errorMessage.style.color = '#ff0000';
+                errorMessage.style.textAlign = 'center';
+                document.getElementById('select-server').appendChild(errorMessage);
+            });
+    }
+
+    // Chama a função para listar os servidores ao carregar a página
+    listarSelect();
+
+    // LISTAGEM DE COMPONENTE
+    function listarComponente() {
+        fetch(`/previsao/buscarComponente`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // Transformando a resposta em JSON
+            })
+            .then(data => {
+                console.log(data); // Verifique no console se a resposta está conforme esperado
+
+                const selectDiv = document.getElementById('select-componente');
+                selectDiv.innerHTML = ''; // Limpar conteúdo anterior da div
+
+                if (!data || data.length === 0) {  // Verificar se data é nulo ou um array vazio
+                    const noDataMessage = document.createElement('p');
+                    noDataMessage.textContent = 'Nenhum Registro encontrado.';
+                    noDataMessage.style.color = '#fff';
+                    noDataMessage.style.textAlign = 'center';
+                    selectDiv.appendChild(noDataMessage);
+                } else {
+                    // Cria o elemento select
+                    const selectElement = document.createElement('select');
+                    selectElement.classList.add('custom-select'); // Adiciona uma classe CSS, se necessário
+
+                    // Adiciona a opção padrão
+                    selectElement.innerHTML = `<option value="" disabled selected>Selecione um componente</option>`;
+
+                    // Percorrer os dados e adicionar as opções
+                    data.forEach(item => {
+                        // Adicionar uma opção ao select
+                        selectElement.innerHTML += `
+                        <option value="${item.idComponente}">
+                            ${item.nome}
+                        </option>
+                    `;
+                    });
+
+                    // Adiciona o select na div
+                    selectDiv.appendChild(selectElement);
+                    selectElement.addEventListener('change', () => {
+                        // Obtém os valores selecionados dinamicamente
+                        const servidorSelecionado = document
+                            .getElementById('select-server')
+                            .querySelector('select')?.value; // Valor do servidor selecionado (se existir)
+                        const componenteSelecionado = selectElement.value; // Valor do componente selecionado
+
+                        console.log('Servidor Selecionado:', servidorSelecionado);
+                        console.log('Componente Selecionado:', componenteSelecionado);
+
+                        // Verifica se ambos os valores estão definidos antes de chamar a função
+                        if (servidorSelecionado && componenteSelecionado) {
+                            criarGrafico(servidorSelecionado, componenteSelecionado);
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Houve um erro ao capturar os dados:', error);
+
+                // Exibe uma mensagem de erro
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Erro ao carregar os servidores.';
+                errorMessage.style.color = '#ff0000';
+                errorMessage.style.textAlign = 'center';
+                document.getElementById('select-componente').appendChild(errorMessage);
+            });
+    }
+
+    // Chama a função para listar os servidores ao carregar a página
+    listarComponente();
+
+
+
+    async function obterDadosDoBanco(servidorId, componenteId) {
+        console.log('servidor:', servidorId)
+        console.log('componente:', componenteId)
+
         try {
-            // Fazendo a requisição ao backend para obter os dados
-            const response = await fetch('/previsao/tendenciaUsoRam');
-            const data = await response.json();  // Convertendo a resposta em JSON
+            let response = await fetch(`/previsao/buscarTendenciaUsoRam/${componenteId}/${servidorId}`);
+            let data = await response.json();  // Convertendo a resposta em JSON
             console.log(data)
             return data;  // Retorna os dados para uso posterior
         } catch (error) {
@@ -119,6 +357,7 @@
             return [];  // Retorna um array vazio em caso de erro
         }
     }
+
 
     // Função de regressão linear (já explicada anteriormente)
     function calcularRegressao(data) {
@@ -138,9 +377,21 @@
         return { slope, intercept };
     }
 
-    // Função para criar o gráfico de tendência com a regressão linear
-    async function criarGrafico() {
-        const dadosRam = await obterDadosDoBanco();  // Obtém os dados do banco
+    let graficoAtivo = null;
+    async function criarGrafico(servidorId, componenteId) {
+
+        const servidorSelecionado = document.querySelector('#select-server select')?.value; // Pega o value do select de servidor
+        const componenteSelecionado = document.querySelector('#select-componente select')?.value; // Pega o value do select de componente
+
+        console.log('Servidor Selecionado CRIAR GRÁFICO:', servidorSelecionado);
+        console.log('Componente Selecionado CRIAR GRÁFICO:', componenteSelecionado);
+
+        if (!servidorSelecionado || !componenteSelecionado) {
+            return; // Não cria o gráfico se um dos selects não estiver selecionado }
+        }
+        const dadosRam = await obterDadosDoBanco(servidorSelecionado, componenteSelecionado);
+        const arrayDados = Object.entries(dadosRam).map(([chave, valor]) => `${chave}: ${valor}`);
+
 
         // Transforma os dados para o formato necessário (x: dia da semana, y: uso de RAM)
         const scatterData = dadosRam.map((dado, index) => ({
@@ -157,15 +408,25 @@
             y: slope * point.x + intercept
         }));
 
+        if (graficoAtivo) {
+            graficoAtivo.destroy();
+        }
+
+        // Para que resetar as configurações do card onde está o gráfico
+        const canvasContainer = document.querySelector('.graficoTendencia');
+        canvasContainer.innerHTML = '<canvas id="myChart" style="height: 350px; width: 460px;"></canvas>';
+        let nomeComponente = componenteSelecionado === '1' ? 'CPU' : 'RAM'; // Usa comparação e operador ternário para maior clareza
+
         // Criação do gráfico com Chart.js
         const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
+        graficoAtivo = new Chart(ctx, {
             type: 'scatter',
             data: {
                 datasets: [
                     {
                         color: 'rgba(255, 255, 255, 1)',
-                        label: 'Uso de RAM',
+
+                        label: `Uso de ${nomeComponente}`,
                         data: scatterData,
                         backgroundColor: 'red',
                     },
@@ -210,8 +471,8 @@
                         },
                         title: {
                             display: true,
-                            text: 'Uso de RAM (%)',
-                            color:  'rgba(255, 255, 255, 1)',
+                            text: `Uso de ${nomeComponente} (%)`,
+                            color: 'rgba(255, 255, 255, 1)',
                             font: {
                                 size: 15
                             }
@@ -232,10 +493,6 @@
             }
         });
     }
-
-    // Chama a função para criar o gráfico
-    criarGrafico();
-
 </script>
 
 </html>
