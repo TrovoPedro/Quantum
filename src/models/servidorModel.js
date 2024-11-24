@@ -83,10 +83,36 @@ ORDER BY s.nomeServidor, c.nome;
 }
 
 
+
+function listarSituacao() {
+
+    var instrucaoSql = `
+
+    SELECT 
+    s.nomeServidor AS NomeServidor,
+    e.razao_social AS Empresa,
+    st.tipo AS Situacao
+FROM servidor s
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+JOIN situacao st ON s.fkSituacao = st.idSituacao
+ORDER BY st.tipo = 'Desativado', s.nomeServidor;
+
+
+`;
+
+
+    console.log('SERVIDORES LISTADOS EM PRIORIDADE')
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     cadastrar,
     buscarServidores,
     editarServidor,
     excluirServidor,
-    buscarPicos
+    buscarPicos,
+    listarSituacao
 };

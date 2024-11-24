@@ -236,6 +236,8 @@ body {
     width: 80%;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+    gap: 15px;
     align-items: center;
     margin-bottom: 3%;
     margin-top: 3%;
@@ -256,6 +258,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.serverBox {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px; 
 }
 
 .TextServidorFuncionalidade{

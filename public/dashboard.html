@@ -9,6 +9,8 @@
     <!-- Icone  -->
     <link rel="icon" href="img/Logo Quantum.svg" type="image/x-icon">
 
+
+
     <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,26 +67,51 @@
             </div>
 
             <div class="itensMonitorados" id="itensMonitorados">
-                <!-- Gráficos serão adicionados dinamicamente aqui -->
+
             </div>
         </div>
 
         <div class="lowDash">
+
             <div class="box1low">
+
                 <div class="tituloLow">
                     Servidor Estado Crítico
                 </div>
+
                 <div class="cardServidor">
-                    <!-- Card dos servidores críticos -->
+
+                    <div class="boxServidores">
+
+                        <div class="serverImgName">
+
+                            <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
+                            <p>Servidor 1</p>
+                        </div>
+
+
+                        <div class="status">
+                            <p style="font-size: 14px;">Crítico</p>
+                            <img src="img/alert.svg" alt="" class="alert">
+
+                        </div>
+
+                    </div>
+
+
                 </div>
+
+
             </div>
+
 
             <div class="box2low">
                 <div class="tituloLow">
                     Serviços em Atividade
                 </div>
+                
                 <div class="cardServidor">
-                    <!-- Card de serviços ativos -->
+
                 </div>
             </div>
         </div>
@@ -97,6 +124,8 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             obterDadosGrafico();
+            listarServidorPrioridade();
+
         });
 
         function obterDadosGrafico() {
@@ -186,15 +215,15 @@
                     {
                         label: 'Mínimo',
                         data: minData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: '#bab5b5',
+                        borderColor: '#bab5b5',
                         borderWidth: 1
                     },
                     {
                         label: 'Máximo',
                         data: maxData,
-                        backgroundColor: 'rgba(255, 159, 64, 0.6)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
+                        backgroundColor: '#2e0a91',
+                        borderColor: '#2e0a91',
                         borderWidth: 1
                     }
                 ]
@@ -233,6 +262,65 @@
             const ctx = document.getElementById(`graficoPicos_${servidor}`).getContext('2d');
             new Chart(ctx, config);
         }
+
+
+
+        function listarServidorPrioridade() {
+            fetch(`/servidores/listarSituacao`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    const container = document.querySelector('.boxServidores');
+                    container.innerHTML = '';
+
+                    if (data.length === 0) {
+                        const message = document.createElement('p');
+                        message.textContent = 'Nenhum Registro encontrado.';
+                        message.style.textAlign = 'center';
+                        container.appendChild(message);
+                    } else {
+                        data.forEach(item => {
+                            const serverBox = document.createElement('div');
+                            serverBox.classList.add('serverBox');
+
+
+                            let statusImage = '';
+                            if (item.Situacao === 'Ativado') {
+                                statusImage = 'img/icons8-emoji-de-círculo-verde-48.png';  
+                            } else if (item.Situacao === 'Desativado') {
+                                statusImage = 'assets/icons8-emoji-de-círculo-vermelho-48.png';  
+                            }
+
+                            serverBox.innerHTML = `
+                    <div class="serverImgName">
+                        <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
+                        <p>${item.NomeServidor}</p>
+                    </div>
+
+                    <div class="status">
+                        <p style="font-size: 14px;">${item.Situacao}</p>
+                        <img src="${statusImage}" alt="" class="alert">
+                    </div>
+                `;
+                            container.appendChild(serverBox);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Houve um erro ao capturar os dados', error);
+                });
+        }
+
 
 
         function formatarData(data) {

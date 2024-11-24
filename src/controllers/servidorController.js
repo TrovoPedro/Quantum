@@ -121,10 +121,37 @@ function buscarPicos(req, res) {
 
 }
 
+
+function listarSituacao(req, res) {
+
+
+    servidorModel.listarSituacao()
+
+        .then(resultadoAutenticar => {
+            console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
+
+            if (resultadoAutenticar.length > 0) {
+                res.status(200).json(resultadoAutenticar);
+            } else {
+                res.status(200).json([]);
+            }
+
+        })
+
+        .catch(erro => {
+            console.log(erro);
+            console.log("\nHouve um Erro: ", erro.sqlMessage);
+            res.status(500).json({ error: "Houve um erro", details: erro.sqlMessage });
+        });
+        
+}
+
 module.exports = {
     cadastrar,
     buscarServidores,
     editarServidor,
     excluirServidor,
-    buscarPicos
+    buscarPicos,
+    listarSituacao
 }

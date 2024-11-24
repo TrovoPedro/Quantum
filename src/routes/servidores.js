@@ -28,6 +28,12 @@ router.get("/buscaGrafico", function (req, res) {
 
 }); 
 
+router.get("/listarSituacao", function (req, res) {
+    
+    servidorController.listarSituacao(req, res);
+
+});
+
 
 
 
