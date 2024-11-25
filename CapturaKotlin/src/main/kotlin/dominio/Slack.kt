@@ -1,4 +1,4 @@
-package dominio
+/*package dominio
 
 import java.io.BufferedReader
 import java.io.DataOutputStream
@@ -38,3 +38,4 @@ class Slack(private val url: String) {
         }
     }
 }
+*/

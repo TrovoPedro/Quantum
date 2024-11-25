@@ -34,6 +34,7 @@ function validarEscolha() {
     } else if (valorInput == 3) {
         document.getElementById('pai-conteudo4').style.display = 'flex';
         buscarConsumoDisco()
+        buscarConsumoIoDisco()
     } else if (valorInput == 4) {
         document.getElementById('pai-conteudo2').style.display = 'flex';
         buscarPerdaPacote()
@@ -842,7 +843,7 @@ function plotarGraficoSwap(resposta) {
         });
 
         // Atualiza o gráfico a cada 1 segundo
-        const intervalo = setInterval(atualizarGrafico, 1000);
+        const intervalo = setInterval(atualizarGrafico, 5000);
     } else {
         console.error('A resposta da API não é um array.', resposta);
     }
@@ -1025,7 +1026,7 @@ function plotarGraficosDisco(resposta) {
         });
 
         // Atualiza o gráfico a cada 1 segundo
-        const intervalo = setInterval(atualizarGrafico, 1000);
+        const intervalo = setInterval(atualizarGrafico, 50000);
     } else {
         console.error('A resposta da API não é um array.', resposta);
     }
@@ -1153,7 +1154,7 @@ function plotarIoDisco(resposta) {
         });
 
         // Atualiza o gráfico a cada 1 segundo
-        const intervalo = setInterval(atualizarGrafico, 1000);
+        const intervalo = setInterval(atualizarGrafico, 5000);
     } else {
         console.error('A resposta da API não é um array.', resposta);
     }

@@ -13,7 +13,7 @@ class DadosRepositorio {
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver";
         dataSource.url = "jdbc:mysql://localhost/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
         dataSource.username = "root"
-        dataSource.password = "Semsenha13"
+        dataSource.password = "@Davidson01"
 
         jdbcTemplate = JdbcTemplate(dataSource);
     }
