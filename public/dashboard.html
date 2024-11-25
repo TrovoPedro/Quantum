@@ -89,7 +89,7 @@
                         <div class="serverImgName">
 
                             <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-                            <p>Servidor 1</p>
+                            <!-- <p>Servidor 1</p> -->
                         </div>
 
 
@@ -123,12 +123,12 @@
                             <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
 
                             <div class="TextServidorFuncionalidade" id="Nome_Direita">
-                                <p>SERVIDOR 1</p>
+                                <!-- <p>SERVIDOR 1</p> -->
                             </div>
 
                         </div>
                         <div class="status" id="Status_Direita">
-                            <p style="font-size: 13px;">CRÍTICO</p>
+                            <!-- <p style="font-size: 13px;">CRÍTICO</p> -->
                             <img src="assets/alert.svg" alt="" style="height: 13px;">
                             
                         </div>
@@ -155,6 +155,7 @@
             obterDadosGrafico();
             listarServidorPrioridade();
             listarServidorEstado();
+            // plotarGrafico();
 
         });
 
@@ -292,6 +293,8 @@
             const ctx = document.getElementById(`graficoPicos_${servidor}`).getContext('2d');
             new Chart(ctx, config);
         }
+
+        // window.onload.plotarGrafico();
 
 
 

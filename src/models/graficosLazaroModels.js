@@ -40,7 +40,8 @@ function buscarMediaCPU(idServidor) {
     console.log("Acessando buscarMediaCPU no graficosModel.js para o servidor: ", idServidor);
 
     var instrucaoSql = `
-         SELECT 
+    
+SELECT 
     DATE(log.dtHora) AS dia, 
     MAX(log.usoComponente) AS maxUsoCPU, 
     MIN(log.usoComponente) AS minUsoCPU
@@ -51,7 +52,8 @@ JOIN
 JOIN 
     tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
 WHERE 
-    tipoComponente.nome = 'CPU'
+    tipoComponente.nome = 'CPU' 
+    AND YEARWEEK(log.dtHora, 1) = YEARWEEK(CURDATE(), 1)
 GROUP BY 
     DATE(log.dtHora)
 ORDER BY 
@@ -61,6 +63,7 @@ ORDER BY
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
 
 function buscarMediaRAM(idServidor) {
     console.log("Acessando buscarMediaCPU no graficosModel.js para o servidor: ", idServidor);
@@ -104,7 +107,8 @@ function buscarAlertasPorServidor(idServidor) {
     console.log("Acessando buscarMediaCPU no graficosModel.js para o servidor: ", idServidor);
 
     var instrucaoSql = `
-      SELECT 
+      
+SELECT 
     c.nome AS nome_componente,
     COUNT(a.idAlerta) AS total_alertas
 FROM 
@@ -113,6 +117,8 @@ JOIN
     log l ON a.fkLog = l.idLog
 JOIN 
     componente c ON l.fkComponente = c.idComponente
+WHERE 
+    l.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
 GROUP BY 
     c.nome;
     `;
@@ -144,11 +150,12 @@ function buscarComponentePorServidor(idServidor) {
     console.log("Acessando buscarComponentePorServidor no usuarioModel.js para o servidor: ", idServidor);
 
     var instrucaoSql = `
-        SELECT 
-    servidor.nomeServidor as Servidor,
+        
+SELECT 
+    servidor.nomeServidor AS Servidor,
     componente.nome AS Componente,
-    log.usoComponente as Uso,
-    limiteComponente.valorLimite as Limite
+    log.usoComponente AS Uso,
+    limiteComponente.valorLimite AS Limite
 FROM 
     componente
 JOIN 
@@ -158,7 +165,8 @@ JOIN
 JOIN 
     limiteComponente ON limiteComponente.fkComponente = componente.idComponente
 WHERE 
-    log.usoComponente > limiteComponente.valorLimite;
+    log.usoComponente > limiteComponente.valorLimite
+    AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

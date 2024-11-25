@@ -974,3 +974,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+function gerarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Relatório de Alertas Mensal', 20, 20);
+
+    doc.setFontSize(12);
+    doc.text('Visão Geral Anual de Alertas de Componentes:', 20, 40);
+    doc.addImage(document.getElementById("myChartCanvas"), 'PNG', 20, 50, 180, 90);
+
+    doc.text('Alertas por Componente:', 20, 160);
+    doc.autoTable(document.getElementById("section2"));
+
+    doc.save('relatorio_alertas.pdf');
+}
+
+
+
+
