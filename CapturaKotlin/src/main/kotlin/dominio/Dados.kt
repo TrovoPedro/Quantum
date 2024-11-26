@@ -22,6 +22,8 @@ class Dados {
     var nThreads: Int = 0
     var consumoSwap: Double = 0.0
     var escritasNoDisco: Int = 0
+    var discoLivre: Int = 0
+    var totalDisco: Int = 0
 
     val looca = Looca()
     val oshi = SystemInfo()
