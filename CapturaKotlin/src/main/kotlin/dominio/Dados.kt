@@ -48,6 +48,9 @@ class Dados {
             println(totalRam)
             inserirTotalRam(totalRam)
 
+            totalDisco = (looca.grupoDeDiscos.tamanhoTotal / (1024 * 1024 * 1024)).toInt()
+            inserirTotalDisco(totalDisco)
+
             while (capturando) {
                 val interfacesDeRede = looca.rede.grupoDeInterfaces.interfaces
                 interfacesDeRede.forEach { interfaceDeRede ->
@@ -123,6 +126,15 @@ class Dados {
 
     fun inserirIoDisco(ioDisco: Int){
         dadosRepositorio.inserirEscritaDisco(ioDisco)
+    }
+
+    
+    fun inserirTotalDisco(totalDisco: Int){
+        dadosRepositorio.inserirTotalDisco(totalDisco)
+    }
+
+    fun inserirDiscoLirve(discoLivre: Int){
+        dadosRepositorio.inserirDiscoLivre(discoLivre)
     }
 
     fun exibirDados() {
