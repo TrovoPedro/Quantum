@@ -145,4 +145,22 @@ class DadosRepositorio {
         return qtdLinhasAfetadas > 0
     }
 
+    fun inserirTotalDisco(dadosRecebidos: Int): Boolean {
+        println("Esses são os dados recebidos: $dadosRecebidos")
+        val qtdLinhasAfetadas = jdbcTemplate.update("""
+        INSERT INTO tabelaTrovo (espacoTotalDisco) VALUES (?);
+    """, dadosRecebidos)
+
+        return qtdLinhasAfetadas > 0
+    }
+
+    fun inserirDiscoLivre(dadosRecebidos: Int): Boolean {
+        println("Esses são os dados recebidos: $dadosRecebidos")
+        val qtdLinhasAfetadas = jdbcTemplate.update("""
+        INSERT INTO tabelaTrovo (espacoLivreDisco) VALUES (?);
+    """, dadosRecebidos)
+
+        return qtdLinhasAfetadas > 0
+    }
+
 }
