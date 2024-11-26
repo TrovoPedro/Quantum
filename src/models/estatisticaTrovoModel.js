@@ -63,7 +63,10 @@ function buscarCargaSistema() {
 }
 
 function buscarServicosAtivos(valorInput) {
-    var instrucaoSql = `SELECT COALESCE(qtdServicosAtivos, 0) AS qtdServicosAtivos FROM tabelaTrovo;`;
+    var instrucaoSql = `SELECT COALESCE(qtdServicosAtivos, 0) AS qtdServicosAtivos 
+        FROM tabelaTrovo
+        WHERE qtdServicosAtivos > 0;
+`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
     return database.executar(instrucaoSql, valorInput)
@@ -142,6 +145,52 @@ function buscarIoDisco() {
     return database.executar(instrucaoSql);
 }
 
+function buscarTotalDisco(valorInput){
+    var instrucaoSql = `SELECT espacoTotalDisco 
+        FROM tabelaTrovo
+        WHERE espacoTotalDisco IS NOT NULL;`;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql, valorInput)
+        .then(function (resultado) {
+            return resultado[1].espacoTotalDisco;
+        })
+        .catch(function (error) {
+            console.error("Erro ao executar a consulta: ", error);
+            throw error;
+        });
+}
+
+function buscarEspacoLivre(valorInput) {
+    var instrucaoSql = `
+        SELECT 
+            l.usoComponente, 
+            t.espacoTotalDisco,
+            FLOOR(GREATEST(t.espacoTotalDisco - (t.espacoTotalDisco * (LEAST(l.usoComponente, 100) / 100)), 0)) AS espacoLivre
+        FROM log l
+        LEFT JOIN tabelaTrovo t ON l.fkComponente = t.fkComponente
+        WHERE t.espacoTotalDisco IS NOT NULL
+        AND (t.espacoTotalDisco - (t.espacoTotalDisco * (LEAST(l.usoComponente, 100) / 100))) IS NOT NULL
+        ORDER BY l.dtHora DESC
+        LIMIT 1;  -- Retorna apenas o último resultado
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql)  // Sem valorInput se não for necessário
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                return resultado[0].espacoLivre;  // Retorna o espaço livre
+            } else {
+                throw new Error("Nenhum dado encontrado.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Erro ao executar a consulta: ", error);
+            throw error;
+        });
+}
+
+
 module.exports = {
     buscarQtdAlerta,
     buscarRiscoAlerta,
@@ -155,5 +204,7 @@ module.exports = {
     buscarTotalMemoriaRam,
     buscarTotalMemoriaSwap,
     buscarUsoDisco,
-    buscarIoDisco
+    buscarIoDisco,
+    buscarTotalDisco,
+    buscarEspacoLivre
 }

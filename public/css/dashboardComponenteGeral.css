@@ -292,6 +292,21 @@ option {
     font-size: 35px;
 }
 
+#n_alertasDisco{
+    margin-top: 10%;
+    font-size: 35px;
+}
+
+#totalDisco{
+    margin-top: 10%;
+    font-size: 35px;
+}
+
+#discoLivre{
+    margin-top: 10%;
+    font-size: 35px;
+}
+
 .dash-filho2 {
     display: flex;
     flex-direction: column;

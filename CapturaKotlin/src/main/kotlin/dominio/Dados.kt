@@ -27,7 +27,9 @@ class Dados {
 
     val looca = Looca()
     val oshi = SystemInfo()
+    val diskStores = oshi.hardware.diskStores
     var dadosRepositorio = DadosRepositorio()
+    var loocaDisco = looca.grupoDeDiscos.discos
 
     val hardware: HardwareAbstractionLayer = oshi.hardware
     val disks: MutableList<HWDiskStore>? = hardware.diskStores
@@ -133,10 +135,6 @@ class Dados {
         dadosRepositorio.inserirTotalDisco(totalDisco)
     }
 
-    fun inserirDiscoLirve(discoLivre: Int){
-        dadosRepositorio.inserirDiscoLivre(discoLivre)
-    }
-
     fun exibirDados() {
         val dadosRede = DadosDeRede(
             enviados = converterParaMb(totalDadosEnviados),
@@ -170,7 +168,6 @@ class Dados {
 
             Thread.sleep(3600000)
         }
-
     }
 
     /*fun alertar(alertaUsuario: Double) {

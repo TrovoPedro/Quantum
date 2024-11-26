@@ -13,7 +13,7 @@ class DadosRepositorio {
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver";
         dataSource.url = "jdbc:mysql://localhost/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
         dataSource.username = "root"
-        dataSource.password = "@Davidson01"
+        dataSource.password = "Semsenha13"
 
         jdbcTemplate = JdbcTemplate(dataSource);
     }
@@ -148,16 +148,7 @@ class DadosRepositorio {
     fun inserirTotalDisco(dadosRecebidos: Int): Boolean {
         println("Esses são os dados recebidos: $dadosRecebidos")
         val qtdLinhasAfetadas = jdbcTemplate.update("""
-        INSERT INTO tabelaTrovo (espacoTotalDisco) VALUES (?);
-    """, dadosRecebidos)
-
-        return qtdLinhasAfetadas > 0
-    }
-
-    fun inserirDiscoLivre(dadosRecebidos: Int): Boolean {
-        println("Esses são os dados recebidos: $dadosRecebidos")
-        val qtdLinhasAfetadas = jdbcTemplate.update("""
-        INSERT INTO tabelaTrovo (espacoLivreDisco) VALUES (?);
+        INSERT INTO tabelaTrovo (espacoTotalDisco, fkComponente) VALUES (?, 3);
     """, dadosRecebidos)
 
         return qtdLinhasAfetadas > 0

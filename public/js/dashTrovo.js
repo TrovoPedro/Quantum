@@ -35,9 +35,15 @@ function validarEscolha() {
         document.getElementById('pai-conteudo4').style.display = 'flex';
         buscarConsumoDisco()
         buscarConsumoIoDisco()
+        buscarTotalDisco()
+        buscarEspacoLivre()
+        buscarQtdAlerta()
+        buscarRiscoAlerta()
     } else if (valorInput == 4) {
         document.getElementById('pai-conteudo2').style.display = 'flex';
         buscarPerdaPacote()
+        buscarQtdAlerta()
+        buscarRiscoAlerta()
     }
 }
 
@@ -983,15 +989,15 @@ function plotarGraficosDisco(resposta) {
                             color: '#FFFF'
                         },
                         grid: {
-                            color: '#6c6877af', 
+                            color: '#6c6877af',
                         },
                         border: {
-                            color: '#6c6877af', 
+                            color: '#6c6877af',
                         }
                     },
                     x: {
                         ticks: {
-                            display: false, 
+                            display: false,
                         },
                         grid: {
                             color: '#6c6877af',
@@ -1005,12 +1011,12 @@ function plotarGraficosDisco(resposta) {
                     legend: {
                         display: false,
                         labels: {
-                            color: '#FFFF' 
+                            color: '#FFFF'
                         }
                     },
                     tooltip: {
-                        titleColor: '#FFFF', 
-                        bodyColor: '#FFFF',  
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF',
                     },
                     title: {
                         display: true,
@@ -1111,15 +1117,15 @@ function plotarIoDisco(resposta) {
                         min: 0,
                         max: 100,
                         grid: {
-                            color: '#6c6877af', 
+                            color: '#6c6877af',
                         },
                         border: {
-                            color: '#6c6877af', 
+                            color: '#6c6877af',
                         }
                     },
                     x: {
                         ticks: {
-                            display: false, 
+                            display: false,
                         },
                         grid: {
                             color: '#6c6877af',
@@ -1133,16 +1139,16 @@ function plotarIoDisco(resposta) {
                     legend: {
                         display: false,
                         labels: {
-                            color: '#FFFF' 
+                            color: '#FFFF'
                         }
                     },
                     tooltip: {
-                        titleColor: '#FFFF', 
-                        bodyColor: '#FFFF',  
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF',
                     },
                     title: {
                         display: true,
-                        text: 'Consumo de Disco',
+                        text: 'Número de escritas no Disco',
                         color: '#FFFF',
                         font: {
                             size: 25,
@@ -1153,13 +1159,58 @@ function plotarIoDisco(resposta) {
             }
         });
 
-        // Atualiza o gráfico a cada 1 segundo
-        const intervalo = setInterval(atualizarGrafico, 5000);
+        const intervalo = setInterval(atualizarGrafico, 3600000);
+
     } else {
         console.error('A resposta da API não é um array.', resposta);
     }
 
 }
+
+// Fetch para buscar quantidade de espaço livre de disco
+
+function buscarEspacoLivre() {
+    const discoLivre = document.getElementById('discoLivre');
+
+    fetch(`/estatisticaTrovo/buscarEspacoLivre`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.text().then(function (resposta) {
+                    console.log(`Dados recebidos: ${resposta}`);
+
+                    discoLivre.innerHTML = `${resposta}GB`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
+
+// Fetch para Buscar total de disco
+
+function buscarTotalDisco() {
+    const totalDisco = document.getElementById('totalDisco');
+
+    fetch(`/estatisticaTrovo/buscarEspacoLivre`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.text().then(function (resposta) {
+                    console.log(`Dados recebidos AAA: ${resposta}`);
+
+                    totalDisco.innerHTML = `${resposta}GB`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+}
+
 
 // Fetch do numero de alertas
 
@@ -1180,7 +1231,7 @@ function buscarQtdAlerta() {
                     } else if (valorInput == 2) {
                         n_alertas.innerHTML = count;
                     } else if (valorInput == 3) {
-                        n_alertas.innerHTML = count;
+                        n_alertasDisco.innerHTML = count;
                     } else {
                         n_alertas.innerHTML = count;
                     }
