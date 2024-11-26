@@ -22,14 +22,11 @@ class Dados {
     var nThreads: Int = 0
     var consumoSwap: Double = 0.0
     var escritasNoDisco: Int = 0
-    var discoLivre: Int = 0
     var totalDisco: Int = 0
 
     val looca = Looca()
     val oshi = SystemInfo()
-    val diskStores = oshi.hardware.diskStores
     var dadosRepositorio = DadosRepositorio()
-    var loocaDisco = looca.grupoDeDiscos.discos
 
     val hardware: HardwareAbstractionLayer = oshi.hardware
     val disks: MutableList<HWDiskStore>? = hardware.diskStores
@@ -71,18 +68,22 @@ class Dados {
                 nThreads += looca.grupoDeProcessos.totalThreads
                 inserirThreads(nThreads)
 
-                var totalSwap = oshi.hardware.memory.virtualMemory.swapTotal / (1024 * 1024 * 1024)
-                println(totalSwap)
-                if (totalSwap != null){
-                    inserirTotalSwap(totalSwap)
-                }else{
+                var totalSwap = oshi.hardware.memory.virtualMemory.swapTotal
+                if (totalSwap != null) {
+                    if (totalSwap >= 1000) {
+                        totalSwap = oshi.hardware.memory.virtualMemory.swapTotal / (1024 * 1024 * 1024)
+                        inserirTotalSwap(totalSwap)
+                    } else {
+                        inserirTotalSwap(totalSwap)
+                    }
+                } else {
                     inserirTotalSwap(0)
                 }
 
-                consumoSwap += oshi.hardware.memory.virtualMemory.swapUsed / (1024 * 1024)
-                if (consumoSwap != null){
+                consumoSwap = (oshi.hardware.memory.virtualMemory.swapUsed / (1024 * 1024)).toDouble()
+                if (consumoSwap != null) {
                     inserirConsumoSwap(consumoSwap)
-                }else{
+                } else {
                     inserirTotalSwap(0)
                 }
 
@@ -102,37 +103,45 @@ class Dados {
         dadosRepositorio.inserir(totalDadosRecebidosMB)
     }
 
-    fun inserirServicos(qtdServico: Int){
+    fun inserirServicos(qtdServico: Int) {
         dadosRepositorio.inserirServicos(qtdServico)
     }
 
-    fun inserirCargaSistema(cargaSistema: Int){
+    fun inserirCargaSistema(cargaSistema: Int) {
         dadosRepositorio.inserirCargaSistema(cargaSistema)
     }
 
-    fun inserirThreads(nThread: Int){
+    fun inserirThreads(nThread: Int) {
         dadosRepositorio.inserirThreads(nThread)
     }
 
-    fun inserirTotalRam(totalRam: Long){
+    fun inserirTotalRam(totalRam: Long) {
         dadosRepositorio.inserirTotalRam(totalRam)
     }
 
-    fun inserirTotalSwap(totalSwap: Long){
+    fun inserirTotalSwap(totalSwap: Long) {
         dadosRepositorio.inserirTotalSwap(totalSwap)
     }
 
-    fun inserirConsumoSwap(consumoSwap: Double){
+    fun inserirConsumoSwap(consumoSwap: Double) {
         dadosRepositorio.inserirConsumoSwap(consumoSwap)
     }
 
-    fun inserirIoDisco(ioDisco: Int){
+    fun inserirIoDisco(ioDisco: Int) {
         dadosRepositorio.inserirEscritaDisco(ioDisco)
     }
 
-    
-    fun inserirTotalDisco(totalDisco: Int){
+
+    fun inserirTotalDisco(totalDisco: Int) {
         dadosRepositorio.inserirTotalDisco(totalDisco)
+    }
+
+    fun inserirTaxaTransferencia(taxaTransferencia: Double){
+        dadosRepositorio.inserirTaxaTransferencia(taxaTransferencia)
+    }
+
+    fun inserirErroTcp(erroTcp: Long){
+        dadosRepositorio.inserirErroTcp(erroTcp)
     }
 
     fun exibirDados() {
@@ -152,13 +161,14 @@ class Dados {
             capturarDados()
         }
     }
+
     fun pararCaptura() {
         capturando = false
     }
 
-    fun capturarIoDisco(){
-        while (capturando){
-            if (disks != null){
+    fun capturarIoDisco() {
+        while (capturando) {
+            if (disks != null) {
                 disks.forEach { it ->
                     escritasNoDisco += it.writes.toInt()
 
@@ -167,6 +177,55 @@ class Dados {
             }
 
             Thread.sleep(3600000)
+        }
+    }
+
+    fun capturarTaxaTransferencia() {
+        val networkIFs = hardware.networkIFs
+
+        while (capturando) {
+            try {
+                for (net in networkIFs) {
+                    net.updateAttributes()
+
+                    val bytesSentStart = net.bytesSent
+                    val bytesReceivedStart = net.bytesRecv
+
+                    Thread.sleep(5000)
+
+                    net.updateAttributes()
+                    val bytesSentEnd = net.bytesSent
+                    val bytesReceivedEnd = net.bytesRecv
+
+                    val sentRate = (bytesSentEnd - bytesSentStart) / 5.0 // Dividido por 5s
+                    val receivedRate = (bytesReceivedEnd - bytesReceivedStart) / 5.0
+
+                    val sentRateGB = sentRate / 1_073_741_824
+                    val receivedRateGB = receivedRate / 1_073_741_824
+
+                    inserirTaxaTransferencia(receivedRateGB)
+                    println("Interface: ${net.name}")
+                    println("Taxa de envio: %.6f GB/s".format(sentRateGB))
+                    println("Taxa de recebimento: %.6f GB/s".format(receivedRateGB))
+                }
+            } catch (e: Exception) {
+                println("Erro ao capturar taxa de transferência: ${e.message}")
+            }
+        }
+    }
+
+    fun capturarErrosTCP() {
+        val systemInfo = SystemInfo()
+        val hardware = systemInfo.hardware
+        val networkIFs = hardware.networkIFs
+
+        for (net in networkIFs) {
+            net.updateAttributes()
+
+            val errosRecebidos = net.inErrors
+            val errosEnviados = net.outErrors
+
+            inserirErroTcp(errosEnviados)
         }
     }
 

@@ -140,7 +140,7 @@ option {
 }
 
 .icon-menu-bg {
-    width: 100%;
+    width: 80%;
 }
 
 .icon-menu-bg:hover {
@@ -303,6 +303,11 @@ option {
 }
 
 #discoLivre{
+    margin-top: 10%;
+    font-size: 35px;
+}
+
+#alertaRede{
     margin-top: 10%;
     font-size: 35px;
 }

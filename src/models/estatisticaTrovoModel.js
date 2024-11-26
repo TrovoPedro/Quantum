@@ -20,7 +20,7 @@ function buscarQtdAlerta(valorInput) {
 function buscarRiscoAlerta(valorInput) {
     return new Promise((resolve, reject) => {
         const instrucaoSql = `
-            SELECT calcular_chance_alerta(${valorInput}) AS chance_alerta_percentual;
+            SELECT calcular_probabilidade_alerta(${valorInput}) AS calcular_probabilidade_alerta
         `;
 
         database.executar(instrucaoSql)
@@ -118,7 +118,10 @@ function buscarTotalMemoriaRam(valorInput) {
 }
 
 function buscarTotalMemoriaSwap(valorInput) {
-    var instrucaoSql = `SELECT COALESCE(totalMemoriaSwap, 0) AS totalMemoriaSwap FROM tabelaTrovo;`;
+    var instrucaoSql = `SELECT totalMemoriaSwap
+    FROM tabelaTrovo
+    WHERE totalMemoriaSwap IS NOT NULL;
+`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
     return database.executar(instrucaoSql, valorInput)
@@ -145,7 +148,7 @@ function buscarIoDisco() {
     return database.executar(instrucaoSql);
 }
 
-function buscarTotalDisco(valorInput){
+function buscarTotalDisco(valorInput) {
     var instrucaoSql = `SELECT espacoTotalDisco 
         FROM tabelaTrovo
         WHERE espacoTotalDisco IS NOT NULL;`;
@@ -153,7 +156,7 @@ function buscarTotalDisco(valorInput){
 
     return database.executar(instrucaoSql, valorInput)
         .then(function (resultado) {
-            return resultado[1].espacoTotalDisco;
+            return resultado[0].espacoTotalDisco;
         })
         .catch(function (error) {
             console.error("Erro ao executar a consulta: ", error);
@@ -190,6 +193,26 @@ function buscarEspacoLivre(valorInput) {
         });
 }
 
+function buscarTaxaTransferencia() {
+    var instrucaoSql = `SELECT taxaTransfarencia 
+        FROM tabelaTrovo 
+        WHERE taxaTransfarencia IS NOT NULL;
+`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarErroTcp() {
+    var instrucaoSql = `SELECT errosTcp 
+        FROM tabelaTrovo 
+        WHERE errosTcp IS NOT NULL;
+`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarQtdAlerta,
@@ -206,5 +229,7 @@ module.exports = {
     buscarUsoDisco,
     buscarIoDisco,
     buscarTotalDisco,
-    buscarEspacoLivre
+    buscarEspacoLivre,
+    buscarTaxaTransferencia,
+    buscarErroTcp
 }

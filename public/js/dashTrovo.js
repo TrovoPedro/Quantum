@@ -42,6 +42,8 @@ function validarEscolha() {
     } else if (valorInput == 4) {
         document.getElementById('pai-conteudo2').style.display = 'flex';
         buscarPerdaPacote()
+        buscarTaxaTransferencia()
+        buscarErroTcp()
         buscarQtdAlerta()
         buscarRiscoAlerta()
     }
@@ -71,6 +73,8 @@ let graficoRam;
 let graficoSwap;
 let graficoDisco
 let graficoIo
+let graficoTaxaTransferencia
+let graficoErroTcp
 
 function buscarConsumoCpu() {
     fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' })
@@ -138,11 +142,11 @@ function plotarGraficosCpu(resposta) {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 10, // Garantir que o intervalo seja de 10 em 10
-                            max: 100,     // Forçar o valor máximo para 100
-                            min: 0,       // Forçar o valor mínimo para 0
+                            stepSize: 10, 
+                            max: 100,
+                            min: 0,
                             callback: function (value) {
-                                return value + '%'; // Adiciona o símbolo de porcentagem
+                                return value + '%';
                             },
                             color: '#FFFF'
                         },
@@ -277,13 +281,13 @@ function plotarMudancaContexto(resposta) {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        color: '#FFFF' // Cor dos rótulos do eixo Y
+                        color: '#FFFF'
                     },
                     grid: {
-                        color: '#6c6877af', // Cor das linhas de grade horizontais
+                        color: '#6c6877af',
                     },
                     border: {
-                        color: '#6c6877af', // Cor da linha do eixo Y
+                        color: '#6c6877af',
                     }
                 },
                 x: {
@@ -1194,7 +1198,7 @@ function buscarEspacoLivre() {
 function buscarTotalDisco() {
     const totalDisco = document.getElementById('totalDisco');
 
-    fetch(`/estatisticaTrovo/buscarEspacoLivre`, { cache: 'no-store' })
+    fetch(`/estatisticaTrovo/buscarTotalDisco`, { cache: 'no-store' })
         .then(function (response) {
             if (response.ok) {
                 response.text().then(function (resposta) {
@@ -1211,6 +1215,396 @@ function buscarTotalDisco() {
         });
 }
 
+/** fetch e plotagem do gráfico de perda de pacotes*/
+
+function buscarPerdaPacote() {
+    fetch(`/estatisticaTrovo/buscarIoDisco`)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarPerdaDePacote(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarPerdaDePacote(resposta) {
+    const ctx5 = document.getElementById('graficoPerda').getContext('2d');
+
+    let index = 0;
+
+    if (graficoIo) {
+        graficoIo.data.datasets[0].data = [];
+        graficoIo.data.labels = [];
+        graficoIo.update();
+    }
+
+    if (Array.isArray(resposta)) {
+        const dados = resposta.map(item => item.ioDisco);
+
+        console.log('Dados extraídos:', dados);
+
+        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+        if (dados.length === 0) {
+            console.error('Nenhum dado encontrado para o gráfico.');
+            return;
+        }
+
+        const atualizarGrafico = () => {
+            if (index >= dados.length) {
+                clearInterval(intervalo);
+                return;
+            }
+
+            // Adiciona os dados no gráfico
+            graficoIo.data.datasets[0].data.push(dados[index]);
+            graficoIo.data.labels.push(labels[index % labels.length]);
+
+            graficoIo.update();
+            index++;
+        };
+
+        // Criação do gráfico
+        graficoIo = new Chart(ctx5, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Perda de pacotes',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af',
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false,
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF'
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Perda de pacotes',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        const intervalo = setInterval(atualizarGrafico, 3600000);
+
+    } else {
+        console.error('A resposta da API não é um array.', resposta);
+    }
+
+}
+
+/** fetch e plotagem do gráfico de taxa de transferencia*/
+
+function buscarTaxaTransferencia() {
+    fetch(`/estatisticaTrovo/buscarTaxaTransferencia`)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarTaxaTransferencia(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarTaxaTransferencia(resposta) {
+    const ctx6 = document.getElementById('graficoTransferencia').getContext('2d');
+
+    let index = 0;
+
+    if (graficoTaxaTransferencia) {
+        graficoTaxaTransferencia.data.datasets[0].data = [];
+        graficoTaxaTransferencia.data.labels = [];
+        graficoTaxaTransferencia.update();
+    }
+
+    if (Array.isArray(resposta)) {
+        const dados = resposta.map(item => item.taxaTransfarencia);
+
+        console.log('Dados extraídos:', dados);
+
+        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+        if (dados.length === 0) {
+            console.error('Nenhum dado encontrado para o gráfico.');
+            return;
+        }
+
+        const atualizarGrafico = () => {
+            if (index >= dados.length) {
+                clearInterval(intervalo);
+                return;
+            }
+
+            // Adiciona os dados no gráfico
+            graficoTaxaTransferencia.data.datasets[0].data.push(dados[index]);
+            graficoTaxaTransferencia.data.labels.push(labels[index % labels.length]);
+
+            graficoTaxaTransferencia.update();
+            index++;
+        };
+
+        // Criação do gráfico
+        graficoTaxaTransferencia = new Chart(ctx6, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Perda de pacotes',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10, 
+                            max: 100,
+                            min: 0,
+                            callback: function (value) {
+                                return value + 'GB';
+                            },
+                            color: '#FFFF'
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af',
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false
+                        },
+                        grid: {
+                            color: '#6c6877af'
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF'
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Taxa de transferência',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        const intervalo = setInterval(atualizarGrafico, 5000);
+
+    } else {
+        console.error('A resposta da API não é um array.', resposta);
+    }
+
+}
+
+/** fetch e plotagem do gráfico de taxa de erroTCP*/
+
+function buscarErroTcp() {
+    fetch(`/estatisticaTrovo/buscarErroTcp`)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarErroTcp(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarErroTcp(resposta) {
+    const ctx7 = document.getElementById('graficoErro').getContext('2d');
+
+    let index = 0;
+
+    if (graficoErroTcp) {
+        graficoErroTcp.data.datasets[0].data = [];
+        graficoErroTcp.data.labels = [];
+        graficoErroTcp.update();
+    }
+
+    if (Array.isArray(resposta)) {
+        const dados = resposta.map(item => item.errosTcp);
+
+        console.log('Dados extraídos:', dados);
+
+        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+        if (dados.length === 0) {
+            console.error('Nenhum dado encontrado para o gráfico.');
+            return;
+        }
+
+        const atualizarGrafico = () => {
+            if (index >= dados.length) {
+                clearInterval(intervalo);
+                return;
+            }
+
+            // Adiciona os dados no gráfico
+            graficoErroTcp.data.datasets[0].data.push(dados[index]);
+            graficoErroTcp.data.labels.push(labels[index % labels.length]);
+
+            graficoErroTcp.update();
+            index++;
+        };
+
+        // Criação do gráfico
+        graficoErroTcp = new Chart(ctx7, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Perda de pacotes',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af',
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false,
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF'
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Erros TCP',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        const intervalo = setInterval(atualizarGrafico, 5000);
+
+    } else {
+        console.error('A resposta da API não é um array.', resposta);
+    }
+
+}
 
 // Fetch do numero de alertas
 
@@ -1233,7 +1627,7 @@ function buscarQtdAlerta() {
                     } else if (valorInput == 3) {
                         n_alertasDisco.innerHTML = count;
                     } else {
-                        n_alertas.innerHTML = count;
+                        alertaRede.innerHTML = count;
                     }
 
                 });
@@ -1249,36 +1643,36 @@ function buscarQtdAlerta() {
 // Fetch da probabilidade de alerta
 
 function buscarRiscoAlerta() {
-
     fetch(`/estatisticaTrovo/buscarRiscoAlerta?parametro=${valorInput}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
         }
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Dados recebidos de PROBABILIDADE:", data);
 
-            console.log("Dados recebidos de PROBABILIDADE:", data);
+        const h1 = document.getElementById('porcent_alerta');
 
-            const h1 = document.getElementById('porcent_alerta');
+        if (data && data.length > 0 && data[0].calcular_probabilidade_alerta !== undefined) {
+            const probabilidade = (data[0].calcular_probabilidade_alerta * 100).toFixed(2);
+            h1.textContent = `${probabilidade}%`;
+        } else {
+            h1.textContent = "0%";
+        }
 
-            if (data.length > 0 && data[0].chance_alerta_percentua) {
-                h1.textContent = `${data[0].chance_alerta_percentua}%`
-            } else {
-                h1.textContent = "0%"
-            }
-
-        })
-        .catch(error => {
-            console.error('Houve um erro ao capturar os dados:', error);
-        });
+    })
+    .catch(error => {
+        console.error('Houve um erro ao capturar os dados:', error);
+    });
 }
+
 
 
 
