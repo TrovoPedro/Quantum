@@ -662,7 +662,9 @@ async function criarGrafico() {
         y: point.y
     }));
 
+    
     const ctx = document.getElementById('myChartPrevisao').getContext('2d');
+
     new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -926,6 +928,7 @@ function openModal() {
     modal.style.display = "block";
 
     listarVariacao();
+
 }
 
 function openModalPrevisao() {

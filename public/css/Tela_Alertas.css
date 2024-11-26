@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: Lato;
 }
 
 html {
@@ -10,6 +9,7 @@ html {
 }
 
 body {
+    font-family: Lato;
     width: 100%;
     height: 100%;
     background: #151a22;
@@ -18,6 +18,47 @@ body {
 }
 
 
+
+.NavBar {
+    display: flex;
+    flex-direction: row; /* Mantém os itens na horizontal */
+    width: 175%;
+    height: 7%;
+    border-bottom: 2px #7449EB solid;
+    align-items: center;
+    justify-content: space-between; /* Distribui o espaço entre logo e itens */
+    box-sizing: border-box; /* Garante que padding não afete o tamanho total */
+}
+
+.titulo{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-align: center;
+    font-size: 25px;
+}
+.div1 {
+    display: flex;
+    flex-direction: row; /* Coloca os itens lado a lado */
+    gap: 20px; /* Espaçamento entre os itens */
+}
+
+.botaoNavBar {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.LogoNavBar {
+    display: flex;
+    height: 45px;
+    width: 45px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 
 .div-btn {
     width: 100%;
@@ -106,14 +147,14 @@ td {
 
 .listaServidores {
     padding-top: 30px;
-    width: 95%;
-    height: 70vh;
+    justify-content: center;
+    height: auto;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: flex-start;
+    display: flex;
     gap: 20px;
 
 
