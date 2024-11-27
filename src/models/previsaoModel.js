@@ -25,6 +25,7 @@ JOIN
         (log.usoComponente <= 0 OR log.usoComponente >= 85)
         AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
      ) AS downtime ON servidor.idServidor = downtime.fkServidor
+       AND servidor.fkSituacao = 2
 GROUP BY 
     servidor.idServidor, servidor.nomeServidor
 ORDER BY 
@@ -50,15 +51,19 @@ function buscarTendenciaUsoRamPorDiaSemana(componenteSelect, servidorSelect) {
     const instrucaoSql = `
         SELECT 
             DAYNAME(log.dtHora) AS dia_semana,
-            AVG(log.usoComponente) AS media_uso_ram
+            round(AVG(log.usoComponente)) AS media_uso_ram
         FROM 
             log
         JOIN 
             componente ON log.fkComponente = componente.idComponente
         JOIN 
             tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
+            JOIN 
+            servidor ON log.fkServidor = servidor.idServidor
         WHERE 
             tipoComponente.idTipoComponente = ${componenteSelect} AND log.fkServidor = ${servidorSelect}
+            AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
+             AND servidor.fkSituacao = 2
         GROUP BY 
             dia_semana
         ORDER BY 
@@ -86,6 +91,7 @@ JOIN
 WHERE 
     (log.usoComponente <= 0 OR log.usoComponente >= 85)
     AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Filtro para os últimos 7 dias
+     AND servidor.fkSituacao = 2
 GROUP BY 
     servidor.nomeServidor, dia_semana
 ORDER BY 
@@ -99,7 +105,7 @@ function buscarmediaRam() {
 
     const instrucaoSql = `select 
 servidor.nomeServidor,
-avg(log.usoComponente) AS media_ram
+round(avg(log.usoComponente)) AS media_ram
 from log 
  JOIN 
     componente ON log.fkComponente = componente.idComponente
@@ -109,6 +115,8 @@ from log
     servidor ON log.fkServidor = servidor.idServidor
     WHERE 
     log.fkComponente = 2
+    AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
+     AND servidor.fkSituacao = 2
     group by 
     servidor.idServidor 
     order by media_ram desc;`;
@@ -119,7 +127,7 @@ function buscarmediaCpu() {
 
     const instrucaoSql = `select 
     servidor.nomeServidor,
-    avg(log.usoComponente) AS media_cpu
+    round(avg(log.usoComponente)) AS media_cpu
     from log 
  JOIN 
     componente ON log.fkComponente = componente.idComponente
@@ -129,6 +137,8 @@ function buscarmediaCpu() {
     servidor ON log.fkServidor = servidor.idServidor
     WHERE 
     log.fkComponente = 1
+    AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
+    AND servidor.fkSituacao = 2
     group by 
     servidor.idServidor 
     order by media_cpu desc;`;
@@ -137,28 +147,8 @@ function buscarmediaCpu() {
 
 function buscarpicoCpu() {
     const instrucaoSql = `    select 
-    max(log.usoComponente) AS maximo_usoCpu,
-    min(log.usoComponente) AS minimo_usoCpu,
-    servidor.nomeServidor
-    from log
-    JOIN 
-    componente ON log.fkComponente = componente.idComponente
-    JOIN 
- tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
-    JOIN 
-    servidor ON log.fkServidor = servidor.idServidor
-    WHERE 
-    log.fkComponente = 1
-    group by 
-    servidor.idServidor 
-    order by nomeServidor;`;
-    return database.executar(instrucaoSql)
-}
-
-function buscarpicoRam() {
-    const instrucaoSql = `    select 
-    max(log.usoComponente) AS maximo_usoRam,
-    min(log.usoComponente) AS minimo_usoRam,
+    round(max(log.usoComponente)) AS maximo_usoCpu,
+    round(min(log.usoComponente)) AS minimo_usoCpu,
     servidor.nomeServidor
     from log
     JOIN 
@@ -169,6 +159,30 @@ function buscarpicoRam() {
     servidor ON log.fkServidor = servidor.idServidor
     WHERE 
     log.fkComponente = 2
+    AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
+     AND servidor.fkSituacao = 2
+    group by 
+    servidor.idServidor 
+    order by nomeServidor;`;
+    return database.executar(instrucaoSql)
+}
+
+function buscarpicoRam() {
+    const instrucaoSql = `    select 
+    round(max(log.usoComponente)) AS maximo_usoRam,
+    ROUND(min(log.usoComponente)) AS minimo_usoRam,
+    servidor.nomeServidor
+    from log
+    JOIN 
+    componente ON log.fkComponente = componente.idComponente
+    JOIN 
+ tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
+    JOIN 
+    servidor ON log.fkServidor = servidor.idServidor
+    WHERE 
+    log.fkComponente = 1
+    AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
+     AND servidor.fkSituacao = 2
     group by 
     servidor.idServidor 
     order by nomeServidor;`;

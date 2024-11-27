@@ -295,7 +295,7 @@ body {
 
 .mediaRam th, td, .mediaCpu th, td, .picoRam th, td, .picoCpu th, td {
     padding: 9px;
-    border: 1px solid #444;
+    /* border: 1px solid #444; */
 }
 
 .mediaRam th, .mediaCpu th, .picoRam th, .picoCpu th {

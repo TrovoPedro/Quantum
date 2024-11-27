@@ -29,6 +29,8 @@ function listarServidor() {
                 data.forEach(item => {
                     const downtimeMinutos = item.total_downtime;
                     let downtimeFormatado;
+                    let statusImage = ''
+                    let statusText = ''
 
                     // Formatar para horas e minutos se o downtime for maior que 59 minutos
                     if (downtimeMinutos > 59) {
@@ -39,10 +41,23 @@ function listarServidor() {
                         downtimeFormatado = `${downtimeMinutos}min`;
                     }
 
+                    if (downtimeMinutos <= 60) {
+                        statusImage = './img/icons8-emoji-de-círculo-verde-48.png';
+                        statusText = 'Estável'
+                    } else if (downtimeMinutos > 120 && downtimeMinutos <= 240) {
+                        statusImage = './img/icons8-emoji-de-círculo-verde-48.png';
+                        statusText = 'Atenção'
+                        //amarelo
+                    } else {
+                        statusImage = './assets/icons8-emoji-de-círculo-vermelho-48.png';
+                        statusText = 'Crítico'
+                    }
+
                     const row = document.createElement('tr');
                     row.innerHTML = `
                    <td>${item.nomeServidor}</td>
-                    <td>${downtimeFormatado}</td>`
+                    <td>${downtimeFormatado}</td>
+                     <td style="text-align:center; display:flex; justify-content: center;">${statusText}<img style="width: 25px; align-itens:center; display: flex;"src="${statusImage}" alt="" class="alert"></td>`
 
                         ;
                     tbody.appendChild(row);
