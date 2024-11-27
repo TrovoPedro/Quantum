@@ -26,6 +26,7 @@ var alertaRouter = require("./src/routes/alerta");
 var previsaoRouterRebeca = require("./src/routes/previsao");
 var previsaoRouter = require("./src/routes/estatisticasTrovo");
 var graficosRouterLazaro = require("./src/routes/graficosLazaro");
+var individual_julia = require("./src/routes/individual_julia");
 
 
 app.use(express.json());
@@ -45,6 +46,7 @@ app.use("/alerta", alertaRouter)
 app.use("/previsao", previsaoRouterRebeca)
 app.use("/estatisticaTrovo", previsaoRouter)
 app.use("/graficosLazaro", graficosRouterLazaro);
+app.use("/individual_julia", individual_julia);
 
 app.listen(PORTA_APP, function () {
     console.log(`
