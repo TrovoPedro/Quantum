@@ -122,9 +122,6 @@ body {
     padding-bottom: 10px;
 }
 
-
-
-
 .itensMonitorados {
     height: 90%;
     width: 100%;
@@ -134,7 +131,6 @@ body {
     padding-left: 5px;
     align-items: center;
     font-family: Ubuntu;
-
 }
 
 .cardMonitorados {
@@ -225,13 +221,13 @@ body {
     margin-top: 2.5%;
     height: 87%;
     width: 95%;
-    background-color: #7449EB;
+    background-color: #5532b6bd;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: top;
-    border: 5px;
+    border: solid 2px #e234d4;
 }
 
 .boxServidores{
