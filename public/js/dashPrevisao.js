@@ -43,21 +43,21 @@ function listarServidor() {
 
                     if (downtimeMinutos <= 60) {
                         statusImage = './img/icons8-emoji-de-círculo-verde-48.png';
-                        statusText = 'Estável'
+                        statusText = 'Estável 🟢'
                     } else if (downtimeMinutos > 120 && downtimeMinutos <= 240) {
                         statusImage = './img/icons8-emoji-de-círculo-verde-48.png';
-                        statusText = 'Atenção'
+                        statusText = 'Atenção 🟡'
                         //amarelo
                     } else {
                         statusImage = './assets/icons8-emoji-de-círculo-vermelho-48.png';
-                        statusText = 'Crítico'
+                        statusText = 'Crítico 🔴'
                     }
 
                     const row = document.createElement('tr');
                     row.innerHTML = `
                    <td>${item.nomeServidor}</td>
                     <td>${downtimeFormatado}</td>
-                     <td style="text-align:center; display:flex; justify-content: center;">${statusText}<img style="width: 25px; align-itens:center; display: flex;"src="${statusImage}" alt="" class="alert"></td>`
+                     <td style="text-align:center; display:flex; justify-content: center;">${statusText}</td>`
 
                         ;
                     tbody.appendChild(row);

@@ -59,10 +59,11 @@ body {
     width: 80%;
     margin-right: 180px;
     margin-bottom: 10px;
+    padding-left: 1%;
 }
 
 .previsao h2 {
-    font-size: 24px;
+    font-size: 30px;
 }
 
 .alinha {
@@ -83,16 +84,16 @@ body {
     width: 200px;
     background-color: #1e0330;
     margin: 10px;
-    border-radius: 2px;
-    box-shadow: 0px 4px 10px rgba(87, 86, 86, 0.3);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(188, 188, 188, 0.3);
 }
 
 .componentes {
     border: #170125 1px solid;
     background-color: #170125;
-    height: 60px;
+    height: 50px;
     width: 90px;
-    padding-top: 5px;
+    
     display: flex;
     justify-content: space-evenly;
     padding-right: 2px;
@@ -127,11 +128,12 @@ body {
 
 .listaRanking {
     background-color: #7449EB;
-    height: 470px;
+    height: 468px;
     width: 500px;
-    border-radius: 3px;
+    border-radius: 10px;
     color: #fff;
     overflow-y: auto;
+    box-shadow: 0px 4px 10px rgba(188, 188, 188, 0.3);
 }
 
 .listaRanking table {
@@ -155,23 +157,29 @@ body {
 
 .graficoTendencia {
     background-color: #7449EB;
-    height: 383px;
+    height: 381px;
     width: 500px;
-    border-radius: 3px;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+
+    box-shadow: 0px 4px 10px rgba(188, 188, 188, 0.3);
 }
 
 .MapaCalor {
     align-items: center;
     margin-top: 80px;
     margin-left: 70px;
-    transform: translate(0%, -12%);
+    transform: translate(0%, -12%); 
 }
 
 .graficoMapaDeCalor {
     background-color: #7449EB;
-    height: 390px;
+    height: 385px;
     width: 500px;
-    border-radius: 3px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(188, 188, 188, 0.3);
+    z-index: -1;
 }
 
 .apexcharts-tooltip {
@@ -303,4 +311,81 @@ body {
 }
 .mediaRam td, .mediaCpu td, .picoRam td, .picoCpu td {
     color: #000;
+}
+/* Tooltip Container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    z-index: 999;
+}
+
+/* Tooltip Text */
+.tooltiptext {
+    visibility: hidden;
+    width: 310px;
+    background-color: #2c2c2c;
+    color: #fff;
+    text-align: left;
+    border-radius: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    position: absolute;
+    top: 125%;
+    left: 10%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: 1;
+}
+
+
+/* Tooltip Text Arrow */
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #2c2c2c transparent;
+    z-index: 1;
+}
+
+/* Show Tooltip on Hover */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+    z-index: 999;
+}
+
+/* Tooltip Icon */
+.tooltip .icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: #faf05e;
+    color: #000000;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    transition: transform 0.3s ease;
+}
+
+/* Tooltip Icon Hover Effect */
+.tooltip .icon:hover {
+    transform: scale(1.1);
+    background-color: #4500b3;
+    z-index: 1;
 }
