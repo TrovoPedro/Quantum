@@ -1,487 +1,611 @@
 * {
-    padding: 0;
-    margin: 0;
-  }
-
-  body {
-    background-color: black;
-    overflow-x: hidden;
-  }
-  
-  .NavBar {
-    display: flex;
-    width: 100vw;
-    height: 7%;
-    border-bottom: 2px #7449EB solid;
-    align-items: center;
-  }
-  
-  .LogoNavBar {
-    display: flex;
-    height: 45px;
-    width: 45px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  
-  .botaoNavBar {
-    text-decoration: none;
-    color: white;
-    padding-right: 20px;
-    font-size: 20px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .div1 {
-    display: flex;
-    margin-left: 65%;
-  }
-  
-  .Monitoramento {
-      justify-content: center;
-      align-items: center;
-  }
-  
-  .TituloBem-Vindo {
-    display: flex;
-    color: white;
-    margin-top: 20px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .Paragrafo_Bem-vindo {
-    display: flex;
-    padding-top: 20px;
-    font-size: 20px;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .div1-container {
-    display: flex;
-    justify-content: flex-start;
-    /* flex-direction: column-reverse; */
-  }
-  
-  .box1 {
-    display: flex;
-    position: absolute;
-    height: 340px;
-    justify-content: center;
-    width: 100%;
-    background-color: black;
-    border-radius: 20px;
-    margin-top: 430px;
-    flex-direction:row ;
-  }
-  
-  .box2 {
-    display: flex;
-    height: 150px;
-    width: 1000px;
-    /* background-color: white; */
-    border-radius: 20px;
-    margin-top: -90px;
-    /* margin-top: 100px;  */
-    margin-left: 100px;
-  }
-  
-  .DivAlertas {
-    width: 420px;
-    height: 240px;
-    background-color: #7449EB;
-    border-radius: 20px;
-    margin-left: 5px;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    box-shadow: 5px 5px 15px rgb(0, 0, 0);
+  padding: 0;
+  margin: 0;
 }
 
+body {
+  background-color: black;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.NavBar {
+  display: flex;
+  width: 100vw;
+  height: 7%;
+  border-bottom: 2px #7449EB solid;
+  align-items: center;
+}
+
+.LogoNavBar {
+  display: flex;
+  height: 45px;
+  width: 45px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.botaoNavBar {
+  text-decoration: none;
+  color: white;
+  padding-right: 20px;
+  font-size: 20px;
   
-  .tituloAlertas {
-    margin-top: -290px;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+}
+
+.div1 {
+  display: flex;
+  margin-left: 65%;
+}
+
+.Monitoramento {
+    justify-content: center;
+    align-items: center;
+}
+
+.TituloBem-Vindo {
+  display: flex;
+  color: white;
+  margin-top: 20px;
   
-  .container {
-    display: flex;
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
-    gap: 20px; 
-    padding: 10px;
-    box-sizing: border-box;
+}
+
+.Paragrafo_Bem-vindo {
+  display: flex;
+  padding-top: 20px;
+  font-size: 20px;
+  color: white;
+  
+}
+
+.div1-container {
+  display: flex;
+  justify-content: flex-start;
+  /* flex-direction: column-reverse; */
+}
+
+.box1 {
+  display: flex;
+  position: absolute;
+  height: 290px;
+  justify-content: space-evenly;
+  width: 100%;
+  background-color: black;
+  border-radius: 20px;
+  margin-top: 540px;
+  flex-direction:row ;
+}
+
+.box2 {
+  display: flex;
+  height: 150px;
+  width: 1000px;
+  /* background-color: white; */
+  border-radius: 20px;
+  margin-top: -90px;
+  /* margin-top: 100px;  */
+  margin-left: 100px;
+}
+
+.DivAlertas {
+  width: 420px;
+  height: 240px;
+  background-color: #7449EB;
+  border-radius: 20px;
+  margin-left: 5px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  box-shadow: 5px 5px 15px rgb(0, 0, 0);
+}
+
+
+.tituloAlertas {
+  margin-top: -290px;
+  color: white;
+  
+}
+
+.container {
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* justify-content: center; */
+  gap: 20px; 
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .DivComponente {
-  flex: 1 1 300px;
-  max-width: 440px;
-  height: auto;
-  max-height: 240px;
-  background-color: #7449EB;
-  border-radius: 20px;
-  margin: 10px;
-  padding: -11px; 
-  box-shadow: 5px 5px 15px rgb(0, 0, 0);
-  overflow-y: auto;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column; 
-  gap: 1px; 
+flex: 1 1 300px;
+max-width: 440px;
+height: auto;
+max-height: 240px;
+background-color: #7449EB;
+border-radius: 20px;
+margin: 10px;
+padding: -11px; 
+box-shadow: 5px 5px 15px rgb(0, 0, 0);
+overflow-y: auto;
+box-sizing: border-box;
+display: flex;
+flex-direction: column; 
+justify-content: space-between;
+gap: 10px; 
 }
 
 .DivComponente > * {
-  margin: 0; 
+margin: 0; 
 }
 
 
 .tituloTabela {
-    display: flex;
-    justify-content: space-between;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  border: 2px solid white;
+  /* margin-left: 110px; */
+  
+}
+
+.tituloTabela tr {
+font-size: 25px;
+background-color: black;
+border: 2px solid white;
+/* justify-content: space-between; */
+}
+
+.tituloTabela td {
+  font-size: 25px;
+  background-color: black;
+  border: 2px solid white;
+  /* justify-content: space-between; */
+  }
+
+.Tabela{
+margin-left: 0px;
+/* border: 2px solid white; */
+}
+
+.Tabela2{
+  margin-left: 0px;
+border: 2px solid white;
 }
 
 .listaServidores {
-    width: 100%;
-    height: 370px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  /* margin-right: 10px; */
+  height: 370px;
+  overflow-y:unset;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: space-between;
 }
 
 .listaServidores table {
-    width: 100%;
-    table-layout:fixed; 
+  width: 100%;
+  table-layout:fixed; 
+  justify-content: space-between;
+ 
 }
 
 .listaServidores th {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding: 15px;
-    margin-bottom: 1px;
-    color: white;
-    font-size: 15px;
-    text-align: center;
-    border-bottom: 1px solid #7449EB ;
+
+  padding: 15px;
+  margin-bottom: 1px;
+  /* margin-left: 100px; */
+  color: white;
+  font-size: 15px;
+  text-align: center;
+  border-bottom: 1px solid #7449EB ;
+  justify-content: space-between;
+  
 }
 
+/* Estilo geral da tabela */
+#tabela-servidores {
+width: 100%;
+border-collapse: separate;
+border-spacing: 0 10px;
+}
+
+/* Estilo para cabeçalho */
+#tabela-servidores thead th {
+/* background-color: #f4f4f4; Cor de fundo */
+font-size: 16px;
+padding: 1px 5px;
+text-align: left;
+}
+
+/* Estilo para corpo da tabela */
+#tabela-servidores tbody tr {
+/* background-color: #ffffff; */
+/* border: 1px solid #ddd; Linha separadora */
+margin-bottom: 10px; /* Espaço entre linhas */
+}
+
+/* Estilo para células */
+#tabela-servidores th, #tabela-servidores td {
+padding: 5px 20px;
+text-align: left;
+}
+
+
 .listaServidores td {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding: 60px;
-    color: white;
-    padding-right: 15px;
-    margin-bottom: 1px;
-    font-size: 15px;
-    text-align: center;
-    border-bottom: 1px solid #7449EB ;
+
+  padding: 60px;
+  color: white;
+  padding-right: 15px;
+  margin-bottom: 1px;
+  font-size: 15px;
+  text-align: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #7449EB ;
 } 
 
 .listaServidores::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+  width: 12px;
+  height: 12px;
+  margin-left: 20px;
 }
 
 .listaServidores::-webkit-scrollbar-thumb {
-    background-color: #a098d3;
-    border-radius: 10px;
+  background-color: #a098d3;
+  border-radius: 10px;
+  margin-left: 10px;
 }
 
 .listaServidores::-webkit-scrollbar-thumb:hover {
-    background-color: #351d79;
+  background-color: #351d79;
+  
 }
 
 .TituloComponentes {
-    color: white;
-    /* margin-top: -100px; */
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin-top: 20px; 
+  color: white;
+  /* margin-top: -100px; */
+  
+  margin-top: 20px; 
+  justify-content: space-between;
 }
 
-  
-  .card1 {
-    display: flex;
-    height: 140px;
-    width: 200px;
-    margin-left: 100px;
-    border-radius: 20px;
-    margin-top: -10px;
-    background-color: #7449EB;
-    justify-content: center;
-  }
 
-  .div-pai{
-    /* display: flex; */
-    margin-top: 150px;
-    align-items: center;
-  }
+.cardDesativados {
+  display: flex;
+  height: 160px;
+  width: 280px;
+  margin-left: 30px;
+  border-radius: 20px;
+  margin-top: -10px;
+  background-color: #7449EB;
+  justify-content: center
+  
+  ;
+}
 
-  .graficos{
-    margin-left: -400px;
-  }
-  
-  .textoCard1 {
-    display: flex;
-    margin-top: 60px;
-    margin-right: 10px;
-    position: absolute;
-    height: 60px;
-    width: 90px;
-    color: #7449EB;
-    justify-content: center;
-    align-items: center;
-    font-size: 35px;
-    background-color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    border-radius: 20px;
-  }
+.card1 {
+  display: flex;
+  height: 140px;
+  width: 200px;
+  margin-left: 110px;
+  border-radius: 20px;
+  margin-top: -10px;
+  background-color: #7449EB;
+  justify-content: center;
+}
 
-  .textoCard2 {
-    display: flex;
-    margin-top: 60px;
-    margin-right: 10px;
-    position: absolute;
-    height: 60px;
-    width: 90px;
-    color: #7449EB;
-    justify-content: center;
-    align-items: center;
-    font-size: 35px;
-    background-color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    border-radius: 20px;
-  }
+.cardAtivados {
+  display: flex;
+  height: 140px;
+  width: 200px;
+  margin-left: 20px;
+  border-radius: 20px;
+  margin-top: -10px;
+  background-color: #7449EB;
+  justify-content: center;
+}
 
-  .textoCard3 {
-    display: flex;
-    margin-top: 60px;
-    margin-right: 10px;
-    position: absolute;
-    height: 60px;
-    width: 90px;
-    color: #7449EB;
-    justify-content: center;
-    align-items: center;
-    font-size: 35px;
-    background-color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    border-radius: 20px;
-  }
+.div-pai{
+  /* display: flex; */
+  margin-top: 150px;
+  align-items: center;
+}
 
-  /* .card2 {
-    display: flex;
-    height: 300px;
-    width: 630px;
-    margin-left: 100px;
-    border-radius: 20px;
-    background-color: #7449EB;
-    justify-content: center;
-    align-items: center;
-  } */
-     
-  .card3 {
-    display: flex;
-    position: absolute;
-    height: 220px;
-    width: 300px;
-    margin-left: 480.5px;
-    margin-top: 120px;
-    border-radius: 20px;
-    background-color: #7449EB;
-    justify-content: center;
-  }
-  
-  .Titulo_Grafico_CPU {
-    display: flex;
-    position: absolute;
-    height: 220px;
-    width: 300px;
-    margin-left: 485.5px;
-    margin-top: 90px;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .card4 {
-    display: flex;
-    position: absolute;
-    height: 220px;
-    width: 300px;
-    margin-left: 800px;
-    margin-top: 120px;
-    border-radius: 20px;
-    background-color: #7449EB;
-    justify-content: center;
-  }
-  
-  .Titulo_Grafico_Memoria {
-    display: flex;
-    position: absolute;
-    height: 220px;
-    width: 300px;
-    margin-left: 805.5px;
-    margin-top: 90px;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .card5 {
-    display: flex;
-    position: absolute;
-    height: 220px;
-    width: 300px;
-    margin-left: 1120px;
-    margin-top: 120px;
-    border-radius: 20px;
-    background-color: #7449EB;
-    justify-content: center;
-  }
-  
-  .Titulo_Grafico_Disco {
-    display: flex;
-    position: absolute;
-    height: 220px;
-    width: 300px;
-    margin-left: 1125.5px;
-    margin-top: 90px;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .card6 {
-    display: flex;
-    position: absolute;
-    height: 220px;
-    width: 300px;
-    margin-left: 480.5px;
-    margin-top: -300px;
-    border-radius: 20px;
-    background-color: #7449EB;
-    justify-content: center;
-  }
-  
-  .textoCard6 {
-    color: white;
-    position: absolute;
-    margin-left: 500px;
-    margin-top: -340px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .card7 {
-    display: flex;
-    position: absolute;
-    height: 200px;
-    width: 620px;
-    margin-left: 800px;
-    margin-top: -780px;
-    border-radius: 20px;
-    background-color: #7449EB;
-    justify-content: center;
-  }
-  
-  .TituloCard7 {
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+.graficos{
+  margin-left: -400px;
+}
 
-  .card8 {
-    display: flex;
-    position: absolute;
-    height: 300px;
-    width: 620px;
-    margin-left: 680px;
-    margin-top: -290px;
-    border-radius: 20px;
-    background-color: #7449EB;
-    justify-content: center;
-  }
+.textoCard1 {
+  display: flex;
+  margin-top: 60px;
+  margin-right: 10px;
+  position: absolute;
+  height: 60px;
+  width: 90px;
+  color: #7449EB;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  background-color: white;
   
-  .TotalServidores {
-    display: flex;
-    margin-top: 15px;
-    font-size: 20px;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+  border-radius: 20px;
+}
+
+.textoCard2 {
+  display: flex;
+  margin-top: 80px;
+  margin-right: 10px;
+  position: absolute;
+  height: 60px;
+  width: 90px;
+  color: #7449EB;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  background-color: white;
   
-  .statusSservidores {
-    display: flex;
-    /* position: absolute; */
-    margin-left: 100px;
-    margin-top: 10px;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+  border-radius: 20px;
+}
+
+.textoCard3 {
+  display: flex;
+  margin-top: 50px;
+  margin-right: 10px;
+  position: absolute;
+  height: 60px;
+  width: 90px;
+  color: #7449EB;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  background-color: white;
   
-  /* FONTES
-  .roboto-thin {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-  }
+  border-radius: 20px;
+}
+   
+.card3 {
+  display: flex;
+  position: absolute;
+  height: 300px;
+  width: 500px;
+  margin-left: 180.5px;
+  margin-top: 120px;
+  border-radius: 20px;
+  background-color: #7449EB;
+  justify-content: center;
+}
+
+.Titulo_Grafico_CPU {
+  display: flex;
+  position: absolute;
+  height: 220px;
+  width: 300px;
+  margin-left: 180.5px;
+  margin-top: 90px;
+  font-size: 18px;
+  color: white;
+}
+
+.card4 {
+  display: flex;
+  position: absolute;
+  height: 300px;
+  width: 500px;
+  margin-left:695.5px;
+  margin-top: 120px;
+  border-radius: 20px;
+  background-color: #7449EB;
+  justify-content: center;
+}
+
+.Titulo_Grafico_Memoria {
+  display: flex;
+  position: absolute;
+  height: 220px;
+  width: 300px;
+  margin-left: 695.5px;
+  font-size: 18px;
+  margin-top: 90px;
+  color: white; 
+}
+
+.card5 {
+  display: flex;
+  position: absolute;
+  height: 300px;
+  width: 500px;
+  margin-left: 1210px;
+  margin-top: 120px;
+  border-radius: 20px;
+  background-color: #7449EB;
+  justify-content: center;
+}
+
+.Titulo_Grafico_Disco {
+  display: flex;
+  position: absolute;
+  font-size: 18px;
+  height: 220px;
+  width: 300px;
+  margin-left: 1225.5px;
+  margin-top: 90px;
+  color: white;
   
-  .roboto-light {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
+}
+
+.card6 {
+  display: flex;
+  position: absolute;
+  height: 220px;
+  width: 300px;
+  margin-left: 480.5px;
+  margin-top: -300px;
+  border-radius: 20px;
+  background-color: #7449EB;
+  justify-content: center;
+}
+
+.textoCard6 {
+  color: white;
+  position: absolute;
+  margin-left: 500px;
+  margin-top: -340px;
   
-  .roboto-regular {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
+}
+
+.card7 {
+  display: flex;
+  position: absolute;
+  height: 200px;
+  width: 620px;
+  margin-left: 800px;
+  margin-top: -780px;
+  border-radius: 20px;
+  background-color: #7449EB;
+  justify-content: center;
+}
+
+.TituloCard7 {
+  color: white;
   
-  .roboto-medium {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-  
-  .roboto-bold {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .roboto-black {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-  }
-  
-  .roboto-thin-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-  }
-  
-  .roboto-light-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-  
-  .roboto-regular-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .roboto-medium-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-  }
-  
-  .roboto-bold-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
-  .roboto-black-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-  } */
+}
+
+.card8 {
+  display: flex;
+  position: absolute;
+  height: 300px;
+  width: 620px;
+  margin-left: 680px;
+  margin-top: -290px;
+  border-radius: 20px;
+  background-color: #7449EB;
+  justify-content: center;
+}
+
+.TotalServidores {
+  display: flex;
+  margin-top: 15px;
+  font-size: 20px;
+  color: white;
+}
+
+.TotalServidoresDesativados{
+  display: flex;
+  margin-top: 0px;
+  font-size: 20px;
+  color: white;
+  /* margin-left: 85px; */
+}
+
+.statusSservidores {
+  display: flex;
+  /* position: absolute; */
+  margin-left: 100px;
+  margin-top: 10px;
+  color: white;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: -100px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #7449EB;
+  color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid white;
+  width: 60%;
+  overflow-y: auto;
+}
+
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* FONTES
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+} */
