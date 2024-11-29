@@ -94,10 +94,21 @@
                 <div style="margin-left: -360px; margin-top: -80px;">
                     <p class="Titulo_Grafico_CPU"><b>Máximo e mínimo do uso de CPU</b></p>
                     <div class="card3"><canvas id="graficoCPU"></canvas></div>
+                    
                     <p class="Titulo_Grafico_Memoria"><b>máximo e mínimo do uso de RAM</b></p>
                     <div class="card4"><canvas id="graficoMemoria"></canvas></div>
                     <p class="Titulo_Grafico_Disco"><b>Máximo e mínimo do uso de Disco</b></p>
                     <div class="card5"><canvas id="graficoDisco"></canvas></div>
+                </div>
+            </div>
+
+            <div class="tooltip">
+                <div class="icon">i</div>
+                <div class="tooltiptext">
+                    <p>Estado Crítico 🔴: Um servidor é considerado em estado crítico quando o tempo de downtime é muito alto ou a frequência de falhas é recorrente. Esse estado indica que o servidor está impactando as operações, podendo levar a interrupções do serviço PEP.</p>
+                    <p>Estado de Alerta 🟡: O estado de alerta é ativado quando o tempo de downtime é moderado, mas ainda pode ser motivo de preocupação. Embora não haja impacto imediato, o servidor precisa ser monitorado de perto. A intervenção pode ser necessária para evitar que o problema se agrave.</p>
+                    <p>Estado Normal 🟢: O estado normal é quando o servidor não apresenta problemas significativos de downtime e está operando dentro dos parâmetros esperados. Manutenção regular e monitoramento são suficientes para garantir sua operação.</p>
+                    <p><strong>Como Utilizar As Categorias:</strong> Servidores críticos exigem correção imediata, os em alerta precisam de acompanhamento próximo e os normais requerem monitoramento regular para prevenção.</p>
                 </div>
             </div>
         </div>
@@ -126,6 +137,17 @@
                 </table>
             </div>
         </div>
+
+        <div class="tooltip">
+            <div class="icon">i</div>
+            <div class="tooltiptext">
+                <p>Estado Crítico 🔴: Um servidor é considerado em estado crítico quando o tempo de downtime é muito alto ou a frequência de falhas é recorrente. Esse estado indica que o servidor está impactando as operações, podendo levar a interrupções do serviço PEP.</p>
+                <p>Estado de Alerta 🟡: O estado de alerta é ativado quando o tempo de downtime é moderado, mas ainda pode ser motivo de preocupação. Embora não haja impacto imediato, o servidor precisa ser monitorado de perto. A intervenção pode ser necessária para evitar que o problema se agrave.</p>
+                <p>Estado Normal 🟢: O estado normal é quando o servidor não apresenta problemas significativos de downtime e está operando dentro dos parâmetros esperados. Manutenção regular e monitoramento são suficientes para garantir sua operação.</p>
+                <p><strong>Como Utilizar As Categorias:</strong> Servidores críticos exigem correção imediata, os em alerta precisam de acompanhamento próximo e os normais requerem monitoramento regular para prevenção.</p>
+            </div>
+        </div>
+
 </body>
 
 </html>
