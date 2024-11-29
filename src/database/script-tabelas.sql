@@ -174,28 +174,6 @@ LIMIT 0, 1000;
 
 select * from servidor;
 
--- Logs para o Servidor 1
-INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
-VALUES 
-    (CONCAT(CURDATE(), ' 09:00:00'), 120, 82.9, 1, 1),  -- CPU
-    (CONCAT(CURDATE(), ' 11:00:00'), 120, 53.3, 2, 1),  -- RAM
-    (CONCAT(CURDATE(), ' 14:00:00'), 120, 67.9, 3, 1);-- DISCO
- -- REDE
-
--- Logs para o Servidor 2
-INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
-VALUES 
-    (CONCAT(CURDATE(), ' 08:30:00'), 120, 50.5, 1, 2),  -- CPU
-    (CONCAT(CURDATE(), ' 10:45:00'), 120, 78.4, 2, 2),  -- RAM
-    (CONCAT(CURDATE(), ' 13:15:00'), 120, 82.9, 3, 2); -- DISCO
-  -- REDE
-
--- Logs para o Servidor 3
-INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
-VALUES 
-    (CONCAT(CURDATE(), ' 07:45:00'), 120, 85.1, 1, 3),  -- CPU
-    (CONCAT(CURDATE(), ' 09:30:00'), 120, 78.3, 2, 3),  -- RAM
-    (CONCAT(CURDATE(), ' 12:00:00'), 120, 56.0, 3, 3);  -- DISCO
 
 
 -- Tabela componente
@@ -234,8 +212,30 @@ INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor
 VALUES ('2024-11-19 10:30:00', 120, 85.5, 1, 1);
 
 
-select * from log;
-select * from limitecomponente;
+-- Logs para o Servidor 1
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 09:00:00'), 120, 82.9, 1, 1),  -- CPU
+    (CONCAT(CURDATE(), ' 11:00:00'), 120, 53.3, 2, 1),  -- RAM
+    (CONCAT(CURDATE(), ' 14:00:00'), 120, 67.9, 3, 1);-- DISCO
+ -- REDE
+
+-- Logs para o Servidor 2
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 08:30:00'), 120, 50.5, 1, 2),  -- CPU
+    (CONCAT(CURDATE(), ' 10:45:00'), 120, 78.4, 2, 2),  -- RAM
+    (CONCAT(CURDATE(), ' 13:15:00'), 120, 82.9, 3, 2); -- DISCO
+  -- REDE
+
+-- Logs para o Servidor 3
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 07:45:00'), 120, 85.1, 1, 3),  -- CPU
+    (CONCAT(CURDATE(), ' 09:30:00'), 120, 78.3, 2, 3),  -- RAM
+    (CONCAT(CURDATE(), ' 12:00:00'), 120, 56.0, 3, 3);  -- DISCO
+
+
 
 
 
@@ -246,6 +246,9 @@ CREATE TABLE limiteComponente(
     FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
 );
 
+
+select * from log;
+select * from limitecomponente;
 
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (88.0, 1); 
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (84.0, 2); 

@@ -607,34 +607,6 @@ window.onload = function () {
 
 };
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     buscarProbabilidade();
-// });
-
-
-
-
-
-// async function obterDadosDoBanco() {
-//     try {
-
-//         const resultadoComPrevisao = await fetch('/alerta/tendenciaUso');
-//         const data = await resultadoComPrevisao.json();
-//         console.log(data)
-//         return data;
-
-
-
-//     }
-
-//     catch (error) {
-
-//         console.error('Erro ao obter dados:', error);
-//         return [];
-
-//     }
-// }
-
 
 
 async function obterDadosDoBanco() {
@@ -666,6 +638,7 @@ async function criarGrafico() {
     const ctx = document.getElementById('myChartPrevisao').getContext('2d');
 
     new Chart(ctx, {
+        
         type: 'scatter',
         data: {
             datasets: [
@@ -765,9 +738,10 @@ async function obterDadosDoBancoMudanca() {
 let modalChartInstance = null;
 
 async function criarGraficoMudanca() {
+
     const dados = await obterDadosDoBancoMudanca();
 
-    // Verifica se o array de resultados e o array de ranges estão definidos
+
     if (!dados || !dados.resultadoComPrevisao || dados.resultadoComPrevisao.length === 0) {
         console.error("Erro: Dados de previsão não encontrados.");
         return;
@@ -789,23 +763,25 @@ async function criarGraficoMudanca() {
     if (modalChartInstance) {
         modalChartInstance.destroy();
     }
-    modalChartInstance = new Chart(ctx, {
+    
+    modalChartInstance =new Chart(ctx, {
         type: 'scatter',
         data: {
             datasets: [
                 {
                     label: 'Alertas de Uso',
                     data: scatterData,
-                    backgroundColor: '#290135',
-                    borderColor: '#290135',
+                    backgroundColor: '#290135', 
+                    borderColor: 'white',
                     borderWidth: 1,
+                    pointRadius: 6, 
                 },
                 {
                     label: 'Tendência de Uso',
                     data: regressionLine,
                     type: 'line',
-                    backgroundColor: '#ffff',
-                    borderColor: '#ffff',
+                    borderColor: 'white',
+                    backgroundColor: 'white',
                     borderWidth: 2,
                     fill: false,
                     pointRadius: 0
@@ -813,17 +789,57 @@ async function criarGraficoMudanca() {
             ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        font: {
+                            size: 16
+                        },
+                        color: 'white'
+                    }
+                }
+            },
             scales: {
                 x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        display: true,
+                        text: 'Mês',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    },
                     grid: {
-                        color: 'rgb(39, 39, 39)', 
+                        color: 'rgba(255, 255, 255, 0.1)'
                     }
                 },
                 y: {
+                    title: {
+                        display: true,
+                        text: 'Número de Alertas',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    },
                     grid: {
-                        color: 'rgb(39, 39, 39)', 
+                        color: 'rgba(255, 255, 255, 0.1)'
                     }
                 }
+            },
+            elements: {
+                point: {
+                    radius: 10, 
+                    backgroundColor: '#FF0000' 
+                }
+            },
+            layout: {
+                padding: 10
             }
         }
     });
@@ -887,39 +903,6 @@ criarGrafico();
 
 
 
-
-// function buscarProbabilidade() {
-//     fetch(`/alerta/buscarProbabilidade`, {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json"
-//         }
-//     })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error(`Erro HTTP: ${response.status}`);
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             console.log("Dados recebidos de PROBABILIDADE:", data);
-
-
-//             const h1 = document.querySelector('#div_percentual h1');
-
-//             if (data && data.chance_alerta_percentual !== undefined) {
-//                 h1.textContent = `${data.chance_alerta_percentual}%`;
-//             } else {
-//                 h1.textContent = "0%";
-//             }
-
-//             document.getElementById('loading').style.display = 'none';
-//         })
-//         .catch(error => {
-//             console.error('Houve um erro ao capturar os dados:', error);
-//             document.getElementById('loading').style.display = 'none';
-//         });
-// }
 
 
 function openModal() {
