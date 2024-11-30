@@ -42,8 +42,13 @@
             <div class="box1">
 
                 <div class="DivComponente">
-                    <h1 style="color: white; position: absolute; margin-top: -40px; margin-left: 10px;">Componentes que
-                        passaram do limite</h1>
+
+                    <h1 class="titulo_Componente_Por_Servidor titulo-grafico"><b>Componentes que passaram do limite</b>
+                        <span class="tooltip">Esta tabela exibe os componentes do servidor que excederam os limites de uso configurados. <br> Cada linha apresenta o servidor, o componente afetado, o percentual de uso atingido e o limite definido. <br> Caso não haja registros, significa que nenhum componente ultrapassou os limites estabelecidos durante o período monitorado.</span>
+                    </h1>
+
+                    <!-- <h1 style="color: white; position: absolute; margin-top: -40px; margin-left: 10px;">Componentes que
+                        passaram do limite</h1> -->
                     <div class="listaServidores">
 
                         <table id="tabela-servidores" class="Tabela">
@@ -62,8 +67,13 @@
 
                     </div>
                 </div>
-                <h1 style="color: white; position: absolute; margin-top: -30px; margin-left: 680px;">Quantidade de
-                    alerta por componente</h1>
+
+                <h1 class="Titulo_Alertas_Por_Componente titulo-grafico"><b>Componentes que passaram do limite</b>
+                    <span class="tooltip">Este gráfico apresenta o número de alertas gerados por componente ao longo do período monitorado. <br> Cada barra representa um componente específico e a quantidade de alertas associados a ele, indicando possíveis pontos de atenção no sistema. <br> Caso não haja dados exibidos, significa que nenhum alerta foi registrado para os componentes durante o período analisado.</span>
+                </h1>
+
+                <!-- <h1 style="color: white; position: absolute; margin-top: -30px; margin-left: 680px;">Quantidade de
+                    alerta por componente</h1> -->
                 <div class="DivAlertas"><canvas id="graficoAlerta"></canvas></div>
             </div>
 
@@ -92,25 +102,25 @@
                 </div>
 
                 <div style="margin-left: -360px; margin-top: -80px;">
-                    <p class="Titulo_Grafico_CPU"><b>Máximo e mínimo do uso de CPU</b></p>
+                    <p class="Titulo_Grafico_CPU titulo-grafico"><b>Máximo e mínimo do uso de CPU</b>
+                        <span class="tooltip">Este gráfico mostra os valores máximos e mínimos do uso da CPU em diferentes momentos. <br> A linha branca representa o uso máximo registrado, enquanto a linha preta representa o uso mínimo. <br> Os dados apresentados foram coletados em tempo real e representam a média de uso ao longo da semana</span>
+                    </p>
                     <div class="card3"><canvas id="graficoCPU"></canvas></div>
                     
-                    <p class="Titulo_Grafico_Memoria"><b>máximo e mínimo do uso de RAM</b></p>
+                    <p class="Titulo_Grafico_Memoria titulo-grafico"><b>Máximo e mínimo do uso de RAM</b>
+                        <span class="tooltip">Este gráfico mostra os valores máximos e mínimos do uso da RAM em diferentes momentos. <br> A linha branca representa o uso máximo registrado, enquanto a linha preta representa o uso mínimo. <br> Os dados apresentados foram coletados em tempo real e representam a média de uso ao longo da semana.</span>
+                    </p>
+
                     <div class="card4"><canvas id="graficoMemoria"></canvas></div>
-                    <p class="Titulo_Grafico_Disco"><b>Máximo e mínimo do uso de Disco</b></p>
+                    <p class="Titulo_Grafico_Disco titulo-grafico"><b>Máximo e mínimo do uso de Disco</b>
+                        <span class="tooltip">Este gráfico mostra os valores máximos e mínimos do uso do disco em diferentes momentos. <br> A linha branca representa o uso máximo registrado, enquanto a linha preta representa o uso mínimo. <br> Os dados apresentados foram coletados em tempo real e representam a média de uso ao longo da semana.</span>
+                    </p>
                     <div class="card5"><canvas id="graficoDisco"></canvas></div>
                 </div>
             </div>
 
-            <div class="tooltip">
-                <div class="icon">i</div>
-                <div class="tooltiptext">
-                    <p>Estado Crítico 🔴: Um servidor é considerado em estado crítico quando o tempo de downtime é muito alto ou a frequência de falhas é recorrente. Esse estado indica que o servidor está impactando as operações, podendo levar a interrupções do serviço PEP.</p>
-                    <p>Estado de Alerta 🟡: O estado de alerta é ativado quando o tempo de downtime é moderado, mas ainda pode ser motivo de preocupação. Embora não haja impacto imediato, o servidor precisa ser monitorado de perto. A intervenção pode ser necessária para evitar que o problema se agrave.</p>
-                    <p>Estado Normal 🟢: O estado normal é quando o servidor não apresenta problemas significativos de downtime e está operando dentro dos parâmetros esperados. Manutenção regular e monitoramento são suficientes para garantir sua operação.</p>
-                    <p><strong>Como Utilizar As Categorias:</strong> Servidores críticos exigem correção imediata, os em alerta precisam de acompanhamento próximo e os normais requerem monitoramento regular para prevenção.</p>
-                </div>
-            </div>
+            
+            
         </div>
     </section>
 
@@ -137,17 +147,6 @@
                 </table>
             </div>
         </div>
-
-        <div class="tooltip">
-            <div class="icon">i</div>
-            <div class="tooltiptext">
-                <p>Estado Crítico 🔴: Um servidor é considerado em estado crítico quando o tempo de downtime é muito alto ou a frequência de falhas é recorrente. Esse estado indica que o servidor está impactando as operações, podendo levar a interrupções do serviço PEP.</p>
-                <p>Estado de Alerta 🟡: O estado de alerta é ativado quando o tempo de downtime é moderado, mas ainda pode ser motivo de preocupação. Embora não haja impacto imediato, o servidor precisa ser monitorado de perto. A intervenção pode ser necessária para evitar que o problema se agrave.</p>
-                <p>Estado Normal 🟢: O estado normal é quando o servidor não apresenta problemas significativos de downtime e está operando dentro dos parâmetros esperados. Manutenção regular e monitoramento são suficientes para garantir sua operação.</p>
-                <p><strong>Como Utilizar As Categorias:</strong> Servidores críticos exigem correção imediata, os em alerta precisam de acompanhamento próximo e os normais requerem monitoramento regular para prevenção.</p>
-            </div>
-        </div>
-
 </body>
 
 </html>
