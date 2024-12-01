@@ -154,6 +154,20 @@ function buscarComponentePorServidor(req, res) {
     }
 }
 
+function buscarDescricaoDesativados(req, res) {
+    var idServidor = req.params.idServidor;
+
+    graficosModel.buscarDescricaoDesativados(idServidor)
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao buscar a descrição dos Servidores Desativados Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 
 module.exports = {
     buscarUptimeSemanal,
@@ -164,5 +178,6 @@ module.exports = {
     buscarNumeroServidoresDesativado,
     buscarNumeroServidoresAtivado,
     buscarAlertasPorServidor,
-    buscarComponentePorServidor
+    buscarComponentePorServidor,
+    buscarDescricaoDesativados
 }

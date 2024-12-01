@@ -15,7 +15,51 @@ body {
     background: #151a22;
     display: flex;
     flex-direction: row;
+    overflow-x: hidden;
 }
+
+.NavBar {
+    display: flex;
+    width: 100vw;
+    height: 7%;
+    margin-left: -5px;
+    border-bottom: 2px #7449EB solid;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+  }
+
+.botoesNav p {
+    display: none;
+}
+
+.logoNav {
+    width: 40%;
+    transition: 0.5s ease;
+}
+
+.LogoNavBar {
+    display: flex;
+    height: 45px;
+    width: 45px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+  }
+
+  .botaoNavBar {
+    text-decoration: none;
+    color: white;
+    padding-right: 20px;
+    font-size: 20px;
+    
+  }
+  
+  .div1 {
+    display: flex;
+    margin-left: 65%;
+  }
 
 .div-btn {
     width: 100%;
@@ -38,7 +82,9 @@ body {
 .pai-lista {
     display: flex;
     flex-direction: column;
-    margin-left: 20%;
+    margin-left: 15%;
+    margin-top: 100px;
+    margin-right: 200px;
     width: 100%;
     height: 100%;
     gap: 10px;
