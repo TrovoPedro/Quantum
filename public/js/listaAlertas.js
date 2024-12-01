@@ -504,7 +504,7 @@ function plotarGraficoModal(resposta) {
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: { color: 'black' } // Cor da legenda
+                    labels: { color: 'black' }
                 },
                 tooltip: {
                     backgroundColor: '#130228',
@@ -515,24 +515,24 @@ function plotarGraficoModal(resposta) {
             scales: {
                 x: {
                     ticks: {
-                        color: 'black', // Cor dos nomes no eixo X
+                        color: 'black', 
                         font: {
-                            size: 14 // Tamanho da fonte opcional
+                            size: 14 
                         }
                     },
                     grid: {
-                        color: 'rgba(0, 0, 0, 0.1)' // Cor das linhas do grid opcional
+                        color: 'rgba(0, 0, 0, 0.1)'
                     }
                 },
                 y: {
                     ticks: {
-                        color: 'black', // Cor dos nomes no eixo Y
+                        color: 'black', 
                         font: {
-                            size: 14 // Tamanho da fonte opcional
+                            size: 14 
                         }
                     },
                     grid: {
-                        color: 'rgba(0, 0, 0, 0.1)' // Cor das linhas do grid opcional
+                        color: 'rgba(0, 0, 0, 0.1)' 
                     }
                 }
             }
@@ -981,22 +981,91 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
 function gerarPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    // Adiciona título principal
     doc.setFontSize(18);
     doc.text('Relatório de Alertas Mensal', 20, 20);
 
+    // Adiciona gráfico (se existir no DOM)
+    const chartCanvas = document.getElementById("myChartCanvas");
+    if (chartCanvas) {
+        doc.setFontSize(12);
+        doc.text('Visão Geral Anual de Alertas de Componentes:', 20, 40);
+        try {
+            doc.addImage(chartCanvas, 'PNG', 20, 50, 180, 90);
+        } catch (error) {
+            console.error("Erro ao adicionar gráfico ao PDF:", error);
+            doc.text('Erro ao carregar gráfico.', 20, 90);
+        }
+    }
+
+    // Adiciona título da seção de alertas por componente
     doc.setFontSize(12);
-    doc.text('Visão Geral Anual de Alertas de Componentes:', 20, 40);
-    doc.addImage(document.getElementById("myChartCanvas"), 'PNG', 20, 50, 180, 90);
+    const alertasTituloY = chartCanvas ? 160 : 50; // Ajusta a posição com base na existência do gráfico
+    doc.text('Alertas por Componente:', 20, alertasTituloY);
 
-    doc.text('Alertas por Componente:', 20, 160);
-    doc.autoTable(document.getElementById("section2"));
+    // Captura os alertas da tabela em `section2`
+    const alertasTabela = [];
+    const rows = document.querySelectorAll('#section2 .linha_ranking:not(.header)'); // Ignora o cabeçalho
 
-    doc.save('relatorio_alertas.pdf');
+    rows.forEach(row => {
+        const columns = row.querySelectorAll('span');
+        const linha = Array.from(columns).map(col => col.textContent.trim());
+        alertasTabela.push(linha);
+    });
+
+    // Adiciona tabela de alertas ao PDF
+    const startYTabela = alertasTituloY + 10;
+    if (alertasTabela.length > 0) {
+        doc.autoTable({
+            head: [['Componente', 'Período', 'Alertas']], // Cabeçalhos da tabela
+            body: alertasTabela, // Dados capturados
+            startY: startYTabela, // Posição inicial da tabela
+            theme: 'grid',
+            headStyles: { fillColor: [33, 33, 33], textColor: [255, 255, 255] },
+            bodyStyles: { textColor: [0, 0, 0] },
+        });
+    } else {
+        // Caso não haja alertas, exibe mensagem
+        doc.text('Nenhum alerta encontrado.', 20, startYTabela);
+    }
+
+    // Adiciona título e tabela de variação de alertas (se existir)
+    const variacaoTabelaY = doc.autoTable.previous ? doc.autoTable.previous.finalY + 20 : startYTabela + 20;
+    const variacaoTabela = [];
+    const variacaoRows = document.querySelectorAll('#Variacao_Lista tbody tr');
+
+    console.log("Dados capturados da tabela de variação:", variacaoTabela);
+
+    // Verifica se há dados
+    if (variacaoRows.length > 0) {
+        variacaoRows.forEach(row => {
+            const columns = row.querySelectorAll('td');
+            const linha = Array.from(columns).map(col => col.textContent.trim());
+            variacaoTabela.push(linha);
+        });
+    }
+
+    doc.text('Variação de Alertas:', 20, variacaoTabelaY);
+
+    if (variacaoTabela.length > 0) {
+        doc.autoTable({
+            head: [['Mês', 'Quantidade', 'Variação']], // Cabeçalhos da tabela
+            body: variacaoTabela, // Dados capturados
+            startY: variacaoTabelaY + 10, // Posição inicial da tabela
+            theme: 'grid',
+            headStyles: { fillColor: [33, 33, 33], textColor: [255, 255, 255] },
+            bodyStyles: { textColor: [0, 0, 0] },
+        });
+    } else {
+        doc.text('Nenhuma variação encontrada.', 20, variacaoTabelaY + 10);
+    }
+
+    // Salva o arquivo PDF
+    doc.save('Relatório_Alertas.pdf');
 }
 
 
@@ -1005,17 +1074,19 @@ function gerarPDF() {
 
 
 
-// Função para obter a semana atual
+
+
+
 function calcularSemana() {
     const hoje = new Date();
 
-    // Calcular o primeiro dia da semana (segunda-feira)
+
     const primeiroDiaSemana = new Date(hoje.setDate(hoje.getDate() - hoje.getDay() + 1));
 
-    // Calcular o último dia da semana (domingo)
+
     const ultimoDiaSemana = new Date(hoje.setDate(primeiroDiaSemana.getDate() + 6));
 
-    // Formatar as datas (DD/MM/YYYY)
+
     const formatarData = (data) =>
         data.toLocaleDateString('pt-BR', {
             day: '2-digit',
@@ -1026,7 +1097,7 @@ function calcularSemana() {
     return `${formatarData(primeiroDiaSemana)} - ${formatarData(ultimoDiaSemana)}`;
 }
 
-// Atualizar o elemento na página
+
 document.addEventListener('DOMContentLoaded', () => {
     const elementoSemana = document.querySelector('.textos p');
     if (elementoSemana) {
