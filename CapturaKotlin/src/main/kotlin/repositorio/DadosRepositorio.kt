@@ -11,9 +11,9 @@ class DadosRepositorio {
     fun configurar(){
         val dataSource = BasicDataSource();
         dataSource.driverClassName = "com.mysql.cj.jdbc.Driver";
-        dataSource.url = "jdbc:mysql://localhost/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
+        dataSource.url = "jdbc:mysql://54.173.61.202/QuantumDB?useSSL=false&serverTimezone=America/Sao_Paulo"
         dataSource.username = "root"
-        dataSource.password = "Semsenha13"
+        dataSource.password = "@Davidson01"
 
         jdbcTemplate = JdbcTemplate(dataSource);
     }
