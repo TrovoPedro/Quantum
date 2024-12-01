@@ -504,7 +504,7 @@ function plotarGraficoModal(resposta) {
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: { color: 'black' }
+                    labels: { color: 'black' } // Cor da legenda
                 },
                 tooltip: {
                     backgroundColor: '#130228',
@@ -513,11 +513,32 @@ function plotarGraficoModal(resposta) {
                 }
             },
             scales: {
-                x: { ticks: { color: 'white' } },
-                y: { ticks: { color: 'white' } }
+                x: {
+                    ticks: {
+                        color: 'black', // Cor dos nomes no eixo X
+                        font: {
+                            size: 14 // Tamanho da fonte opcional
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)' // Cor das linhas do grid opcional
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: 'black', // Cor dos nomes no eixo Y
+                        font: {
+                            size: 14 // Tamanho da fonte opcional
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)' // Cor das linhas do grid opcional
+                    }
+                }
             }
         }
     };
+    
 
     if (myChartModal) {
         myChartModal.destroy();
