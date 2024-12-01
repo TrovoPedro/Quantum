@@ -23,6 +23,7 @@ function mostrarServidor() {
 }
 
 function listarServidor() {
+
     fetch(`/alerta/buscar`, {
         method: "GET",
         headers: {
@@ -503,7 +504,7 @@ function plotarGraficoModal(resposta) {
             plugins: {
                 legend: {
                     position: 'top',
-                    labels: { color: 'black' }
+                    labels: { color: 'black' } // Cor da legenda
                 },
                 tooltip: {
                     backgroundColor: '#130228',
@@ -512,11 +513,32 @@ function plotarGraficoModal(resposta) {
                 }
             },
             scales: {
-                x: { ticks: { color: 'white' } },
-                y: { ticks: { color: 'white' } }
+                x: {
+                    ticks: {
+                        color: 'black', // Cor dos nomes no eixo X
+                        font: {
+                            size: 14 // Tamanho da fonte opcional
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)' // Cor das linhas do grid opcional
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: 'black', // Cor dos nomes no eixo Y
+                        font: {
+                            size: 14 // Tamanho da fonte opcional
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)' // Cor das linhas do grid opcional
+                    }
+                }
             }
         }
     };
+    
 
     if (myChartModal) {
         myChartModal.destroy();
@@ -681,7 +703,7 @@ async function criarGrafico() {
                     position: 'bottom',
                     title: {
                         display: true,
-                        text: 'Mês',
+                        text: 'Meses',
                         color: 'white'
                     },
                     ticks: {
@@ -980,3 +1002,34 @@ function gerarPDF() {
 
 
 
+
+
+
+// Função para obter a semana atual
+function calcularSemana() {
+    const hoje = new Date();
+
+    // Calcular o primeiro dia da semana (segunda-feira)
+    const primeiroDiaSemana = new Date(hoje.setDate(hoje.getDate() - hoje.getDay() + 1));
+
+    // Calcular o último dia da semana (domingo)
+    const ultimoDiaSemana = new Date(hoje.setDate(primeiroDiaSemana.getDate() + 6));
+
+    // Formatar as datas (DD/MM/YYYY)
+    const formatarData = (data) =>
+        data.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
+
+    return `${formatarData(primeiroDiaSemana)} - ${formatarData(ultimoDiaSemana)}`;
+}
+
+// Atualizar o elemento na página
+document.addEventListener('DOMContentLoaded', () => {
+    const elementoSemana = document.querySelector('.textos p');
+    if (elementoSemana) {
+        elementoSemana.innerHTML = `Monitoramento da semana <br>${calcularSemana()}`;
+    }
+});
