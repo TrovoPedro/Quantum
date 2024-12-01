@@ -202,6 +202,7 @@ async function tendenciaUsoPrev(req, res) {
 }
 
 async function tendenciaGeralComp(req, res) {
+    
     const componentePrev = req.params.previsto;
 
     try {
