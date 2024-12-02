@@ -7,6 +7,9 @@ var usuarioController = require("../controllers/usuarioController");
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
+router.post('/cadastrar', upload.single('foto'), (req, res) => {
+    usuarioController.cadastrarfoto(req, res); 
+});
 
 router.get("/buscarPorId", function (req, res) {
     usuarioController.buscarPorId(req, res);

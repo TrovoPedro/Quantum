@@ -124,3 +124,35 @@ function formatarData(data){
     return new Intl.DateTimeFormat('pr-BR').format(newData)
 }
 
+
+function uploadImage(event) {
+    const file = event.target.files[0];
+    const idUsuario = sessionStorage.getItem("ID_USUARIO"); // Pegando o ID do usuário da sessão
+
+    if (!file) {
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('imagem', file);
+    formData.append('idUsuario', idUsuario); // Envia o ID do usuário para atualizar o perfil correto
+
+    // Fazendo o upload para o backend
+    fetch('/upload-imagem', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message === 'Imagem atualizada com sucesso') {
+            // Atualiza a imagem do perfil na interface
+            const imageUrl = `assets/${file.name}`; // Caminho da imagem no servidor
+            document.getElementById("foto-usuario").src = imageUrl; // Atualiza o src da imagem do perfil
+        } else {
+            alert('Erro ao atualizar a imagem.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao fazer upload da imagem:', error);
+    });
+}
