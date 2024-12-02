@@ -1036,7 +1036,7 @@ function plotarGraficosDisco(resposta) {
         });
 
         // Atualiza o gráfico a cada 1 segundo
-        const intervalo = setInterval(atualizarGrafico, 50000);
+        const intervalo = setInterval(atualizarGrafico, 3600000);
     } else {
         console.error('A resposta da API não é um array.', resposta);
     }
@@ -1657,19 +1657,31 @@ function buscarRiscoAlerta() {
     })
     .then(data => {
         console.log("Dados recebidos de PROBABILIDADE:", data);
-
         const h1 = document.getElementById('porcent_alerta');
+
+        const mensagem = document.getElementById('mensagem_alerta'); // Novo elemento para exibir mensagens.
 
         if (data && data.length > 0 && data[0].calcular_probabilidade_alerta !== undefined) {
             const probabilidade = (data[0].calcular_probabilidade_alerta * 100).toFixed(2);
-            h1.textContent = `${probabilidade}%`;
+
+            if (valorInput == 1) {
+                porcent_alertaRam.innerHTML = `${probabilidade}%`;
+            } else if (valorInput == 2) {
+                porcent_alerta.innerHTML = `${probabilidade}%`;
+            } else if (valorInput == 3) {
+                porcent_alertaDisco.innerHTML = `${probabilidade}%`;
+            } else if (valorInput == 4) {
+                porcent_alertaRede.innerHTML = `${probabilidade}%`;
+            }
         } else {
             h1.textContent = "0%";
+            mensagem.textContent = "Sem dados disponíveis para análise.";
         }
-
     })
     .catch(error => {
         console.error('Houve um erro ao capturar os dados:', error);
+        const mensagem = document.getElementById('mensagem_alerta');
+        mensagem.textContent = "Erro ao buscar os dados. Tente novamente mais tarde.";
     });
 }
 

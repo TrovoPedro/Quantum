@@ -391,7 +391,7 @@ BEGIN
     IF total_logs > 0 THEN
         SET probabilidade = total_alertas / total_logs;
     ELSE
-        SET probabilidade = 0; -- Evita divisão por zero
+        SET probabilidade = 0;
     END IF;
 
     RETURN probabilidade;
