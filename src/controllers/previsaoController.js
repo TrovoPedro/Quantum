@@ -60,6 +60,20 @@ function buscarTendenciaUsoRam(req, res) {
   });
 }
 
+
+function buscarOee(req, res) {
+  var servidorSelect = req.params.servidorId;
+
+  console.log("Servidor Selecionado:", servidorSelect);
+
+  previsaoModel.buscarOee(servidorSelect).then((resultado) => {
+    res.status(200).json(resultado);
+  }).catch((erro) => {
+    console.log(erro);
+    res.status(500).json({ erro: "Erro ao buscar tendência de uso." });
+  });
+}
+
 // Busca downtime por dia da semana
 
 async function buscarHeatmap(req, res) {
@@ -115,5 +129,6 @@ module.exports = {
   buscarpicoRam,
   buscarComponente,
   buscarTendenciaUsoRam,
+  buscarOee,
   buscarHeatmap
 };

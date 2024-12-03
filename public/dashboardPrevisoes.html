@@ -33,21 +33,66 @@
                 <h2>Previsões</h2>
                 <p style="font-size: large; font-weight: bold;">Monitoramento da semana <br> 04/11/24 - 10/11/24</p>
             </div>
+
+            <div class="oee" id="oee">
+                <div style="display: flex; justify-content: space-between; padding: 10px; margin: 0px;">
+                    <div class="tooltip">
+                        <div class="icon" style="margin-top: 10px;">i</div>
+                        <div class="tooltiptext">
+                            <p>O OEE Overall Equipment Effectiveness ou Eficiência Geral dos Equipamentos, é um indicador amplamente utilizado na gestão de desempenho para medir a
+                               capacidade operacional e eficiência de máquinas.</p>
+                            <!-- <p>O resultado do OEE é dado com a multiplicação de: Disponibilidade(Tempo de operação
+                                planejado - Tempo de parada planejado / Tempo de operação planejado) vezes
+                                Desempenho(Tempo real de produção/ Tempo disponivel)</p> -->
+                            <p>100% OEE: Operação ideal (tempo disponível total, sem perdas e produtos 100% conforme).
+                                85% OEE ou mais: Excelente, indicando um nível de operação eficiente (meta para
+                                operações de classe mundial).
+                                60%-85% OEE: Regular, com espaço para melhorias.
+                                Abaixo de 60%: Ineficiente, indicando problemas significativos que precisam ser
+                                corrigidos.</p>
+                            <p><strong>Para Que Utilizar:</strong> 
+                                Identificar gargalos no sistema.
+                                Priorizar melhorias em áreas críticas, como paradas frequentes ou baixa qualidade.
+                                Monitorar a eficiência ao longo do tempo para acompanhar o impacto das mudanças.</p>
+                        </div>
+                    </div>
+                    <h4 style="color: white; margin: 5px;">Cálculo do OEE</h4>
+                    <div id="select-oee"> </div>
+
+                </div>
+                <div class="alinhar-oee" style="display: flex; justify-content: space-between;">
+                    <div style="margin-right: 20px;">
+                        <p><strong>Tempo Disponível:</strong> 168 horas</p>
+                        <p><strong>Tempo Produtivo:</strong> 164 horas</p>
+                        <p><strong>Eficiência estimada:</strong> 97,62%</p>
+                    </div>
+                    <div style="text-align: center; font-size: large; border: 1px solid rgb(57, 31, 84); padding: 0; margin: 0;">
+                        <p><strong>Resultado OEE:</strong></p>
+                        <p id="oks" style="font-size: xx-large; margin: 0;"></p>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="mediaepico">
                 <div class="media">
                     <h3> Média de uso <br> RAM e CPU</h3>
                     <p style="font-size: x-small;">Clique no ícone para vizualizar a média por servidor</p>
                     <div class="componentes">
-                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM" onclick="aparecerMediaRam(), listarmediaRam()">
-                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU" onclick="aparecerMediaCpu(), listarmediaCpu()">
+                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM"
+                            onclick="aparecerMediaRam(), listarmediaRam()">
+                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU"
+                            onclick="aparecerMediaCpu(), listarmediaCpu()">
                     </div>
                 </div>
                 <div class="media">
                     <h3> Pico de uso <br> RAM e CPU</h3>
                     <p style="font-size: x-small;">Clique no ícone para vizualizar o pico de uso por servidor</p>
                     <div class="componentes">
-                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM" onclick="aparecerPicoRam(), listarpicoRam()">
-                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU" onclick="aparecerPicoCpu(), listarpicoCpu()">
+                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM"
+                            onclick="aparecerPicoRam(), listarpicoRam()">
+                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU"
+                            onclick="aparecerPicoCpu(), listarpicoCpu()">
                     </div>
                 </div>
             </div>
@@ -59,10 +104,19 @@
                     <div class="tooltip">
                         <div class="icon">i</div>
                         <div class="tooltiptext">
-                            <p>Estado Crítico 🔴: Um servidor é considerado em estado crítico quando o tempo de downtime é muito alto ou a frequência de falhas é recorrente. Esse estado indica que o servidor está impactando as operações, podendo levar a interrupções do serviço PEP.</p>
-                            <p>Estado de Alerta 🟡: O estado de alerta é ativado quando o tempo de downtime é moderado, mas ainda pode ser motivo de preocupação. Embora não haja impacto imediato, o servidor precisa ser monitorado de perto. A intervenção pode ser necessária para evitar que o problema se agrave.</p>
-                            <p>Estado Normal 🟢: O estado normal é quando o servidor não apresenta problemas significativos de downtime e está operando dentro dos parâmetros esperados. Manutenção regular e monitoramento são suficientes para garantir sua operação.</p>
-                            <p><strong>Como Utilizar As Categorias:</strong> Servidores críticos exigem correção imediata, os em alerta precisam de acompanhamento próximo e os normais requerem monitoramento regular para prevenção.</p>
+                            <p>Estado Crítico 🔴: Um servidor é considerado em estado crítico quando o tempo de downtime
+                                é muito alto ou a frequência de falhas é recorrente. Esse estado indica que o servidor
+                                está impactando as operações, podendo levar a interrupções do serviço PEP.</p>
+                            <p>Estado de Alerta 🟡: O estado de alerta é ativado quando o tempo de downtime é moderado,
+                                mas ainda pode ser motivo de preocupação. Embora não haja impacto imediato, o servidor
+                                precisa ser monitorado de perto. A intervenção pode ser necessária para evitar que o
+                                problema se agrave.</p>
+                            <p>Estado Normal 🟢: O estado normal é quando o servidor não apresenta problemas
+                                significativos de downtime e está operando dentro dos parâmetros esperados. Manutenção
+                                regular e monitoramento são suficientes para garantir sua operação.</p>
+                            <p><strong>Como Utilizar As Categorias:</strong> Servidores críticos exigem correção
+                                imediata, os em alerta precisam de acompanhamento próximo e os normais requerem
+                                monitoramento regular para prevenção.</p>
                         </div>
                     </div>
                     <hr>
@@ -89,10 +143,15 @@
                     <div class="tooltip">
                         <div class="icon">i</div>
                         <div class="tooltiptext">
-                            <p>Os dias com maior probabilidade de downtime são destacados com uma cor mais escura, enquanto dias de menor probabilidade possuem uma cor mais clara.</p>
-                            <p>Esse indicador permite que o time de infraestrutura se prepare para períodos críticos, garantindo o planejamento adequado para mitigar os efeitos dos downtimes previstos.</p>
-                            <p><strong>Dica:</strong> Verifique se há padrões consistentes, como downtimes frequentes nos mesmos dias da semana ou horários específicos. Isso pode indicar uma sobrecarga previsível ou problemas de manutenção.</p>
-                            <p><strong>Uso do gráfico:</strong> Servidores com downtime elevado em períodos prolongados indicam possíveis problemas de hardware ou necessidade de atualização de recursos.</p>
+                            <p>Os dias com maior probabilidade de downtime são destacados com uma cor mais escura,
+                                enquanto dias de menor probabilidade possuem uma cor mais clara.</p>
+                            <p>Esse indicador permite que o time de infraestrutura se prepare para períodos críticos,
+                                garantindo o planejamento adequado para mitigar os efeitos dos downtimes previstos.</p>
+                            <p><strong>Dica:</strong> Verifique se há padrões consistentes, como downtimes frequentes
+                                nos mesmos dias da semana ou horários específicos. Isso pode indicar uma sobrecarga
+                                previsível ou problemas de manutenção.</p>
+                            <p><strong>Uso do gráfico:</strong> Servidores com downtime elevado em períodos prolongados
+                                indicam possíveis problemas de hardware ou necessidade de atualização de recursos.</p>
                         </div>
                     </div>
                     <hr>
@@ -106,10 +165,15 @@
                         <div class="icon">i</div>
                         <div class="tooltiptext">
                             <p>Observe a Linha de Uso Atual:
-                                A linha vermelha indica o uso real do componente em diferentes momentos. Valores próximos de 100% podem indicar que o servidor está sobrecarregado, enquanto valores muito baixos podem sugerir subutilização.</p>
-                            <p>A linha representa a tendência prevista para o uso do componente. Essa previsão pode ajudar a identificar picos de demanda futuros e períodos de uso reduzido.</p>
-                            <p><strong>Dica:</strong>  Se a linha de tendência é plana, o uso está estável. Se é inclinada, pode haver variações significativas no desempenho esperado.</p>
-                            <p><strong>Obs:</strong> Se houver períodos de uso baixo considere otimizar os recursos, realocando outras tarefas para esse servidor.</p>
+                                A linha vermelha indica o uso real do componente em diferentes momentos. Valores
+                                próximos de 100% podem indicar que o servidor está sobrecarregado, enquanto valores
+                                muito baixos podem sugerir subutilização.</p>
+                            <p>A linha representa a tendência prevista para o uso do componente. Essa previsão pode
+                                ajudar a identificar picos de demanda futuros e períodos de uso reduzido.</p>
+                            <p><strong>Dica:</strong> Se a linha de tendência é plana, o uso está estável. Se é
+                                inclinada, pode haver variações significativas no desempenho esperado.</p>
+                            <p><strong>Obs:</strong> Se houver períodos de uso baixo considere otimizar os recursos,
+                                realocando outras tarefas para esse servidor.</p>
                         </div>
                     </div>
                     <hr>
@@ -117,10 +181,10 @@
                 <div class="alinha-select">
                     <div class="select-server" id="select-server"></div>
                     <div id="select-componente"></div>
-                </div> 
+                </div>
                 <div class="graficoTendencia">
-                   
-                  É necessário selecionar um servidor e componente para que o gráfico apareca
+                    <br>
+                    É necessário selecionar um servidor e componente para que o gráfico apareca
                     <canvas id="myChart"
                         style="height: 350px; width: 460px; text-align: center; padding-left: 15px; padding-top: 16px;"></canvas>
                 </div>
@@ -432,6 +496,7 @@
 
         // Calcula a linha de regressão linear
         const { slope, intercept } = calcularRegressao(scatterData);
+        console.log("Slope", slope, intercept)
 
         // Gere os pontos da linha de regressão
         const regressionLine = scatterData.map(point => ({

@@ -158,7 +158,7 @@ function buscarpicoCpu() {
     JOIN 
     servidor ON log.fkServidor = servidor.idServidor
     WHERE 
-    log.fkComponente = 2
+    log.fkComponente = 1
     AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
      AND servidor.fkSituacao = 2
     group by 
@@ -180,7 +180,7 @@ function buscarpicoRam() {
     JOIN 
     servidor ON log.fkServidor = servidor.idServidor
     WHERE 
-    log.fkComponente = 1
+    log.fkComponente = 2
     AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
      AND servidor.fkSituacao = 2
     group by 
@@ -188,6 +188,38 @@ function buscarpicoRam() {
     order by nomeServidor;`;
     return database.executar(instrucaoSql)
 }
+
+
+function buscarOee(servidorSelect) {
+    var instrucaoSql = `
+   SELECT 
+    SUM(downtime.downtime_minutos) AS total_downtime
+FROM 
+    servidor
+JOIN 
+    (SELECT 
+        log.fkServidor,
+        TIMESTAMPDIFF(MINUTE, log.dtHora, 
+            (SELECT MIN(dtHora) 
+             FROM log AS next_log 
+             WHERE next_log.fkServidor = log.fkServidor 
+               AND next_log.dtHora > log.dtHora 
+             LIMIT 1)
+        ) AS downtime_minutos
+     FROM 
+        log
+     WHERE 
+        (log.usoComponente <= 0 OR log.usoComponente >= 85)
+        AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
+     ) AS downtime ON servidor.idServidor = downtime.fkServidor
+       AND servidor.fkSituacao = 2
+       AND idServidor = ${servidorSelect}
+ORDER BY 
+    total_downtime DESC;`;
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarPorId,
     buscarSelectComponente,
@@ -196,5 +228,6 @@ module.exports = {
     buscarmediaRam,
     buscarmediaCpu,
     buscarpicoCpu,
-    buscarpicoRam
+    buscarpicoRam,
+    buscarOee
 };

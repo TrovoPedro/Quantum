@@ -11,6 +11,10 @@ router.get("/buscarTendenciaUsoRam/:componenteId/:servidorId", function (req, re
     previsaoController.buscarTendenciaUsoRam(req, res);
 });
 
+router.get("/buscarOee/:servidorId", function (req, res) {
+    previsaoController.buscarOee(req, res);
+});
+
 router.get("/buscarHeatmap", function (req, res) {
     previsaoController.buscarHeatmap(req, res);
 });

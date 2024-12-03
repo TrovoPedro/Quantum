@@ -490,3 +490,143 @@ const { primeiroDia, ultimoDia } = calcularSemana(hoje);
 // Atualizar o conteúdo do parágrafo na div "previsao"
 const previsaoTexto = document.querySelector('.previsao p');
 previsaoTexto.innerHTML = `Monitoramento da semana <br> ${formatarData(primeiroDia)} - ${formatarData(ultimoDia)}`;
+
+
+function listarSelectOee() {
+    fetch(`/previsao/buscarPorId`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Transformando a resposta em JSON
+        })
+        .then(data => {
+            console.log(data); // Verifique no console se a resposta está conforme esperado
+
+            const selectDiv = document.getElementById('select-oee');
+            selectDiv.innerHTML = ''; // Limpar conteúdo anterior da div
+
+            if (!data || data.length === 0) {  // Verificar se data é nulo ou um array vazio
+                const noDataMessage = document.createElement('p');
+                noDataMessage.textContent = 'Nenhum Registro encontrado.';
+                noDataMessage.style.color = '#fff';
+                noDataMessage.style.textAlign = 'center';
+                selectDiv.appendChild(noDataMessage);
+            } else {
+                // Cria o elemento select
+                const selectElement = document.createElement('select');
+                selectElement.classList.add('custom-select'); // Adiciona uma classe CSS, se necessário
+
+                // Adiciona a opção padrão
+                selectElement.innerHTML = `<option value="" disabled selected>Selecione um servidor</option>`;
+
+                // Percorrer os dados e adicionar as opções
+                data.forEach(item => {
+                    // Adicionar uma opção ao select
+                    selectElement.innerHTML += `
+                    <option value="${item.idServidor}">
+                        ${item.nomeServidor}
+                    </option>
+                `;
+                });
+
+                // Adiciona o select na div
+                selectDiv.appendChild(selectElement);
+                selectElement.addEventListener('change', () => {
+                    // Obtém os valores selecionados dinamicamente
+                    const servidorSelecionado = selectElement.value; // Valor do servidor selecionado
+
+                    console.log('Servidor Selecionado:', servidorSelecionado);
+                    calculoOee();
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados:', error);
+
+            // Exibe uma mensagem de erro
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = 'Erro ao carregar os servidores.';
+            errorMessage.style.color = '#ff0000';
+            errorMessage.style.textAlign = 'center';
+            document.getElementById('select-oee').appendChild(errorMessage);
+        });
+}
+listarSelectOee();
+
+ // CALCULO OEE
+
+ async function obterDadosOee(servidorId) {
+    console.log('servidor:', servidorId)
+
+    try {
+        let response = await fetch(`/previsao/buscarOee/${servidorId}`);
+        let data = await response.json();  // Convertendo a resposta em JSON
+        console.log(data)
+        return data;  // Retorna os dados para uso posterior
+    } catch (error) {
+        console.error('Erro ao obter dados:', error);
+        return [];  // Retorna um array vazio em caso de erro
+    }
+}
+async function calculoOee(servidorId) {
+    const servidorSelecionado = document.querySelector('#select-oee select')?.value; // Pega o value do select de servidor
+    const minutosTotais = 10080; // Total de minutos em uma semana
+    const minutosPlanejados = 9840; // Minutos planejados (tempo operacional previsto)
+
+    console.log('Servidor Selecionado para cálculo do OEE:', servidorSelecionado);
+
+    if (!servidorSelecionado) {
+        console.error("Nenhum servidor selecionado.");
+        return; // Não realiza o cálculo se um servidor não for selecionado
+    }
+
+    // Obtém dados de downtime
+    const valorDowntime = await obterDadosOee(servidorSelecionado);
+
+    if (!valorDowntime || valorDowntime.length === 0) {
+        console.error('Dados inválidos para cálculo do OEE.');
+        return;
+    }
+
+    // Variáveis acumuladoras
+    let totalDowntime = 0;
+
+    // Soma todos os downtimes no array
+    valorDowntime.forEach(item => {
+        totalDowntime += item.total_downtime || 0;
+    });
+
+    // Minutos efetivamente disponíveis para operação
+    const minutosDisponiveis = minutosPlanejados - totalDowntime;
+
+    // **Cálculo dos Fatores do OEE**
+    const disponibilidade = (minutosDisponiveis / minutosPlanejados) * 100; // Disponibilidade em %
+    const desempenho = (minutosDisponiveis / minutosTotais) * 100; // Desempenho em %
+
+    // **Cálculo do OEE**
+    const oeeFinal = (disponibilidade / 100) * (desempenho / 100) * 100; // Combina disponibilidade e desempenho
+
+    // **Exibição no Console**
+    console.log(`Disponibilidade: ${disponibilidade.toFixed(2)}%`);
+    console.log(`Desempenho: ${desempenho.toFixed(2)}%`);
+    console.log(`OEE Final: ${oeeFinal.toFixed(2)}%`);
+
+    // **Exibição no HTML**
+    // document.getElementById('availability').innerText = `${disponibilidade.toFixed(2)}%`;
+    // document.getElementById('performance').innerText = `${desempenho.toFixed(2)}%`;
+    document.getElementById('oks').innerText = `${oeeFinal.toFixed(2)}%`;
+
+    if (oeeFinal > 85) {
+        document.getElementById('oks').style.color = "green";
+    } else if (oeeFinal <= 85 && oeeFinal >= 60 ) {
+        document.getElementById('oks').style.color = "yellow";
+    } else if (oeeFinal < 60) {
+        document.getElementById('oks').style.color = "red";
+    }
+}

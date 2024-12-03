@@ -123,12 +123,12 @@ body {
     align-items: center;
     margin-left: 18px;
     height: 550px;
-    transform: translate(0%, -11%);
+    transform: translate(0%, -12%);
 }
 
 .listaRanking {
     background-color: #7449EB;
-    height: 468px;
+    height: 445px;
     width: 500px;
     border-radius: 10px;
     color: #fff;
@@ -151,13 +151,13 @@ body {
 
 .tendencia {
     margin-top: 80px;
-    margin-left: 55px;
-    transform: translate(0%, -17.9%);
+    margin-left: 85px;
+    transform: translate(0%, -22%);
 }
 
 .graficoTendencia {
     background-color: #7449EB;
-    height: 381px;
+    height: 370px;
     width: 500px;
     border-radius: 10px;
     align-items: center;
@@ -170,12 +170,12 @@ body {
     align-items: center;
     margin-top: 80px;
     margin-left: 70px;
-    transform: translate(0%, -12%); 
+    transform: translate(0%, -15%); 
 }
 
 .graficoMapaDeCalor {
     background-color: #7449EB;
-    height: 385px;
+    height: 370px;
     width: 500px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(188, 188, 188, 0.3);
@@ -388,4 +388,54 @@ body {
     transform: scale(1.1);
     background-color: #4500b3;
     z-index: 1;
+}
+
+/* Estilo Geral da Seção OEE */
+.oee {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 19px auto;
+    background-color: #1e0330;
+  
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+    width: 1500px;
+    height: 150px;
+    font-family: 'Arial', sans-serif;
+    margin-right: 150px;
+}
+
+/* Título da seção ou elementos principais */
+.oee h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+/* Estilo do elemento de seleção */
+#select-oee {
+    width: 50%;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    padding: 2px;
+    background-color: #1e0330;
+    justify-content: flex-end;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Hover e interatividade */
+#select-oee:hover {
+    background-color: #1e0330;
+    border-color: #bbb;
 }
