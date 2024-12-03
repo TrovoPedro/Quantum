@@ -468,7 +468,7 @@ function calcularSemana(data) {
     const ultimoDia = new Date(data);
 
     // Ajustar para o início da semana (segunda-feira)
-    primeiroDia.setDate(data.getDate() - data.getDay() + 1);
+    primeiroDia.setDate(data.getDate() - data.getDay());
 
     // Ajustar para o final da semana (domingo)
     // ultimoDia.setDate(data.getDate() - data.getDay() + 6);

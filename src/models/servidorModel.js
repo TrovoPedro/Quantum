@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function cadastrar(nomeServidor, situacao) {
     console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nomeServidor, situacao);
-    
+
     var instrucaoSql = `
         INSERT INTO servidor (nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) VALUES ('${nomeServidor}', '${1}', '${1}', '${1}', ${2});
     `;
@@ -43,9 +43,12 @@ function excluirServidor(idServidor, situacaoEditada) {
     console.log("Executando exclusão lógica do servidor: ", idServidor, situacaoEditada);
 
     var instrucaoSql = `
-        UPDATE servidor 
-        SET fkSituacao = ${situacaoEditada} 
-        WHERE idServidor = ${idServidor};
+     UPDATE servidor 
+SET 
+    fkSituacao = ${situacaoEditada}, 
+    descricao = '${descricaoAtualizada}'
+WHERE idServidor = ${idServidor};
+
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

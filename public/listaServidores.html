@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body  style="overflow: hidden;" onload="listarServidor()">
+<body style="overflow: hidden;" onload="listarServidor()">
     <div class="NavBar">
         <div><img class="LogoNavBar" src="./assets/Logo Quantum.svg" alt=""></div>
 
@@ -55,7 +55,9 @@
         </div>
 
         <div class="div-btn">
+
             <button class="btn-novoServidor" onclick="mostrarServidor()">Novo servidor</button>
+
         </div>
 
         <div class="listaServidores">
@@ -72,10 +74,10 @@
                     </tr>
                 </thead>
 
-                <tbody>              
-                    
+                <tbody>
+
                 </tbody>
-                
+
             </table>
         </div>
     </div>
@@ -108,7 +110,8 @@
             <div class="divNomeServidorEditado">
                 <p>Nome do Servidor</p>
             </div>
-            <input type="text" placeholder="Insira o novo nome do servidor" class="inputNomeServidor" id="inputNomeEditado">
+            <input type="text" placeholder="Insira o novo nome do servidor" class="inputNomeServidor"
+                id="inputNomeEditado">
             <div class="divNomeServidorEditado">
                 <p>Situação do Servidor</p>
             </div>
@@ -122,7 +125,8 @@
     </div>
 
     <div class="filtro"></div>
-    
+
 </body>
 <script src="js/listaServidores.js"></script>
+
 </html>

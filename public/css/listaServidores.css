@@ -69,7 +69,8 @@ body {
 }
 
 .btn-novoServidor {
-    background-color: #a098d3;
+    
+    background-color: #7449eb;
     color: white;
     height: 2rem;
     width: 8.5rem;
@@ -77,6 +78,7 @@ body {
     border: none;
     cursor: pointer;
     margin-right: 10%;
+
 }
 
 .pai-lista {
@@ -118,6 +120,12 @@ td {
 
 .img-iconsEdit {
     width: 25%;
+}
+
+.img-servidores{
+
+    width: 80%;
+    transform: translate(-5%, 0%);
 }
 
 .listaServidores{
