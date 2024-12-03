@@ -74,15 +74,21 @@ function editarServidor(req, res) {
 function excluirServidor(req, res) {
     
     var idServidor = req.params.idServidor;
+    var descricaoAtualizada = req.params.descricaoAtualizada;
 
     if (!idServidor) {
 
         return res.status(400).send("ID do servidor não fornecido.");
     }
 
+    if (!descricaoAtualizada) {
+
+        return res.status(400).send("Descrição não fornecida.");
+    }
+
     var situacaoEditada = 1; 
 
-    servidorModel.excluirServidor(idServidor, situacaoEditada)
+    servidorModel.excluirServidor(idServidor, situacaoEditada, descricaoAtualizada)
         .then(resultado => {
             res.status(200).json(resultado);
         })

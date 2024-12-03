@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servidores</title>
 
-    <!-- Icone  -->
+
     <link rel="icon" href="img/novalogo.svg" type="image/x-icon">
 
-    <!-- Links Fontes -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -124,7 +124,35 @@
         <button class="botaoAvancar" onclick="editarServidor()">Editar</button>
     </div>
 
+
+    <div class="boxJustificativa" id="modalJustificativa">
+
+        <div class="logoJustificativa">
+
+            <img src="img/novalogo.svg" class="logoJustificativaImagem">
+            <h2>Justifique a Desativação</h2>
+
+        </div>
+
+        <div class="justificativaServidor">
+            <textarea id="justificativa_desc" placeholder="Explique o motivo da desativação:" rows="5"></textarea>
+        </div>
+        
+        <div class="botoesJustificativa">
+
+            <button class="botaoConfirmar" onclick="excluirServidor()">Confirmar</button>
+            <button class="botaoCancelar" onclick="fecharModalJustificativa()">Cancelar</button>
+
+        </div>
+
+    </div>
+    
+
     <div class="filtro"></div>
+
+
+
+
 
 </body>
 <script src="js/listaServidores.js"></script>

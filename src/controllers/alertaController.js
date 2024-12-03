@@ -202,7 +202,7 @@ async function tendenciaUsoPrev(req, res) {
 }
 
 async function tendenciaGeralComp(req, res) {
-    
+
     const componentePrev = req.params.previsto;
 
     try {
@@ -358,6 +358,21 @@ function ProbabilidadeAlerta(req, res) {
 
 
 
+function buscarOee(req, res) {
+    var servidorSelect = req.params.servidorId;
+
+    console.log("Servidor Selecionado:", servidorSelect);
+
+    alertaModel.buscarOee(servidorSelect).then((resultado) => {
+        res.status(200).json(resultado);
+    }).catch((erro) => {
+        console.log(erro);
+        res.status(500).json({ erro: "Erro ao buscar tendência de uso." });
+    });
+}
+
+
+
 module.exports = {
 
     buscarServidores,
@@ -368,6 +383,8 @@ module.exports = {
     tendenciaUsoPrev,
     tendenciaGeralComp,
     ResumoVariacao,
-    ProbabilidadeAlerta
+    ProbabilidadeAlerta,
+    buscarOee
+
 
 }

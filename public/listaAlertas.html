@@ -40,6 +40,7 @@
             <a class="botaoNavBar" href="listaFuncionarios.html">Funcionário</a>
             <a class="botaoNavBar" href="listaServidores.html">Servidor</a>
             <a class="botaoNavBar" href="Tela_Perfill_Adm.html">Perfil</a>
+            <a class="botaoNavBar" href="Tela_Perfill_Adm.html">Logout</a>  
         </div>
     </div>
 
@@ -66,7 +67,7 @@
 
             <div class="graficos">
 
-                <div class="direita" id="section1" onclick="openModal()">
+                <div  style="cursor: pointer;" class="direita" id="section1" onclick="openModal()">
 
                     <h3>Visão Geral Anual de Alertas de Componentes</h3>
                     <canvas id="myChartCanvas"></canvas>
@@ -74,7 +75,7 @@
 
                 </div>
 
-                <div  style="height: 80%; width: 50%;" class="esquerd" id="section3">
+                <div  style="height: 80%; width: 50%; cursor: pointer;" class="esquerd" id="section3">
                     <div class="div_titulo_tend">
 
                         <h3>Tendencia de alerta - CPU</h3>
@@ -143,7 +144,7 @@
     
                         <label for="componenteSelect">Componente:</label>
     
-                        <select id="componenteSelect" class="selectField" onchange="listarComponentes()">
+                        <select  style="cursor: pointer;" id="componenteSelect" class="selectField" onchange="listarComponentes()">
     
                             <option value="0" selected disabled>Selecione um componente:</option>
                             <option value="1">CPU</option>
@@ -157,7 +158,7 @@
     
                     <div class="filterRow">
                         <label for="periodoSelect">Período:</label>
-                        <select id="periodoSelect" class="selectField" onchange="listarComponentes()">
+                        <select  style="cursor: pointer;" id="periodoSelect" class="selectField" onchange="listarComponentes()">
     
                             <option value="0" selected disabled>Selecione um período de análise:</option>
                             <option value="7">Últimos 7 dias</option>

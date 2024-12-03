@@ -17,9 +17,11 @@ router.put("/editar/:idServidor", function (req, res) {
 });
 
 
-router.put("/excluir/:idServidor", function (req, res) {
+router.put("/excluir/:idServidor/:descricaoAtualizada", function (req, res) {
+    console.log("ID do servidor recebido na rota: ", req.params.idServidor); 
     servidorController.excluirServidor(req, res);
 });
+
 
 
 router.get("/buscaGrafico", function (req, res) {

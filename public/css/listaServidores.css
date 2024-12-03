@@ -384,3 +384,33 @@ option{
     flex-direction: column;
     margin-top: 5%;
 }
+
+
+
+.boxJustificativa {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(49, 48, 48);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgb(47, 3, 65);
+    z-index: 1000;
+    width: 400px;
+}
+
+.botoesJustificativa {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#justificativa {
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    font-size: 16px;
+}

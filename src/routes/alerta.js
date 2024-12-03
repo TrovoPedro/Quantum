@@ -69,6 +69,10 @@ router.get("/tendenciaGeral/:previsto", (req, res) => {
 
 
 
+router.get("/buscarOee/:servidorId", function (req, res) {
+    alertaController.buscarOee(req, res);
+});
+
 
 
 module.exports = router;

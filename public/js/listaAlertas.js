@@ -1069,14 +1069,6 @@ function gerarPDF() {
 }
 
 
-
-
-
-
-
-
-
-
 function calcularSemana() {
     const hoje = new Date();
 
@@ -1104,3 +1096,79 @@ document.addEventListener('DOMContentLoaded', () => {
         elementoSemana.innerHTML = `Monitoramento da semana <br>${calcularSemana()}`;
     }
 });
+
+
+
+
+
+
+
+async function obterDadosOee(servidorId) {
+    console.log('servidor:', servidorId)
+
+    try {
+        let response = await fetch(`/alerta/buscarOee/${servidorId}`);
+        let data = await response.json();  // Convertendo a resposta em JSON
+        console.log(data)
+        return data;  // Retorna os dados para uso posterior
+    } catch (error) {
+        console.error('Erro ao obter dados:', error);
+        return [];  // Retorna um array vazio em caso de erro
+    }
+}
+
+
+async function calculoOee(servidorId) {
+    const servidorSelecionado = document.querySelector('#select-oee select')?.value; // Pega o value do select de servidor
+    const minutosTotais = 10080; // Total de minutos em uma semana
+    const minutosPlanejados = 9840; // Minutos planejados (tempo operacional previsto)
+
+    console.log('Servidor Selecionado para cálculo do OEE:', servidorSelecionado);
+
+    if (!servidorSelecionado) {
+        console.error("Nenhum servidor selecionado.");
+        return; // Não realiza o cálculo se um servidor não for selecionado
+    }
+
+    // Obtém dados de downtime
+    const valorDowntime = await obterDadosOee(servidorSelecionado);
+
+    if (!valorDowntime || valorDowntime.length === 0) {
+        console.error('Dados inválidos para cálculo do OEE.');
+        return;
+    }
+
+    // Variáveis acumuladoras
+    let totalDowntime = 0;
+
+    // Soma todos os downtimes no array
+    valorDowntime.forEach(item => {
+        totalDowntime += item.total_downtime || 0;
+    });
+
+    // Minutos efetivamente disponíveis para operação
+    const minutosDisponiveis = minutosPlanejados - totalDowntime;
+
+    // **Cálculo dos Fatores do OEE**
+    const disponibilidade = (minutosDisponiveis / minutosPlanejados) * 100; // Disponibilidade em %
+    const desempenho = (minutosDisponiveis / minutosTotais) * 100; // Desempenho em %
+
+    // **Cálculo do OEE**
+    const oeeFinal = (disponibilidade / 100) * (desempenho / 100) * 100; // Combina disponibilidade e desempenho
+
+    // **Exibição no Console**
+    console.log(`Disponibilidade: ${disponibilidade.toFixed(2)}%`);
+    console.log(`Desempenho: ${desempenho.toFixed(2)}%`);
+    console.log(`OEE Final: ${oeeFinal.toFixed(2)}%`);
+
+    
+    document.getElementById('oks').innerText = `${oeeFinal.toFixed(2)}%`;
+
+    if (oeeFinal > 85) {
+        document.getElementById('oks').style.color = "green";
+    } else if (oeeFinal <= 85 && oeeFinal >= 60 ) {
+        document.getElementById('oks').style.color = "yellow";
+    } else if (oeeFinal < 60) {
+        document.getElementById('oks').style.color = "red";
+    }
+}

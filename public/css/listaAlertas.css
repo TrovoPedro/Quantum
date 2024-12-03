@@ -66,6 +66,7 @@ body{
                 justify-content: space-between;
                 height: 40px;
                 width: 20%;
+                /* transition: ease s; */
 
                 & button{
                     background-color: #7449EB;
@@ -75,6 +76,7 @@ body{
                     border: none;
                     border-radius: 10px;
                     font-family: Lato;
+                    transition: ease 0.3s;
                 }
             }
         }
@@ -85,6 +87,7 @@ body{
             display: flex;
             align-items: center;
             justify-content: space-evenly;
+            
 
             & .direita, .esquerd{
                 width: 45%;
@@ -97,7 +100,7 @@ body{
                 justify-content: space-around;
                 color: white;
                 font-family: Lato;
-
+                 transition: ease 0.5s;   
 
             }
             
@@ -127,3 +130,19 @@ body{
     }
   }
 
+
+
+.conteudo .graficos .direita:hover{
+    transform: scale(1.06);
+ } 
+
+
+ .conteudo #section3:hover{
+    transform: scale(1.06);
+ } 
+
+
+
+.opcoes button:hover{
+    transform: scale(1.05);
+}

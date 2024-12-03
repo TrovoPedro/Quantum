@@ -39,8 +39,8 @@ function editarServidor(idServidor, nomeEditado) {
 
 
 
-function excluirServidor(idServidor, situacaoEditada) {
-    console.log("Executando exclusão lógica do servidor: ", idServidor, situacaoEditada);
+function excluirServidor(idServidor, situacaoEditada, descricaoAtualizada) {
+    console.log("Executando exclusão lógica do servidor: ", idServidor, situacaoEditada, descricaoAtualizada);
 
     var instrucaoSql = `
      UPDATE servidor 

@@ -24,14 +24,25 @@ function mostrarServidor() {
 
 function mostrarEditar(idServidor) {
 
-    sessionStorage.setItem("ID_SERVIDOR", idServidor);
+    console.log("Salvando ID do servidor no sessionStorage: ", idServidor);
+
+    if (idServidor !== null && idServidor !== undefined) {
+        sessionStorage.setItem("ID_SERVIDOR", idServidor);
+
+    } else {
+
+        console.log("ID do servidor não é válido:", idServidor);
+
+    }
     var mostrar = document.getElementById("aparecerBoxEditar");
+    
     if (getComputedStyle(mostrar).display === "none") {
         mostrar.style.display = "flex";
     } else {
         mostrar.style.display = "none";
     }
 }
+
 
 function cadastrarServidor(nomeServidor, situacao) {
 
@@ -107,7 +118,7 @@ function listarServidor() {
                 <td><button onclick="mostrarEditar(${item.idServidor})" class="btn-icon"><img class="img-iconsEdit" src="assets/iconlapis.png" alt=""></button></td>
 
                 
-                <td><button onclick="excluirServidor(${item.idServidor})" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
+                <td><button onclick="abrirModalJustificativa(${item.idServidor})" class="btn-icon"><img class="img-iconsEdit" src="assets/iconLixeira.svg" alt=""></button></td>
 
                     `;
                     tbody.appendChild(row);
@@ -158,8 +169,18 @@ function editarServidor() {
 
 
 function excluirServidor(idServidor) {
+
+    var idServidor = sessionStorage.getItem("ID_SERVIDOR");
+
+    if (idServidor === null) {
+        console.error("Erro: ID do servidor não encontrado!");
+        return;
+    }
     
-    fetch(`/servidores/excluir/${idServidor}`, {
+    var descricaoAtualizada = document.getElementById("justificativa_desc").value;
+
+    fetch(`/servidores/excluir/${idServidor}/${descricaoAtualizada}`, {
+
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -167,6 +188,7 @@ function excluirServidor(idServidor) {
         body: JSON.stringify({
             situacaoEditada: 1
         })
+
     })
     .then(function (resposta) {
         if (resposta.ok) {
@@ -181,4 +203,17 @@ function excluirServidor(idServidor) {
 }
 
 
+
+function abrirModalJustificativa(idServidor) {
+
+    sessionStorage.setItem("ID_SERVIDOR", idServidor);
+
+    document.getElementById('modalJustificativa').style.display = 'block';
+}
+
+
+
+function fecharModalJustificativa() {
+    document.getElementById('modalJustificativa').style.display = 'none';
+}
 
