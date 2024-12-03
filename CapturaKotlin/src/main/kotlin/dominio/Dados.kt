@@ -47,8 +47,14 @@ class Dados {
             println(totalRam)
             inserirTotalRam(totalRam)
 
-            totalDisco = (looca.grupoDeDiscos.tamanhoTotal / (1024 * 1024 * 1024)).toInt()
-            inserirTotalDisco(totalDisco)
+            totalDisco = looca.grupoDeDiscos.tamanhoTotal.toInt()
+
+            if(totalDisco < 1000){
+                inserirTotalDisco(totalDisco)
+            }else{
+                totalDisco = (looca.grupoDeDiscos.tamanhoTotal / (1024 * 1024 * 1024)).toInt()
+                inserirTotalDisco(totalDisco)
+            }
 
             while (capturando) {
                 val interfacesDeRede = looca.rede.grupoDeInterfaces.interfaces
@@ -94,7 +100,7 @@ class Dados {
 
                 //alertar(limiteRede)
 
-                Thread.sleep(5000)
+                Thread.sleep(50000)
             }
         }.start()
     }

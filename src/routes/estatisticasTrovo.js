@@ -81,4 +81,8 @@ router.get("/buscarEspacoLivre", function (req, res) {
   estatisticaTrovoController.buscarEspacoLivre(req, res);
 })
 
+router.get("/buscarGeralDisco", function (req, res) {
+  estatisticaTrovoController.buscarGeralDisco(req, res);
+})
+
 module.exports = router;

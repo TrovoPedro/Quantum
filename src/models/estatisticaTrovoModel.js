@@ -175,7 +175,7 @@ function buscarEspacoLivre(valorInput) {
         WHERE t.espacoTotalDisco IS NOT NULL
         AND (t.espacoTotalDisco - (t.espacoTotalDisco * (LEAST(l.usoComponente, 100) / 100))) IS NOT NULL
         ORDER BY l.dtHora DESC
-        LIMIT 1;  -- Retorna apenas o último resultado
+        LIMIT 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
@@ -213,6 +213,25 @@ function buscarErroTcp() {
     return database.executar(instrucaoSql);
 }
 
+function buscarGeralDisco() {
+    var instrucaoSql = `SELECT 
+    COALESCE(l.usoComponente, 0) AS usoComponentente,
+    COALESCE(t.espacoLivreDisco, 0) AS espacoLivreDisco,
+    COALESCE(t.espacoTotalDisco, 0) AS espacoTotalDisco
+FROM 
+    log l
+JOIN 
+    tabelaTrovo t
+ON 
+    l.fkComponente = t.fkComponente
+WHERE 
+    COALESCE(t.espacoTotalDisco, 0) > 0;
+`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarQtdAlerta,
@@ -231,5 +250,6 @@ module.exports = {
     buscarTotalDisco,
     buscarEspacoLivre,
     buscarTaxaTransferencia,
-    buscarErroTcp
+    buscarErroTcp,
+    buscarGeralDisco
 }

@@ -246,6 +246,18 @@ function buscarErroTcp(req, res) {
     );
 }
 
+function buscarGeralDisco(req, res) {
+    estatisticaTrovoModel.buscarGeralDisco().then(resultado => {
+        res.json(resultado)
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as estatisticas", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 module.exports = {
     buscarQtdAlerta,
     buscarRiscoAlerta,
@@ -264,4 +276,5 @@ module.exports = {
     buscarIoDisco,
     buscarTotalDisco,
     buscarEspacoLivre,
+    buscarGeralDisco
 }
