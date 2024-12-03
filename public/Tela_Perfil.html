@@ -14,43 +14,49 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:wght@100;300;400;700;900&family=Space+Mono:wght@400;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/TelaPerfil.css">
-    <link rel="stylesheet" href="css/Navbar.css">
+    <link rel="stylesheet" href="css/TelaPerfilTec.css">
+    <link rel="stylesheet" href="css/cssPerfilTecnico.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/sessao.js"></script>
 </head>
 
 <body style="background-color: #111111;" onload="mostrarDados()">
-    <div class="navBar">
-        <div class="CaixalogoNav">
-            <img src="img/novalogo.svg" class="logoNav" alt="">
+    <img class="blurEsquerda" src="../assets/blurEsquerda.png" alt="">
+    <div class="pai-menu">
+        <div class="texto-logo">
+            <img class="logo" src="assets/Logo Quantum.png" alt="">
+            <h1>Quantum</h1>
         </div>
-        <div class="linksNav">
-            <div class="botoesNav">
-                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
-                <p><a href="Dash(ADM).html" style="text-decoration: none; color: #ffff">Home</a></p>
-            </div>
-            <div class="botoesNav">
-                <img src="assets/funcionarios-icon.svg" class="LinkImgNav" alt="">
-                <p><a href="listaFuncionarios.html" style="text-decoration: none; color: #ffff">Funcionários</a></p>
-            </div>
-            <div class="botoesNav">
-                <img src="img/servidorNav.svg" class="LinkImgNav" alt="">
-                <p><a href="listaServidores.html" style="text-decoration: none; color: #ffff">Servidores</a></p>
-            </div>
-            <div class="botoesNav">
-                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
-                <p><a href="Tela_Perfill_Adm.html" style="text-decoration: none; color: #ffff">Perfil</a></p>
+        <div class="navBar">
+            <div class="linksNav">
+                <div class="circulo-home">
+                    <div class="botoesNav">
+                        <img src="assets/home.png" class="LinkImgNavHome" alt="">
+                        <p><a href="dashboard.html" style="color: white; text-decoration: none;"></a></p>
+                    </div>
+                </div>
+                <div class="botoesNav">
+                    <img src="assets/server.png" class="LinkImgNavGrafico" alt="">
+                    <p><a href="listaServidores.html"
+                            style="color: white; text-decoration: none;"></a></p>
+                </div>
+                <div class="botoesNav">
+                    <img src="assets/funcionario.png" class="linkImgFunc" alt="">
+                    <p><a href="listaFuncionarios.html" style="color: white; text-decoration: none;"></a></p>
+                </div>
+                <div class="botoesNav">
+                    <img src="assets/user.png" class="LinkImgNavUser" alt="">
+                    <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;"></a></p>
+                </div>
             </div>
         </div>
         <div class="exitNav">
             <div class="botoesNav">
-                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
-                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+                <img src="assets/exit.png" class="LinkImgNavExit" alt="">
+                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link"></a></p>
             </div>
         </div>
     </div>
-
     <section class="dashboard">
         <div class="topDash">
             <div class="boxUser-data">
