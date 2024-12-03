@@ -185,6 +185,9 @@ async function usoCpu() {
             const picoMaximos = dados.map(dado => dado.pico_maximo);
             const picoMinimos = dados.map(dado => dado.pico_minimo);
 
+            // Destruir o gráfico de CPU existente antes de criar um novo
+            destruirGraficoSeExistir(graficoUsoCPU);
+
             criarGraficoUsoCPU(labels, picoMaximos, picoMinimos);
         } else {
             console.error("Nenhum dado disponível para o gráfico de CPU.");
@@ -193,8 +196,8 @@ async function usoCpu() {
         console.error("Erro ao buscar os dados do gráfico de CPU:", error);
     }
 }
-usoCpu();
 
+usoCpu()
 
 // // Função para criar o gráfico de uso de CPU com Pico Máximo e Mínimo
 function criarGraficoUsoCPU(labels, picoMaximos, picoMinimos) {
@@ -240,12 +243,6 @@ function criarGraficoUsoCPU(labels, picoMaximos, picoMinimos) {
 criarGraficoUsoCPU()
 
 
-
-
-
-
-// ram
-
 async function usoRam() {
     try {
         const response = await fetch('/individual_julia/usoRam');
@@ -254,38 +251,43 @@ async function usoRam() {
 
         if (dados.length > 0) {
             const labels = dados.map(dado => dado.dia_da_semana);
-            const picoMaximos = dados.map(dado => dado.memoria_max_gb);
-            const picoMinimos = dados.map(dado => dado.memoria_min_gb);
+            const picoMaximos = dados.map(dado => dado.pico_maximo);
+            const picoMinimos = dados.map(dado => dado.pico_minimo);
 
-            graficoUsoRAM(labels, picoMaximos, picoMinimos);
+            // Destruir o gráfico de RAM existente antes de criar um novo
+            destruirGraficoSeExistir(graficoUsoRAM);
+
+            criarGraficoUsoRAM(labels, picoMaximos, picoMinimos);
         } else {
-            console.error("Nenhum dado disponível para o gráfico de CPU.");
+            console.error("Nenhum dado disponível para o gráfico de RAM.");
         }
     } catch (error) {
-        console.error("Erro ao buscar os dados do gráfico de CPU:", error);
+        console.error("Erro ao buscar os dados do gráfico de RAM:", error);
     }
 }
-usoRam();
+
+usoRam()
 
 
 // // Função para criar o gráfico de uso de CPU com Pico Máximo e Mínimo
-function graficoUsoRAM(labels, picoMaximos, picoMinimos) {
+// Função para criar o gráfico de uso de RAM com Pico Máximo e Mínimo
+function criarGraficoUsoRAM(labels, picoMaximos, picoMinimos) {
 
     var ctx = document.getElementById('grafico-uso-ram').getContext('2d');
-    graficoUsoRam = new Chart(ctx, {
+    graficoUsoRAM = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [
                 {
-                    label: 'Pico Máximo RAM (%)',
+                    label: 'Pico Máximo RAM',
                     data: picoMaximos,
                     backgroundColor: 'rgba(255, 99, 132, 0.7)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
                 },
                 {
-                    label: 'Pico Mínimo RAM (%)',
+                    label: 'Pico Mínimo RAM',
                     data: picoMinimos,
                     backgroundColor: 'rgba(54, 162, 235, 0.7)',
                     borderColor: 'rgba(54, 162, 235, 1)',
@@ -309,13 +311,80 @@ function graficoUsoRAM(labels, picoMaximos, picoMinimos) {
         }
     });
 }
-graficoUsoRAM()
+
+criarGraficoUsoRAM()
 
 
 
 
+async function usoRede() {
+    try {
+        const response = await fetch('/individual_julia/obterBytes');
+        const dados = await response.json();
+        console.log("Dados recebidos para o gráfico de Bytes:", dados);
+
+        if (dados.length > 0) {
+            const labels = dados.map(dado => dado.dia_da_semana);
+            const picoMaximos = dados.map(dado => dado.pico_max_recebidos_mb);
+            const picoMinimos = dados.map(dado => dado.pico_min_recebidos_mb);
+
+            // Destruir o gráfico de RAM existente antes de criar um novo
+            destruirGraficoSeExistir(graficoUsoRede);
+
+            criarGraficoUsoRede(labels, picoMaximos, picoMinimos);
+        } else {
+            console.error("Nenhum dado disponível para o gráfico de RAM.");
+        }
+    } catch (error) {
+        console.error("Erro ao buscar os dados do gráfico de RAM:", error);
+    }
+}
+
+usoRede()
 
 
 
+// // Função para criar o gráfico de uso de CPU com Pico Máximo e Mínimo
+// Função para criar o gráfico de uso de RAM com Pico Máximo e Mínimo
+function criarGraficoUsoRede(labels, picoMaximos, picoMinimos) {
 
+    var ctx = document.getElementById('grafico-uso-rede').getContext('2d');
+    graficoUsoRede = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Pico Máximo Rede',
+                    data: picoMaximos,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Pico Mínimo Rede',
+                    data: picoMinimos,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Uso de Rede na EC2',
+                    font: { size: 18, weight: 'bold', family: 'Arial' },
+                    padding: { top: 10, bottom: 20 }
+                }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
 
+criarGraficoUsoRede()

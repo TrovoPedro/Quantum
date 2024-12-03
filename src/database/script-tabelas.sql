@@ -5,7 +5,7 @@ CREATE DATABASE QuantumDB;
 USE QuantumDB;
 
 
-SELECT * FROM componente;
+SELECT * FROM usuario;
 
 
 
@@ -122,8 +122,8 @@ CREATE TABLE servidor(
 
 INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
 VALUES ('Servidor 1', 1, 1, 1, 2),
-       ('Servidor 2', 2, 2, 2, 1),
-       ('Servidor 3', 3, 3, 1, 2);
+       ('Servidor 2', 1, 2, 2, 1),
+       ('Servidor 3', 1, 3, 1, 2);
 
 
 SELECT 
@@ -139,6 +139,8 @@ WHERE DATE(l.dtHora) = CURDATE()
   AND st.tipo = 'Ativado'
 GROUP BY s.nomeServidor, c.nome
 ORDER BY s.nomeServidor, c.nome;
+
+
 
 
 
@@ -174,28 +176,6 @@ LIMIT 0, 1000;
 
 select * from servidor;
 
--- Logs para o Servidor 1
-INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
-VALUES 
-    (CONCAT(CURDATE(), ' 09:00:00'), 120, 82.9, 1, 1),  -- CPU
-    (CONCAT(CURDATE(), ' 11:00:00'), 120, 53.3, 2, 1),  -- RAM
-    (CONCAT(CURDATE(), ' 14:00:00'), 120, 67.9, 3, 1);-- DISCO
- -- REDE
-
--- Logs para o Servidor 2
-INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
-VALUES 
-    (CONCAT(CURDATE(), ' 08:30:00'), 120, 50.5, 1, 2),  -- CPU
-    (CONCAT(CURDATE(), ' 10:45:00'), 120, 78.4, 2, 2),  -- RAM
-    (CONCAT(CURDATE(), ' 13:15:00'), 120, 82.9, 3, 2); -- DISCO
-  -- REDE
-
--- Logs para o Servidor 3
-INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
-VALUES 
-    (CONCAT(CURDATE(), ' 07:45:00'), 120, 85.1, 1, 3),  -- CPU
-    (CONCAT(CURDATE(), ' 09:30:00'), 120, 78.3, 2, 3),  -- RAM
-    (CONCAT(CURDATE(), ' 12:00:00'), 120, 56.0, 3, 3);  -- DISCO
 
 
 -- Tabela componente
@@ -212,7 +192,8 @@ CREATE TABLE componente(
 INSERT INTO componente(nome, fabricante, fkServidor, fkTipoComponente) 
 VALUES ('CPU', 'Intel', 1, 2),
        ('RAM', 'Corsair', 1, 1),
-       ('DISCO', 'Seagate', 1, 3);
+		('DISCO', 'Seagate', 1, 3),
+		('REDE', 'Corsair', 1, 4);
        
 
       
@@ -234,8 +215,36 @@ INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor
 VALUES ('2024-11-19 10:30:00', 120, 85.5, 1, 1);
 
 
-select * from log;
-select * from limitecomponente;
+-- Logs para o Servidor 1
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 09:00:00'), 120, 82.9, 1, 1),  -- CPU
+    (CONCAT(CURDATE(), ' 11:00:00'), 120, 53.3, 2, 1),  -- RAM
+    (CONCAT(CURDATE(), ' 14:00:00'), 120, 67.9, 3, 1),-- DISCO
+	(CONCAT(CURDATE(), ' 09:00:00'), 120, 88.1, 1, 1),  -- CPU
+    (CONCAT(CURDATE(), ' 11:00:00'), 120, 67.2, 2, 1),  -- RAM
+    (CONCAT(CURDATE(), ' 14:00:00'), 120, 81.0, 3, 1);-- DISCO
+ -- REDE
+
+-- Logs para o Servidor 2
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 08:30:00'), 120, 50.5, 1, 2),  -- CPU
+    (CONCAT(CURDATE(), ' 10:45:00'), 120, 78.4, 2, 2),  -- RAM
+    (CONCAT(CURDATE(), ' 13:15:00'), 120, 82.9, 3, 2); -- DISCO
+  -- REDE
+
+-- Logs para o Servidor 3
+INSERT INTO log (dtHora, tempoAtividade, usoComponente, fkComponente, fkServidor)
+VALUES 
+    (CONCAT(CURDATE(), ' 07:45:00'), 120, 85.1, 1, 3),  -- CPU
+    (CONCAT(CURDATE(), ' 09:30:00'), 120, 78.3, 2, 3),  -- RAM
+    (CONCAT(CURDATE(), ' 12:00:00'), 120, 56.0, 3, 3),  -- DISCO
+	(CONCAT(CURDATE(), ' 07:45:00'), 120, 82.8, 1, 3),  -- CPU
+    (CONCAT(CURDATE(), ' 09:30:00'), 120, 84.9, 2, 3),  -- RAM
+    (CONCAT(CURDATE(), ' 12:00:00'), 120, 72.2, 3, 3);  
+
+
 
 
 
@@ -247,6 +256,9 @@ CREATE TABLE limiteComponente(
 );
 
 
+select * from log;
+select * from limitecomponente;
+
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (88.0, 1); 
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (84.0, 2); 
 INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (90.0, 3); 
@@ -255,7 +267,7 @@ INSERT INTO limiteComponente (valorLimite, fkComponente) VALUES (3.0, 4);
 
 
 select * from componente;
-select * from limitecomponente;
+select * from limiteComponente;
 
 -- Tabela alerta
 CREATE TABLE alerta(
@@ -328,5 +340,136 @@ SELECT * FROM tipoUsuario;
 SELECT * FROM usuario;
 
 
+-- show tables;
 
 
+INSERT INTO usuario(nome,email,senha,fktipoUsuario) VALUES ("Davison Ferreira", "davidsonmendes@gmail.com","12345",1);
+
+
+CREATE TABLE tabelaTrovo(
+    idTrovo INT PRIMARY KEY AUTO_INCREMENT,
+    qtdServicosAtivos INT,
+    mudancaContexto INT,
+    cargaSistema INT,
+    taxaTransfarencia INT,
+    errosTcp INT,
+    consumoMemoriaSwap INT,
+    totalMemoriaRam BIGINT,
+    totalMemoriaSwap BIGINT,
+    ioDisco INT,
+    espacoLivreDisco INT,
+    espacoTotalDisco INT,
+    fkComponente INT,
+    FOREIGN KEY (fkComponente) REFERENCES componente(idComponente)
+);
+
+
+
+DELIMITER //
+
+CREATE FUNCTION calcular_probabilidade_alerta(pFkComponente INT)
+RETURNS FLOAT
+DETERMINISTIC
+BEGIN
+    DECLARE total_logs INT DEFAULT 0;
+    DECLARE total_alertas INT DEFAULT 0;
+    DECLARE probabilidade FLOAT DEFAULT 0;
+
+    -- Total de registros no log para o componente
+    SELECT COUNT(*)
+    INTO total_logs
+    FROM log
+    WHERE fkComponente = pFkComponente;
+
+    -- Total de alertas emitidos para o componente
+    SELECT COUNT(*)
+    INTO total_alertas
+    FROM alerta
+    WHERE fkComponente = pFkComponente;
+
+    -- Calcula a probabilidade
+    IF total_logs > 0 THEN
+        SET probabilidade = total_alertas / total_logs;
+    ELSE
+        SET probabilidade = 0;
+    END IF;
+
+    RETURN probabilidade;
+END;
+//
+
+DELIMITER ;
+
+
+
+ 
+
+SELECT 
+    a.mes,
+    a.quantidade_alertas,
+    a.quantidade_alertas - IFNULL(b.quantidade_alertas, 0) AS variacao_alertas
+FROM (
+    SELECT 
+        MONTH(a.data) AS mes,
+        COUNT(*) AS quantidade_alertas
+    FROM 
+        alerta a
+    JOIN 
+        log l ON a.fkLog = l.idLog
+    JOIN
+        componente c ON l.fkComponente = c.idComponente
+    WHERE 
+        c.idComponente = 1
+    GROUP BY 
+        MONTH(a.data)
+) AS a
+LEFT JOIN (
+    SELECT 
+        MONTH(a.data) AS mes,
+        COUNT(*) AS quantidade_alertas
+    FROM 
+        alerta a
+    JOIN 
+        log l ON a.fkLog = l.idLog
+    JOIN
+        componente c ON l.fkComponente = c.idComponente
+    WHERE 
+        c.idComponente = 1
+    GROUP BY 
+        MONTH(a.data)
+) AS b ON a.mes = b.mes + 1
+ORDER BY 
+    a.mes;
+
+
+
+--
+
+
+SELECT 
+    servidor.idServidor,
+    servidor.nomeServidor,
+    SUM(downtime.downtime_minutos) AS total_downtime
+FROM 
+    servidor
+JOIN 
+    (SELECT 
+        log.fkServidor,
+        TIMESTAMPDIFF(MINUTE, log.dtHora, 
+            (SELECT MIN(dtHora) 
+             FROM log AS next_log 
+             WHERE next_log.fkServidor = log.fkServidor 
+               AND next_log.dtHora > log.dtHora 
+             LIMIT 1)
+        ) AS downtime_minutos
+     FROM 
+        log
+     WHERE 
+        (log.usoComponente <= 0 OR log.usoComponente >= 85)
+        AND log.dtHora >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) -- Apenas os últimos 7 dias
+     ) AS downtime ON servidor.idServidor = downtime.fkServidor
+       AND servidor.fkSituacao = 2
+GROUP BY 
+    servidor.idServidor, servidor.nomeServidor
+ORDER BY 
+    total_downtime DESC;

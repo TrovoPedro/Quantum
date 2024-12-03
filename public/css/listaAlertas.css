@@ -2,11 +2,13 @@ body{
     background-color: black;
     width: 100%;
     height: 100vh;
+   overflow: hidden;
+
 }
 
 .NavBar {
     display: flex;
-    flex-direction: row; /* Mantém os itens na horizontal */
+    flex-direction: row; 
     width: 99%;
     height: 7%;
     border-bottom: 2px #7449EB solid;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -14,34 +14,42 @@
         href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/Navbar.css">
+    <link rel="stylesheet" href="css/cssTecnico.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 
 <body>
-    <div class="navBar">
-        <div class="CaixalogoNav">
-            <img src="img/Logo Quantum.svg" class="logoNav" alt="">
+    <img class="blurEsquerda" src="../assets/blurEsquerda.png" alt="">
+    <img class="blurDireita" src="../assets/blurDireita.png" alt="">
+    <div class="pai-menu">
+        <div class="texto-logo">
+            <img class="logo" src="assets/Logo Quantum.png" alt="">
+            <h1>Quantum</h1>
         </div>
-        <div class="linksNav">
-            <div class="botoesNav">
-                <img src="img/Vectorhome.svg" class="LinkImgNav" alt="">
-                <p><a href="dashboard.html" style="color: white; text-decoration: none;">Home</a></p>
-            </div>
-            <div class="botoesNav">
-                <img src="img/VectorGraficos.svg" class="LinkImgNav" alt="">
-                <p><a href="dashboard_2.html" style="color: white; text-decoration: none;">Gráficos</a></p>
-            </div>
-            <div class="botoesNav">
-                <img src="img/Vectorperfil.svg" class="LinkImgNav" alt="">
-                <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;">Perfil</a></p>
+        <div class="navBar">
+            <div class="linksNav">
+                <div class="circulo-home">
+                    <div class="botoesNav">
+                        <img src="assets/home.png" class="LinkImgNavHome" alt="">
+                        <p><a href="dashboard.html" style="color: white; text-decoration: none;"></a></p>
+                    </div>
+                </div>
+                <div class="botoesNav">
+                    <img src="assets/graficoIcon.png" class="LinkImgNavGrafico" alt="">
+                    <p><a href="DashTrovo/dashboardComponenteGeral.html"
+                            style="color: white; text-decoration: none;"></a></p>
+                </div>
+                <div class="botoesNav">
+                    <img src="assets/user.png" class="LinkImgNavUser" alt="">
+                    <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;"></a></p>
+                </div>
             </div>
         </div>
         <div class="exitNav">
             <div class="botoesNav">
-                <img src="img/Vectorexit.svg" class="LinkImgNav" alt="">
-                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link">Logout</a></p>
+                <img src="assets/exit.png" class="LinkImgNavExit" alt="">
+                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link"></a></p>
             </div>
         </div>
     </div>
@@ -68,7 +76,6 @@
                     <div class="boxServidores">
                         <div class="serverImgName">
                             <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
-                            <!-- <p>Servidor 1</p> -->
                         </div>
                         <div class="status">
                             <p style="font-size: 14px;">Crítico</p>
@@ -86,11 +93,9 @@
                         <div class="serverImgName" id="Imagem_Server">
                             <a href="dashboard_2.html"><img src="img/servidor.svg" alt="" class="imgServer"></a>
                             <div class="TextServidorFuncionalidade" id="Nome_Direita">
-                                <!-- <p>SERVIDOR 1</p> -->
                             </div>
                         </div>
                         <div class="status" id="Status_Direita">
-                            <!-- <p style="font-size: 13px;">CRÍTICO</p> -->
                             <img src="assets/alert.svg" alt="" style="height: 13px;">
                         </div>
                     </div>
@@ -104,7 +109,6 @@
             obterDadosGrafico();
             listarServidorPrioridade();
             listarServidorEstado();
-            // plotarGrafico();
         });
         function obterDadosGrafico() {
             fetch(`/servidores/buscaGrafico`, { cache: 'no-store' })

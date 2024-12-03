@@ -151,12 +151,12 @@ body {
 /* Estilo para a div direita */
 .div-direita {
     height: 50vh;
-    width: 100vw; /* 50% da largura da tela */
+    width: 100%; /* Ocupa toda a largura disponível */
     display: flex;
-    flex-direction: row;
-    justify-content: center; /* Centraliza os elementos verticalmente */
-    align-items: center; /* Centraliza os elementos horizontalmente */
-    padding-top: 20px; /* Adiciona um pequeno espaçamento do topo */
+    flex-direction: column; /* Coloca os gráficos em linha vertical */
+    justify-content: space-between; /* Distribui o espaço de forma uniforme entre os gráficos */
+    align-items: center;
+    padding-top: 20px;
 }
 
 #cards-metricas{
@@ -259,20 +259,14 @@ body {
 
 .card-grafico2 {
     background-color: #777099;
-    width: 30%;
-    /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
-    height: 40%;
+    width: 30%;  /* Ajustando para garantir que os gráficos ocupem 90% da largura da div */
+    height: 70%;  /* Ajustando a altura para garantir que todos os gráficos caibam */
     border-radius: 10px;
-    /* Arredonda mais as bordas do card */
-    margin-top: 5px;
-    /* Afastando o card do topo */
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     font-size: 1.5rem;
     box-shadow: 0 8px 12px rgba(255, 255, 255, 0.2);
-    margin-bottom: 5px;
-
-   
+    margin: 10px 0;  /* Adicionando margem superior e inferior para criar um espaçamento uniforme */
 }

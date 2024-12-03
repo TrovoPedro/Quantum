@@ -35,20 +35,16 @@
             <img class="LogoNavBar" src="./assets/Logo Quantum.svg" alt="">
         </div>
         <div class="div1">
-            <a class="botaoNavBar" href="">Home</a>
-            <a class="botaoNavBar" href="">Previsões</a>
-            <a class="botaoNavBar" href="">Funcionário</a>
-            <a class="botaoNavBar" href="">Servidor</a>
-            <a class="botaoNavBar" href="">Perfil</a>
+            <a class="botaoNavBar" href="Dash(ADM).html">Home</a>
+            <a class="botaoNavBar" href="dashboardPrevisoes.html">Previsões</a>
+            <a class="botaoNavBar" href="listaFuncionarios.html">Funcionário</a>
+            <a class="botaoNavBar" href="listaServidores.html">Servidor</a>
+            <a class="botaoNavBar" href="Tela_Perfill_Adm.html">Perfil</a>
         </div>
     </div>
 
 
-    <!-- <style>
-        .nav {
-            color: #070ca7;
-        }
-    </style> -->
+    
 
 
     <div class="conteudo">
@@ -56,9 +52,11 @@
         <div class="direita">
 
             <div class="textos">
+
                 <h1>Alertas</h1>
                 <p id="">Monitoramento da semana <br>
                     25/11/2024 - 26/11/2024</p>
+
                 <div class="opcoes">
                     <h5 id="nome_server">servidor 1</h5>
                     <button onclick="gerarPDF()">Gerar PDF</button>
@@ -69,21 +67,33 @@
             <div class="graficos">
 
                 <div class="direita" id="section1" onclick="openModal()">
+
                     <h3>Visão Geral Anual de Alertas de Componentes</h3>
                     <canvas id="myChartCanvas"></canvas>
-                    <p>clique aqui para mais informações</p>
+                    <p style="font-weight: bold;">Clique aqui para mais informações:</p>
+
                 </div>
 
-                <div class="esquerd" id="section3">
-                    <h3>Tendecia de alerta</h3>
-                    <canvas id="myChartPrevisao"   height="100px"  width="100%"></canvas>
-                    <p>clique aqui para mais informações</p>
+                <div  style="height: 80%; width: 50%;" class="esquerd" id="section3">
+                    <div class="div_titulo_tend">
+
+                        <h3>Tendencia de alerta - CPU</h3>
+
+                    </div>
+
+                    <div style="height: 80%; width: 98%;" class="div_grafico_tend">
+
+                        <canvas id="myChartPrevisao"   height="100px"  width="100%"></canvas>
+
+                    </div>
+                    <p style="font-weight: bold;">Clique aqui para mais informações:</p>
                 </div>
             </div>
 
         </div>
         <div class="esquerda">
-            <div class="cima" id="section2 ">
+
+            <div class="cima" id="section2">
                 <h3>Alertas por componente:</h3>
 
                 <div class="ranking">
@@ -248,7 +258,7 @@
         <div id="modal_Previsao" class="modal">
 
 
-            <div style="background-color: #000;  width: 65%;" class="modal-content">
+            <div style="background-color: #000;  width: 65%; height: 76vh; border: 1px groove white;" class="modal-content">
 
                 <img onclick="closeModalPrevisao()" src="assets/x_roxo.png" alt="Fechar"
                     style="width: 30px; height: 30px;">
@@ -304,12 +314,14 @@
                         <div style="padding-top: 3px; height: 100px; display: flex; align-items: flex-end; justify-content: end;"
                             class="div_pergunta">
 
+
                             <button class="faq-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                     <path
                                         d="M80 160c0-35.3 28.7-64 64-64h32c35.3 0 64 28.7 64 64v3.6c0 21.8-11.1 42.1-29.4 53.8l-42.2 27.1c-25.2 16.2-40.4 44.1-40.4 74V320c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.4c0-8.2 4.2-15.8 11-20.2l42.2-27.1c36.6-23.6 58.8-64.1 58.8-107.7V160c0-70.7-57.3-128-128-128H144C73.3 32 16 89.3 16 160c0 17.7 14.3 32 32 32s32-14.3 32-32zm80 320a40 40 0 1 0 0-80 40 40 0 1 0 0 80z">
                                     </path>
                                 </svg>
+                                
                                 <span class="tooltip">
 
                                     <ul style="list-style-type: none;">

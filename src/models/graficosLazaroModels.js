@@ -173,6 +173,25 @@ WHERE
     return database.executar(instrucaoSql);
 }
 
+function buscarDescricaoDesativados(idServidor) {
+    console.log("Acessando buscarDescricaoDesativados no usuarioModel.js para o servidor: ", idServidor);
+
+    var instrucaoSql = `
+        SELECT 
+    servidor.nomeServidor as Servidor, 
+    servidor.descricao as Motivo
+FROM 
+    servidor
+JOIN 
+    situacao ON servidor.fkSituacao = situacao.idSituacao
+WHERE 
+    situacao.tipo = 'Desativado';
+
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarUptimeSemanal,
     buscarMediaCPU,
@@ -182,5 +201,6 @@ module.exports = {
     buscarNumeroServidoresDesativado,
     buscarNumeroServidoresAtivado,
     buscarAlertasPorServidor,
-    buscarComponentePorServidor
+    buscarComponentePorServidor,
+    buscarDescricaoDesativados
 };

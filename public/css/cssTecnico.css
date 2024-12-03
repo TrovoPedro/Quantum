@@ -1,0 +1,116 @@
+body{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background: #121212;
+}
+
+.pai-menu{
+    display: flex;
+    background: #121212;
+    height: 100%;
+    width: 15%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.texto-logo{
+    display: flex;
+    font-family: "Lato", serif;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    gap: 10px;
+}
+
+.texto-logo{
+    margin-left: 75px;
+    margin-top: 20px;
+}
+
+.navBar {
+    width: 70px;
+    height: 30%;
+    background: #5532b6bd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 70px;
+}
+
+.botoesNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+    color: white;
+    font-family: Ubuntu;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.linksNav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.CaixalogoNav {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.exitNav {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo{
+    width: 40px;
+    height: 40px;
+}
+
+.LinkImgNavGrafico{
+    width: 40px;
+    height: 40px;
+}
+
+.circulo-home{
+    background: #D9D9D9;
+    border-radius: 70px;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    overflow: hidden;
+}
+
+.blurEsquerda {
+    position: absolute;
+    width: 30.8%;
+    z-index: 999;
+    left: 0;
+}
+
+.blurDireita {
+    position: absolute;
+    width: 30%;
+    z-index: 1;
+    right: 0;
+}

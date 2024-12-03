@@ -15,6 +15,10 @@ router.get("/numeroAtivados:idServidor", function (req, res) {
     graficosLazaroController.buscarNumeroServidoresAtivado(req, res);
 });
 
+router.get("/buscarDescricaoDesativados:idServidor", function (req, res) {
+    graficosLazaroController.buscarDescricaoDesativados(req, res);
+});
+
 router.get("/alertasPorComponente:idServidor", function (req, res) {
     graficosLazaroController.buscarAlertasPorServidor(req, res);
 });

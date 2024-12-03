@@ -180,24 +180,45 @@ function ResumoVariacao(variante) {
 
     console.log("ACESSEI O MEDIDA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n")
     var instrucaoSql = `
+    
+    
 
-   SELECT 
-    MONTH(a.data) AS mes,
-    COUNT(*) AS quantidade_alertas,
-    COUNT(*) - LAG(COUNT(*)) OVER (ORDER BY MONTH(a.data)) AS variacao_alertas
-FROM 
-    alerta a
-JOIN 
-    log l ON a.fkLog = l.idLog  
-JOIN
-    componente c ON l.fkComponente = c.idComponente
-WHERE 
-    c.idComponente = ${variante}
-GROUP BY 
-    MONTH(a.data)
+SELECT 
+    a.mes,
+    a.quantidade_alertas,
+    a.quantidade_alertas - IFNULL(b.quantidade_alertas, 0) AS variacao_alertas
+FROM (
+    SELECT 
+        MONTH(a.data) AS mes,
+        COUNT(*) AS quantidade_alertas
+    FROM 
+        alerta a
+    JOIN 
+        log l ON a.fkLog = l.idLog
+    JOIN
+        componente c ON l.fkComponente = c.idComponente
+    WHERE 
+        c.idComponente = ${variante}
+    GROUP BY 
+        MONTH(a.data)
+) AS a
+LEFT JOIN (
+    SELECT 
+        MONTH(a.data) AS mes,
+        COUNT(*) AS quantidade_alertas
+    FROM 
+        alerta a
+    JOIN 
+        log l ON a.fkLog = l.idLog
+    JOIN
+        componente c ON l.fkComponente = c.idComponente
+    WHERE 
+        c.idComponente = ${variante}
+    GROUP BY 
+        MONTH(a.data)
+) AS b ON a.mes = b.mes + 1
 ORDER BY 
-    mes;
-
+    a.mes;
  `;
     console.log("Seleção variação alertas dentro do modal")
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

@@ -33,10 +33,8 @@ function validarEscolha() {
         buscarServicosAtivos()
     } else if (valorInput == 3) {
         document.getElementById('pai-conteudo4').style.display = 'flex';
-        buscarConsumoDisco()
         buscarConsumoIoDisco()
-        buscarTotalDisco()
-        buscarEspacoLivre()
+        buscarGeralDisco()
         buscarQtdAlerta()
         buscarRiscoAlerta()
     } else if (valorInput == 4) {
@@ -142,7 +140,7 @@ function plotarGraficosCpu(resposta) {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 10, 
+                            stepSize: 10,
                             max: 100,
                             min: 0,
                             callback: function (value) {
@@ -478,10 +476,6 @@ function buscarServicosAtivos() {
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
 }
-
-/** fetch e plotagem do gráfico de taxa de transferencia*/
-
-/** fetch e plotagem do gráfico de erros de TCP*/
 
 /** fetch e plotagem do gráfico de perda de pacote*/
 
@@ -909,18 +903,22 @@ function buscarTotalMemoriaSwap() {
         });
 }
 
-/** fetch e plotagem do gráfico de uso total de disco*/
+/** fetch e plotagem do gráfico de disco geral*/
 
-function buscarConsumoDisco() {
-    fetch(`/estatisticaTrovo/buscarUsoDisco`)
+function buscarGeralDisco() {
+    fetch(`/estatisticaTrovo/buscarGeralDisco`)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    plotarGraficosDisco(resposta);
+                    if (Array.isArray(resposta)) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        plotarGeralDisco(resposta);
+                    } else {
+                        console.error('Resposta da API não é um array');
+                    }
                 });
             } else {
-                console.error('Nenhum dado encontrado ou erro na API');
+                console.error(`Erro na resposta da API: ${response.status} ${response.statusText}`);
             }
         })
         .catch(function (error) {
@@ -928,94 +926,65 @@ function buscarConsumoDisco() {
         });
 }
 
-function plotarGraficosDisco(resposta) {
-    const ctx4 = document.getElementById('graficoDisco').getContext('2d');
+let graficoGeralDisco
 
-    let index = 0;
+function plotarGeralDisco(resposta) {
+    const ctx7 = document.getElementById('myDoughnutChart').getContext('2d');
 
-    if (graficoDisco) {
-        graficoDisco.data.datasets[0].data = [];
-        graficoDisco.data.labels = [];
-        graficoDisco.update();
+    if (graficoGeralDisco) {
+        graficoGeralDisco.data.datasets[0].data = [];
+        graficoGeralDisco.data.labels = [];
+        graficoGeralDisco.update();
     }
 
     if (Array.isArray(resposta)) {
-        const dados = resposta.map(item => item.dois_primeiros_digitos);
+        // Extraindo os dados da primeira posição de cada vetor
+        const espacoLivreDisco = resposta.map(item => item.espacoLivreDisco);
+        const espacoTotalDisco = resposta.map(item => item.espacoTotalDisco);
+        const usoComponente = resposta.map(item => item.usoComponentente);
 
-        console.log('Dados extraídos:', dados);
+        console.log('Dados extraídos:', espacoLivreDisco, espacoTotalDisco, usoComponente);
 
-        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
-
-        if (dados.length === 0) {
+        // Verificando se os dados estão presentes
+        if (espacoLivreDisco.length === 0 || espacoTotalDisco.length === 0 || usoComponente.length === 0) {
             console.error('Nenhum dado encontrado para o gráfico.');
             return;
         }
 
-        const atualizarGrafico = () => {
-            if (index >= dados.length) {
-                clearInterval(intervalo);
-                return;
-            }
+        // Pegando apenas o primeiro valor de cada vetor
+        const dados = [
+            espacoLivreDisco[0],
+            espacoTotalDisco[0] - espacoLivreDisco[0],
+            usoComponente[0]
+        ];
 
-            // Adiciona os dados no gráfico
-            graficoDisco.data.datasets[0].data.push(dados[index]);
-            graficoDisco.data.labels.push(labels[index % labels.length]);
+        // Rótulos para o gráfico
+        const labels = ['Espaço Livre', 'Espaço Ocupado', 'Uso Componente'];
 
-            graficoDisco.update();
-            index++;
-        };
+        // Cores para o gráfico
+        const backgroundColor = ['#551A8B', '#473C8B', '#836FFF'];
+        const borderColor = ['#d32f2f', '#d32f2f', '#d32f2f'];
 
-        // Criação do gráfico
-        graficoDisco = new Chart(ctx4, {
-            type: 'line',
+        // Criando o gráfico de rosca
+        graficoGeralDisco = new Chart(ctx7, {
+            type: 'doughnut',
             data: {
-                labels: [],
+                labels: labels,
                 datasets: [{
-                    label: 'Uso de Disco',
-                    data: [],
-                    backgroundColor: '#e234d4',
-                    borderColor: '#e234d4',
-                    borderWidth: 1,
+                    data: dados,
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor,
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        min: 0,
-                        max: 100,
-                        ticks: {
-                            callback: function (value) {
-                                return value + '%';
-                            },
-                            color: '#FFFF'
-                        },
-                        grid: {
-                            color: '#6c6877af',
-                        },
-                        border: {
-                            color: '#6c6877af',
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            display: false,
-                        },
-                        grid: {
-                            color: '#6c6877af',
-                        },
-                        border: {
-                            color: '#6c6877af'
-                        }
-                    }
-                },
                 plugins: {
                     legend: {
-                        display: false,
+                        position: 'top',
                         labels: {
-                            color: '#FFFF'
+                            color: '#FFFFFF'
                         }
                     },
                     tooltip: {
@@ -1024,7 +993,7 @@ function plotarGraficosDisco(resposta) {
                     },
                     title: {
                         display: true,
-                        text: 'Consumo de Disco',
+                        text: 'Estatísticas de Disco',
                         color: '#FFFF',
                         font: {
                             size: 25,
@@ -1034,13 +1003,9 @@ function plotarGraficosDisco(resposta) {
                 }
             }
         });
-
-        // Atualiza o gráfico a cada 1 segundo
-        const intervalo = setInterval(atualizarGrafico, 50000);
     } else {
         console.error('A resposta da API não é um array.', resposta);
     }
-
 }
 
 /** fetch e plotagem do gráfico de I/O de disco*/
@@ -1169,50 +1134,6 @@ function plotarIoDisco(resposta) {
         console.error('A resposta da API não é um array.', resposta);
     }
 
-}
-
-// Fetch para buscar quantidade de espaço livre de disco
-
-function buscarEspacoLivre() {
-    const discoLivre = document.getElementById('discoLivre');
-
-    fetch(`/estatisticaTrovo/buscarEspacoLivre`, { cache: 'no-store' })
-        .then(function (response) {
-            if (response.ok) {
-                response.text().then(function (resposta) {
-                    console.log(`Dados recebidos: ${resposta}`);
-
-                    discoLivre.innerHTML = `${resposta}GB`;
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados: ${error.message}`);
-        });
-}
-
-// Fetch para Buscar total de disco
-
-function buscarTotalDisco() {
-    const totalDisco = document.getElementById('totalDisco');
-
-    fetch(`/estatisticaTrovo/buscarTotalDisco`, { cache: 'no-store' })
-        .then(function (response) {
-            if (response.ok) {
-                response.text().then(function (resposta) {
-                    console.log(`Dados recebidos AAA: ${resposta}`);
-
-                    totalDisco.innerHTML = `${resposta}GB`;
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados: ${error.message}`);
-        });
 }
 
 /** fetch e plotagem do gráfico de perda de pacotes*/
@@ -1419,7 +1340,7 @@ function plotarTaxaTransferencia(resposta) {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 10, 
+                            stepSize: 10,
                             max: 100,
                             min: 0,
                             callback: function (value) {
@@ -1649,30 +1570,41 @@ function buscarRiscoAlerta() {
             "Content-Type": "application/json"
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Dados recebidos de PROBABILIDADE:", data);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Dados recebidos de PROBABILIDADE:", data);
+            const h1 = document.getElementById('porcent_alerta');
 
-        const h1 = document.getElementById('porcent_alerta');
+            const mensagem = document.getElementById('mensagem_alerta'); // Novo elemento para exibir mensagens.
 
-        if (data && data.length > 0 && data[0].calcular_probabilidade_alerta !== undefined) {
-            const probabilidade = (data[0].calcular_probabilidade_alerta * 100).toFixed(2);
-            h1.textContent = `${probabilidade}%`;
-        } else {
-            h1.textContent = "0%";
-        }
+            if (data && data.length > 0 && data[0].calcular_probabilidade_alerta !== undefined) {
+                const probabilidade = (data[0].calcular_probabilidade_alerta * 100).toFixed(2);
 
-    })
-    .catch(error => {
-        console.error('Houve um erro ao capturar os dados:', error);
-    });
+                if (valorInput == 1) {
+                    porcent_alertaRam.innerHTML = `${probabilidade}%`;
+                } else if (valorInput == 2) {
+                    porcent_alerta.innerHTML = `${probabilidade}%`;
+                } else if (valorInput == 3) {
+                    porcent_alertaDisco.innerHTML = `${probabilidade}%`;
+                } else if (valorInput == 4) {
+                    porcent_alertaRede.innerHTML = `${probabilidade}%`;
+                }
+            } else {
+                h1.textContent = "0%";
+                mensagem.textContent = "Sem dados disponíveis para análise.";
+            }
+        })
+        .catch(error => {
+            console.error('Houve um erro ao capturar os dados:', error);
+            const mensagem = document.getElementById('mensagem_alerta');
+            mensagem.textContent = "Erro ao buscar os dados. Tente novamente mais tarde.";
+        });
 }
-
 
 
 

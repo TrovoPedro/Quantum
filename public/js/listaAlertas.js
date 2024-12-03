@@ -23,6 +23,7 @@ function mostrarServidor() {
 }
 
 function listarServidor() {
+
     fetch(`/alerta/buscar`, {
         method: "GET",
         headers: {
@@ -512,11 +513,32 @@ function plotarGraficoModal(resposta) {
                 }
             },
             scales: {
-                x: { ticks: { color: 'white' } },
-                y: { ticks: { color: 'white' } }
+                x: {
+                    ticks: {
+                        color: 'black', 
+                        font: {
+                            size: 14 
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: 'black', 
+                        font: {
+                            size: 14 
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)' 
+                    }
+                }
             }
         }
     };
+    
 
     if (myChartModal) {
         myChartModal.destroy();
@@ -607,34 +629,6 @@ window.onload = function () {
 
 };
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     buscarProbabilidade();
-// });
-
-
-
-
-
-// async function obterDadosDoBanco() {
-//     try {
-
-//         const resultadoComPrevisao = await fetch('/alerta/tendenciaUso');
-//         const data = await resultadoComPrevisao.json();
-//         console.log(data)
-//         return data;
-
-
-
-//     }
-
-//     catch (error) {
-
-//         console.error('Erro ao obter dados:', error);
-//         return [];
-
-//     }
-// }
-
 
 
 async function obterDadosDoBanco() {
@@ -666,6 +660,7 @@ async function criarGrafico() {
     const ctx = document.getElementById('myChartPrevisao').getContext('2d');
 
     new Chart(ctx, {
+        
         type: 'scatter',
         data: {
             datasets: [
@@ -675,6 +670,133 @@ async function criarGrafico() {
                     backgroundColor: '#290135',
                     borderColor: 'white',
                     borderWidth: 1,
+                },
+                {
+                    label: 'Tendência de Uso',
+                    data: regressionLine,
+                    type: 'line',
+                    borderColor: 'white',
+                    backgroundColor: 'white',
+                    borderWidth: 2,
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        font: {
+                            size: 16
+                        },
+                        color: 'white'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        display: true,
+                        text: 'Meses',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Número de Alertas',
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    radius: 5,
+                    backgroundColor: 'white'
+                }
+            },
+            layout: {
+                padding: 10
+            }
+        }
+    });
+}
+
+// #############################################################################################################
+
+
+async function obterDadosDoBancoMudanca() {
+    const componentePrev = document.getElementById("modal_componente_prev").value;
+
+    try {
+        const resultadoComPrevisaoMuda = await fetch(`/alerta/tendenciaGeral/${componentePrev}`);
+        const data = await resultadoComPrevisaoMuda.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Erro ao obter dados:', error);
+        return { resultadoComPrevisao: [], probabilidadeAcerto: 0 };
+    }
+}
+
+let modalChartInstance = null;
+
+async function criarGraficoMudanca() {
+
+    const dados = await obterDadosDoBancoMudanca();
+
+
+    if (!dados || !dados.resultadoComPrevisao || dados.resultadoComPrevisao.length === 0) {
+        console.error("Erro: Dados de previsão não encontrados.");
+        return;
+    }
+
+    const dadosAno = dados.resultadoComPrevisao[0];
+    const scatterData = dadosAno.data.map((item, index) => ({
+        x: index + 1,
+        y: item.y
+    }));
+
+    const regressionLine = scatterData.map(point => ({
+        x: point.x,
+        y: point.y
+    }));
+
+    const ctx = document.getElementById('modalChartCanvasPrev').getContext('2d');
+
+    if (modalChartInstance) {
+        modalChartInstance.destroy();
+    }
+    
+    modalChartInstance =new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Alertas de Uso',
+                    data: scatterData,
+                    backgroundColor: '#290135', 
+                    borderColor: 'white',
+                    borderWidth: 1,
+                    pointRadius: 6, 
                 },
                 {
                     label: 'Tendência de Uso',
@@ -734,96 +856,12 @@ async function criarGrafico() {
             },
             elements: {
                 point: {
-                    radius: 5,
-                    backgroundColor: 'white'
+                    radius: 10, 
+                    backgroundColor: '#FF0000' 
                 }
             },
             layout: {
                 padding: 10
-            }
-        }
-    });
-}
-
-// #############################################################################################################
-
-
-async function obterDadosDoBancoMudanca() {
-    const componentePrev = document.getElementById("modal_componente_prev").value;
-
-    try {
-        const resultadoComPrevisaoMuda = await fetch(`/alerta/tendenciaGeral/${componentePrev}`);
-        const data = await resultadoComPrevisaoMuda.json();
-        console.log(data);
-        return data;
-    } catch (error) {
-        console.error('Erro ao obter dados:', error);
-        return { resultadoComPrevisao: [], probabilidadeAcerto: 0 };
-    }
-}
-
-let modalChartInstance = null;
-
-async function criarGraficoMudanca() {
-    const dados = await obterDadosDoBancoMudanca();
-
-    // Verifica se o array de resultados e o array de ranges estão definidos
-    if (!dados || !dados.resultadoComPrevisao || dados.resultadoComPrevisao.length === 0) {
-        console.error("Erro: Dados de previsão não encontrados.");
-        return;
-    }
-
-    const dadosAno = dados.resultadoComPrevisao[0];
-    const scatterData = dadosAno.data.map((item, index) => ({
-        x: index + 1,
-        y: item.y
-    }));
-
-    const regressionLine = scatterData.map(point => ({
-        x: point.x,
-        y: point.y
-    }));
-
-    const ctx = document.getElementById('modalChartCanvasPrev').getContext('2d');
-
-    if (modalChartInstance) {
-        modalChartInstance.destroy();
-    }
-    modalChartInstance = new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            datasets: [
-                {
-                    label: 'Alertas de Uso',
-                    data: scatterData,
-                    backgroundColor: '#290135',
-                    borderColor: '#290135',
-                    borderWidth: 1,
-                },
-                {
-                    label: 'Tendência de Uso',
-                    data: regressionLine,
-                    type: 'line',
-                    backgroundColor: '#ffff',
-                    borderColor: '#ffff',
-                    borderWidth: 2,
-                    fill: false,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: {
-            scales: {
-                x: {
-                    grid: {
-                        color: 'rgb(39, 39, 39)', 
-                    }
-                },
-                y: {
-                    grid: {
-                        color: 'rgb(39, 39, 39)', 
-                    }
-                }
             }
         }
     });
@@ -888,39 +926,6 @@ criarGrafico();
 
 
 
-// function buscarProbabilidade() {
-//     fetch(`/alerta/buscarProbabilidade`, {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json"
-//         }
-//     })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error(`Erro HTTP: ${response.status}`);
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             console.log("Dados recebidos de PROBABILIDADE:", data);
-
-
-//             const h1 = document.querySelector('#div_percentual h1');
-
-//             if (data && data.chance_alerta_percentual !== undefined) {
-//                 h1.textContent = `${data.chance_alerta_percentual}%`;
-//             } else {
-//                 h1.textContent = "0%";
-//             }
-
-//             document.getElementById('loading').style.display = 'none';
-//         })
-//         .catch(error => {
-//             console.error('Houve um erro ao capturar os dados:', error);
-//             document.getElementById('loading').style.display = 'none';
-//         });
-// }
-
 
 function openModal() {
 
@@ -976,24 +981,126 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
 function gerarPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    // Adiciona título principal
     doc.setFontSize(18);
     doc.text('Relatório de Alertas Mensal', 20, 20);
 
+    // Adiciona gráfico (se existir no DOM)
+    const chartCanvas = document.getElementById("myChartCanvas");
+    if (chartCanvas) {
+        doc.setFontSize(12);
+        doc.text('Visão Geral Anual de Alertas de Componentes:', 20, 40);
+        try {
+            doc.addImage(chartCanvas, 'PNG', 20, 50, 180, 90);
+        } catch (error) {
+            console.error("Erro ao adicionar gráfico ao PDF:", error);
+            doc.text('Erro ao carregar gráfico.', 20, 90);
+        }
+    }
+
+    // Adiciona título da seção de alertas por componente
     doc.setFontSize(12);
-    doc.text('Visão Geral Anual de Alertas de Componentes:', 20, 40);
-    doc.addImage(document.getElementById("myChartCanvas"), 'PNG', 20, 50, 180, 90);
+    const alertasTituloY = chartCanvas ? 160 : 50; // Ajusta a posição com base na existência do gráfico
+    doc.text('Alertas por Componente:', 20, alertasTituloY);
 
-    doc.text('Alertas por Componente:', 20, 160);
-    doc.autoTable(document.getElementById("section2"));
+    // Captura os alertas da tabela em `section2`
+    const alertasTabela = [];
+    const rows = document.querySelectorAll('#section2 .linha_ranking:not(.header)'); // Ignora o cabeçalho
 
-    doc.save('relatorio_alertas.pdf');
+    rows.forEach(row => {
+        const columns = row.querySelectorAll('span');
+        const linha = Array.from(columns).map(col => col.textContent.trim());
+        alertasTabela.push(linha);
+    });
+
+    // Adiciona tabela de alertas ao PDF
+    const startYTabela = alertasTituloY + 10;
+    if (alertasTabela.length > 0) {
+        doc.autoTable({
+            head: [['Componente', 'Período', 'Alertas']], // Cabeçalhos da tabela
+            body: alertasTabela, // Dados capturados
+            startY: startYTabela, // Posição inicial da tabela
+            theme: 'grid',
+            headStyles: { fillColor: [33, 33, 33], textColor: [255, 255, 255] },
+            bodyStyles: { textColor: [0, 0, 0] },
+        });
+    } else {
+        // Caso não haja alertas, exibe mensagem
+        doc.text('Nenhum alerta encontrado.', 20, startYTabela);
+    }
+
+    // Adiciona título e tabela de variação de alertas (se existir)
+    const variacaoTabelaY = doc.autoTable.previous ? doc.autoTable.previous.finalY + 20 : startYTabela + 20;
+    const variacaoTabela = [];
+    const variacaoRows = document.querySelectorAll('#Variacao_Lista tbody tr');
+
+    console.log("Dados capturados da tabela de variação:", variacaoTabela);
+
+    // Verifica se há dados
+    if (variacaoRows.length > 0) {
+        variacaoRows.forEach(row => {
+            const columns = row.querySelectorAll('td');
+            const linha = Array.from(columns).map(col => col.textContent.trim());
+            variacaoTabela.push(linha);
+        });
+    }
+
+    doc.text('Variação de Alertas:', 20, variacaoTabelaY);
+
+    if (variacaoTabela.length > 0) {
+        doc.autoTable({
+            head: [['Mês', 'Quantidade', 'Variação']], // Cabeçalhos da tabela
+            body: variacaoTabela, // Dados capturados
+            startY: variacaoTabelaY + 10, // Posição inicial da tabela
+            theme: 'grid',
+            headStyles: { fillColor: [33, 33, 33], textColor: [255, 255, 255] },
+            bodyStyles: { textColor: [0, 0, 0] },
+        });
+    } else {
+        doc.text('Nenhuma variação encontrada.', 20, variacaoTabelaY + 10);
+    }
+
+    // Salva o arquivo PDF
+    doc.save('Relatório_Alertas.pdf');
 }
 
 
 
 
+
+
+
+
+
+
+function calcularSemana() {
+    const hoje = new Date();
+
+
+    const primeiroDiaSemana = new Date(hoje.setDate(hoje.getDate() - hoje.getDay() + 1));
+
+
+    const ultimoDiaSemana = new Date(hoje.setDate(primeiroDiaSemana.getDate() + 6));
+
+
+    const formatarData = (data) =>
+        data.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
+
+    return `${formatarData(primeiroDiaSemana)} - ${formatarData(ultimoDiaSemana)}`;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const elementoSemana = document.querySelector('.textos p');
+    if (elementoSemana) {
+        elementoSemana.innerHTML = `Monitoramento da semana <br>${calcularSemana()}`;
+    }
+});

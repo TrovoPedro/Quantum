@@ -12,9 +12,10 @@ body {
     font-family: Lato;
     width: 100%;
     height: 100%;
-    background: #151a22;
+    background: black;
     display: flex;
     flex-direction: row;
+
 }
 
 
@@ -82,7 +83,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-left: 20%;
-    width: 100%;
+    width: 120%;
     height: 100%;
     gap: 10px;
 }

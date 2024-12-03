@@ -19,725 +19,845 @@
     <div class="NavBar">
         <div><img class="LogoNavBar" src="./assets/Logo Quantum.svg" alt=""></div>
         <div class="div1">
-            <a class="botaoNavBar" href="">
+
+
+            <a class="botaoNavBar" href="Dash(ADM).html">
                 <p>Home</p>
             </a>
-            <a class="botaoNavBar" href="">
+
+            <a class="botaoNavBar" href="Tela_Alertas.html">
+                <p>Alertas</p>
+            </a>
+
+            <a class="botaoNavBar" href="dashboardPrevisoes.html">
                 <p>Previsões</p>
             </a>
-            <a class="botaoNavBar" href="">
+            <a class="botaoNavBar" href="listaFuncionarios.html">
                 <p>Funcionário</p>
             </a>
-            <a class="botaoNavBar" href="">
+            <a class="botaoNavBar" href="listaServidores.html">
                 <p>Servidor</p>
             </a>
-            <a class="botaoNavBar" href="">
+            <a class="botaoNavBar" href="Tela_Perfill_Adm.html">
                 <p>Perfil</p>
             </a>
         </div>
     </div>
 
     <section class="Monitoramento">
-        <!-- <div>
-            <h1 class="TituloBem-Vindo">Olá, Usuário!</h1>
-            <p class="TituloBem-Vindo">Monitoramento do dia: DD/MM/AAAA</p>
-            <p class="Paragrafo_Bem-vindo">Alertas e Informações Por Componente</p>
-        </div> -->
-
         <div class="div1-container">
             <div class="box1">
 
                 <div class="DivComponente">
-                    <!-- <h1 class="TituloComponentes">Componentes que passaram <br> do limite, por servidor.</h1> -->
 
+                    <h1 class="titulo_Componente_Por_Servidor titulo-grafico"><b>Componentes que passaram do limite</b>
+                        <span class="tooltip">Esta tabela exibe os componentes do servidor que excederam os limites de uso configurados. <br> Cada linha apresenta o servidor, o componente afetado, o percentual de uso atingido e o limite definido. <br> Caso não haja registros, significa que nenhum componente ultrapassou os limites estabelecidos durante o período monitorado.</span>
+                    </h1>
+
+                    <!-- <h1 style="color: white; position: absolute; margin-top: -40px; margin-left: 10px;">Componentes que
+                        passaram do limite</h1> -->
                     <div class="listaServidores">
 
-                        <table id="tabela-servidores">
+                        <table id="tabela-servidores" class="Tabela">
                             <thead>
                                 <tr class="tituloTabela">
-                                    <th>Servidor</th>
-                                    <th>Componente</th>
-                                    <th>Uso(%)</th>
-                                    <th>Limite</th>
+                                    <th style="font-size: 15px; margin-left: 20px;">Servidor</th>
+                                    <th style="font-size: 15px; margin-left: 40px;">Componente</th>
+                                    <th style="font-size: 15px; margin-left: 20px;">Uso(%)</th>
+                                    <th style="font-size: 15px; margin-left: 20px;">Limite</th>
                                 </tr>
                             </thead>
-                            <tbody>              
+                            <tbody style=" display: flex; flex-direction: column; font-size: 20px;">
+
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
-                
-                <div class="DivAlertas"><canvas id="graficoAlerta"></canvas>
-                    <!-- <h1 class="tituloAlertas">Números de alerta <br> gerado por componente (Semanal)</h1> -->
-                </div>
+
+                <h1 class="Titulo_Alertas_Por_Componente titulo-grafico"><b>Componentes que passaram do limite</b>
+                    <span class="tooltip">Este gráfico apresenta o número de alertas gerados por componente ao longo do período monitorado. <br> Cada barra representa um componente específico e a quantidade de alertas associados a ele, indicando possíveis pontos de atenção no sistema. <br> Caso não haja dados exibidos, significa que nenhum alerta foi registrado para os componentes durante o período analisado.</span>
+                </h1>
+
+                <!-- <h1 style="color: white; position: absolute; margin-top: -30px; margin-left: 680px;">Quantidade de
+                    alerta por componente</h1> -->
+                <div class="DivAlertas"><canvas id="graficoAlerta"></canvas></div>
             </div>
 
             <div style="margin-top: 110px; margin-left: 190px;">
-            <div class="box2">
-                <div class="card1">
-                    <p class="TotalServidores">Total de servidores <br><br>
-                    <div class="textoCard1"></div>
-                    </p>
+                <div class="box2">
+                    <div class="card1">
+                        <p class="TotalServidores"><b>Total de Servidores</b> <br><br>
+                        <div class="textoCard1"></div>
+                        </p>
+                    </div>
+
+                    <div class="cardDesativados">
+                        <p class="TotalServidoresDesativados"><b>Desativados</b> <br><br>
+                            
+                            <p style="position: absolute; margin-top: 30px; color: white;" ><b>Clique no card branco abaixo para</b></p>
+                            <p style="position: absolute; margin-top: 50px; color: white;" ><b>mais informações!!</b></p>
+                        <div class="textoCard2" id="cardDesativados"></div>
+                        </p>
+                    </div>
+
+                    <div class="cardAtivados">
+                        <p class="TotalServidores"><b>Ativados</b> <br><br>
+                        <div class="textoCard3"></div>
+                        </p>
+                    </div>
                 </div>
 
-                <div class="card1">
-                    <p class="TotalServidores">Desativados <br><br>
-                    <div class="textoCard2"></div>
+                <div style="margin-left: -360px; margin-top: -80px;">
+                    <p class="Titulo_Grafico_CPU titulo-grafico"><b>Máximo e mínimo do uso de CPU</b>
+                        <span class="tooltip">Este gráfico mostra os valores máximos e mínimos do uso da CPU em diferentes momentos. <br> A linha branca representa o uso máximo registrado, enquanto a linha preta representa o uso mínimo. <br> Os dados apresentados foram coletados em tempo real e representam a média de uso ao longo da semana</span>
                     </p>
-                </div>
+                    <div class="card3"><canvas id="graficoCPU"></canvas></div>
+                    
+                    <p class="Titulo_Grafico_Memoria titulo-grafico"><b>Máximo e mínimo do uso de RAM</b>
+                        <span class="tooltip">Este gráfico mostra os valores máximos e mínimos do uso da RAM em diferentes momentos. <br> A linha branca representa o uso máximo registrado, enquanto a linha preta representa o uso mínimo. <br> Os dados apresentados foram coletados em tempo real e representam a média de uso ao longo da semana.</span>
+                    </p>
 
-                <div class="card1">
-                    <p class="TotalServidores">Ativados <br><br>
-                    <div class="textoCard3"></div>
+                    <div class="card4"><canvas id="graficoMemoria"></canvas></div>
+                    <p class="Titulo_Grafico_Disco titulo-grafico"><b>Máximo e mínimo do uso de Disco</b>
+                        <span class="tooltip">Este gráfico mostra os valores máximos e mínimos do uso do disco em diferentes momentos. <br> A linha branca representa o uso máximo registrado, enquanto a linha preta representa o uso mínimo. <br> Os dados apresentados foram coletados em tempo real e representam a média de uso ao longo da semana.</span>
                     </p>
+                    <div class="card5"><canvas id="graficoDisco"></canvas></div>
                 </div>
-                <!-- <div class="card2"> -->
-                    <!-- <div class="tituloQuadrante">Status dos servidores</div> -->
-                    <!-- <canvas class="" id="graficoStatus"></canvas> -->
-                <!-- </div> -->
             </div>
 
-            <div style="margin-left: -360px; margin-top: -80px;">
-            <p class="Titulo_Grafico_CPU">Uso de CPU (%)</p>
-            <div class="card3"><canvas id="graficoCPU"></canvas></div>
-            <p class="Titulo_Grafico_Memoria">Uso de Memória RAM (%)</p>
-            <div class="card4"><canvas id="graficoMemoria"></canvas></div>
-            <p class="Titulo_Grafico_Disco">Uso de Disco (%)</p>
-            <div class="card5"><canvas id="graficoDisco"></canvas></div>
+            
+            
         </div>
-        </div>
-    </div>
-
-        </div>
-        <!-- <div class="card8"><canvas id="graficoUptime"></canvas></div> -->
-        <!-- <div class="card7"><canvas id="graficoStatus"></canvas></div> -->
     </section>
 
-    <script>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Informações sobre o servidor desativado</h2>
+            <!-- <p>Aqui você pode colocar mais informações ou detalhes sobre os servidores desativados.</p> -->
+            <div class="listaServidores">
 
-        function inicializarGraficos() {
-            criarGraficoCPU();
-            criarGraficoMemoria();
-            criarGraficoDisco();
-            criarGraficoUptime();
-            criarGraficoAlerta();
-            atualizarNumeroServidores();
-            buscarNumeroServidoresDesativado();
-            buscarNumeroServidoresAtivado();
-            carregarComponentesPorServidor();
+                <table id="tabela-servidores2" class="Tabela2">
+                    <thead style="border: 2px solid white;">
+                        <tr class="tituloTabela">
+                            
+                            <th style="font-size: 15px; margin-left: 50px;">Servidor</th>
+                            <th style="font-size: 15px; margin-left: 90px;">Motivo da inatividade</th>
+                       
+                        </tr>
+                    </thead>
+                    <tbody style=" display: flex; flex-direction: column; font-size: 20px;">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</body>
+
+</html>
+
+<script>
+
+    function inicializarGraficos() {
+        criarGraficoCPU();
+        criarGraficoMemoria();
+        criarGraficoDisco();
+        criarGraficoUptime();
+        criarGraficoAlerta();
+        atualizarNumeroServidores();
+        buscarNumeroServidoresDesativado();
+        buscarNumeroServidoresAtivado();
+        carregarComponentesPorServidor();
+        buscarDescricaoDesativados();
+    }
+
+    // Pegando o modal
+    var modal = document.getElementById("modal");
+
+    // Pegando o elemento com id 'cardDesativados'
+    var cardDesativados = document.getElementById("cardDesativados");
+
+    // Pegando o botão de fechar do modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Quando clicar na div 'cardDesativados', abrir o modal
+    cardDesativados.addEventListener("click", function () {
+        modal.style.display = "block";
+    });
+
+    // Quando clicar no "x", fechar o modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Quando clicar fora do modal, fechá-lo
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
+    }
 
-        function carregarComponentesPorServidor(idServidor) {
-    fetch(`/graficosLazaro/ComponentePorServidor:idServidor`, {
-        method: "GET",
+
+
+    function carregarComponentesPorServidor(idServidor) {
+        fetch(`/graficosLazaro/ComponentePorServidor:idServidor`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Dados recebidos da API:", data);
+
+                const tabelaServidores = document.getElementById('tabela-servidores').querySelector('tbody');
+                tabelaServidores.innerHTML = "";
+
+                if (data.length === 0) {
+                    const linhaVazia = document.createElement('tr');
+                    linhaVazia.innerHTML = `<td colspan="4">Nenhum componente ultrapassou o limite para este servidor.</td>`;
+                    tabelaServidores.appendChild(linhaVazia);
+                } else {
+
+                    data.forEach(item => {
+                        const { Servidor, Componente, Uso, Limite } = item;
+
+                        const linha = document.createElement('tr');
+                        linha.innerHTML = `
+                    <table id="tabela-servidores">
+                            <thead">
+                        <th style="font-size: 19.5px;">${item.Servidor || "Desconhecido"}</th>
+                        <th style="font-size: 19.5px;">${item.Componente || "Desconhecido"}</th>
+                        <th style="font-size: 19.5px;">${item.Uso || 0}%</th>
+                        <th style="font-size: 19.5px;">${item.Limite || 0}%</th>
+                        </thead>
+                            <tbody style=" display: flex; flex-direction: column;">  
+
+                            </tbody>
+                        </table>
+                    `;
+
+                        tabelaServidores.appendChild(linha);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao capturar os dados:', error);
+            });
+    }
+
+    function buscarDescricaoDesativados(idServidor) {
+        fetch(`/graficosLazaro/buscarDescricaoDesativados:idServidor`, {
+            method: "GET",
         headers: {
             "Content-Type": "application/json"
         }
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Dados recebidos da API:", data);
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Dados recebidos da API:", data);
 
-            const tabelaServidores = document.getElementById('tabela-servidores').querySelector('tbody');
-            tabelaServidores.innerHTML = ""; 
+        const tabelaServidores = document.getElementById('tabela-servidores2').querySelector('tbody');
+        tabelaServidores.innerHTML = ""; // Limpa a tabela
 
-            if (data.length === 0) {
-                const linhaVazia = document.createElement('tr');
-                linhaVazia.innerHTML = `<td colspan="4">Nenhum componente ultrapassou o limite para este servidor.</td>`;
-                tabelaServidores.appendChild(linhaVazia);
-            } else {
-                
-                data.forEach(item => {
-                    const { Servidor, Componente, Uso, Limite } = item;
+        if (data.length === 0) {
+            const linhaVazia = document.createElement('tr');
+            linhaVazia.innerHTML = `<td colspan="2">Nenhum servidor desativado encontrado.</td>`;
+            tabelaServidores.appendChild(linhaVazia);
+        } else {
+            // Iterando sobre os dados recebidos
+            data.forEach(item => {
+                // Acessando as propriedades Servidor e Motivo
+                const { Servidor, Motivo } = item;
 
-                    const linha = document.createElement('tr');
-                    linha.innerHTML = `
-                        <th>${item.Servidor || "Desconhecido"}</th>
-                        <th>${item.Componente || "Desconhecido"}</th>
-                        <th>${item.Uso || 0}%</th>
-                        <th>${item.Limite || 0}%</th>
-                    `;
+                // Se Motivo for null, substitui por uma mensagem padrão
+                const motivoTexto = Motivo || "Motivo não informado";
 
-                    tabelaServidores.appendChild(linha);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao capturar os dados:', error);
-        });
+                // Criando a linha da tabela
+                const linha = document.createElement('tr');
+                linha.innerHTML = `
+            <thead">
+                    <td style="font-size: 19px;">${Servidor || "Servidor desconhecido"}</td>
+                    <td style="font-size: 18px;">${motivoTexto || "Descrição não fornecida"} </td>
+                    </thead>
+                `;
+
+                tabelaServidores.appendChild(linha); // Adicionando a linha na tabela
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao capturar os dados:', error);
+    });
 }
 
 
-function atualizarNumeroServidores() {
-    fetch("/graficosLazaro/numeroTotal:idServidor") 
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro ao buscar o número total de servidores");
-            }
-            return response.json();
-        })
-        .then(data => {
-            
-            const totalServidores = data[0]["count(*)"];
-            document.querySelector(".textoCard1").textContent = totalServidores;
-        })
-        .catch(error => {
-            console.error("Erro:", error);
-        });
-}
-
-function buscarNumeroServidoresDesativado() {
-    fetch("/graficosLazaro/numeroDesativados:idServidor") 
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro ao buscar o número total de servidores");
-            }
-            return response.json();
-        })
-        .then(data => {
-            
-            const totalServidoresDesativados = data[0].servidores_desativados;
-            document.querySelector(".textoCard2").textContent = totalServidoresDesativados;
-        })
-        .catch(error => {
-            console.error("Erro:", error);
-        });
-}
-
-function buscarNumeroServidoresAtivado() {
-    fetch("/graficosLazaro/numeroAtivados:idServidor") 
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erro ao buscar o número total de servidores");
-            }
-            return response.json();
-        })
-        .then(data => {
-            
-            const totalServidoresAtivados = data[0].servidores_Ativados;
-            document.querySelector(".textoCard3").textContent = totalServidoresAtivados;
-        })
-        .catch(error => {
-            console.error("Erro:", error);
-        });
-}
-
-        function criarGraficoCPU() {
-            fetch(`/graficosLazaro/MediaCPU:idServidor`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        plotarGraficoMediaCPU(resposta);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
+    function atualizarNumeroServidores() {
+        fetch("/graficosLazaro/numeroTotal:idServidor")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar o número total de servidores");
                 }
+                return response.json();
             })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
+            .then(data => {
 
-        function plotarGraficoMediaCPU(resposta) { 
-            console.log('Iniciando plotagem do gráfico com máximos e mínimos por dia...');
-
-function obterDiaDaSemana(data) {
-    const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-    const dia = new Date(data);
-    return diasSemana[dia.getDay()];  
-}
-
-let labels = [];
-let maxValues = [];
-let minValues = [];
-
-resposta.forEach((registro) => {
-    const diaDaSemana = obterDiaDaSemana(registro.dia);
-    labels.push(diaDaSemana); 
-    maxValues.push(registro.maxUsoCPU); 
-    minValues.push(registro.minUsoCPU); 
-});
-
-let dadosCPU = {
-    labels: labels,
-    datasets: [
-        {
-            label: 'Uso Máximo da CPU',
-            data: maxValues,
-            backgroundColor: 'white', 
-            borderColor: 'white',
-            borderWidth: 1
-        },
-        {
-            label: 'Uso Mínimo da CPU',
-            data: minValues,
-            backgroundColor: '#2f2258',
-            borderColor: 'white',
-            borderWidth: 1
-        }
-    ]
-};
-
-const config = {
-    type: 'bar',
-    data: dadosCPU,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Uso de CPU Máximo e Mínimo por Dia',
-                color: 'white',
-                font: {
-                    size: 20
-                }
-            },
-            legend: {
-                labels: {
-                    color: 'white',
-                    font: {
-                        size: 14
-                    }
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: 'white'
-                }
-            },
-            y: {
-                ticks: {
-                    color: 'white',
-                    callback: function (value) { return value + '%' }
-                },
-                max: 100,
-            }
-        }
+                const totalServidores = data[0]["count(*)"];
+                document.querySelector(".textoCard1").textContent = totalServidores;
+            })
+            .catch(error => {
+                console.error("Erro:", error);
+            });
     }
-};
 
-let myChart = new Chart(
-    document.getElementById(`graficoCPU`),
-    config
-);
-        }
-
-        function criarGraficoMemoria() {
-            fetch(`/graficosLazaro/MediaRAM:idServidor`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        plotarGraficoMediaRAM(resposta);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
+    function buscarNumeroServidoresDesativado() {
+        fetch("/graficosLazaro/numeroDesativados:idServidor")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar o número total de servidores");
                 }
+                return response.json();
             })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
+            .then(data => {
 
-        function plotarGraficoMediaRAM(resposta) {
-            console.log('iniciando plotagem do gráfico...');
-
-            let labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-            let dadosCPU = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Média RAM',
-                        data: [],
-                        backgroundColor: '#2f2258',
-                        borderColor: 'white',
-                        borderWidth: 1
-                    }
-                ]
-            };
-
-            console.log('----------------------------------------------');
-            console.log('Estes dadosCPU foram recebidos pela funcao "obterdadosCPUGrafico" e passados para "plotarGraficoPeso":');
-            console.log(resposta);
-
-            resposta.forEach((registro) => {
-                console.log(registro); 
-                dadosCPU.datasets[0].data.push(registro.mediaUsoRAM);
+                const totalServidoresDesativados = data[0].servidores_desativados;
+                document.querySelector(".textoCard2").textContent = totalServidoresDesativados;
+            })
+            .catch(error => {
+                console.error("Erro:", error);
             });
+    }
 
-
-            console.log('----------------------------------------------');
-            console.log('O gráfico será plotado com os respectivos valores:');
-            console.log('Labels:', labels);
-            console.log('dadosCPU:', dadosCPU.datasets);
-            console.log('----------------------------------------------');
-
-            const config = {
-                type: 'bar',
-                data: dadosCPU,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Uso de RAM Semanal',
-                            color: 'white',
-                            font: {
-                                size: 20
-                            }
-                        },
-                        legend: {
-                            labels: {
-                                color: 'white',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: 'white'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: 'white',
-                                callback: function (value) { return value + '%' }
-                            },
-                            max: 100,
-                        }
-                    }
+    function buscarNumeroServidoresAtivado() {
+        fetch("/graficosLazaro/numeroAtivados:idServidor")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar o número total de servidores");
                 }
-            };
-
-            let myChart = new Chart(
-                document.getElementById(`graficoMemoria`),
-                config
-            );
-        }
-
-        function criarGraficoDisco() {
-            fetch(`/graficosLazaro/MediaDisco:idServidor`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        plotarGraficoMediaDisco(resposta);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
+                return response.json();
             })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
+            .then(data => {
 
-        function plotarGraficoMediaDisco(resposta) { 
-            console.log('iniciando plotagem do gráfico...');
-
-            let labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-            let dadosCPU = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Média RAM',
-                        data: [],
-                        backgroundColor: '#2f2258',
-                        borderColor: 'white',
-                        borderWidth: 1
-                    }
-                ]
-            };
-
-            console.log('----------------------------------------------');
-            console.log('Estes dadosCPU foram recebidos pela funcao "obterdadosCPUGrafico" e passados para "plotarGraficoPeso":');
-            console.log(resposta);
-
-            resposta.forEach((registro) => {
-                console.log(registro);
-                dadosCPU.datasets[0].data.push(registro.mediaUsoDisco);
+                const totalServidoresAtivados = data[0].servidores_Ativados;
+                document.querySelector(".textoCard3").textContent = totalServidoresAtivados;
+            })
+            .catch(error => {
+                console.error("Erro:", error);
             });
+    }
 
-
-            console.log('----------------------------------------------');
-            console.log('O gráfico será plotado com os respectivos valores:');
-            console.log('Labels:', labels);
-            console.log('dadosCPU:', dadosCPU.datasets);
-            console.log('----------------------------------------------');
-
-            const config = {
-                type: 'bar',
-                data: dadosCPU,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Uso de Disco Semanal',
-                            color: 'white',
-                            font: {
-                                size: 20
-                            }
-                        },
-                        legend: {
-                            labels: {
-                                color: 'white',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: 'white'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: 'white',
-                                callback: function (value) { return value + '%' }
-                            },
-                            max: 100,
-                        }
-                    }
-                }
-            };
-
-            let myChart = new Chart(
-                document.getElementById(`graficoDisco`),
-                config
-            );
-        }
-
-        function criarGraficoAlerta() {
-            fetch(`/graficosLazaro/alertasPorComponente:idServidor`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        plotarGraficoAlertas(resposta);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    function criarGraficoCPU() {
+        fetch(`/graficosLazaro/MediaCPU:idServidor`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoMediaCPU(resposta);
                 });
-        }
-
-        function plotarGraficoAlertas(resposta) { 
-            console.log('iniciando plotagem do gráfico...');
-
-            let labels = ['CPU', 'RAM', 'Disco'];
-            let dadosCPU = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Média RAM',
-                        data: [],
-                        backgroundColor: '#2f2258',
-                        borderColor: 'white',
-                        borderWidth: 1
-                    }
-                ]
-            };
-
-            console.log('----------------------------------------------');
-            console.log('Estes dadosCPU foram recebidos pela funcao "obterdadosCPUGrafico" e passados para "plotarGraficoPeso":');
-            console.log(resposta);
-
-            resposta.forEach((registro) => {
-                console.log(registro);  
-                dadosCPU.datasets[0].data.push(registro.total_alertas);
-            });
-
-
-            console.log('----------------------------------------------');
-            console.log('O gráfico será plotado com os respectivos valores:');
-            console.log('Labels:', labels);
-            console.log('dadosCPU:', dadosCPU.datasets);
-            console.log('----------------------------------------------');
-
-            const config = {
-                type: 'bar',
-                data: dadosCPU,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Quantidade de alerta por componente',
-                            color: 'white',
-                            font: {
-                                size: 20
-                            }
-                        },
-                        legend: {
-                            labels: {
-                                color: 'white',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: 'white'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: 'white'
-                            },
-                            max: 30,
-                        }
-                    }
-                }
-            };
-
-            let myChart = new Chart(
-                document.getElementById(`graficoAlerta`),
-                config
-            );
-        }
-
-        function criarGraficoUptime() {
-
-            fetch(`/graficosLazaro/uptime:idServidor`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        plotarGraficoUptime(resposta);
-
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
-
-        let myChartUptime;
-
-        function plotarGraficoUptime(resposta) {
-            console.log('iniciando plotagem do gráfico...');
-
-            if (myChartUptime) {
-                myChartUptime.destroy();
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
             }
-
-
-            let labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-            let dados = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Servidor 1 - Uptime (%)',
-                        data: [],
-                        backgroundColor: '#2f2258',
-                        borderColor: 'white',   
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Servidor 2 - Uptime (%)',
-                        data: [],
-                        backgroundColor: '#6743a5',
-                        borderColor: 'white',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Servidor 3 - Uptime (%)',
-                        data: [],
-                        backgroundColor: 'white',
-                        borderColor: 'white',
-                        borderWidth: 1
-                    }
-                ]
-            };
-
-            console.log('----------------------------------------------');
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoPeso":');
-            console.log(resposta);
-
-
-            resposta.forEach((registro) => {
-                dados.datasets[0].data.push(registro.uptime_percent);
-                dados.datasets[1].data.push(registro.uptime_percent);
-                dados.datasets[2].data.push(registro.uptime_percent);
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+    }
 
-            console.log('----------------------------------------------');
-            console.log('O gráfico será plotado com os respectivos valores:');
-            console.log('Labels:', labels);
-            console.log('Dados:', dados.datasets);
-            console.log('----------------------------------------------');
+    function plotarGraficoMediaCPU(resposta) {
+        console.log('Iniciando plotagem do gráfico com máximos e mínimos por dia...');
 
+        function obterDiaDaSemana(data) {
+            const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            const dia = new Date(data);
+            return diasSemana[dia.getDay()];
+        }
 
-            const config = {
-                type: 'bar',
-                data: dados,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Uptime Semanal dos Servidores',
+        let labels = [];
+        let maxValues = [];
+        let minValues = [];
+
+        resposta.forEach((registro) => {
+            const diaDaSemana = obterDiaDaSemana(registro.dia);
+            labels.push(diaDaSemana);
+            maxValues.push(registro.maxUsoCPU);
+            minValues.push(registro.minUsoCPU);
+        });
+
+        let dadosCPU = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Uso Máximo da CPU',
+                    data: maxValues,
+                    backgroundColor: 'white',
+                    borderColor: 'white',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Uso Mínimo da CPU',
+                    data: minValues,
+                    backgroundColor: '#2f2258',
+                    borderColor: 'white',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: dadosCPU,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
                             color: 'white',
                             font: {
-                                size: 20
+                                size: 12
                             }
-                        },
-                        legend: {
-                            labels: {
-                                color: 'white',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: 'white'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: 'white',
-                                callback: function (value) { return value + '%' }
-                            },
-                            max: 100,
                         }
                     }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white',
+                            callback: function (value) { return value + '%' }
+                        },
+                        max: 100,
+                    }
                 }
-            };
+            }
+        };
 
-            myChartUptime = new Chart(document.getElementById('graficoUptime'), config);
+        let myChart = new Chart(
+            document.getElementById(`graficoCPU`),
+            config
+        );
+    }
+
+    function criarGraficoMemoria() {
+        fetch(`/graficosLazaro/MediaRAM:idServidor`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoMediaRAM(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoMediaRAM(resposta) {
+        console.log('Iniciando plotagem do gráfico com máximos e mínimos por dia...');
+
+        function obterDiaDaSemana(data) {
+            const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            const dia = new Date(data);
+            return diasSemana[dia.getDay()];
+        }
+
+        let labels = [];
+        let maxValues = [];
+        let minValues = [];
+
+        resposta.forEach((registro) => {
+            const diaDaSemana = obterDiaDaSemana(registro.dia);
+            labels.push(diaDaSemana);
+            maxValues.push(registro.maxUsoRAM);
+            minValues.push(registro.minUsoRAM);
+        });
+
+        let dadosCPU = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Uso Máximo da CPU',
+                    data: maxValues,
+                    backgroundColor: 'white',
+                    borderColor: 'white',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Uso Mínimo da CPU',
+                    data: minValues,
+                    backgroundColor: '#2f2258',
+                    borderColor: 'white',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: dadosCPU,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white',
+                            callback: function (value) { return value + '%' }
+                        },
+                        max: 100,
+                    }
+                }
+            }
+        };
+
+        let myChart = new Chart(
+            document.getElementById(`graficoMemoria`),
+            config
+        );
+    }
+
+    function criarGraficoDisco() {
+        fetch(`/graficosLazaro/MediaDisco:idServidor`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoMediaDisco(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoMediaDisco(resposta) {
+        console.log('Iniciando plotagem do gráfico com máximos e mínimos por dia...');
+
+        function obterDiaDaSemana(data) {
+            const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            const dia = new Date(data);
+            return diasSemana[dia.getDay()];
+        }
+
+        let labels = [];
+        let maxValues = [];
+        let minValues = [];
+
+        resposta.forEach((registro) => {
+            const diaDaSemana = obterDiaDaSemana(registro.dia);
+            labels.push(diaDaSemana);
+            maxValues.push(registro.maxUsoDisco);
+            minValues.push(registro.minUsoDisco);
+        });
+
+        let dadosCPU = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Uso Máximo da CPU',
+                    data: maxValues,
+                    backgroundColor: 'white',
+                    borderColor: 'white',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Uso Mínimo da CPU',
+                    data: minValues,
+                    backgroundColor: '#2f2258',
+                    borderColor: 'white',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: dadosCPU,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white',
+                            callback: function (value) { return value + '%' }
+                        },
+                        max: 100,
+                    }
+                }
+            }
+        };
+
+        let myChart = new Chart(
+            document.getElementById(`graficoDisco`),
+            config
+        );
+    }
+
+    function criarGraficoAlerta() {
+        fetch(`/graficosLazaro/alertasPorComponente:idServidor`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoAlertas(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoAlertas(resposta) {
+        console.log('iniciando plotagem do gráfico...');
+
+        let labels = ['CPU', 'RAM', 'Disco'];
+        let dadosCPU = {
+            labels: labels,
+            datasets: [
+                {
+                    label: '',
+                    data: [],
+                    backgroundColor: '#2f2258',
+                    borderColor: 'white',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        console.log('----------------------------------------------');
+        console.log('Estes dadosCPU foram recebidos pela funcao "obterdadosCPUGrafico" e passados para "plotarGraficoPeso":');
+        console.log(resposta);
+
+        resposta.forEach((registro) => {
+            console.log(registro);
+            dadosCPU.datasets[0].data.push(registro.total_alertas);
+        });
+
+
+        console.log('----------------------------------------------');
+        console.log('O gráfico será plotado com os respectivos valores:');
+        console.log('Labels:', labels);
+        console.log('dadosCPU:', dadosCPU.datasets);
+        console.log('----------------------------------------------');
+
+        const config = {
+            type: 'bar',
+            data: dadosCPU,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '',
+                        color: 'white',
+                        font: {
+                            size: 20
+                        }
+                    },
+                    legend: {
+                        labels: {
+                            color: 'white',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white'
+                        },
+                        max: 30,
+                    }
+                }
+            }
+        };
+
+        let myChart = new Chart(
+            document.getElementById(`graficoAlerta`),
+            config
+        );
+    }
+
+    function criarGraficoUptime() {
+
+        fetch(`/graficosLazaro/uptime:idServidor`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoUptime(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    let myChartUptime;
+
+    function plotarGraficoUptime(resposta) {
+        console.log('iniciando plotagem do gráfico...');
+
+        if (myChartUptime) {
+            myChartUptime.destroy();
         }
 
 
-    </script>
+        let labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+        let dados = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Servidor 1 - Uptime (%)',
+                    data: [],
+                    backgroundColor: '#2f2258',
+                    borderColor: 'white',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Servidor 2 - Uptime (%)',
+                    data: [],
+                    backgroundColor: '#6743a5',
+                    borderColor: 'white',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Servidor 3 - Uptime (%)',
+                    data: [],
+                    backgroundColor: 'white',
+                    borderColor: 'white',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        console.log('----------------------------------------------');
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGraficoPeso":');
+        console.log(resposta);
+
+
+        resposta.forEach((registro) => {
+            dados.datasets[0].data.push(registro.uptime_percent);
+            dados.datasets[1].data.push(registro.uptime_percent);
+            dados.datasets[2].data.push(registro.uptime_percent);
+        });
+
+        console.log('----------------------------------------------');
+        console.log('O gráfico será plotado com os respectivos valores:');
+        console.log('Labels:', labels);
+        console.log('Dados:', dados.datasets);
+        console.log('----------------------------------------------');
+
+
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Uptime Semanal dos Servidores',
+                        color: 'white',
+                        font: {
+                            size: 20
+                        }
+                    },
+                    legend: {
+                        labels: {
+                            color: 'white',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white',
+                            callback: function (value) { return value + '%' }
+                        },
+                        max: 100,
+                    }
+                }
+            }
+        };
+
+        myChartUptime = new Chart(document.getElementById('graficoUptime'), config);
+    }
+
+
+</script>
 
 </body>
 
