@@ -19,6 +19,37 @@ body {
 
 }
 
+.topDash {
+    height: 20%;
+    width: 83%;
+    position: relative;
+    left: 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.boxUser-data {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: first baseline;
+    flex-direction: column;
+    color: white;
+    font-family: Ubuntu;
+}
+
+.boxUser-data h3 {
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.boxUser-data p {
+    font-size: 1rem;
+}
+
 /* Estilo do contêiner pai do menu */
 .menu-pai {
     width: 10vw;
@@ -144,7 +175,7 @@ body {
     flex-direction: column;
     justify-content: center; /* Centraliza os elementos verticalmente */
     align-items: center; /* Centraliza os elementos horizontalmente */
-    padding-top: 20px; /* Adiciona um pequeno espaçamento do topo */
+  
    
 }
 
@@ -156,7 +187,6 @@ body {
     flex-direction: column; /* Coloca os gráficos em linha vertical */
     justify-content: space-between; /* Distribui o espaço de forma uniforme entre os gráficos */
     align-items: center;
-    padding-top: 20px;
 }
 
 #cards-metricas{

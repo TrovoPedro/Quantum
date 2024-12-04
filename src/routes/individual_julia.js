@@ -20,4 +20,11 @@ router.get("/usoRam",function(req,res){
 router.get("/obterBytes",function(req,res){
     controller_julia.obterBytes(req,res)
 })
+
+
+router.get("/obterdados",function(req,res){
+    controller_julia.obterdados(req,res)
+})
+
+
 module.exports = router;

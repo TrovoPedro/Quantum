@@ -7,6 +7,7 @@ var graficoUsoArmazenamento = null;
 var graficoUsoCPU = null;
 
 
+b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
 // Função para destruir o gráfico antes de criar um novo
 function destruirGraficoSeExistir(grafico) {
@@ -15,6 +16,19 @@ function destruirGraficoSeExistir(grafico) {
     }
 }
 
+
+function formatarData(data) {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+
+    return `${dia}/${mes}/${ano}`;
+}
+
+const hoje = new Date();
+const dataFormatada = formatarData(hoje);
+
+document.getElementById('data').textContent = `Dia ${dataFormatada}`;
 // Função para criar o gráfico de aumento de usuários
 document.addEventListener("DOMContentLoaded", function () {
     metricasCadastro(); // Chama a função para buscar dados e criar o gráfico
@@ -129,50 +143,7 @@ metricasCadastro();
 
 
 
-// Função para criar o gráfico de previsão de custo
-function criarGraficoPrevisaoCusto() {
 
-
-    var ctx = document.getElementById('grafico-previsao-custo').getContext('2d');
-    graficoPrevisaoCusto = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-            datasets: [{
-                label: 'Vendas por Mês',
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: 'rgba(255, 255, 255, 1)',
-                borderColor: 'rgba(255, 255, 255, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Previsão de Custo na EC2',
-                    font: {
-                        size: 18,
-                        weight: 'bold',
-                        family: 'Arial'
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 20
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
-criarGraficoPrevisaoCusto()
 
 async function usoCpu() {
     try {
@@ -251,8 +222,8 @@ async function usoRam() {
 
         if (dados.length > 0) {
             const labels = dados.map(dado => dado.dia_da_semana);
-            const picoMaximos = dados.map(dado => dado.pico_maximo);
-            const picoMinimos = dados.map(dado => dado.pico_minimo);
+            const picoMaximos = dados.map(dado => dado.memoria_max_mb);
+            const picoMinimos = dados.map(dado => dado.memoria_min_mb);
 
             // Destruir o gráfico de RAM existente antes de criar um novo
             destruirGraficoSeExistir(graficoUsoRAM);
@@ -388,3 +359,135 @@ function criarGraficoUsoRede(labels, picoMaximos, picoMinimos) {
 }
 
 criarGraficoUsoRede()
+
+
+
+
+
+// Função para buscar os dados para o gráfico de Previsão de Custo
+async function dados() {
+    try {
+        const response = await fetch('/individual_julia/obterdados');
+        const dados = await response.json();
+        console.log("Dados recebidos para o gráfico de Previsão:", dados);
+
+        // Verifique o conteúdo dos dados antes de qualquer outra coisa
+        console.log("Estrutura dos dados:", dados);
+
+        if (dados.length > 0) {
+            // Convertendo a data para um formato amigável (DD/MM/YYYY)
+            const labels = dados.map(dado => {
+                const date = new Date(dado.dia); // Supondo que 'dado.dia' seja o campo da data
+                return date.toLocaleDateString(); // Formato 'DD/MM/YYYY'
+            });
+
+            // Convertendo para números os dados recebidos
+            const cpuUsada = dados.map(dado => parseFloat(dado.cpu_usado));
+            const memoriaUsada = dados.map(dado => parseFloat(dado.memoria_usada));
+            const bytesEnviados = dados.map(dado => parseFloat(dado.bytes_enviados));
+            const bytesRecebidos = dados.map(dado => parseFloat(dado.bytes_recebidos));
+
+            // Verifique se os arrays têm dados
+            console.log("Arrays de dados", { cpuUsada, memoriaUsada, bytesEnviados, bytesRecebidos });
+
+            // Verificação para garantir que todos os arrays têm dados
+            if (!cpuUsada.length || !memoriaUsada.length || !bytesEnviados.length || !bytesRecebidos.length) {
+                console.error("Arrays de dados estão vazios.");
+                return;
+            }
+
+            destruirGraficoSeExistir(graficoPrevisaoCusto);
+
+            // Calcular os custos totais com base nos dados recebidos
+            const custosTotais = calcularCustos(cpuUsada, memoriaUsada, bytesEnviados, bytesRecebidos);
+
+            // Criar o gráfico com os dados calculados
+            criarGraficoPrevisaoCusto(labels, custosTotais);
+        } else {
+            console.error("Nenhum dado disponível para o gráfico de Previsão.");
+        }
+    } catch (error) {
+        console.error("Erro ao buscar os dados do gráfico de Previsão:", error);
+    }
+}
+
+dados();
+
+// Função para calcular o custo total com base nos dados
+function calcularCustos(cpuUsada, memoriaUsada, bytesEnviados, bytesRecebidos) {
+    const horasUso = Array.from({ length: 31 }, (_, i) => i * 24); // Horas de uso de 0 a 720 (30 dias)
+    const custoInstanciaPorHora = 0.0128; // Custo por hora de uma t2.micro
+    const custoMemoriaPorGB = 0.08; // Custo por GB de memória (ajustar conforme sua necessidade)
+    const custoTráfegoPorMB = 0.09; // Custo por MB de tráfego de rede
+
+    // Verificando se todos os arrays têm dados e a mesma quantidade de elementos
+    if (cpuUsada.length !== memoriaUsada.length || 
+        cpuUsada.length !== bytesEnviados.length || 
+        cpuUsada.length !== bytesRecebidos.length) {
+        console.error("Arrays de dados não têm o mesmo tamanho ou estão vazios.");
+        return [];
+    }
+
+    return horasUso.map((horas, i) => {
+        // Verificando se os dados existem no índice i
+        if (cpuUsada[i] === undefined || memoriaUsada[i] === undefined || 
+            bytesEnviados[i] === undefined || bytesRecebidos[i] === undefined) {
+            console.error(`Dados ausentes no índice ${i}`);
+            return 0; // Retorna 0 para esse índice em caso de erro
+        }
+
+        const custoInstancia = custoInstanciaPorHora * horas; // Custo da instância
+        const custoArmazenamento = memoriaUsada[i] * custoMemoriaPorGB; // Custo de memória
+        const custoTrafego = (bytesEnviados[i] + bytesRecebidos[i]) * custoTráfegoPorMB; // Custo de tráfego
+
+        // Retorna o custo total para essa hora
+        return custoInstancia + custoArmazenamento + custoTrafego;
+    });
+}
+
+// Função para criar o gráfico de previsão de custo
+function criarGraficoPrevisaoCusto(labels, custosTotais) {
+    var ctx = document.getElementById('grafico-previsao-custo').getContext('2d');
+    graficoPrevisaoCusto = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels, // Horas ou dias no eixo X
+            datasets: [{
+                label: 'Custo Total ($)',
+                data: custosTotais, // Dados calculados
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                fill: true,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Previsão de Custo EC2 com Base no Uso de CPU, RAM e Tráfego'
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Horas de Uso no Mês'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Custo Total ($)'
+                    }
+                }
+            }
+        }
+    });
+}
+
+criarGraficoPrevisaoCusto();
