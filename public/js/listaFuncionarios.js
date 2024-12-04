@@ -48,6 +48,7 @@ function validarInformacoes() {
 
 
 function cadastrarFuncionario(nome, email, senha, fkEmpresa) {
+
     console.log(fkEmpresa, nome, email, senha);
     console.log("Dados enviados:", {
         nome: nome,
@@ -55,8 +56,9 @@ function cadastrarFuncionario(nome, email, senha, fkEmpresa) {
         senha: senha,
         empresa: fkEmpresa
     });
+    
 
-    fetch("http://localhost:8080/usuarios/cadastrarFuncionario", {
+    fetch(`/usuarios/cadastrarFuncionario`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

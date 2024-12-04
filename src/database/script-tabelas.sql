@@ -110,6 +110,7 @@ JOIN tipoUsuario ON usuario.fkTipoUsuario = tipoUsuario.idTipoUsuario;
 CREATE TABLE servidor(
     idServidor INT PRIMARY KEY AUTO_INCREMENT,
     nomeServidor VARCHAR(45),
+    descricao varchar(100),
     fkEmpresa INT,
     fkLocalizacao INT,
     fkTempoAtividade INT,
@@ -120,10 +121,12 @@ CREATE TABLE servidor(
     FOREIGN KEY (fkTempoAtividade) REFERENCES periodoAtividade(idEstado)
 );
 
-INSERT INTO servidor(nomeServidor, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
-VALUES ('Servidor 1', 1, 1, 1, 2),
-       ('Servidor 2', 1, 2, 2, 1),
-       ('Servidor 3', 1, 3, 1, 2);
+INSERT INTO servidor(nomeServidor, descricao, fkEmpresa, fkLocalizacao, fkTempoAtividade, fkSituacao) 
+VALUES 
+    ('Servidor 1', 'Servidor principal responsável por aplicações críticas', 1, 1, 1, 2),
+    ('Servidor 2', 'Servidor de backup para sistemas internos - Desativado devido a manutenção programada', 1, 2, 2, 1),
+    ('Servidor 3', 'Servidor dedicado à rede de testes', 1, 3, 1, 2);
+
 
 
 SELECT 
@@ -141,6 +144,8 @@ GROUP BY s.nomeServidor, c.nome
 ORDER BY s.nomeServidor, c.nome;
 
 
+
+select * from servidor;
 
 
 
@@ -391,7 +396,7 @@ BEGIN
     IF total_logs > 0 THEN
         SET probabilidade = total_alertas / total_logs;
     ELSE
-        SET probabilidade = 0;
+        SET probabilidade = 0; -- Evita divisão por zero
     END IF;
 
     RETURN probabilidade;
@@ -473,3 +478,7 @@ GROUP BY
     servidor.idServidor, servidor.nomeServidor
 ORDER BY 
     total_downtime DESC;
+    
+    
+    
+ select * from usuario;   

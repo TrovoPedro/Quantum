@@ -42,7 +42,7 @@ function cadastrarFuncionario(nome, email, senha, empresa) {
 
     var instrucaoSql = `
         INSERT INTO usuario (nome, email, senha, data_cadastro, fotoPerfil, fkEmpresa, fkTipoUsuario, fkSituacao) 
-        VALUES ('${nome}', '${email}', '${senha}', NOW(), null , '${empresa}', '${3}', '${2}');
+        VALUES ('${nome}', '${email}', '${senha}', NOW(), null , '${1}', '${3}', '${2}');
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
