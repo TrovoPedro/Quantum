@@ -298,7 +298,8 @@ module.exports = {
     tendenciaUsoPrev,
     tendenciaGeralComp,
     ResumoVariacao,
-    ProbabilidadeAlerta
+    ProbabilidadeAlerta,
+    buscarOee
 
 
 };

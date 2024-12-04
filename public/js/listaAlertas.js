@@ -13,6 +13,8 @@ function validarInformacoes() {
 }
 
 function mostrarServidor() {
+
+
     const mostrar = document.getElementById("aparecerBoxServidor");
 
     if (getComputedStyle(mostrar).display === "none") {
@@ -22,68 +24,87 @@ function mostrarServidor() {
     }
 }
 
-function listarServidor() {
-
-    fetch(`/alerta/buscar`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
+async function listarServidor() {
+    try {
+        const response = await fetch(`/alerta/buscar`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
+        });
 
-            const listaServidores = document.getElementById('tabela-servidores');
-            listaServidores.innerHTML = '';
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
 
-            if (data.length === 0) {
+        const data = await response.json();
+        console.log("Dados recebidos da API:", data);
+
+        const listaServidores = document.getElementById('tabela-servidores');
+        listaServidores.innerHTML = '';
+
+        if (data.length === 0) {
+            const div = document.createElement('div');
+            div.classList.add('div_Server');
+            div.innerHTML = '<p>Nenhum Registro encontrado.</p>';
+            listaServidores.appendChild(div);
+        } else {
+            for (const item of data) {
                 const div = document.createElement('div');
                 div.classList.add('div_Server');
-                div.innerHTML = '<p>Nenhum Registro encontrado.</p>';
-                listaServidores.appendChild(div);
-            } else {
-                data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.classList.add('div_Server');
 
-                    div.onclick = () => {
+                div.onclick = () => {
+                    let nomeServidor = item.nomeServidor;
+                    window.location.href = `/listaAlertas.html?nome=${encodeURIComponent(nomeServidor)}`;
+                };
 
-                        let nomeServidor = item.nomeServidor;
-
-                        window.location.href = `/listaAlertas.html?nome=${encodeURIComponent(nomeServidor)}`;
-                    };
-
-
-
-                    div.innerHTML = `
+                div.innerHTML = `
                     <div class="serverContent">
                         <img src="assets/servidor.svg" alt="Servidor" class="serverImage">
                         <div class="serverDetails">
                             <div class="detailRow"><strong>Nome:</strong> ${item.nomeServidor}</div>
                             <div class="detailRow"><strong>Empresa:</strong> ${item.razao_social}</div>
                             <div class="detailRow"><strong>Situação:</strong> ${item.tipo}</div>
+                            <div class="detailRow"><strong>SLA:</strong> <span id="oee-${item.idServidor}" style="font-weight: bold; padding: 5px; border-radius: 4px;">Calculando...</span></div>
                         </div>
                     </div>
                 `;
 
-                
+                listaServidores.appendChild(div);
 
-                    listaServidores.appendChild(div);
-                });
+
+                const oee = await calculoOee(item.idServidor);
+
+                const oeeElement = document.getElementById(`oee-${item.idServidor}`);
+                if (oee !== null) {
+                    oeeElement.innerText = `${oee.toFixed(2)}%`;
+
+
+                    if (oee > 85) {
+                        oeeElement.style.color = "green";
+                        oeeElement.style.backgroundColor = "#e0f7e0"; 
+
+                    } else if (oee >= 60) {
+                        oeeElement.style.color = "yellow";
+                        oeeElement.style.backgroundColor = "#f0f0a0"; 
+
+                    } else {
+                        oeeElement.style.color = "red";
+                        oeeElement.style.backgroundColor = "#f7e0e0"; 
+
+                    }
+                } else {
+                    
+                    oeeElement.innerText = "Indisponível";
+                    oeeElement.style.color = "gray";
+                    oeeElement.style.backgroundColor = "#f0f0f0"; 
+                }
             }
-        })
-        .catch(error => {
-            console.error('Houve um erro ao capturar os dados:', error);
-        });
+        }
+    } catch (error) {
+        console.error('Houve um erro ao capturar os dados:', error);
+    }
 }
-
 
 
 
@@ -328,6 +349,7 @@ function graficoComponente() {
 window.addEventListener('load', function () {
     obterDadosGrafico();
     obterDadosGraficoModal();
+    obterDadosOee();
 });
 
 
@@ -1100,14 +1122,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+///////////////////////////////////////////////// OEE //////////////////////////////
+
+
+async function obterDadosOee(idServidor) {
+
+    // sessionStorage.setItem("ID_SERVIDOR", idServidor);
+
+    console.log('servidor:', idServidor)
+
+
+    sessionStorage.setItem("ID_SERVIDOR", idServidor);
+
+    idServidor = sessionStorage.getItem("ID_SERVIDOR");
 
 
 
-async function obterDadosOee(servidorId) {
-    console.log('servidor:', servidorId)
 
     try {
-        let response = await fetch(`/alerta/buscarOee/${servidorId}`);
+        let response = await fetch(`/alerta/buscarOee/${idServidor}`);
+
         let data = await response.json();  // Convertendo a resposta em JSON
         console.log(data)
         return data;  // Retorna os dados para uso posterior
@@ -1117,58 +1151,43 @@ async function obterDadosOee(servidorId) {
     }
 }
 
+async function calculoOee(idServidor) {
+    const minutosTotais = 10080; // Total de minutos
+    const minutosPlanejados = 9840; // Minutos planejados
 
-async function calculoOee(servidorId) {
-    const servidorSelecionado = document.querySelector('#select-oee select')?.value; // Pega o value do select de servidor
-    const minutosTotais = 10080; // Total de minutos em uma semana
-    const minutosPlanejados = 9840; // Minutos planejados (tempo operacional previsto)
+    console.log('Calculando OEE para o servidor:', idServidor);
 
-    console.log('Servidor Selecionado para cálculo do OEE:', servidorSelecionado);
+    try {
+        // Obtém dados de downtime
+        const valorDowntime = await obterDadosOee(idServidor);
 
-    if (!servidorSelecionado) {
-        console.error("Nenhum servidor selecionado.");
-        return; // Não realiza o cálculo se um servidor não for selecionado
-    }
+        if (!valorDowntime || valorDowntime.length === 0) {
+            console.error('Dados inválidos para cálculo do OEE.');
+            return null; // Retorna nulo em caso de erro
+        }
 
-    // Obtém dados de downtime
-    const valorDowntime = await obterDadosOee(servidorSelecionado);
+        let totalDowntime = 0;
 
-    if (!valorDowntime || valorDowntime.length === 0) {
-        console.error('Dados inválidos para cálculo do OEE.');
-        return;
-    }
+        // Soma todos os downtimes no array
+        valorDowntime.forEach(item => {
+            totalDowntime += item.total_downtime || 0;
+        });
 
-    // Variáveis acumuladoras
-    let totalDowntime = 0;
+        const minutosDisponiveis = minutosPlanejados - totalDowntime;
 
-    // Soma todos os downtimes no array
-    valorDowntime.forEach(item => {
-        totalDowntime += item.total_downtime || 0;
-    });
+        const disponibilidade = (minutosDisponiveis / minutosPlanejados) * 100; // Disponibilidade em %
+        const desempenho = (minutosDisponiveis / minutosTotais) * 100; // Desempenho em %
 
-    // Minutos efetivamente disponíveis para operação
-    const minutosDisponiveis = minutosPlanejados - totalDowntime;
+        const oeeFinal = (disponibilidade / 100) * (desempenho / 100) * 100;
 
-    // **Cálculo dos Fatores do OEE**
-    const disponibilidade = (minutosDisponiveis / minutosPlanejados) * 100; // Disponibilidade em %
-    const desempenho = (minutosDisponiveis / minutosTotais) * 100; // Desempenho em %
-
-    // **Cálculo do OEE**
-    const oeeFinal = (disponibilidade / 100) * (desempenho / 100) * 100; // Combina disponibilidade e desempenho
-
-    // **Exibição no Console**
-    console.log(`Disponibilidade: ${disponibilidade.toFixed(2)}%`);
-    console.log(`Desempenho: ${desempenho.toFixed(2)}%`);
-    console.log(`OEE Final: ${oeeFinal.toFixed(2)}%`);
-
-    
-    document.getElementById('oks').innerText = `${oeeFinal.toFixed(2)}%`;
-
-    if (oeeFinal > 85) {
-        document.getElementById('oks').style.color = "green";
-    } else if (oeeFinal <= 85 && oeeFinal >= 60 ) {
-        document.getElementById('oks').style.color = "yellow";
-    } else if (oeeFinal < 60) {
-        document.getElementById('oks').style.color = "red";
+        console.log(`OEE para servidor ${idServidor}: ${oeeFinal.toFixed(2)}%`);
+        return oeeFinal;
+    } catch (error) {
+        console.error('Erro ao calcular OEE:', error);
+        return null; // Retorna nulo em caso de erro
     }
 }
+
+
+
+calculoOee();

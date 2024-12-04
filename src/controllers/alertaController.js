@@ -359,7 +359,8 @@ function ProbabilidadeAlerta(req, res) {
 
 
 function buscarOee(req, res) {
-    var servidorSelect = req.params.servidorId;
+    
+    var servidorSelect = req.params.idServidor;
 
     console.log("Servidor Selecionado:", servidorSelect);
 

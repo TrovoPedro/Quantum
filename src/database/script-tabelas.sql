@@ -278,7 +278,7 @@ select * from limiteComponente;
 CREATE TABLE alerta(
     idAlerta INT PRIMARY KEY AUTO_INCREMENT,
     data DATETIME,
-    descricao VARCHAR(45),
+    descricao VARCHAR(100),
     fkLog INT,
     fkLimiteComponente INT,
     fkComponente INT,
