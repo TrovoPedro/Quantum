@@ -225,6 +225,7 @@ body {
     align-items: center;
     justify-content: top;
     border: solid 2px #e234d4;
+    /* overflow-y: scroll; */
 }
 
 .boxServidores{
@@ -286,3 +287,49 @@ body {
     transform: translateY(-10px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
+
+
+/* From Uiverse.io by Cksunandh */ 
+.tooltip-container {
+    color: #ffffff;
+    --background: #00a36d;
+    position: relative;
+    background: var(--background);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 17px;
+    padding: 0.7em 1.8em;
+    border-radius: 50px;
+  }
+  
+  .tooltip {
+    background-color: #00a36d;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.3em 0.6em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    border-radius: 50px;
+  }
+  
+  .tooltip::before {
+    background-color: #00a36d;
+    position: absolute;
+    content: "";
+    height: 0.6em;
+    width: 0.6em;
+    bottom: -0.2em;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+  }
+  
+  .tooltip-container:hover .tooltip {
+    top: -100%;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  
