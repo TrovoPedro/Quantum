@@ -121,7 +121,11 @@ header button:hover {
 }
 
 .svgHome {
-    width: 80%;
+    display: flex;
+    margin-top: 10px;
+    width: 35%;
+    position: absolute;
+    
 }
 
 /* RESPONSIVIDADE */
