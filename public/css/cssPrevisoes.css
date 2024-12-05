@@ -33,6 +33,7 @@ body {
 
 .div1 {
     display: flex;
+    align-items: center;
     flex-direction: row; /* Coloca os itens lado a lado */
     gap: 20px; /* Espaçamento entre os itens */
 }
