@@ -123,6 +123,7 @@ header button:hover {
 .svgHome {
     display: flex;
     margin-top: 10px;
+    margin-right: 30px;
     width: 35%;
     position: absolute;
 }
