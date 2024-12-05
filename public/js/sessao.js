@@ -57,6 +57,7 @@ function previewImage(event) {
 
 
 function mostrarDados() {
+
     var idUsuario = sessionStorage.getItem("ID_USUARIO");
     console.log("ID do Usuário:", idUsuario);
 
@@ -70,7 +71,7 @@ function mostrarDados() {
             }
         })
         .then(function (resposta) {
-            var dashboard = document.getElementsByClassName("dashboard")[0]; // Correção
+            var dashboard = document.getElementsByClassName("dashboard")[0]; 
 
             if (resposta.length === 0) {
                 dashboard.innerHTML = "<span>Nenhum resultado encontrado.</span>";
@@ -92,7 +93,7 @@ function mostrarDados() {
             }
 
             // Formatar e exibir a data no padrão BR
-            document.getElementById("data_criacao").textContent = formatarData(usuario.DtCadastro) || "Data de criação não encontrada"; // Data de criação
+            document.getElementById("data_criacao").textContent = formatarData(usuario.dataCadastro) || "Data de criação não encontrada"; // Data de criação
 
             document.getElementById("funcao_usuario").textContent = usuario.cargoUsuario || "Cargo não encontrado"; // Função
         })

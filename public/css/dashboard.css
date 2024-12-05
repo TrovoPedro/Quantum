@@ -68,23 +68,23 @@ body {
 }
 
 
-.btSelecionar{
+.btSelecionar {
     width: 87.9%;
     display: flex;
-    justify-content:left;
+    justify-content: left;
     flex-direction: row;
     align-items: center;
     gap: 2%;
 }
 
-.btProcessador{
+.btProcessador {
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.botaoAvancar{
+.botaoAvancar {
     width: 80%;
     height: 10%;
     background-color: #7449EB;
@@ -92,7 +92,7 @@ body {
     font-family: Lato;
 }
 
-.logoCadastroImagem{
+.logoCadastroImagem {
     height: 50%;
 }
 
@@ -228,8 +228,8 @@ body {
     /* overflow-y: scroll; */
 }
 
-.boxServidores{
-    height: 25%;    
+.boxServidores {
+    height: 25%;
     width: 80%;
     display: flex;
     justify-content: space-between;
@@ -240,7 +240,7 @@ body {
     margin-top: 3%;
 }
 
-.status{
+.status {
     display: flex;
     justify-content: right;
     width: 30%;
@@ -249,7 +249,7 @@ body {
     gap: 5%;
 }
 
-.serverImgName{
+.serverImgName {
     width: 30%;
     height: 80%;
     display: flex;
@@ -258,78 +258,104 @@ body {
 }
 
 .serverBox {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
-    align-items: center; 
-    width: 100%; 
-    padding: 10px; 
+    align-items: center;
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
-.TextServidorFuncionalidade{
+.TextServidorFuncionalidade {
     width: 50%;
     display: flex;
     justify-content: left;
     align-items: center;
 }
 
-.imgServer{
+.imgServer {
     width: 60%;
 }
 
-.alert{
+.alert {
     width: 10%;
 }
 
-.box1low:hover, .box2low:hover {
+.box1low:hover,
+.box2low:hover {
     transform: translateY(-10px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 
-/* From Uiverse.io by Cksunandh */ 
-.tooltip-container {
-    color: #ffffff;
-    --background: #00a36d;
-    position: relative;
-    background: var(--background);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 17px;
-    padding: 0.7em 1.8em;
-    border-radius: 50px;
-  }
-  
-  .tooltip {
-    background-color: #00a36d;
+
+
+.tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: rgba(255, 255, 255, 1);
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
     position: absolute;
-    top: 0;
+    bottom: 105%;
+    font-size: 15px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 0.3em 0.6em;
+    z-index: 1;
     opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s;
-    border-radius: 50px;
-  }
-  
-  .tooltip::before {
-    background-color: #00a36d;
+    transition: opacity 0.3s;
+}
+
+.tooltip::after {
+    content: '';
     position: absolute;
-    content: "";
-    height: 0.6em;
-    width: 0.6em;
-    bottom: -0.2em;
+    top: 100%;
     left: 50%;
-    transform: translate(-50%) rotate(45deg);
-  }
-  
-  .tooltip-container:hover .tooltip {
-    top: -100%;
-    opacity: 1;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 1) transparent transparent transparent;
+}
+
+.titulo-grafico:hover .tooltip {
     visibility: visible;
-    pointer-events: auto;
-  }
-  
+    opacity: 1;
+}
+
+
+
+
+.titulo-grafico:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.titulo_Componente_Por_Servidor {
+    color: white;
+    position: absolute;
+    margin-top: -40px;
+    margin-left: 10px;
+}
+
+.Titulo_Alertas_Por_Componente {
+    color: white;
+    position: absolute;
+    margin-top: -30px;
+    margin-left: 680px;
+}
+
+
+
+.tituloLow{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+
+
