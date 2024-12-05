@@ -10,16 +10,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
-    <div class="pai" style="display: flex;">
+<body onload="buscarConsumoRam(); buscarConsumoSwap(); buscarTotalMemoriaRam(); buscarTotalMemoriaSwap(); buscarQtdAlerta(); buscarRiscoAlerta()">
+    <div class="pai">
         <header class="pai-menu">
             <nav class="filho-menu">
                 <img src="../assets/Logo Quantum.png" alt="" class="logo">
                 <h1>Quantum</h1>
             </nav>
         </header>
-        <img src="../assets/blurEscolher.png" alt="" class="blurEscolher">
-        <div class="button-escolher">
+        <img src="../assets/blurEscolher.png" alt="" class="blurEscolher" id="escolherAlerta">
+        <div class="button-escolher" id="escolherBotaoAlerta">
             <select id="escolher" onchange="validarEscolha()">
                 <option selected disabled value="0">Escolher componente</option>
                 <option value="1">RAM</option>
@@ -30,14 +30,14 @@
         </div>
         <img class="blurEsquerda" src="../assets/blurEsquerda.png" alt="">
         <img class="blurDireita" src="../assets/blurDireita.png" alt="">
-        <div id="pai-conteudo" class="pai-conteudo" style="display: flex;">
+        <div id="pai-conteudo" class="pai-conteudo" style="display: none;">
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
                     <button onclick="voltarHome()" class="circulo-home">
-                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        <img class="icon-menu-bg" src="../assets/home.png" alt="">
                     </button>
-                    <button onclick="enviarFormulario()" class="icon-menu">
-                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    <button onclick="chamarCadastrarAlerta()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/warning.png" alt="">
                     </button>
                     <button onclick="verPerfil()" class="icon-menu">
                         <img class="icon-menu" src="../assets/user.png" alt="">
@@ -89,10 +89,10 @@
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
                     <button onclick="voltarHome()" class="circulo-home">
-                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        <img class="icon-menu-bg" src="../assets/home.png" alt="">
                     </button>
-                    <button onclick="enviarFormulario()" class="icon-menu">
-                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    <button onclick="chamarCadastrarAlerta()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/warning.png" alt="">
                     </button>
                     <button onclick="verPerfil()" class="icon-menu">
                         <img class="icon-menu" src="../assets/user.png" alt="">
@@ -135,14 +135,14 @@
                 </div>
             </div>
         </div>
-        <div id="pai-conteudo3" class="pai-conteudo3" style="display: none;">
+        <div id="pai-conteudo3" class="pai-conteudo3" style="display: flex;">
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
                     <button onclick="voltarHome()" class="circulo-home">
-                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        <img class="icon-menu-bg" src="../assets/home.png" alt="">
                     </button>
-                    <button onclick="enviarFormulario()" class="icon-menu">
-                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    <button onclick="chamarCadastrarAlerta()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/warning.png" alt="">
                     </button>
                     <button onclick="verPerfil()" class="icon-menu">
                         <img class="icon-menu" src="../assets/user.png" alt="">
@@ -202,10 +202,10 @@
             <div class="pai-menu-lateral">
                 <div class="menu-lateral">
                     <button onclick="voltarHome()" class="circulo-home">
-                            <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                        <img class="icon-menu-bg" src="../assets/home.png" alt="">
                     </button>
-                    <button onclick="enviarFormulario()" class="icon-menu">
-                        <img class="icon-menu" src="../assets/send.png" alt="">
+                    <button onclick="chamarCadastrarAlerta()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/warning.png" alt="">
                     </button>
                     <button onclick="verPerfil()" class="icon-menu">
                         <img class="icon-menu" src="../assets/user.png" alt="">
@@ -221,7 +221,7 @@
                 </div>
                 <div class="dash-pai">
                     <div class="dash-filho1">
-                            <canvas id="myDoughnutChart" width="100%" height="100%"></canvas>
+                        <canvas id="myDoughnutChart" width="100%" height="100%"></canvas>
                     </div>
                     <div class="dash-filho3">
                         <div class="card-numeros1">
@@ -249,8 +249,8 @@
                 </div>
             </div>
         </div>
-    </body>
     </div>
+</body>
 <script src="../js/dashTrovo.js"></script>
 
 </html>

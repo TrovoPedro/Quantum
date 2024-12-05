@@ -1,5 +1,27 @@
-nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 var valorInput = 2
+var consumoCpuAlerta = document.getElementById('')
+var mudancaContextoAlerta = document.getElementById('')
+var cargaSistemaAlerta = document.getElementById('')
+var consumoRamAlerta = document.getElementById('')
+var consumoSwapAlerta = document.getElementById('')
+var ioDiscoAlerta = document.getElementById('')
+var taxaTransfarenciaAlerta = document.getElementById('')
+var perdaPacoteAlerta = document.getElementById('')
+var erroTcpAlerta = document.getElementById('')
+
+function chamarCadastrarAlerta(){
+    document.getElementById('pai-conteudo').style.display = 'none';
+    document.getElementById('pai-conteudo2').style.display = 'none';
+    document.getElementById('pai-conteudo3').style.display = 'none';
+    document.getElementById('pai-conteudo4').style.display = 'none';
+    document.getElementById('escolherAlerta').style.display = 'none';
+    document.getElementById('escolherBotaoAlerta').style.display = 'none';
+}
+
+function cadastrarAlerta() {
+
+}
+
 
 function validarEscolha() {
     var escolher = document.getElementById('escolher');
@@ -73,6 +95,7 @@ let graficoDisco
 let graficoIo
 let graficoTaxaTransferencia
 let graficoErroTcp
+let graficoPerdaPacote
 
 function buscarConsumoCpu() {
     fetch(`/estatisticaTrovo/buscarConsumoCpu`, { cache: 'no-store' })
@@ -475,116 +498,6 @@ function buscarServicosAtivos() {
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
-}
-
-/** fetch e plotagem do gráfico de perda de pacote*/
-
-function buscarPerdaPacote() {
-
-    fetch(`/estatisticaTrovo/buscarPerdaPacote`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                plotarGraficosPerdaPacote(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
-
-function plotarGraficosPerdaPacote(resposta) {
-    const ctx = document.getElementById('graficoPerda').getContext('2d');
-
-    // Destruir o gráfico anterior, se existir
-    if (window.meuGrafico) {
-        window.meuGrafico.destroy();
-    }
-
-    // Verificar se 'resposta' é um array válido
-    if (!Array.isArray(resposta)) {
-        console.error('Resposta não é um array válido', resposta);
-        return; // Evita continuar se a resposta não for válida
-    }
-
-    // Verificar se a resposta contém dados
-    const dados = resposta.map(item => item.usoComponente);
-    console.log('Dados extraídos:', dados);
-
-    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
-
-    if (dados.length === 0) {
-        console.error('Nenhum dado encontrado para o gráfico.');
-        return; // Evita criar o gráfico se os dados estiverem vazios
-    }
-
-    // Criar o gráfico
-    window.meuGrafico = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Perda de pacotes',
-                data: dados,
-                backgroundColor: '#e234d4',
-                borderColor: '#e234d4',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#FFFF'
-                    },
-                    grid: {
-                        color: '#6c6877af',
-                    },
-                    border: {
-                        color: '#6c6877af',
-                    }
-                },
-                x: {
-                    ticks: {
-                        display: false,
-                    },
-                    grid: {
-                        color: '#6c6877af',
-                    },
-                    border: {
-                        color: '#6c6877af'
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        color: '#FFFF'
-                    }
-                },
-                tooltip: {
-                    titleColor: '#FFFF',
-                    bodyColor: '#FFFF',
-                },
-                title: {
-                    display: true,
-                    text: 'Porcentagem de perda de pacotes',
-                    color: '#FFFF',
-                    font: {
-                        size: 25,
-                        weight: 'bold'
-                    }
-                }
-            }
-        }
-    });
 }
 
 /** fetch e plotagem do gráfico de uso de memoria RAM*/
@@ -1139,7 +1052,7 @@ function plotarIoDisco(resposta) {
 /** fetch e plotagem do gráfico de perda de pacotes*/
 
 function buscarPerdaPacote() {
-    fetch(`/estatisticaTrovo/buscarIoDisco`)
+    fetch(`/estatisticaTrovo/buscarPerdaPacote`)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -1160,14 +1073,14 @@ function plotarPerdaDePacote(resposta) {
 
     let index = 0;
 
-    if (graficoIo) {
-        graficoIo.data.datasets[0].data = [];
-        graficoIo.data.labels = [];
-        graficoIo.update();
+    if (graficoPerdaPacote) {
+        graficoPerdaPacote.data.datasets[0].data = [];
+        graficoPerdaPacote.data.labels = [];
+        graficoPerdaPacote.update();
     }
 
     if (Array.isArray(resposta)) {
-        const dados = resposta.map(item => item.ioDisco);
+        const dados = resposta.map(item => item.usoComponente);
 
         console.log('Dados extraídos:', dados);
 
@@ -1185,15 +1098,15 @@ function plotarPerdaDePacote(resposta) {
             }
 
             // Adiciona os dados no gráfico
-            graficoIo.data.datasets[0].data.push(dados[index]);
-            graficoIo.data.labels.push(labels[index % labels.length]);
+            graficoPerdaPacote.data.datasets[0].data.push(dados[index]);
+            graficoPerdaPacote.data.labels.push(labels[index % labels.length]);
 
-            graficoIo.update();
+            graficoPerdaPacote.update();
             index++;
         };
 
         // Criação do gráfico
-        graficoIo = new Chart(ctx5, {
+        graficoPerdaPacote = new Chart(ctx5, {
             type: 'line',
             data: {
                 labels: [],
@@ -1211,14 +1124,15 @@ function plotarPerdaDePacote(resposta) {
                 scales: {
                     y: {
                         beginAtZero: true,
-                        min: 0,
-                        max: 100,
-                        grid: {
-                            color: '#6c6877af',
+                        ticks: {
+                            stepSize: 10,
+                            max: 100,
+                            min: 0,
+                            callback: function (value) {
+                                return value + '%';
+                            },
+                            color: '#FFFF'
                         },
-                        border: {
-                            color: '#6c6877af',
-                        }
                     },
                     x: {
                         ticks: {
@@ -1256,7 +1170,7 @@ function plotarPerdaDePacote(resposta) {
             }
         });
 
-        const intervalo = setInterval(atualizarGrafico, 3600000);
+        const intervalo = setInterval(atualizarGrafico, 5000);
 
     } else {
         console.error('A resposta da API não é um array.', resposta);
