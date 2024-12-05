@@ -65,13 +65,11 @@ body {
   padding-top: 20px;
   font-size: 20px;
   color: white;
-
 }
 
 .div1-container {
   display: flex;
   justify-content: flex-start;
-  /* flex-direction: column-reverse; */
 }
 
 .box1 {
@@ -80,7 +78,7 @@ body {
   height: 260px;
   justify-content: space-evenly;
   width: 100%;
-  /* background-color: white; */
+  margin-left: -80px;
   border-radius: 20px;
   margin-top: 540px;
   flex-direction: row;
@@ -90,10 +88,8 @@ body {
   display: flex;
   height: 150px;
   width: 1000px;
-  /* background-color: white; */
   border-radius: 20px;
   margin-top: -90px;
-  /* margin-top: 100px;  */
   margin-left: 100px;
 }
 
@@ -112,13 +108,10 @@ body {
 .tituloAlertas {
   margin-top: -290px;
   color: white;
-
 }
 
 .container {
   display: flex;
-  /* flex-wrap: wrap; */
-  /* justify-content: center; */
   gap: 20px;
   padding: 10px;
   box-sizing: border-box;
@@ -150,27 +143,22 @@ body {
 .tituloTabela {
   display: flex;
   border: 2px solid white;
-  /* margin-left: 110px; */
-
 }
 
 .tituloTabela tr {
   font-size: 25px;
   background-color: black;
   border: 2px solid white;
-  /* justify-content: space-between; */
 }
 
 .tituloTabela td {
   font-size: 25px;
   background-color: black;
   border: 2px solid white;
-  /* justify-content: space-between; */
 }
 
 .Tabela {
   margin-left: 0px;
-  /* border: 2px solid white; */
 }
 
 .Tabela2 {
@@ -180,7 +168,6 @@ body {
 
 .listaServidores {
   width: 100%;
-  /* margin-right: 10px; */
   height: 370px;
   overflow-y: unset;
   overflow-x: hidden;
@@ -196,16 +183,13 @@ body {
 }
 
 .listaServidores th {
-
   padding: 15px;
   margin-bottom: 1px;
-  /* margin-left: 100px; */
   color: white;
   font-size: 15px;
   text-align: center;
   border-bottom: 1px solid #7449EB;
   justify-content: space-between;
-
 }
 
 /* Estilo geral da tabela */
@@ -217,18 +201,13 @@ body {
 
 /* Estilo para cabeçalho */
 #tabela-servidores thead th {
-  /* background-color: #f4f4f4; Cor de fundo */
-  font-size: 16px;
   padding: 1px 5px;
   text-align: left;
 }
 
 /* Estilo para corpo da tabela */
 #tabela-servidores tbody tr {
-  /* background-color: #ffffff; */
-  /* border: 1px solid #ddd; Linha separadora */
   margin-bottom: 10px;
-  /* Espaço entre linhas */
 }
 
 /* Estilo para células */
