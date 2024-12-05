@@ -71,8 +71,8 @@ function buscarMediaRAM(idServidor) {
     var instrucaoSql = `
        SELECT 
     DATE(log.dtHora) AS dia, 
-    MAX(log.usoComponente) AS maxUsoCPU, 
-    MIN(log.usoComponente) AS minUsoCPU
+    MAX(log.usoComponente) AS maxUsoRAM, 
+    MIN(log.usoComponente) AS minUsoRAM
 FROM 
     log
 JOIN 
@@ -97,8 +97,8 @@ function buscarMediaDisco(idServidor) {
     var instrucaoSql = `
        SELECT 
     DATE(log.dtHora) AS dia, 
-    MAX(log.usoComponente) AS maxUsoCPU, 
-    MIN(log.usoComponente) AS minUsoCPU
+    MAX(log.usoComponente) AS maxUsoDisco, 
+    MIN(log.usoComponente) AS minUsoDisco
 FROM 
     log
 JOIN 
