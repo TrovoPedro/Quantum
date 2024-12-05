@@ -22,6 +22,7 @@
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "regression": "^2.0.1",
+    "sweetalert2": "^11.14.5",
     "whatwg-fetch": "^3.6.20"
   }
 }

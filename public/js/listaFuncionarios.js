@@ -127,7 +127,6 @@ function listarFuncionario(
                     <td>${item.tipoNome}</td>
                     <td>${item.razao_social}</td>
                     <td>${item.tipo}</td>
-                    <td>${item.idEmpresa}</td>
 
     <td>
         <button onclick="aparecerModalEditar(${item.idUsuario}, 
@@ -136,7 +135,7 @@ function listarFuncionario(
         '${item.email}')" 
 
         class="btn-icon" 
-        style="width: 35px; height: 35px; padding: 5px; background: #151a22; border-style: none;">
+        style="width: 35px; height: 35px; padding: 5px; background-color: black;border-style: none;">
         <img class="img-iconsEdit" src="assets/iconlapis.png" alt="" style="width: 25px; height: 25px">
 
         </button>
@@ -146,7 +145,7 @@ function listarFuncionario(
 
 
     <td>
-        <button onclick="excluirFuncionario('${item.idUsuario}')" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: #151a22; border-style: none;">
+        <button onclick="excluirFuncionario('${item.idUsuario}')" class="btn-icon" style="width: 35px; height: 35px; padding: 5px; background: black; border-style: none;">
             <img class="img-iconsEdit" src="assets/iconLixeira.svg" alt="" style="width: 25px; height: 25px;">
         </button>
     </td>

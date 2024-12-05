@@ -1,4 +1,8 @@
-
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Lato;
+}
 
 html {
     width: 100%;
@@ -8,7 +12,7 @@ html {
 body {
     width: 100%;
     height: 100%;
-    background: black ;
+    background: black;
     display: flex;
     flex-direction: row;
     color: rgb(255, 252, 252);
@@ -18,6 +22,7 @@ body {
 .NavBar {
     display: flex;
     width: 100vw;
+    justify-content: space-between;
     height: 7%;
     margin-left: -5px;
     border-bottom: 2px #7449EB solid;
@@ -25,7 +30,7 @@ body {
     overflow-x: hidden;
     position: absolute;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+}
 
 .botoesNav p {
     display: none;
@@ -42,22 +47,27 @@ body {
     width: 45px;
     margin-top: 5px;
     margin-bottom: 5px;
-  }
+    margin-left: 15px;
+}
 
-  .botaoNavBar {
+.botaoNavBar {
     text-decoration: none;
     color: white;
     padding-right: 20px;
     font-size: 20px;
-    
-  }
-  
-  .div1 {
-    display: flex;
-    margin-left: 65%;
-  }
 
-.camposTabela img{
+}
+
+.div1 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* Coloca os itens lado a lado */
+    gap: 20px;
+    /* Espaçamento entre os itens */
+}
+
+.camposTabela img {
     width: 20%;
 }
 
@@ -71,10 +81,14 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
     max-width: 400px;
-    position: fixed; /* Altere para fixed para centralização */
-    top: 50%; /* Centraliza verticalmente */
-    left: 50%; /* Centraliza horizontalmente */
-    transform: translate(-50%, -50%); /* Ajusta para alinhar ao centro */
+    position: fixed;
+    /* Altere para fixed para centralização */
+    top: 50%;
+    /* Centraliza verticalmente */
+    left: 50%;
+    /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%);
+    /* Ajusta para alinhar ao centro */
     z-index: 1010;
     opacity: 1;
 }
@@ -88,13 +102,13 @@ body {
 .boxEditarFuncionario input,
 .boxEditarFuncionario select {
     width: 85%;
-    padding: 10px; 
-    margin-bottom: 15px; 
-    border: 1px solid #7449EB; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #7449EB;
     border-radius: 4px;
-    font-size: 16px; 
-    background-color: #333333; 
-    color: #ffffff; 
+    font-size: 16px;
+    background-color: #333333;
+    color: #ffffff;
 }
 
 .boxEditarFuncionario button {
@@ -130,12 +144,12 @@ body.modal-open {
     overflow: hidden;
 }
 
-.tituloLista{
+.tituloLista {
     width: 100%;
     margin-top: 1.5rem;
 }
 
-.pai-lista{
+.pai-lista {
     display: flex;
     flex-direction: column;
     margin-left: 20%;
@@ -153,7 +167,7 @@ table {
     margin-left: -7%;
 }
 
-.tituloTabela{
+.tituloTabela {
     color: #7449EB;
     font-weight: bolder;
     font-size: 23px;
@@ -161,21 +175,22 @@ table {
     color: #bab5b5;
 }
 
-.camposTabela, td{
-    padding: 15px; 
+.camposTabela,
+td {
+    padding: 15px;
     text-align: center;
-    color: #ffffff; 
+    color: #ffffff;
     font-size: 16px;
 }
 
-.botão_cadastrar{
+.botão_cadastrar {
     display: flex;
     justify-content: right;
     width: 91%;
     height: 1.7rem;
 }
 
-.botao_funcionario{
+.botao_funcionario {
     background-color: #7449EB;
     color: white;
     height: 2rem;
@@ -186,7 +201,7 @@ table {
 }
 
 
-.img-servidores{
+.img-servidores {
 
     width: 80%;
     transform: translate(-5%, 0%);
@@ -200,17 +215,20 @@ table {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro semitransparente */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Fundo escuro semitransparente */
 }
 
 .div_modal {
     background-color: #212121;
-    margin: 0 auto; /* Centraliza horizontalmente */
+    margin: 0 auto;
+    /* Centraliza horizontalmente */
     position: relative;
     top: 15%;
     padding: 20px;
     border-radius: 10px;
-    width: 50%; /* Ajuste conforme necessário */
+    width: 50%;
+    /* Ajuste conforme necessário */
     max-width: 600px;
 }
 
@@ -229,34 +247,41 @@ table {
     color: #000;
 }
 
-#titulo{
+#titulo {
     font-size: 30px;
     display: flex;
     justify-content: center;
 }
+
 .profile-picture {
     position: relative;
-    width: 100px; /* Ajuste o tamanho conforme necessário */
-    height: 100px; /* Ajuste o tamanho conforme necessário */
+    width: 100px;
+    /* Ajuste o tamanho conforme necessário */
+    height: 100px;
+    /* Ajuste o tamanho conforme necessário */
     border-radius: 50%;
     overflow: hidden;
-    background-color: #ccc; /* Cor de fundo padrão */
+    background-color: #ccc;
+    /* Cor de fundo padrão */
 }
 
 input[type="file"] {
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0; /* Torna o input invisível */
+    opacity: 0;
+    /* Torna o input invisível */
     cursor: pointer;
 }
 
 img #foto-usuario {
     width: 20%;
     height: 20%;
-    object-fit: cover; /* Cobre o contêiner sem distorcer a imagem */
-    border-radius: 50%; /* Deixa a imagem redonda */
-    background-size:cover ;
+    object-fit: cover;
+    /* Cobre o contêiner sem distorcer a imagem */
+    border-radius: 50%;
+    /* Deixa a imagem redonda */
+    background-size: cover;
 
 }
 
@@ -264,7 +289,7 @@ img #foto-usuario {
     margin-top: 2.5%;
     height: 87%;
     width: 95%;
-    
+
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -273,7 +298,7 @@ img #foto-usuario {
     border: 5px;
 }
 
-.boxServidores{
+.boxServidores {
     height: 25%;
     width: 80%;
     display: flex;
@@ -283,14 +308,14 @@ img #foto-usuario {
     margin-top: 3%;
 }
 
-.input-perfil{
+.input-perfil {
     border-style: none;
     background-color: #cccaca;
     width: 100%;
     height: 2rem;
     border-radius: 20px;
     margin-left: 2%;
-    color:#000  ;
+    color: #000;
     font-family: Ubuntu;
     font-size: 20px;
 }
@@ -299,17 +324,17 @@ img #foto-usuario {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50px; 
+    border-radius: 50px;
     background-color: #3C3C3C;
-    height: 40px; 
+    height: 40px;
     width: 300px;
     padding: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 }
 
-#cadastro{
+#cadastro {
     background-color: #7449EB;
     color: white;
     height: 2rem;
@@ -325,7 +350,8 @@ img #foto-usuario {
 }
 
 .close-button {
-    color: #fff; /* Tente uma cor que seja visível, como branco */
+    color: #fff;
+    /* Tente uma cor que seja visível, como branco */
     float: left;
     font-size: 28px;
     font-weight: bold;

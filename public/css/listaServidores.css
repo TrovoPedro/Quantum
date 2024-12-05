@@ -18,17 +18,20 @@ body {
     overflow-x: hidden;
 }
 
+
 .NavBar {
     display: flex;
     width: 100vw;
+    justify-content: space-between;
     height: 7%;
     margin-left: -5px;
     border-bottom: 2px #7449EB solid;
     align-items: center;
     overflow-x: hidden;
-    overflow-y: hidden;
     position: absolute;
-  }
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow-y: hidden;
+}
 
 .botoesNav p {
     display: none;
@@ -39,6 +42,17 @@ body {
     transition: 0.5s ease;
 }
 
+.logoJustificativaImagem {
+    width: 20%;
+    height: 10%;
+}
+
+.logoJustificativa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .LogoNavBar {
     display: flex;
     height: 45px;
@@ -46,20 +60,25 @@ body {
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 10px;
-  }
+}
 
-  .botaoNavBar {
+.botaoNavBar {
     text-decoration: none;
     color: white;
     padding-right: 20px;
     font-size: 20px;
-    
-  }
-  
-  .div1 {
+
+}
+
+
+.div1 {
     display: flex;
-    margin-left: 65%;
-  }
+    align-items: center;
+    flex-direction: row;
+    /* Coloca os itens lado a lado */
+    gap: 20px;
+    /* Espaçamento entre os itens */
+}
 
 .div-btn {
     width: 100%;
@@ -69,7 +88,7 @@ body {
 }
 
 .btn-novoServidor {
-    
+
     background-color: #7449eb;
     color: white;
     height: 2rem;
@@ -122,38 +141,47 @@ td {
     width: 25%;
 }
 
-.img-servidores{
+.img-servidores {
 
     width: 80%;
     transform: translate(2%, 15%);
 }
 
-.listaServidores{
-    width: 100%; /* Defina o tamanho da largura da div */
-    height: 370px; /* Altura fixa */
-    overflow-y: auto; /* Apenas o scroll vertical, se necessário */
-    overflow-x: hidden; /* Para evitar scroll horizontal, caso não precise */
+.listaServidores {
+    width: 100%;
+    /* Defina o tamanho da largura da div */
+    height: 370px;
+    /* Altura fixa */
+    overflow-y: auto;
+    /* Apenas o scroll vertical, se necessário */
+    overflow-x: hidden;
+    /* Para evitar scroll horizontal, caso não precise */
     display: flex;
     justify-content: center;
     align-items: center;
 }
-  
-  .listaServidores::-webkit-scrollbar {
-    width: 12px; /* Largura da barra de rolagem vertical */
-    height: 12px; /* Altura da barra de rolagem horizontal */
-  }
-  
-  /* Parte deslizante (thumb) da barra de rolagem */
-  .listaServidores::-webkit-scrollbar-thumb {
-    background-color: #a098d3; /* Cor da parte deslizante */
-    border-radius: 10px; /* Borda arredondada */
-  }
-  
-  /* Parte deslizante ao passar o mouse (hover) */
-  .listaServidores::-webkit-scrollbar-thumb:hover {
-    background-color: #351d79; /* Cor mais escura no hover */
-  }
-  
+
+.listaServidores::-webkit-scrollbar {
+    width: 12px;
+    /* Largura da barra de rolagem vertical */
+    height: 12px;
+    /* Altura da barra de rolagem horizontal */
+}
+
+/* Parte deslizante (thumb) da barra de rolagem */
+.listaServidores::-webkit-scrollbar-thumb {
+    background-color: #a098d3;
+    /* Cor da parte deslizante */
+    border-radius: 10px;
+    /* Borda arredondada */
+}
+
+/* Parte deslizante ao passar o mouse (hover) */
+.listaServidores::-webkit-scrollbar-thumb:hover {
+    background-color: #351d79;
+    /* Cor mais escura no hover */
+}
+
 
 .cardServidor {
     margin-top: 2.5%;
@@ -235,7 +263,7 @@ td {
     color: #fff;
 }
 
-option{
+option {
     color: #111111;
 }
 
@@ -352,7 +380,7 @@ option{
     display: none;
 }
 
-#inputNomeEditado{
+#inputNomeEditado {
     width: 97.5%;
     height: 30%;
     border: 0.8px solid #9598C1;
@@ -362,7 +390,7 @@ option{
     padding-left: 5px;
 }
 
-#situacaoServidorEditado{
+#situacaoServidorEditado {
     width: 15%;
     border: solid 1px #9598C1;
     background: transparent;
@@ -386,26 +414,46 @@ option{
 }
 
 
-
-.boxJustificativa {
+#modalJustificativa {
     display: none;
     position: fixed;
+    flex-direction: column;
     top: 50%;
+    align-items: center;
+    justify-content: center;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(49, 48, 48);
-    padding: 20px;
+    background-color: rgb(43, 43, 43);
+    color: white;
+    padding: 25px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border: 2px solid rgb(47, 3, 65);
     z-index: 1000;
-    width: 400px;
+    width: 500px;
+}
+
+.botaoConfirmar,
+.botaoCancelar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    background-color: #7449EB;
+    color: white;
+    width: 60%;
+    height: 40%;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
 .botoesJustificativa {
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: space-around;
+
 }
 
 #justificativa {
@@ -413,4 +461,29 @@ option{
     resize: none;
     padding: 10px;
     font-size: 16px;
+}
+
+#justificativa_desc {
+    padding: 10px;
+    margin: 5px;
+    width: 95%; /* Ocupa todo o espaço disponível */
+    max-width: 600px; /* Limita a largura máxima */
+    height: auto; /* Permite que a altura seja ajustável */
+    min-height: 120px; /* Altura mínima */
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Bordas suaves */
+    border-radius: 8px; /* Bordas arredondadas */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    font-size: 14px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+    background-color: #f9f9f9; /* Cor de fundo clara */
+    resize: vertical; /* Permite redimensionar somente na vertical */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Efeito suave em interações */
+}
+
+#justificativa_desc:focus {
+    border-color: #007BFF; /* Muda a cor da borda no foco */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Destaque no foco */
+    outline: none; /* Remove o contorno padrão */
 }

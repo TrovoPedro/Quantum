@@ -27,7 +27,7 @@
                 <a class="botaoNavBar" href="dashboardPrevisoes.html">Previsões</a>
                 <a class="botaoNavBar" href="listaFuncionarios.html">Funcionário</a>
                 <a class="botaoNavBar" href="listaServidores.html">Servidor</a>
-                <a class="botaoNavBar" href="login.html"><img src="img/Vectorexit.svg" alt=""></a>
+                <a class="botaoNavBar" href="login.html"><img src="img/Vectorexit.svg" alt="" style="width: 25px; padding-top: 5px;"></a>
             </div>
         </div>
 
@@ -83,10 +83,10 @@
                 <div class="media">
                     <h3> Média de uso <br> RAM e CPU</h3>
                     <p style="font-size: x-small;">Clique no ícone para vizualizar a média por servidor</p>
-                    <div class="componentes">
-                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM"
+                    <div class="componentes" style="gap: 5px;">
+                        <img style="padding: 5px; cursor: pointer;" src="img/svgRam.svg" alt="Ícone RAM"
                             onclick="aparecerMediaRam(), listarmediaRam()">
-                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU"
+                        <img style="padding: 5px; cursor: pointer;" src="img/svgCpu.svg" alt="Ícone CPU"
                             onclick="aparecerMediaCpu(), listarmediaCpu()">
                     </div>
                 </div>
@@ -94,10 +94,10 @@
                 <div class="media">
                     <h3> Pico de uso <br> RAM e CPU</h3>
                     <p style="font-size: x-small;">Clique no ícone para vizualizar o pico de uso por servidor</p>
-                    <div class="componentes">
-                        <img style="padding: 5px;" src="img/svgRam.svg" alt="Ícone RAM"
+                    <div class="componentes" style="gap: 5px;">
+                        <img style="padding: 5px; cursor: pointer;" src="img/svgRam.svg" alt="Ícone RAM"
                             onclick="aparecerPicoRam(), listarpicoRam()">
-                        <img style="padding: 5px;" src="img/svgCpu.svg" alt="Ícone CPU"
+                        <img style="padding: 5px; cursor: pointer;" src="img/svgCpu.svg" alt="Ícone CPU"
                             onclick="aparecerPicoCpu(), listarpicoCpu()">
                     </div>
                 </div>
@@ -248,8 +248,8 @@
                 <thead>
                     <tr class="table-header">
                         <th>Servidor</th>
-                        <th>Pico mais alto RAM</th>
-                        <th>Pico mais baixo RAM</th>
+                        <th>Maior Pico de Uso RAM</th>
+                        <th>Menor Pico de Uso RAM</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -269,8 +269,8 @@
                 <thead>
                     <tr class="table-header">
                         <th>Servidor</th>
-                        <th>Pico mais alto CPU</th>
-                        <th>Pico mais baixo CPU</th>
+                        <th>Maior Pico de Uso CPU</th>
+                        <th>Menor Pico de Uso CPU</th>
                     </tr>
                 </thead>
                 <tbody>

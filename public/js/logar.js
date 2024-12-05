@@ -1,3 +1,5 @@
+const { color } = require("chart.js/helpers");
+
 function entrar() {
     var email = document.getElementById("email").value;
     var senha = document.getElementById("senha").value;
@@ -21,6 +23,14 @@ function entrar() {
             console.log(resposta);
             return resposta.json();
         } else {
+            Swal.fire({
+                position: "fixed",
+                icon: "error",
+                title: "Falha ao realizar login",
+                showConfirmButton: false,
+                backgound: "black",
+                timer: 1500
+              });
             // Lógica para falha na autenticação
             console.log("Erro na autenticação:", resposta.status);
             return resposta.json().then(json => {
@@ -43,25 +53,49 @@ function entrar() {
 
             if(sessionStorage.FKTIPO_USUARIO == 1){
 
+                Swal.fire({
+                    position: "fixed",
+                    icon: "success",
+                    title: "Login realizado com sucesso",
+                    showConfirmButton: false,
+                    backgound: "black",
+                    timer: 1500
+                  });
                 console.log("Redirecionando para a página apropriada...");
 
                 setTimeout(function () {
                     window.location = "../Dash(Julia)/dashboard-geral-adm.html";
-                }, 500);
+                }, 1500);
             }
             if (sessionStorage.FKTIPO_USUARIO == 2) {
+                Swal.fire({
+                    position: "fixed",
+                    icon: "success",
+                    title: "Login realizado com sucesso",
+                    showConfirmButton: false,
+                    backgound: "black",
+                    timer: 1500
+                  });
                 console.log("Redirecionando para a página apropriada...");
 
                 setTimeout(function () {
                     window.location = "../Dash(ADM).html";
-                }, 500);
+                }, 1500);
             }
             if (sessionStorage.FKTIPO_USUARIO == 3) {
+                Swal.fire({
+                    position: "fixed",
+                    icon: "success",
+                    title: "Login realizado com sucesso",
+                    showConfirmButton: false,
+                    backgound: "black",
+                    timer: 1500
+                  });
                 console.log("Redirecionando para a página apropriada...");
 
                 setTimeout(function () {
                     window.location = "../dashboard.html";
-                }, 500);
+                }, 1500);
             }
         }
     }).catch(function (erro) {
@@ -70,27 +104,3 @@ function entrar() {
 
     return false;
 }
-
-function tentativa(email, loginBemSucedido) {
-    fetch("/registrarTentativa", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: email,
-            status: loginBemSucedido ? "sucesso" : "falha"
-        }),
-    })
-    .then((resposta) => {
-        if (!resposta.ok) {
-            console.log("Erro ao registrar tentativa");
-        } else {
-            console.log("Tentativa de login registrada com sucesso!");
-        }
-    })
-    .catch((erro) => {
-        console.log("Erro de rede ou servidor:", erro);
-    });
-}
-
