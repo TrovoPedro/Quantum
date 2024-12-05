@@ -69,16 +69,23 @@ function buscarMediaRAM(idServidor) {
     console.log("Acessando buscarMediaCPU no graficosModel.js para o servidor: ", idServidor);
 
     var instrucaoSql = `
-        SELECT 
-            AVG(usoComponente) AS mediaUsoRAM
-        FROM 
-            log
-        JOIN 
-            componente ON log.fkComponente = componente.idComponente
-        JOIN 
-            tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
-        WHERE 
-            tipoComponente.nome = 'Ram';
+       SELECT 
+    DATE(log.dtHora) AS dia, 
+    MAX(log.usoComponente) AS maxUsoCPU, 
+    MIN(log.usoComponente) AS minUsoCPU
+FROM 
+    log
+JOIN 
+    componente ON log.fkComponente = componente.idComponente
+JOIN 
+    tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
+WHERE 
+    tipoComponente.nome = 'Ram' 
+    AND YEARWEEK(log.dtHora, 1) = YEARWEEK(CURDATE(), 1)
+GROUP BY 
+    DATE(log.dtHora)
+ORDER BY 
+    dia;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -89,15 +96,22 @@ function buscarMediaDisco(idServidor) {
 
     var instrucaoSql = `
        SELECT 
-            AVG(usoComponente) AS mediaUsoDisco
-        FROM 
-            log
-        JOIN 
-            componente ON log.fkComponente = componente.idComponente
-        JOIN 
-            tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
-        WHERE 
-            tipoComponente.nome = 'Disco';
+    DATE(log.dtHora) AS dia, 
+    MAX(log.usoComponente) AS maxUsoCPU, 
+    MIN(log.usoComponente) AS minUsoCPU
+FROM 
+    log
+JOIN 
+    componente ON log.fkComponente = componente.idComponente
+JOIN 
+    tipoComponente ON componente.fkTipoComponente = tipoComponente.idTipoComponente
+WHERE 
+    tipoComponente.nome = 'Disco' 
+    AND YEARWEEK(log.dtHora, 1) = YEARWEEK(CURDATE(), 1)
+GROUP BY 
+    DATE(log.dtHora)
+ORDER BY 
+    dia;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
