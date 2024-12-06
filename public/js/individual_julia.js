@@ -70,7 +70,7 @@ async function metricasCadastro() {
                 if (typeof graficoAumentoUsuarios !== 'undefined') {
                     destruirGraficoSeExistir(graficoAumentoUsuarios)
                 }
-                console.log("aaaaa", {labels, valores})
+                console.log("aaaaa", { labels, valores })
                 criarGraficoAumentoUsuarios({ labels, valores });
             } else {
                 console.error("Dados não válidos para o gráfico: labels ou valores vazios.");
@@ -114,22 +114,47 @@ function criarGraficoAumentoUsuarios(dados) {
                 title: {
                     display: true,
                     text: "Aumento de Usuários Semanalmente",
-                    font: {
-                        size: 18,
-                        weight: "bold",
-                        family: "Arial",
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 20,
-                    },
+                    font: { size: 24, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                    color: 'rgba(255, 255, 255, 1)',
+                    padding: { top: 10, bottom: 20 }
                 },
+                legend: {
+                    labels: {
+                        font: { size: 16 }, // Tamanho da fonte da legenda
+                        color: 'rgba(255, 255, 255, 1)'
+                    }
+                }
+
             },
             scales: {
                 y: {
                     beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas do eixo Y
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    },
                 },
-            },
+                x: {
+                    title: {
+                        display: true,
+                       
+                        font: { size: 15, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                        color: 'rgba(255, 255, 255, 1)',
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas de grade do eixo X
+                    }
+                },
+
+            }
         },
     });
 }
@@ -200,13 +225,48 @@ function criarGraficoUsoCPU(labels, picoMaximos, picoMinimos) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Uso de CPU na EC2',
-                    font: { size: 18, weight: 'bold', family: 'Arial' },
+                    text: 'Uso de RAM na EC2',
+                    font: { size: 24, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                    color: 'rgba(255, 255, 255, 1)',
                     padding: { top: 10, bottom: 20 }
+                },
+                legend: {
+                    labels: {
+                        font: { size: 16 }, // Tamanho da fonte da legenda
+                        color: 'rgba(255, 255, 255, 1)',
+                    }
                 }
             },
             scales: {
-                y: { beginAtZero: true }
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas do eixo Y
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    }
+                },
+
+                x: {
+                    title: {
+                        display: true,
+                       
+                        font: { size: 15, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                        color: 'rgba(255, 255, 255, 1)',
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas de grade do eixo X
+                    }
+                },
+
+
             }
         }
     });
@@ -252,16 +312,17 @@ function criarGraficoUsoRAM(labels, picoMaximos, picoMinimos) {
             datasets: [
                 {
                     label: 'Pico Máximo RAM',
+
                     data: picoMaximos,
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 105, 180, 0.9)',
+                    borderColor: 'rgba(255, 105, 180, 0.9)',
                     borderWidth: 1
                 },
                 {
                     label: 'Pico Mínimo RAM',
                     data: picoMinimos,
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(147, 112, 219, 0.9)',
+                    borderColor: 'rgba(147, 112, 219, 0.9)',
                     borderWidth: 1
                 }
             ]
@@ -272,12 +333,47 @@ function criarGraficoUsoRAM(labels, picoMaximos, picoMinimos) {
                 title: {
                     display: true,
                     text: 'Uso de RAM na EC2',
-                    font: { size: 18, weight: 'bold', family: 'Arial' },
+                    font: { size: 24, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                    color: 'rgba(255, 255, 255, 1)',
                     padding: { top: 10, bottom: 20 }
+                },
+                legend: {
+                    labels: {
+                        font: { size: 16 }, // Tamanho da fonte da legenda
+                        color: 'rgba(255, 255, 255, 1)',
+                    }
                 }
             },
             scales: {
-                y: { beginAtZero: true }
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas do eixo Y
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    }
+                },
+
+                x: {
+                    title: {
+                        display: true,
+                       
+                        font: { size: 15, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                        color: 'rgba(255, 255, 255, 1)',
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas de grade do eixo X
+                    }
+                },
+
+
             }
         }
     });
@@ -326,17 +422,18 @@ function criarGraficoUsoRede(labels, picoMaximos, picoMinimos) {
             labels: labels,
             datasets: [
                 {
-                    label: 'Pico Máximo Rede',
+                    label: 'Bytes Enviados',
+
                     data: picoMaximos,
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 140, 0, 0.9)',
+                    borderColor: 'rgba(255, 140, 0, 0.9)',
                     borderWidth: 1
                 },
                 {
-                    label: 'Pico Mínimo Rede',
+                    label: 'Bytes Recebidos',
                     data: picoMinimos,
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(144, 238, 144, 0.8)',
+                    borderColor: 'rgba(144, 238, 144, 0.8)',
                     borderWidth: 1
                 }
             ]
@@ -346,14 +443,50 @@ function criarGraficoUsoRede(labels, picoMaximos, picoMinimos) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Uso de Rede na EC2',
-                    font: { size: 18, weight: 'bold', family: 'Arial' },
+                    text: 'Uso de RAM na EC2',
+                    font: { size: 24, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                    color: 'rgba(255, 255, 255, 1)',
                     padding: { top: 10, bottom: 20 }
+                },
+                legend: {
+                    labels: {
+                        font: { size: 16 }, // Tamanho da fonte da legenda
+                        color: 'rgba(255, 255, 255, 1)',
+                    }
                 }
             },
             scales: {
-                y: { beginAtZero: true }
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas do eixo Y
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    }
+                },
+
+                x: {
+                    title: {
+                        display: true,
+                       
+                        font: { size: 15, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                        color: 'rgba(255, 255, 255, 1)',
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas de grade do eixo X
+                    }
+                },
+
+
             }
+
         }
     });
 }
@@ -421,8 +554,8 @@ function calcularCustos(cpuUsada, memoriaUsada, bytesEnviados, bytesRecebidos) {
     const custoTráfegoPorMB = 0.09; // Custo por MB de tráfego de rede
 
     // Verificando se todos os arrays têm dados e a mesma quantidade de elementos
-    if (cpuUsada.length !== memoriaUsada.length || 
-        cpuUsada.length !== bytesEnviados.length || 
+    if (cpuUsada.length !== memoriaUsada.length ||
+        cpuUsada.length !== bytesEnviados.length ||
         cpuUsada.length !== bytesRecebidos.length) {
         console.error("Arrays de dados não têm o mesmo tamanho ou estão vazios.");
         return [];
@@ -430,7 +563,7 @@ function calcularCustos(cpuUsada, memoriaUsada, bytesEnviados, bytesRecebidos) {
 
     return horasUso.map((horas, i) => {
         // Verificando se os dados existem no índice i
-        if (cpuUsada[i] === undefined || memoriaUsada[i] === undefined || 
+        if (cpuUsada[i] === undefined || memoriaUsada[i] === undefined ||
             bytesEnviados[i] === undefined || bytesRecebidos[i] === undefined) {
             console.error(`Dados ausentes no índice ${i}`);
             return 0; // Retorna 0 para esse índice em caso de erro
@@ -469,23 +602,53 @@ function criarGraficoPrevisaoCusto(labels, custosTotais) {
                 },
                 title: {
                     display: true,
-                    text: 'Previsão de Custo EC2 com Base no Uso de CPU, RAM e Tráfego'
+                    text: 'Previsão de Custo EC2 com Base no Uso de CPU, RAM e Tráfego',
+                    font: { size: 24, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                    color: 'rgba(255, 255, 255, 1)',
+                    padding: { top: 10, bottom: 20 }
+
+                },
+                legend: {
+                    labels: {
+                        font: { size: 16 }, // Tamanho da fonte da legenda
+                        color: 'rgba(255, 255, 255, 1)'
+                    }
                 }
+
             },
             scales: {
                 x: {
                     title: {
                         display: true,
-                        text: 'Horas de Uso no Mês'
+                        text: 'Dia de Uso no Mês',
+                        font: { size: 15, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
+                        color: 'rgba(255, 255, 255, 1)',
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas de grade do eixo X
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Custo Total ($)'
+                        text: 'Custo Total ($)',
+                        ticks: {
+                            font: { size: 14 }, // Tamanho da fonte dos números no eixo Y
+                            color: 'rgba(255, 255, 255, 1)' // Cor do texto/números no eixo Y
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 1)' // Cor das linhas do eixo Y
+                        }
                     }
-                }
+                },
             }
+
+
         }
     });
 }
