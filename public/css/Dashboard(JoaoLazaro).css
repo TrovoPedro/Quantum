@@ -500,6 +500,8 @@ body {
   height: 100%;
   margin-top: -100px;
   background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  
 }
 
 .modal-content {
@@ -510,6 +512,8 @@ body {
   border: 1px solid white;
   width: 60%;
   overflow-y: auto;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgb(255, 255, 255);
 }
 
 .close {
@@ -571,5 +575,5 @@ body {
   color: white;
   position: absolute;
   margin-top: -30px;
-  margin-left: 680px;
+  margin-left: 730px;
 }
