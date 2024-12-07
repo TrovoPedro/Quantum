@@ -180,7 +180,7 @@ async function gerarHeatmap() {
                     }
 
                     const horas = Math.floor(value / 60);
-                    const minutos = value % 60;
+                    const minutos = Math.round((value % 1) * 60);
 
                     return horas > 0
                         ? `${horas}h ${minutos}min de downtime`
