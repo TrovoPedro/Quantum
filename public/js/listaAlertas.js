@@ -65,7 +65,7 @@ async function listarServidor() {
                             <div class="detailRow"><strong>Nome:</strong> ${item.nomeServidor}</div>
                             <div class="detailRow"><strong>Empresa:</strong> ${item.razao_social}</div>
                             <div class="detailRow"><strong>Situação:</strong> ${item.tipo}</div>
-                            <div class="detailRow"><strong>SLA:</strong> <span id="oee-${item.idServidor}" style="font-weight: bold; padding: 5px; border-radius: 4px;">Calculando...</span></div>
+                            <div class="detailRow"><strong>Eficiência:</strong> <span id="oee-${item.idServidor}" style="font-weight: bold; padding: 5px; border-radius: 4px;">Calculando...</span></div>
                         </div>
                     </div>
                 `;

@@ -695,7 +695,7 @@ option {
     content: "";
     width: 80px;
     height: 10px;
-    background-color: #ff2525;
+    /* background-color: #ff2525; */
     background-size: 1000%;
     background-position: center;
     transform: rotate(45deg);

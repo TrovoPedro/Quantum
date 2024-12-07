@@ -345,7 +345,7 @@ SELECT * FROM tipoUsuario;
 SELECT * FROM usuario;
 
 
--- show tables;
+
 
 
 INSERT INTO usuario(nome,email,senha,fktipoUsuario) VALUES ("Davison Ferreira", "davidsonmendes@gmail.com","12345",1);

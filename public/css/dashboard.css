@@ -313,7 +313,7 @@ body {
 .tooltip::after {
     content: '';
     position: absolute;
-    top: 100%;
+    top: 110%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
@@ -349,7 +349,7 @@ body {
 }
 
 
-
+ 
 .tituloLow{
     display: flex;
     align-items: center;
