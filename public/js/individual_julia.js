@@ -225,7 +225,7 @@ function criarGraficoUsoCPU(labels, picoMaximos, picoMinimos) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Uso de RAM na EC2',
+                    text: 'Uso de CPU na EC2',
                     font: { size: 24, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
                     color: 'rgba(255, 255, 255, 1)',
                     padding: { top: 10, bottom: 20 }
@@ -443,7 +443,7 @@ function criarGraficoUsoRede(labels, picoMaximos, picoMinimos) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Uso de RAM na EC2',
+                    text: 'Uso de Rede na EC2',
                     font: { size: 24, weight: 'bold', family: 'Arial' }, // Tamanho da fonte do título
                     color: 'rgba(255, 255, 255, 1)',
                     padding: { top: 10, bottom: 20 }
@@ -548,35 +548,27 @@ dados();
 
 // Função para calcular o custo total com base nos dados
 function calcularCustos(cpuUsada, memoriaUsada, bytesEnviados, bytesRecebidos) {
-    const horasUso = Array.from({ length: 31 }, (_, i) => i * 24); // Horas de uso de 0 a 720 (30 dias)
-    const custoInstanciaPorHora = 0.0128; // Custo por hora de uma t2.micro
-    const custoMemoriaPorGB = 0.08; // Custo por GB de memória (ajustar conforme sua necessidade)
-    const custoTráfegoPorMB = 0.09; // Custo por MB de tráfego de rede
+    // Preço por hora para a instância t2.large
+    const custoInstanciaPorHora = 0.1104; // Custo por hora da instância t2.large
 
-    // Verificando se todos os arrays têm dados e a mesma quantidade de elementos
-    if (cpuUsada.length !== memoriaUsada.length ||
-        cpuUsada.length !== bytesEnviados.length ||
-        cpuUsada.length !== bytesRecebidos.length) {
-        console.error("Arrays de dados não têm o mesmo tamanho ou estão vazios.");
-        return [];
-    }
+    // Preço por GB de tráfego (convertido de 0.09 por MB para custo por GB)
+    const custoTráfegoPorGB = 0.09 / 1024; // 0.09 por MB, então dividimos por 1024 para obter o valor por GB
 
-    return horasUso.map((horas, i) => {
-        // Verificando se os dados existem no índice i
-        if (cpuUsada[i] === undefined || memoriaUsada[i] === undefined ||
-            bytesEnviados[i] === undefined || bytesRecebidos[i] === undefined) {
-            console.error(`Dados ausentes no índice ${i}`);
-            return 0; // Retorna 0 para esse índice em caso de erro
-        }
+    // Calcular o custo de tráfego (por GB)
+    const custoRede = bytesEnviados.map((enviados, index) => 
+        ((enviados + bytesRecebidos[index]) / 1024) * custoTráfegoPorGB
+    );
 
-        const custoInstancia = custoInstanciaPorHora * horas; // Custo da instância
-        const custoArmazenamento = memoriaUsada[i] * custoMemoriaPorGB; // Custo de memória
-        const custoTrafego = (bytesEnviados[i] + bytesRecebidos[i]) * custoTráfegoPorMB; // Custo de tráfego
+    // Calcular o custo da instância (sempre o mesmo por hora, já que estamos assumindo que cada instância usa 2 vCPUs e 8 GiB de RAM)
+    const custoInstancia = cpuUsada.map(() => custoInstanciaPorHora);
 
-        // Retorna o custo total para essa hora
-        return custoInstancia + custoArmazenamento + custoTrafego;
-    });
+    // Combinar custos em um array total
+    return custoInstancia.map((custo, index) => 
+        custo + custoRede[index]
+    );
 }
+
+
 
 // Função para criar o gráfico de previsão de custo
 function criarGraficoPrevisaoCusto(labels, custosTotais) {
@@ -617,6 +609,16 @@ function criarGraficoPrevisaoCusto(labels, custosTotais) {
 
             },
             scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 1)' // Cor das linhas do eixo Y
+                    },
+                    ticks: {
+                        font: { size: 14 }, // Tamanho da fonte dos rótulos no eixo X
+                        color: 'rgba(255, 255, 255, 1)' // Cor do texto/rótulos no eixo X
+                    }
+                },
                 x: {
                     title: {
                         display: true,
@@ -633,19 +635,7 @@ function criarGraficoPrevisaoCusto(labels, custosTotais) {
                         color: 'rgba(255, 255, 255, 1)' // Cor das linhas de grade do eixo X
                     }
                 },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Custo Total ($)',
-                        ticks: {
-                            font: { size: 14 }, // Tamanho da fonte dos números no eixo Y
-                            color: 'rgba(255, 255, 255, 1)' // Cor do texto/números no eixo Y
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 1)' // Cor das linhas do eixo Y
-                        }
-                    }
-                },
+           
             }
 
 

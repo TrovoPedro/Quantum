@@ -378,7 +378,7 @@ body {
 }
 
 .card-grafico {
-    background-color: #777099;
+    background-color: #7449EB;
     width: 30%;
     /* Ajusta a largura do card para ser 80% da largura da div-esquerda */
     height: 80%;
@@ -391,12 +391,12 @@ body {
     align-items: center;
     color: white;
     font-size: 1.5rem;
-    box-shadow: 0 8px 12px rgba(255, 255, 255, 0.2);
+  
     margin-right: 10px;
 }
 
 .card-grafico2 {
-    background-color: #777099;
+    background-color: #7449EB;
     width: 30%;  /* Ajustando para garantir que os gráficos ocupem 90% da largura da div */
     height: 70%;  /* Ajustando a altura para garantir que todos os gráficos caibam */
     border-radius: 10px;
@@ -405,6 +405,5 @@ body {
     align-items: center;
     color: white;
     font-size: 1.5rem;
-    box-shadow: 0 8px 12px rgba(255, 255, 255, 0.2);
     margin: 10px 0;  /* Adicionando margem superior e inferior para criar um espaçamento uniforme */
 }
