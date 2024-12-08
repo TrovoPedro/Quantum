@@ -1,5 +1,6 @@
 package dominio
 
+import app.running
 import com.github.britooo.looca.api.core.Looca
 import oshi.SystemInfo
 import oshi.hardware.HWDiskStore
@@ -23,6 +24,8 @@ class Dados {
     var consumoSwap: Double = 0.0
     var escritasNoDisco: Int = 0
     var totalDisco: Int = 0
+    var usoDisco: Int = 0
+
 
     val looca = Looca()
     val oshi = SystemInfo()
@@ -30,6 +33,7 @@ class Dados {
 
     val hardware: HardwareAbstractionLayer = oshi.hardware
     val disks: MutableList<HWDiskStore>? = hardware.diskStores
+    val fileSystem = oshi.operatingSystem.fileSystem
 
     private var capturando = false
 
@@ -41,7 +45,7 @@ class Dados {
 
     fun capturarDados() {
         Thread {
-            capturando = true
+            running = true
 
             var totalRam = looca.memoria.total / (1024 * 1024 * 1024)
             println(totalRam)
@@ -56,7 +60,7 @@ class Dados {
                 inserirTotalDisco(totalDisco)
             }
 
-            while (capturando) {
+            while (running) {
                 val interfacesDeRede = looca.rede.grupoDeInterfaces.interfaces
                 interfacesDeRede.forEach { interfaceDeRede ->
                     totalDadosEnviados += interfaceDeRede.bytesEnviados.toDouble()
@@ -103,6 +107,8 @@ class Dados {
                 Thread.sleep(50000)
             }
         }.start()
+
+        println("Fora da thread")
     }
 
     fun inserirDados(totalDadosRecebidosMB: Double) {
@@ -137,7 +143,6 @@ class Dados {
         dadosRepositorio.inserirEscritaDisco(ioDisco)
     }
 
-
     fun inserirTotalDisco(totalDisco: Int) {
         dadosRepositorio.inserirTotalDisco(totalDisco)
     }
@@ -163,61 +168,64 @@ class Dados {
     }
 
     fun iniciarCaptura() {
-        if (!capturando) {
+        if (!running) {
             capturarDados()
         }
     }
 
     fun pararCaptura() {
-        capturando = false
+        running = false
     }
 
     fun capturarIoDisco() {
-        while (capturando) {
-            if (disks != null) {
-                disks.forEach { it ->
+        Thread {
+            while (running) {
+                disks?.forEach { it ->
                     escritasNoDisco += it.writes.toInt()
 
                     inserirIoDisco(escritasNoDisco)
                 }
+                Thread.sleep(3000)
             }
-
-            Thread.sleep(3600000)
-        }
+            println("Encerrando da thread IO disco")
+        }.start()
+        println("Saindo do capturar IO disco")
     }
 
     fun capturarTaxaTransferencia() {
         val networkIFs = hardware.networkIFs
+        Thread{
+            while (running) {
+                try {
+                    for (net in networkIFs) {
+                        net.updateAttributes()
 
-        while (capturando) {
-            try {
-                for (net in networkIFs) {
-                    net.updateAttributes()
+                        val bytesSentStart = net.bytesSent
+                        val bytesReceivedStart = net.bytesRecv
 
-                    val bytesSentStart = net.bytesSent
-                    val bytesReceivedStart = net.bytesRecv
+                        Thread.sleep(5000)
 
-                    Thread.sleep(5000)
+                        net.updateAttributes()
+                        val bytesSentEnd = net.bytesSent
+                        val bytesReceivedEnd = net.bytesRecv
 
-                    net.updateAttributes()
-                    val bytesSentEnd = net.bytesSent
-                    val bytesReceivedEnd = net.bytesRecv
+                        val sentRate = (bytesSentEnd - bytesSentStart) / 5.0 // Dividido por 5s
+                        val receivedRate = (bytesReceivedEnd - bytesReceivedStart) / 5.0
 
-                    val sentRate = (bytesSentEnd - bytesSentStart) / 5.0 // Dividido por 5s
-                    val receivedRate = (bytesReceivedEnd - bytesReceivedStart) / 5.0
+                        val sentRateGB = sentRate / 1_073_741_824
+                        val receivedRateGB = receivedRate / 1_073_741_824
 
-                    val sentRateGB = sentRate / 1_073_741_824
-                    val receivedRateGB = receivedRate / 1_073_741_824
-
-                    inserirTaxaTransferencia(receivedRateGB)
-                    println("Interface: ${net.name}")
-                    println("Taxa de envio: %.6f GB/s".format(sentRateGB))
-                    println("Taxa de recebimento: %.6f GB/s".format(receivedRateGB))
+                        inserirTaxaTransferencia(receivedRateGB)
+                        println("Interface: ${net.name}")
+                        println("Taxa de envio: %.6f GB/s".format(sentRateGB))
+                        println("Taxa de recebimento: %.6f GB/s".format(receivedRateGB))
+                    }
+                } catch (e: Exception) {
+                    println("Erro ao capturar taxa de transferência: ${e.message}")
                 }
-            } catch (e: Exception) {
-                println("Erro ao capturar taxa de transferência: ${e.message}")
             }
-        }
+        }.start()
+        println("Saindo da taxa de transferencia")
     }
 
     fun capturarErrosTCP() {

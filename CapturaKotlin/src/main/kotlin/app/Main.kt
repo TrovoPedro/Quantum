@@ -1,10 +1,10 @@
 package app
 
-import com.github.britooo.looca.api.core.Looca
-import dominio.Componente;
-import dominio.Dados;
-import oshi.SystemInfo
-import repositorio.DadosRepositorio;
+import dominio.Componente
+import dominio.Dados
+import repositorio.DadosRepositorio
+
+var running  = false
 
 open class Main {
     companion object {
@@ -24,14 +24,14 @@ open class Main {
             val componente = Componente();
             var nome: String = "";
             var fabricante: String = "";
-
+            
             while (true) {
                 println(
                     """
             <-----Olá ${nomeUsuario}-----> 
             O que gostaria de fazer? 
             1 - Cadastrar componente 
-            2 - Iniciar/Parar captura de rede  
+            2 - Iniciar/Parar captura de dados (RAM, CPU, Rede e disco)
             3 - Listar componentes 
             4-  Editar componente
             5 - Excluir componente
@@ -61,10 +61,10 @@ open class Main {
                     2 -> {
                         capturaAtiva = if (!capturaAtiva) {
                             println("Iniciando captura de rede...");
+                            dadosRecebidos.iniciarCaptura();
                             dadosRecebidos.capturarIoDisco()
                             dadosRecebidos.capturarErrosTCP()
                             dadosRecebidos.capturarTaxaTransferencia()
-                            dadosRecebidos.iniciarCaptura();
                             //dadosRecebidos.alertar(10.0);
                             true
                         } else {
@@ -155,6 +155,9 @@ open class Main {
 
                     7 -> {
                         println("Saindo...")
+
+                        running = false
+
                         break
                     }
 

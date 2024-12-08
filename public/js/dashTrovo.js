@@ -1,27 +1,26 @@
-var valorInput = 2
-var consumoCpuAlerta = document.getElementById('')
-var mudancaContextoAlerta = document.getElementById('')
-var cargaSistemaAlerta = document.getElementById('')
-var consumoRamAlerta = document.getElementById('')
-var consumoSwapAlerta = document.getElementById('')
-var ioDiscoAlerta = document.getElementById('')
-var taxaTransfarenciaAlerta = document.getElementById('')
-var perdaPacoteAlerta = document.getElementById('')
-var erroTcpAlerta = document.getElementById('')
+var valorInput = 1
+var consumoCpuAlerta = 90
+var consumoRamAlerta = 90
+var consumoSwapAlerta = 5
+var perdaPacoteAlerta = 3
 
-function chamarCadastrarAlerta(){
+function chamarCadastrarAlerta() {
     document.getElementById('pai-conteudo').style.display = 'none';
     document.getElementById('pai-conteudo2').style.display = 'none';
     document.getElementById('pai-conteudo3').style.display = 'none';
     document.getElementById('pai-conteudo4').style.display = 'none';
     document.getElementById('escolherAlerta').style.display = 'none';
     document.getElementById('escolherBotaoAlerta').style.display = 'none';
+    document.getElementById('alerta-pai').style.display = 'flex';
 }
 
 function cadastrarAlerta() {
-
+    consumoCpuAlerta = Number(limiteCpu.value)
+    consumoRamAlerta = Number(limiteRam.value)
+    consumoSwapAlerta = Number(limiteSwap.value)
+    perdaPacoteAlerta = Number(limitePerdaPacote.value)
+    console.log(consumoCpuAlerta, consumoRamAlerta, consumoSwapAlerta, perdaPacoteAlerta);
 }
-
 
 function validarEscolha() {
     var escolher = document.getElementById('escolher');
@@ -71,10 +70,6 @@ function validarEscolha() {
 
 function voltarHome() {
     window.location.href = "dashboardComponenteGeral.html";
-}
-
-function enviarFormulario() {
-
 }
 
 function verPerfil() {
@@ -137,82 +132,95 @@ function plotarGraficosCpu(resposta) {
 
     let it = 0;  // Variável de controle para percorrer os dados
 
-    // Se o gráfico já existir, apenas atualiza os dados
-    if (graficoCpu) {
-        graficoCpu.data.datasets[0].data = [];  // Limpa os dados anteriores
-        graficoCpu.data.labels = [];            // Limpa as labels anteriores
-        graficoCpu.update();  // Atualiza o gráfico sem recriar
-    } else {
-        // Se o gráfico não existir, cria o gráfico
-        graficoCpu = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Uso de CPU',
-                    data: [],
-                    backgroundColor: '#e234d4',
-                    borderColor: '#e234d4',
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 10,
-                            max: 100,
-                            min: 0,
-                            callback: function (value) {
-                                return value + '%';
+    for (var i = 0; i <= dados.length; i++) {
+
+        if (consumoCpuAlerta < dados[i]) {
+
+            Swal.fire({
+                position: "top-center",
+                icon: "warning",
+                title: "Limite ultrapassado de cpu",
+                showConfirmButton: false,
+            });
+        } else {
+            // Se o gráfico já existir, apenas atualiza os dados
+            if (graficoCpu) {
+                graficoCpu.data.datasets[0].data = [];  // Limpa os dados anteriores
+                graficoCpu.data.labels = [];            // Limpa as labels anteriores
+                graficoCpu.update();  // Atualiza o gráfico sem recriar
+            } else {
+                // Se o gráfico não existir, cria o gráfico
+                graficoCpu = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Uso de CPU',
+                            data: [],
+                            backgroundColor: '#e234d4',
+                            borderColor: '#e234d4',
+                            borderWidth: 1,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 10,
+                                    max: 100,
+                                    min: 0,
+                                    callback: function (value) {
+                                        return value + '%';
+                                    },
+                                    color: '#FFFF'
+                                },
+                                grid: {
+                                    color: '#6c6877af',
+                                },
+                                border: {
+                                    color: '#6c6877af',
+                                }
                             },
-                            color: '#FFFF'
+                            x: {
+                                ticks: {
+                                    display: false
+                                },
+                                grid: {
+                                    color: '#6c6877af'
+                                },
+                                border: {
+                                    color: '#6c6877af'
+                                }
+                            }
                         },
-                        grid: {
-                            color: '#6c6877af',
-                        },
-                        border: {
-                            color: '#6c6877af',
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            display: false
-                        },
-                        grid: {
-                            color: '#6c6877af'
-                        },
-                        border: {
-                            color: '#6c6877af'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false,
-                        labels: {
-                            color: '#FFFF'
-                        }
-                    },
-                    tooltip: {
-                        titleColor: '#FFFF',
-                        bodyColor: '#FFFF'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Uso de CPU',
-                        color: '#FFFF',
-                        font: {
-                            size: 25,
-                            weight: 'bold'
+                        plugins: {
+                            legend: {
+                                display: false,
+                                labels: {
+                                    color: '#FFFF'
+                                }
+                            },
+                            tooltip: {
+                                titleColor: '#FFFF',
+                                bodyColor: '#FFFF'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Uso de CPU',
+                                color: '#FFFF',
+                                font: {
+                                    size: 25,
+                                    weight: 'bold'
+                                }
+                            }
                         }
                     }
-                }
+                });
             }
-        });
+        }
     }
 
     // Função para atualizar o gráfico com os dados
@@ -555,81 +563,93 @@ function plotarGraficosRam(resposta) {
         index++;
     };
 
-    // Inicializa o gráfico com os dados
-    graficoRam = new Chart(ctx2, {
-        type: 'line',
-        data: {
-            labels: [],  // Começa sem rótulos
-            datasets: [{
-                label: 'Uso de RAM',
-                data: [],  // Começa com dados vazios
-                backgroundColor: '#e234d4',
-                borderColor: '#e234d4',
-                borderWidth: 1,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 10, // Garantir que o intervalo seja de 10 em 10
-                        max: 100,     // Forçar o valor máximo para 100
-                        min: 0,       // Forçar o valor mínimo para 0
-                        callback: function (value) {
-                            return value + '%'; // Adiciona o símbolo de porcentagem
-                        },
-                        color: '#FFFF'
-                    },
-                    grid: {
-                        color: '#6c6877af',
-                    },
-                    border: {
-                        color: '#6c6877af',
-                    }
-                },
-                x: {
-                    ticks: {
-                        display: false,  // Esconde os rótulos do eixo X
-                    },
-                    grid: {
-                        color: '#6c6877af', // Cor das linhas de grade verticais
-                    },
-                    border: {
-                        color: '#6c6877af' // Cor da linha do eixo X
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        color: '#FFFF' // Cor da legenda
-                    }
-                },
-                tooltip: {
-                    titleColor: '#FFFF', // Cor do título do tooltip
-                    bodyColor: '#FFFF',  // Cor do corpo do tooltip
-                },
-                title: {
-                    display: true,
-                    text: 'Consumo de memória RAM', // Título do gráfico
-                    color: '#FFFF',
-                    font: {
-                        size: 25,
-                        weight: 'bold'
-                    }
-                }
-            }
-        }
-    });
+    for (var i = 0; i <= dados.length; i++) {
 
+        if (consumoRamAlerta < dados[i]) {
+            Swal.fire({
+                position: "top-center",
+                icon: "warning",
+                title: "Limite ultrapassado de memória ram",
+                showConfirmButton: false,
+            });
+        } else {
+
+            // Inicializa o gráfico com os dados
+            graficoRam = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: [],  // Começa sem rótulos
+                    datasets: [{
+                        label: 'Uso de RAM',
+                        data: [],  // Começa com dados vazios
+                        backgroundColor: '#e234d4',
+                        borderColor: '#e234d4',
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 10, // Garantir que o intervalo seja de 10 em 10
+                                max: 100,     // Forçar o valor máximo para 100
+                                min: 0,       // Forçar o valor mínimo para 0
+                                callback: function (value) {
+                                    return value + '%'; // Adiciona o símbolo de porcentagem
+                                },
+                                color: '#FFFF'
+                            },
+                            grid: {
+                                color: '#6c6877af',
+                            },
+                            border: {
+                                color: '#6c6877af',
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                display: false,  // Esconde os rótulos do eixo X
+                            },
+                            grid: {
+                                color: '#6c6877af', // Cor das linhas de grade verticais
+                            },
+                            border: {
+                                color: '#6c6877af' // Cor da linha do eixo X
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                            labels: {
+                                color: '#FFFF' // Cor da legenda
+                            }
+                        },
+                        tooltip: {
+                            titleColor: '#FFFF', // Cor do título do tooltip
+                            bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                        },
+                        title: {
+                            display: true,
+                            text: 'Consumo de memória RAM', // Título do gráfico
+                            color: '#FFFF',
+                            font: {
+                                size: 25,
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    }
     // Atualiza o gráfico a cada 1 segundo, por exemplo
     const intervalo = setInterval(atualizarGrafico, 1000);
 }
-
 
 /*fetch e plotagem do gráfico de uso de memoria SWAP*/
 
@@ -653,118 +673,131 @@ function buscarConsumoSwap() {
 function plotarGraficoSwap(resposta) {
     const ctx3 = document.getElementById('graficoUsoSwap').getContext('2d');
 
-    let index = 0;
+// Variável global para armazenar o gráfico
+let graficoSwap;
 
-    if (graficoSwap) {
-        graficoSwap.data.datasets[0].data = [];
-        graficoSwap.data.labels = [];
-        graficoSwap.update();
+// Variável para o índice dos dados
+let index = 0;
+
+if (Array.isArray(resposta)) {
+    const dados = resposta.map(item => item.consumoMemoriaSwap);
+
+    console.log('Dados extraídos:', dados);
+
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+    if (dados.length === 0) {
+        console.error('Nenhum dado encontrado para o gráfico.');
+        return;
     }
 
-    if (Array.isArray(resposta)) {
-        const dados = resposta.map(item => item.consumoMemoriaSwap);
+    // Destruir o gráfico existente, se houver
+    if (graficoSwap) {
+        graficoSwap.destroy();
+    }
 
-        console.log('Dados extraídos:', dados);
-
-        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
-
-        if (dados.length === 0) {
-            console.error('Nenhum dado encontrado para o gráfico.');
-            return;
-        }
-
-        // Função para atualizar o gráfico
-        const atualizarGrafico = () => {
-            if (index >= dados.length) {
-                clearInterval(intervalo);
-                return;
-            }
-
-            // Adiciona os dados no gráfico
-            graficoSwap.data.datasets[0].data.push(dados[index]);
-            graficoSwap.data.labels.push(labels[index % labels.length]);
-
-            graficoSwap.update();  // Atualiza o gráfico
-            index++;
-        };
-
-        // Criação do gráfico
-        graficoSwap = new Chart(ctx3, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Uso de Memória SWAP',
-                    data: [],
-                    backgroundColor: '#e234d4',
-                    borderColor: '#e234d4',
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 10, // Garantir que o intervalo seja de 10 em 10
-                            max: 100,     // Forçar o valor máximo para 100
-                            min: 0,       // Forçar o valor mínimo para 0
-                            callback: function (value) {
-                                return value + 'MB'; // Adiciona o símbolo de porcentagem
-                            },
-                            color: '#FFFF'
+    // Criação do gráfico (apenas uma vez)
+    graficoSwap = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Uso de Memória SWAP',
+                data: [],
+                backgroundColor: '#e234d4',
+                borderColor: '#e234d4',
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 10,
+                        max: 100,
+                        min: 0,
+                        callback: function (value) {
+                            return value + 'MB';
                         },
-                        grid: {
-                            color: '#6c6877af',
-                        },
-                        border: {
-                            color: '#6c6877af',
-                        }
+                        color: '#FFFF'
                     },
-                    x: {
-                        ticks: {
-                            display: false,  // Esconde os rótulos do eixo X
-                        },
-                        grid: {
-                            color: '#6c6877af', // Cor das linhas de grade verticais
-                        },
-                        border: {
-                            color: '#6c6877af' // Cor da linha do eixo X
-                        }
+                    grid: {
+                        color: '#6c6877af',
+                    },
+                    border: {
+                        color: '#6c6877af',
                     }
                 },
-                plugins: {
-                    legend: {
+                x: {
+                    ticks: {
                         display: false,
-                        labels: {
-                            color: '#FFFF' // Cor da legenda
-                        }
                     },
-                    tooltip: {
-                        titleColor: '#FFFF', // Cor do título do tooltip
-                        bodyColor: '#FFFF',  // Cor do corpo do tooltip
+                    grid: {
+                        color: '#6c6877af',
                     },
-                    title: {
-                        display: true,
-                        text: 'Consumo de memória SWAP', // Título do gráfico
-                        color: '#FFFF',
-                        font: {
-                            size: 25,
-                            weight: 'bold'
-                        }
+                    border: {
+                        color: '#6c6877af'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: '#FFFF'
+                    }
+                },
+                tooltip: {
+                    titleColor: '#FFFF',
+                    bodyColor: '#FFFF',
+                },
+                title: {
+                    display: true,
+                    text: 'Consumo de memória SWAP',
+                    color: '#FFFF',
+                    font: {
+                        size: 25,
+                        weight: 'bold'
                     }
                 }
             }
-        });
+        }
+    });
 
-        // Atualiza o gráfico a cada 1 segundo
-        const intervalo = setInterval(atualizarGrafico, 5000);
-    } else {
-        console.error('A resposta da API não é um array.', resposta);
-    }
+    // Atualização contínua do gráfico
+    const atualizarGrafico = () => {
+        if (index >= dados.length) {
+            clearInterval(intervalo);
+            return;
+        }
+
+        // Adiciona os dados ao gráfico
+        graficoSwap.data.datasets[0].data.push(dados[index]);
+        graficoSwap.data.labels.push(labels[index % labels.length]);
+
+        graficoSwap.update(); // Atualiza o gráfico
+        index++;
+
+        // Alerta caso ultrapasse o limite
+        if (consumoSwapAlerta < dados[index]) {
+            Swal.fire({
+                position: "top-center",
+                icon: "warning",
+                title: "Limite ultrapassado de memória swap",
+                showConfirmButton: false,
+            });
+        }
+    };
+
+    // Atualiza o gráfico a cada 5 segundos
+    const intervalo = setInterval(atualizarGrafico, 5000);
 }
+
+}
+
 
 /* fetch para buscar total de memoria RAM */
 
@@ -839,87 +872,95 @@ function buscarGeralDisco() {
         });
 }
 
-let graficoGeralDisco
-
 function plotarGeralDisco(resposta) {
-    const ctx7 = document.getElementById('myDoughnutChart').getContext('2d');
+    var percentUso = Number(resposta[0].usoComponente);
 
-    if (graficoGeralDisco) {
-        graficoGeralDisco.data.datasets[0].data = [];
-        graficoGeralDisco.data.labels = [];
-        graficoGeralDisco.update();
-    }
+    const percentualUsado = Math.round(
+        (percentUso / resposta[0].espacoTotalDisco) * 100
+    );
 
-    if (Array.isArray(resposta)) {
-        // Extraindo os dados da primeira posição de cada vetor
-        const espacoLivreDisco = resposta.map(item => item.espacoLivreDisco);
-        const espacoTotalDisco = resposta.map(item => item.espacoTotalDisco);
-        const usoComponente = resposta.map(item => item.usoComponentente);
+    const percentualLivre = 100 - percentualUsado;
 
-        console.log('Dados extraídos:', espacoLivreDisco, espacoTotalDisco, usoComponente);
+    const dadosMocados = [
+        { faixa: "Usado", quantidade: percentualUsado },
+        { faixa: "Livre", quantidade: percentualLivre },
+    ];
 
-        // Verificando se os dados estão presentes
-        if (espacoLivreDisco.length === 0 || espacoTotalDisco.length === 0 || usoComponente.length === 0) {
-            console.error('Nenhum dado encontrado para o gráfico.');
-            return;
-        }
+    // Extraindo dados para o gráfico
+    const series = dadosMocados.map((dado) => dado.quantidade);
+    const labels = dadosMocados.map((dado) => dado.faixa);
 
-        // Pegando apenas o primeiro valor de cada vetor
-        const dados = [
-            espacoLivreDisco[0],
-            espacoTotalDisco[0] - espacoLivreDisco[0],
-            usoComponente[0]
-        ];
+    // Definindo cores personalizadas para cada faixa
+    const coresPersonalizadas = ["#6D4BC7", "#a6a6a7"]; // Exemplo de cores para "Usado" e "Livre"
 
-        // Rótulos para o gráfico
-        const labels = ['Espaço Livre', 'Espaço Ocupado', 'Uso Componente'];
-
-        // Cores para o gráfico
-        const backgroundColor = ['#551A8B', '#473C8B', '#836FFF'];
-        const borderColor = ['#d32f2f', '#d32f2f', '#d32f2f'];
-
-        // Criando o gráfico de rosca
-        graficoGeralDisco = new Chart(ctx7, {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: dados,
-                    backgroundColor: backgroundColor,
-                    borderColor: borderColor,
-                    borderWidth: 1
-                }]
+    // Configuração do gráfico
+    var options = {
+        series: series,
+        chart: {
+            width: 380,
+            type: "donut",
+        },
+        labels: labels,
+        plotOptions: {
+            pie: {
+                startAngle: -90,
+                endAngle: 270,
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        fill: {
+            type: "gradient",
+        },
+        legend: {
+            formatter: function (val, opts) {
+                return val + " - " + opts.w.globals.series[opts.seriesIndex] + "%";
+            },
+            labels: {
+                colors: "#d9d9d9", // Define a cor da legenda
+                useSeriesColors: false, // Evita usar as cores da série como legenda
+            },
+        },
+        title: {
+            text: "Percentual de Armazenamento Usado vs Livre",
+            style: {
+                color: "#d9d9d9", // Define a cor do título
+                fontSize: "16px", // (Opcional) Define o tamanho da fonte
+                fontWeight: "bold", // (Opcional) Define o peso da fonte
+            },
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val + "%"; // Adiciona o símbolo de porcentagem ao tooltip
+                },
+            },
+        },
+        colors: coresPersonalizadas, // Definindo as cores
+        responsive: [
+            {
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 150,
+                    },
                     legend: {
-                        position: 'top',
-                        labels: {
-                            color: '#FFFFFF'
-                        }
+                        position: "bottom",
                     },
-                    tooltip: {
-                        titleColor: '#FFFF',
-                        bodyColor: '#FFFF',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Estatísticas de Disco',
-                        color: '#FFFF',
-                        font: {
-                            size: 25,
-                            weight: 'bold'
-                        }
-                    }
-                }
-            }
-        });
-    } else {
-        console.error('A resposta da API não é um array.', resposta);
-    }
+                },
+            },
+        ],
+    };
+
+    // Renderizando o gráfico
+    var chart = new ApexCharts(
+        document.querySelector("#myDoughnutChart"),
+        options
+    );
+    chart.render();
 }
+
 
 /** fetch e plotagem do gráfico de I/O de disco*/
 
@@ -1105,73 +1146,84 @@ function plotarPerdaDePacote(resposta) {
             index++;
         };
 
-        // Criação do gráfico
-        graficoPerdaPacote = new Chart(ctx5, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Perda de pacotes',
-                    data: [],
-                    backgroundColor: '#e234d4',
-                    borderColor: '#e234d4',
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 10,
-                            max: 100,
-                            min: 0,
-                            callback: function (value) {
-                                return value + '%';
+        for (var i = 0; i <= dados.length; i++) {
+
+            if (consumoSwapAlerta < dados[i]) {
+                Swal.fire({
+                    position: "top-center",
+                    icon: "warning",
+                    title: "Limite ultrapassado de perda de pacote",
+                    showConfirmButton: false,
+                });
+            } else {
+                // Criação do gráfico
+                graficoPerdaPacote = new Chart(ctx5, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Perda de pacotes',
+                            data: [],
+                            backgroundColor: '#e234d4',
+                            borderColor: '#e234d4',
+                            borderWidth: 1,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 10,
+                                    max: 100,
+                                    min: 0,
+                                    callback: function (value) {
+                                        return value + '%';
+                                    },
+                                    color: '#FFFF'
+                                },
                             },
-                            color: '#FFFF'
+                            x: {
+                                ticks: {
+                                    display: false,
+                                },
+                                grid: {
+                                    color: '#6c6877af',
+                                },
+                                border: {
+                                    color: '#6c6877af'
+                                }
+                            }
                         },
-                    },
-                    x: {
-                        ticks: {
-                            display: false,
-                        },
-                        grid: {
-                            color: '#6c6877af',
-                        },
-                        border: {
-                            color: '#6c6877af'
+                        plugins: {
+                            legend: {
+                                display: false,
+                                labels: {
+                                    color: '#FFFF'
+                                }
+                            },
+                            tooltip: {
+                                titleColor: '#FFFF',
+                                bodyColor: '#FFFF',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Perda de pacotes',
+                                color: '#FFFF',
+                                font: {
+                                    size: 25,
+                                    weight: 'bold'
+                                }
+                            }
                         }
                     }
-                },
-                plugins: {
-                    legend: {
-                        display: false,
-                        labels: {
-                            color: '#FFFF'
-                        }
-                    },
-                    tooltip: {
-                        titleColor: '#FFFF',
-                        bodyColor: '#FFFF',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Perda de pacotes',
-                        color: '#FFFF',
-                        font: {
-                            size: 25,
-                            weight: 'bold'
-                        }
-                    }
-                }
+                });
+
             }
-        });
-
+        }
         const intervalo = setInterval(atualizarGrafico, 5000);
-
     } else {
         console.error('A resposta da API não é um array.', resposta);
     }
@@ -1519,9 +1571,6 @@ function buscarRiscoAlerta() {
             mensagem.textContent = "Erro ao buscar os dados. Tente novamente mais tarde.";
         });
 }
-
-
-
 
 
 

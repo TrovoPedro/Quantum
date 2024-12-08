@@ -104,7 +104,10 @@ function buscarUsoMemoriaSwap() {
 
 
 function buscarTotalMemoriaRam(valorInput) {
-    var instrucaoSql = `select totalMemoriaRam from tabelaTrovo;`;
+    var instrucaoSql = `SELECT totalMemoriaRam 
+FROM tabelaTrovo
+WHERE totalMemoriaRam > 0 AND totalMemoriaRam IS NOT NULL;
+    `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 
     return database.executar(instrucaoSql, valorInput)
@@ -215,7 +218,7 @@ function buscarErroTcp() {
 
 function buscarGeralDisco() {
     var instrucaoSql = `SELECT 
-    COALESCE(l.usoComponente, 0) AS usoComponentente,
+    COALESCE(l.usoComponente, 0) AS usoComponente,
     COALESCE(t.espacoLivreDisco, 0) AS espacoLivreDisco,
     COALESCE(t.espacoTotalDisco, 0) AS espacoTotalDisco
 FROM 
@@ -225,9 +228,8 @@ JOIN
 ON 
     l.fkComponente = t.fkComponente
 WHERE 
-    COALESCE(t.espacoTotalDisco, 0) > 0;
-`;
-
+    COALESCE(t.espacoTotalDisco, 0) > 0`
+    
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

@@ -8,9 +8,12 @@
     <link rel="shortcut icon" href="../assets/Logo Quantum.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/dashboardComponenteGeral.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 
-<body onload="buscarConsumoRam(); buscarConsumoSwap(); buscarTotalMemoriaRam(); buscarTotalMemoriaSwap(); buscarQtdAlerta(); buscarRiscoAlerta()">
+<body
+    onload="buscarConsumoRam(); buscarConsumoSwap(); buscarTotalMemoriaRam(); buscarTotalMemoriaSwap(); buscarQtdAlerta(); buscarRiscoAlerta()">
     <div class="pai">
         <header class="pai-menu">
             <nav class="filho-menu">
@@ -221,7 +224,7 @@
                 </div>
                 <div class="dash-pai">
                     <div class="dash-filho1">
-                        <canvas id="myDoughnutChart" width="100%" height="100%"></canvas>
+                        <div id="myDoughnutChart" style="width: 750px; height: 650px;"></div>
                     </div>
                     <div class="dash-filho3">
                         <div class="card-numeros1">
@@ -249,6 +252,40 @@
                 </div>
             </div>
         </div>
+        <div class="pai-alerta" id="alerta-pai" style="display: none;">
+            <div class="pai-menu-lateral">
+                <div class="menu-lateral">
+                    <button onclick="voltarHome()" class="circulo-home">
+                        <img class="icon-menu-bg" src="../assets/home.png" alt="">
+                    </button>
+                    <button onclick="chamarCadastrarAlerta()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/warning.png" alt="">
+                    </button>
+                    <button onclick="verPerfil()" class="icon-menu">
+                        <img class="icon-menu" src="../assets/user.png" alt="">
+                    </button>
+                </div>
+                <button onclick="sair()" class="icon-menu">
+                    <img class="icon-menu" src="../assets/exit.png" alt="">
+                </button>
+            </div>
+            <div class="cardAlerta" id="alertaCard">
+                <div class=" pai-input">
+                    <p>limite de uso para memória RAM (%)</p>
+                    <input type="text" class="input-alerta" id="limiteRam">
+                    <p>limite de uso para memória SWAP (GB)</p>
+                    <input type="text" class="input-alerta" id="limiteSwap">
+                    <p>limite de uso para CPU (%)</p>
+                    <input type="text" class="input-alerta" id="limiteCpu">
+                    <p>limite para perda de pacotes (%)</p>
+                    <div class="button-alerta">
+                        <input type="text" class="input-alerta" id="limitePerdaPacote">
+                        <button class="botaoAlerta" onclick="cadastrarAlerta()">Botao</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 <script src="../js/dashTrovo.js"></script>

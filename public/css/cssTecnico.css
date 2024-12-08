@@ -7,12 +7,13 @@ body{
 
 .pai-menu{
     display: flex;
-    background: #121212;
+    background: transparent;
     height: 100%;
     width: 15%;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    z-index: 999;
 }
 
 .texto-logo{
@@ -39,6 +40,7 @@ body{
     align-items: center;
     flex-direction: column;
     border-radius: 70px;
+    z-index: 999;
 }
 
 .botoesNav {
@@ -104,7 +106,7 @@ body{
 .blurEsquerda {
     position: absolute;
     width: 30.8%;
-    z-index: 999;
+    z-index: 1;
     left: 0;
 }
 

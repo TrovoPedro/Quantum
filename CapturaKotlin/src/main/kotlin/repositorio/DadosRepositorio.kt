@@ -29,7 +29,7 @@ class DadosRepositorio {
 
     fun inserir(dadosRecebidos: Double): Boolean{
         var qtdLinhasAfetadas = jdbcTemplate.update("""
-            insert into log (dtHora, usoComponente, fkComponente) values(NOW(), ?, 3); 
+            insert into log (dtHora, usoComponente, fkComponente) values(NOW(), ?, 4); 
         """, dadosRecebidos,
             );
 
@@ -128,7 +128,7 @@ class DadosRepositorio {
         return qtdLinhasAfetadas > 0
     }
     fun inserirConsumoSwap(dadosRecebidos: Double): Boolean {
-        println("Esses são os dados recebidos: $dadosRecebidos")
+        println("Consumo memoria swap: $dadosRecebidos")
         val qtdLinhasAfetadas = jdbcTemplate.update("""
         INSERT INTO tabelaTrovo (consumoMemoriaSwap, fkComponente) VALUES (?, 1);
     """, dadosRecebidos)
@@ -137,7 +137,7 @@ class DadosRepositorio {
     }
 
     fun inserirEscritaDisco(dadosRecebidos: Int): Boolean {
-        println("Esses são os dados recebidos: $dadosRecebidos")
+        println("Total de escritas no disco: $dadosRecebidos")
         val qtdLinhasAfetadas = jdbcTemplate.update("""
         INSERT INTO tabelaTrovo (ioDisco, fkComponente) VALUES (?, 3);
     """, dadosRecebidos)
@@ -146,7 +146,7 @@ class DadosRepositorio {
     }
 
     fun inserirTotalDisco(dadosRecebidos: Int): Boolean {
-        println("Esses são os dados recebidos: $dadosRecebidos")
+        println("Esses é o total de disco: $dadosRecebidos")
         val qtdLinhasAfetadas = jdbcTemplate.update("""
         INSERT INTO tabelaTrovo (espacoTotalDisco, fkComponente) VALUES (?, 3);
     """, dadosRecebidos)
@@ -171,5 +171,4 @@ class DadosRepositorio {
 
         return qtdLinhasAfetadas > 0
     }
-
 }
