@@ -196,7 +196,7 @@ td {
         display: flex;
         justify-content: space-between;
         padding: 6px 10px;
-        background-color: #250445;
+        background-color: #390172;
         color: #fff;
         font-weight: 500;
         border-radius: 6px;
@@ -204,7 +204,7 @@ td {
         margin-bottom: 6px;
 
         &.header {
-            background-color: #6d18d5;
+            background-color: #230449;
             font-weight: bold;
         }
 

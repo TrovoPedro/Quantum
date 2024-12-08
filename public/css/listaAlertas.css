@@ -100,7 +100,10 @@ body{
                 justify-content: space-around;
                 color: white;
                 font-family: Lato;
-                 transition: ease 0.5s;   
+                 transition: ease 0.5s;  
+                 border: solid 1px white; 
+                 box-shadow: 1px 1px 6px rgb(236, 234, 234);
+
 
             }
             
@@ -125,6 +128,9 @@ body{
             align-items: center;
             justify-content: space-evenly;
             font-family: Lato;
+            border: 1px solid white;
+            box-shadow: 1px 1px 6px rgb(236, 234, 234);
+
 
         }
     }
