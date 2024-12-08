@@ -20,6 +20,7 @@ function cadastrarAlerta() {
     consumoSwapAlerta = Number(limiteSwap.value)
     perdaPacoteAlerta = Number(limitePerdaPacote.value)
     console.log(consumoCpuAlerta, consumoRamAlerta, consumoSwapAlerta, perdaPacoteAlerta);
+    window.location.href = "dashboardComponenteGeral.html";
 }
 
 function validarEscolha() {
