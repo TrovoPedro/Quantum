@@ -270,18 +270,34 @@
                 </button>
             </div>
             <div class="cardAlerta" id="alertaCard">
-                <div class=" pai-input">
-                    <p>limite de uso para memória RAM (%)</p>
-                    <input type="text" class="input-alerta" id="limiteRam">
-                    <p>limite de uso para memória SWAP (GB)</p>
-                    <input type="text" class="input-alerta" id="limiteSwap">
-                    <p>limite de uso para CPU (%)</p>
-                    <input type="text" class="input-alerta" id="limiteCpu">
-                    <p>limite para perda de pacotes (%)</p>
-                    <div class="button-alerta">
-                        <input type="text" class="input-alerta" id="limitePerdaPacote">
-                        <button class="botaoAlerta" onclick="cadastrarAlerta()">Botao</button>
+
+                <div class="child-card-alert">
+                    <div class="card-alert-space">
+                        <div class="title-card-alert">
+                            <h1>Limiar de Alertas:</h1>
+                        </div>
+
+                        <div class="card-campo-item-alert">
+                            <p>Limite de uso para memória RAM (%):</p>
+                            <input type="number" class="input-alerta" id="limiteRam">
+                        </div>
+                        <div class="card-campo-item-alert">
+                            <p>Limite de uso para memória SWAP (GB):</p>
+                            <input type="number" class="input-alerta" id="limiteSwap">
+                        </div>
+                        <div class="card-campo-item-alert">
+                            <p>Limite de uso para CPU (%):</p>
+                            <input type="number" class="input-alerta" id="limiteCpu">
+                        </div>
+                        <div class="card-campo-item-alert">
+                            <p>Limite para perda de pacotes (%):</p>
+                            <input type="number" class="input-alerta" id="limitePerdaPacote">
+                        </div>
+                        <button class="botaoAlerta" onclick="cadastrarAlerta()">Salvar</button>
+
+
                     </div>
+                    
                 </div>
             </div>
         </div>

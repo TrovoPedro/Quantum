@@ -12,7 +12,9 @@
     <!-- Links Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:wght@100;300;400;700;900&family=Space+Mono:wght@400;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Lato:wght@100;300;400;700;900&family=Space+Mono:wght@400;700&family=Ubuntu:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="css/TelaPerfilTec.css">
     <link rel="stylesheet" href="css/cssPerfilTecnico.css">
@@ -40,15 +42,15 @@
                     <img src="assets/server.png" class="LinkImgNavGrafico" alt="">
                 </div>
                 <div class="botoesNav">
-                    <img src="assets/user.png" class="LinkImgNavUser" alt="">
-                    <p><a href="Tela_Perfil.html" style="color: white; text-decoration: none;"></a></p>
+                    <a href="Tela_Perfil.html" style="color: white; text-decoration: none;"><img src="assets/user.png"
+                            class="LinkImgNavUser" alt=""></a>
                 </div>
             </div>
         </div>
         <div class="exitNav">
             <div class="botoesNav">
-                <img src="assets/exit.png" class="LinkImgNavExit" alt="">
-                <p><a style="text-decoration: none; color: white;" href="login.html" class="nav-link"></a></p>
+                <a style="text-decoration: none; color: white;" href="login.html" class="nav-link"></a><img
+                    src="assets/exit.png" class="LinkImgNavExit" alt=""></a>
             </div>
         </div>
     </div>
@@ -62,7 +64,8 @@
             <div class="itensMonitorados">
                 <div class="profile-picture">
                     <input type="file" id="fileInput" accept="image/*" onchange="uploadImage(event)">
-                    <img id="foto-usuario" class="perfil_icon" src="assets/default-avatar.jpg" alt="Avatar" style="width: 100%; height: 100%;">
+                    <img id="foto-usuario" class="perfil_icon" src="assets/default-avatar.jpg" alt="Avatar"
+                        style="width: 100%; height: 100%;">
                 </div>
                 <div class="info_usuario">
                     <h3 id="nome_usuario"></h3>
@@ -75,8 +78,10 @@
                     <div class="boxServidores">
                         <span>Email:</span>
 
-                        <input style="font-size: 17px; color: white; display: flex; justify-content: center; align-items: center;" type="text" class="input-perfil" id="input_email" readonly disabled> 
-                        
+                        <input
+                            style="font-size: 17px; color: white; display: flex; justify-content: center; align-items: center;"
+                            type="text" class="input-perfil" id="input_email" readonly disabled>
+
                     </div>
 
                     <div class="boxServidores">
@@ -85,13 +90,13 @@
                             <span id="empresa_usuario"></span>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
 
             <div class="box2low">
                 <div class="cardServidor">
-                    
+
                     <div class="boxServidores">
                         <span>Data de criação:</span>
                         <div class="container_radiu">
