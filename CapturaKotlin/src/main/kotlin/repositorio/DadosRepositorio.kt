@@ -27,15 +27,6 @@ class DadosRepositorio {
         return qtdLinhasAfetadas > 0;
     }
 
-    fun inserir(dadosRecebidos: Double): Boolean{
-        var qtdLinhasAfetadas = jdbcTemplate.update("""
-            insert into log (dtHora, usoComponente, fkComponente) values(NOW(), ?, 4); 
-        """, dadosRecebidos,
-            );
-
-        return qtdLinhasAfetadas > 0;
-    }
-
     fun listarComponentes(): List<Componente> {
         return jdbcTemplate.query(
             "select idComponente, nomeComponente, fabricante from componente",

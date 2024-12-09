@@ -1,7 +1,7 @@
 var valorInput = 1
 var consumoCpuAlerta = 90
 var consumoRamAlerta = 90
-var consumoSwapAlerta = 5
+var consumoSwapAlerta = 5000
 var perdaPacoteAlerta = 3
 
 function chamarCadastrarAlerta() {
@@ -43,29 +43,23 @@ function validarEscolha() {
         buscarConsumoSwap()
         buscarTotalMemoriaRam()
         buscarTotalMemoriaSwap()
-        buscarQtdAlerta()
-        buscarRiscoAlerta()
     } else if (valorInput == 2) {
         document.getElementById('pai-conteudo').style.display = 'flex';
         buscarConsumoCpu()
         buscarMudancaContexto()
         buscarCarga()
-        buscarQtdAlerta()
-        buscarRiscoAlerta()
         buscarServicosAtivos()
     } else if (valorInput == 3) {
         document.getElementById('pai-conteudo4').style.display = 'flex';
         buscarConsumoIoDisco()
         buscarGeralDisco()
-        buscarQtdAlerta()
         buscarRiscoAlerta()
+        buscarQtdAlerta()
     } else if (valorInput == 4) {
         document.getElementById('pai-conteudo2').style.display = 'flex';
         buscarPerdaPacote()
         buscarTaxaTransferencia()
         buscarErroTcp()
-        buscarQtdAlerta()
-        buscarRiscoAlerta()
     }
 }
 
@@ -113,6 +107,9 @@ function buscarConsumoCpu() {
 
 function plotarGraficosCpu(resposta) {
     const ctx = document.getElementById('graficoUsoCpu').getContext('2d');
+    const n_alertas = document.getElementById('n_alertas')
+    const porcent_alerta = document.getElementById('porcent_alerta')
+
 
     if (!resposta || !Array.isArray(resposta)) {
         console.error("Dados inválidos recebidos para o gráfico:", resposta);
@@ -133,9 +130,16 @@ function plotarGraficosCpu(resposta) {
 
     let it = 0;  // Variável de controle para percorrer os dados
 
+    var nAlertasCpu = 0
+
     for (var i = 0; i <= dados.length; i++) {
 
         if (consumoCpuAlerta < dados[i]) {
+            n_alertas.innerHTML = nAlertasCpu + 1
+            nAlertasCpu += 1
+
+            const porcentagem = ((nAlertasCpu / resposta.length) * 100).toFixed(0);
+            porcent_alerta.innerHTML = `${porcentagem}%`;
 
             Swal.fire({
                 position: "top-center",
@@ -530,11 +534,12 @@ function buscarConsumoRam() {
 
 function plotarGraficosRam(resposta) {
     const ctx2 = document.getElementById('graficoUsoRam').getContext('2d');
+    const n_AlertasRam = document.getElementById('n_alertasRam');
+    const porcent_alertaRam = document.getElementById('porcent_alertaRam');
 
-    let index = 0;
-
+    // Destrói o gráfico anterior, se já existir
     if (graficoRam) {
-        graficoRam.destroy();  // Se já existir, destrói o gráfico anterior
+        graficoRam.destroy();
     }
 
     // Extração dos dados
@@ -542,169 +547,22 @@ function plotarGraficosRam(resposta) {
     console.log('Dados extraídos:', dados);
 
     const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+    let nAlertasRam = 0;
+    let index = 0;
 
     if (dados.length === 0) {
         console.error('Nenhum dado encontrado para o gráfico.');
         return;
     }
 
-    // Função para atualizar o gráfico
-    const atualizarGrafico = () => {
-        if (index >= dados.length) {
-            clearInterval(intervalo);
-            return;
-        }
-
-        // Atualiza os dados do gráfico
-        graficoRam.data.datasets[0].data.push(dados[index]);
-        graficoRam.data.labels.push(labels[index % labels.length]);
-
-        // Atualiza o gráfico
-        graficoRam.update();
-        index++;
-    };
-
-    for (var i = 0; i <= dados.length; i++) {
-
-        if (consumoRamAlerta < dados[i]) {
-            Swal.fire({
-                position: "top-center",
-                icon: "warning",
-                title: "Limite ultrapassado de memória ram",
-                showConfirmButton: false,
-            });
-        } else {
-
-            // Inicializa o gráfico com os dados
-            graficoRam = new Chart(ctx2, {
-                type: 'line',
-                data: {
-                    labels: [],  // Começa sem rótulos
-                    datasets: [{
-                        label: 'Uso de RAM',
-                        data: [],  // Começa com dados vazios
-                        backgroundColor: '#e234d4',
-                        borderColor: '#e234d4',
-                        borderWidth: 1,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 10, // Garantir que o intervalo seja de 10 em 10
-                                max: 100,     // Forçar o valor máximo para 100
-                                min: 0,       // Forçar o valor mínimo para 0
-                                callback: function (value) {
-                                    return value + '%'; // Adiciona o símbolo de porcentagem
-                                },
-                                color: '#FFFF'
-                            },
-                            grid: {
-                                color: '#6c6877af',
-                            },
-                            border: {
-                                color: '#6c6877af',
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                display: false,  // Esconde os rótulos do eixo X
-                            },
-                            grid: {
-                                color: '#6c6877af', // Cor das linhas de grade verticais
-                            },
-                            border: {
-                                color: '#6c6877af' // Cor da linha do eixo X
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false,
-                            labels: {
-                                color: '#FFFF' // Cor da legenda
-                            }
-                        },
-                        tooltip: {
-                            titleColor: '#FFFF', // Cor do título do tooltip
-                            bodyColor: '#FFFF',  // Cor do corpo do tooltip
-                        },
-                        title: {
-                            display: true,
-                            text: 'Consumo de memória RAM', // Título do gráfico
-                            color: '#FFFF',
-                            font: {
-                                size: 25,
-                                weight: 'bold'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-    }
-    // Atualiza o gráfico a cada 1 segundo, por exemplo
-    const intervalo = setInterval(atualizarGrafico, 1000);
-}
-
-/*fetch e plotagem do gráfico de uso de memoria SWAP*/
-
-function buscarConsumoSwap() {
-    fetch(`/estatisticaTrovo/buscarUsoMemoriaSwap`)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    plotarGraficoSwap(resposta);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
-
-function plotarGraficoSwap(resposta) {
-    const ctx3 = document.getElementById('graficoUsoSwap').getContext('2d');
-
-// Variável global para armazenar o gráfico
-let graficoSwap;
-
-// Variável para o índice dos dados
-let index = 0;
-
-if (Array.isArray(resposta)) {
-    const dados = resposta.map(item => item.consumoMemoriaSwap);
-
-    console.log('Dados extraídos:', dados);
-
-    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
-
-    if (dados.length === 0) {
-        console.error('Nenhum dado encontrado para o gráfico.');
-        return;
-    }
-
-    // Destruir o gráfico existente, se houver
-    if (graficoSwap) {
-        graficoSwap.destroy();
-    }
-
-    // Criação do gráfico (apenas uma vez)
-    graficoSwap = new Chart(ctx3, {
+    // Inicializa o gráfico
+    graficoRam = new Chart(ctx2, {
         type: 'line',
         data: {
-            labels: [],
+            labels: [],  // Começa sem rótulos
             datasets: [{
-                label: 'Uso de Memória SWAP',
-                data: [],
+                label: 'Uso de RAM',
+                data: [],  // Começa com dados vazios
                 backgroundColor: '#e234d4',
                 borderColor: '#e234d4',
                 borderWidth: 1,
@@ -721,7 +579,7 @@ if (Array.isArray(resposta)) {
                         max: 100,
                         min: 0,
                         callback: function (value) {
-                            return value + 'MB';
+                            return value + '%';
                         },
                         color: '#FFFF'
                     },
@@ -757,7 +615,7 @@ if (Array.isArray(resposta)) {
                 },
                 title: {
                     display: true,
-                    text: 'Consumo de memória SWAP',
+                    text: 'Consumo de memória RAM',
                     color: '#FFFF',
                     font: {
                         size: 25,
@@ -768,34 +626,185 @@ if (Array.isArray(resposta)) {
         }
     });
 
-    // Atualização contínua do gráfico
+    // Função para atualizar o gráfico gradualmente
     const atualizarGrafico = () => {
         if (index >= dados.length) {
-            clearInterval(intervalo);
+            clearInterval(intervalo); // Para o intervalo quando os dados acabarem
             return;
         }
 
-        // Adiciona os dados ao gráfico
-        graficoSwap.data.datasets[0].data.push(dados[index]);
-        graficoSwap.data.labels.push(labels[index % labels.length]);
+        // Adiciona os dados de forma incremental
+        graficoRam.data.datasets[0].data.push(dados[index]);
+        graficoRam.data.labels.push(labels[index % labels.length]);
+        graficoRam.update();
 
-        graficoSwap.update(); // Atualiza o gráfico
-        index++;
+        // Verifica se o valor ultrapassa o limite e gera alertas
+        if (consumoRamAlerta < dados[index]) {
+            nAlertasRam++;
+            n_AlertasRam.innerHTML = `${nAlertasRam}`;
 
-        // Alerta caso ultrapasse o limite
-        if (consumoSwapAlerta < dados[index]) {
+            const porcentagem = ((nAlertasRam / resposta.length) * 100).toFixed(0);
+            porcent_alertaRam.innerHTML = `${porcentagem}%`;
+
             Swal.fire({
                 position: "top-center",
                 icon: "warning",
-                title: "Limite ultrapassado de memória swap",
+                title: "Limite ultrapassado de memória RAM",
                 showConfirmButton: false,
             });
         }
+
+        index++;
     };
 
-    // Atualiza o gráfico a cada 5 segundos
-    const intervalo = setInterval(atualizarGrafico, 5000);
+    // Atualiza o gráfico a cada 1 segundo
+    const intervalo = setInterval(atualizarGrafico, 1000);
 }
+
+/*fetch e plotagem do gráfico de uso de memoria SWAP*/
+
+function buscarConsumoSwap() {
+    fetch(`/estatisticaTrovo/buscarUsoMemoriaSwap`)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoSwap(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficoSwap(resposta) {
+    const ctx3 = document.getElementById('graficoUsoSwap').getContext('2d');
+
+    // Variável global para armazenar o gráfico
+    let graficoSwap;
+
+    // Variável para o índice dos dados
+    let index = 0;
+
+    if (Array.isArray(resposta)) {
+        const dados = resposta.map(item => item.consumoMemoriaSwap);
+
+        console.log('Dados extraídos:', dados);
+
+        const labels = ["Jan", "Fev", "Mar", "Abr", "Mai"];
+
+        if (dados.length === 0) {
+            console.error('Nenhum dado encontrado para o gráfico.');
+            return;
+        }
+
+        // Destruir o gráfico existente, se houver
+        if (graficoSwap) {
+            graficoSwap.destroy();
+        }
+
+        // Criação do gráfico (apenas uma vez)
+        graficoSwap = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso de Memória SWAP',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10,
+                            max: 100,
+                            min: 0,
+                            callback: function (value) {
+                                return value + 'MB';
+                            },
+                            color: '#FFFF'
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af',
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false,
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF'
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Consumo de memória SWAP',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Atualização contínua do gráfico
+        const atualizarGrafico = () => {
+            if (index >= dados.length) {
+                clearInterval(intervalo);
+                return;
+            }
+
+            // Adiciona os dados ao gráfico
+            graficoSwap.data.datasets[0].data.push(dados[index]);
+            graficoSwap.data.labels.push(labels[index % labels.length]);
+
+            graficoSwap.update(); // Atualiza o gráfico
+            index++;
+
+            // Alerta caso ultrapasse o limite
+            if (consumoSwapAlerta < dados[index]) {
+                Swal.fire({
+                    position: "top-center",
+                    icon: "warning",
+                    title: "Limite ultrapassado de memória swap",
+                    showConfirmButton: false,
+                });
+            }
+        };
+
+        // Atualiza o gráfico a cada 5 segundos
+        const intervalo = setInterval(atualizarGrafico, 5000);
+    }
 
 }
 
@@ -1112,6 +1121,8 @@ function buscarPerdaPacote() {
 
 function plotarPerdaDePacote(resposta) {
     const ctx5 = document.getElementById('graficoPerda').getContext('2d');
+    const alertaRede = document.getElementById('alertaRede');
+    const porcent_alertaRede = document.getElementById('porcent_alertaRede');
 
     let index = 0;
 
@@ -1147,9 +1158,17 @@ function plotarPerdaDePacote(resposta) {
             index++;
         };
 
+        var nAlertasRede = 0
+
         for (var i = 0; i <= dados.length; i++) {
 
-            if (consumoSwapAlerta < dados[i]) {
+            if (perdaPacoteAlerta < dados[i]) {
+                nAlertasRede++;
+                alertaRede.innerHTML = `${nAlertasRede}`;
+    
+                const porcentagem = ((nAlertasRede / resposta.length) * 100).toFixed(0);
+                porcent_alertaRede.innerHTML = `${porcentagem}%`;
+
                 Swal.fire({
                     position: "top-center",
                     icon: "warning",
@@ -1493,6 +1512,7 @@ function plotarErroTcp(resposta) {
     }
 
 }
+
 
 // Fetch do numero de alertas
 

@@ -97,9 +97,6 @@ class Dados {
                     inserirTotalSwap(0)
                 }
 
-                val totalDadosRecebidosMB = converterParaMb(totalDadosRecebidos)
-                inserirDados(round(totalDadosRecebidosMB * 100) / 100)
-
                 exibirDados()
 
                 //alertar(limiteRede)
@@ -109,10 +106,6 @@ class Dados {
         }.start()
 
         println("Fora da thread")
-    }
-
-    fun inserirDados(totalDadosRecebidosMB: Double) {
-        dadosRepositorio.inserir(totalDadosRecebidosMB)
     }
 
     fun inserirServicos(qtdServico: Int) {
