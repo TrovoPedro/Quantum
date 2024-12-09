@@ -254,6 +254,8 @@ function plotarGraficosCpu(resposta) {
         });
     }
 
+    let ultimoAlerta = 0; // Variável para controlar o tempo do último alerta
+
     // Atualiza o gráfico e verifica se os dados estão sendo processados corretamente
     const atualizarGrafico = () => {
         if (it >= dados.length) {
@@ -273,23 +275,27 @@ function plotarGraficosCpu(resposta) {
     };
 
     // Função para verificar se o limite de CPU foi ultrapassado
-    for (var i = 0; i <= dados.length; i++) {
-        if (Number(localStorage.getItem("consumoCpuAlerta")) < dados[i]) {
-            alertar(localStorage.getItem("consumoCpuAlerta"))
-            n_alertas.innerHTML = nAlertasCpu + 1;
-            nAlertasCpu += 1;
-
+    const agora = Date.now(); // Hora atual em milissegundos
+    
+        // Verifica se o valor ultrapassa o limite e gera alertas
+        if (Number(localStorage.getItem("consumoRamAlerta")) < dados[index] && (agora - ultimoAlerta >= 10000)) {
+            nAlertasCpu++;
+            n_alertas.innerHTML = `${nAlertasCpu}`;
+    
             const porcentagem = ((nAlertasCpu / resposta.length) * 100).toFixed(0);
             porcent_alerta.innerHTML = `${porcentagem}%`;
-
+    
+            alertar(localStorage.getItem("consumoRamAlerta"));
+    
             Swal.fire({
                 position: "top-center",
                 icon: "warning",
-                title: "Limite ultrapassado de CPU",
+                title: "Limite ultrapassado de memória RAM",
                 showConfirmButton: false,
             });
+    
+            ultimoAlerta = agora; // Atualiza o tempo do último alerta
         }
-    }
 
     const intervalo = setInterval(atualizarGrafico, 1000);
 }
@@ -674,41 +680,47 @@ function plotarGraficosRam(resposta) {
             }
         }
     });
+    let ultimoAlerta = 0; // Variável para controlar o tempo do último alerta
 
-    // Função para atualizar o gráfico gradualmente
     const atualizarGrafico = () => {
         if (index >= dados.length) {
             clearInterval(intervalo); // Para o intervalo quando os dados acabarem
             return;
         }
-
+    
         // Adiciona os dados de forma incremental
         graficoRam.data.datasets[0].data.push(dados[index]);
         graficoRam.data.labels.push(labels[index % labels.length]);
         graficoRam.update();
-
+    
+        const agora = Date.now(); // Hora atual em milissegundos
+    
         // Verifica se o valor ultrapassa o limite e gera alertas
-        if (Number(localStorage.getItem("consumoRamAlerta")) < dados[index]) {
+        if (Number(localStorage.getItem("consumoRamAlerta")) < dados[index] && (agora - ultimoAlerta >= 10000)) {
             nAlertasRam++;
             n_AlertasRam.innerHTML = `${nAlertasRam}`;
-
+    
             const porcentagem = ((nAlertasRam / resposta.length) * 100).toFixed(0);
             porcent_alertaRam.innerHTML = `${porcentagem}%`;
-            alertar(localStorage.getItem("consumoRamAlerta"))
-
+    
+            alertar(localStorage.getItem("consumoRamAlerta"));
+    
             Swal.fire({
                 position: "top-center",
                 icon: "warning",
                 title: "Limite ultrapassado de memória RAM",
                 showConfirmButton: false,
             });
+    
+            ultimoAlerta = agora; // Atualiza o tempo do último alerta
         }
-
+    
         index++;
     };
-
-    // Atualiza o gráfico a cada 1 segundo
+    
+    // Atualiza o gráfico a cada 10 segundos
     const intervalo = setInterval(atualizarGrafico, 1000);
+    
 }
 
 /*fetch e plotagem do gráfico de uso de memoria SWAP*/
