@@ -4,6 +4,49 @@ var consumoRamAlerta = 90
 var consumoSwapAlerta = 5000
 var perdaPacoteAlerta = 3
 
+// integração com o slack
+
+class Slack {
+    constructor(url) {
+        this.url = url; // Usa a URL passada no construtor
+    }
+
+    async sendMessage(message) {
+        try {
+            const response = await fetch(this.url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message),
+            });
+
+            console.log(`Sending 'POST' request to URL: ${this.url}`);
+            console.log(`POST parameters: ${JSON.stringify(message)}`);
+            console.log(`Response Code: ${response.status}`);
+
+            const responseBody = await response.text();
+            console.log("Success.");
+            return responseBody;
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    }
+}
+
+// Função de exemplo de alerta
+async function alertar(alertaUsuario) {
+    const slack = new Slack("https://hooks.slack.com/services/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");
+    const mensagem = {
+        text: `Limite ultrapassado, por favor resolva o problema o quanto antes. Dados recebidos: ${alertaUsuario}`
+    };
+    await slack.sendMessage(mensagem);
+    console.log(`Alerta enviado: Dados recebidos ${alertaUsuario} MB.`);
+}
+
+
+// Cadastrar limites de componente
+
 function chamarCadastrarAlerta() {
     document.getElementById('pai-conteudo').style.display = 'none';
     document.getElementById('pai-conteudo2').style.display = 'none';
@@ -232,6 +275,7 @@ function plotarGraficosCpu(resposta) {
     // Função para verificar se o limite de CPU foi ultrapassado
     for (var i = 0; i <= dados.length; i++) {
         if (Number(localStorage.getItem("consumoCpuAlerta")) < dados[i]) {
+            alertar(localStorage.getItem("consumoCpuAlerta"))
             n_alertas.innerHTML = nAlertasCpu + 1;
             nAlertasCpu += 1;
 
@@ -650,6 +694,7 @@ function plotarGraficosRam(resposta) {
 
             const porcentagem = ((nAlertasRam / resposta.length) * 100).toFixed(0);
             porcent_alertaRam.innerHTML = `${porcentagem}%`;
+            alertar(localStorage.getItem("consumoRamAlerta"))
 
             Swal.fire({
                 position: "top-center",
@@ -797,7 +842,9 @@ function plotarGraficoSwap(resposta) {
             index++;
 
             // Alerta caso ultrapasse o limite
-            if (Number(localStorage.getItem("consumoSwapAlerta")) < dados[i]) {
+            if (Number(localStorage.getItem("consumoSwapAlerta")) < dados[index]) {
+                alertar(localStorage.getItem("consumoSwapAlerta"))
+
                 Swal.fire({
                     position: "top-center",
                     icon: "warning",
@@ -1170,9 +1217,11 @@ function plotarPerdaDePacote(resposta) {
             if (Number(localStorage.getItem("perdaPacoteAlerta")) < dados[i]) {
                 nAlertasRede++;
                 alertaRede.innerHTML = `${nAlertasRede}`;
-    
+
                 const porcentagem = ((nAlertasRede / resposta.length) * 100).toFixed(0);
                 porcent_alertaRede.innerHTML = `${porcentagem}%`;
+
+                alertar(localStorage.getItem("perdaPacoteAlerta"))
 
                 Swal.fire({
                     position: "top-center",
