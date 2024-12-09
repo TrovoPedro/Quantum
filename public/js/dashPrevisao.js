@@ -623,7 +623,7 @@ async function calculoOee(servidorId) {
     document.getElementById('oks').innerText = `${oeeFinal.toFixed(2)}%`;
 
     if (oeeFinal > 85) {
-        document.getElementById('oks').style.color = "green";
+        document.getElementById('oks').style.color = "lightgreen";
     } else if (oeeFinal <= 85 && oeeFinal >= 60 ) {
         document.getElementById('oks').style.color = "yellow";
     } else if (oeeFinal < 60) {
