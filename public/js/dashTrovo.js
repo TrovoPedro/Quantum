@@ -16,10 +16,17 @@ function chamarCadastrarAlerta() {
 
 function cadastrarAlerta() {
     consumoCpuAlerta = Number(limiteCpu.value)
+    localStorage.setItem("consumoCpuAlerta", consumoCpuAlerta);
+
     consumoRamAlerta = Number(limiteRam.value)
+    localStorage.setItem("consumoRamAlerta", consumoRamAlerta);
+
     consumoSwapAlerta = Number(limiteSwap.value)
+    localStorage.setItem("consumoSwapAlerta", consumoSwapAlerta);
+
     perdaPacoteAlerta = Number(limitePerdaPacote.value)
-    console.log(consumoCpuAlerta, consumoRamAlerta, consumoSwapAlerta, perdaPacoteAlerta);
+    localStorage.setItem("perdaPacoteAlerta", perdaPacoteAlerta);
+
     window.location.href = "dashboardComponenteGeral.html";
 }
 
@@ -110,7 +117,6 @@ function plotarGraficosCpu(resposta) {
     const n_alertas = document.getElementById('n_alertas')
     const porcent_alerta = document.getElementById('porcent_alerta')
 
-
     if (!resposta || !Array.isArray(resposta)) {
         console.error("Dados inválidos recebidos para o gráfico:", resposta);
         return;
@@ -132,11 +138,102 @@ function plotarGraficosCpu(resposta) {
 
     var nAlertasCpu = 0
 
-    for (var i = 0; i <= dados.length; i++) {
+    // Verifica se o gráfico já existe ou cria um novo
+    if (!graficoCpu) {
+        graficoCpu = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso de CPU',
+                    data: [],
+                    backgroundColor: '#e234d4',
+                    borderColor: '#e234d4',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10,
+                            max: 100,
+                            min: 0,
+                            callback: function (value) {
+                                return value + '%';
+                            },
+                            color: '#FFFF'
+                        },
+                        grid: {
+                            color: '#6c6877af',
+                        },
+                        border: {
+                            color: '#6c6877af',
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            display: false
+                        },
+                        grid: {
+                            color: '#6c6877af'
+                        },
+                        border: {
+                            color: '#6c6877af'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            color: '#FFFF'
+                        }
+                    },
+                    tooltip: {
+                        titleColor: '#FFFF',
+                        bodyColor: '#FFFF'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Uso de CPU',
+                        color: '#FFFF',
+                        font: {
+                            size: 25,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+    }
 
-        if (consumoCpuAlerta < dados[i]) {
-            n_alertas.innerHTML = nAlertasCpu + 1
-            nAlertasCpu += 1
+    // Atualiza o gráfico e verifica se os dados estão sendo processados corretamente
+    const atualizarGrafico = () => {
+        if (it >= dados.length) {
+            clearInterval(intervalo);  // Quando terminar, limpa o intervalo
+            return;
+        }
+
+        if (graficoCpu) {
+            graficoCpu.data.datasets[0].data.push(dados[it]);
+            graficoCpu.data.labels.push(labels[it % labels.length]);
+            graficoCpu.update();  // Atualiza o gráfico com os novos dados
+        } else {
+            console.error("Gráfico não está inicializado.");
+        }
+
+        it++;  // Incrementa o índice para o próximo dado
+    };
+
+    // Função para verificar se o limite de CPU foi ultrapassado
+    for (var i = 0; i <= dados.length; i++) {
+        if (Number(localStorage.getItem("consumoCpuAlerta")) < dados[i]) {
+            n_alertas.innerHTML = nAlertasCpu + 1;
+            nAlertasCpu += 1;
 
             const porcentagem = ((nAlertasCpu / resposta.length) * 100).toFixed(0);
             porcent_alerta.innerHTML = `${porcentagem}%`;
@@ -144,104 +241,12 @@ function plotarGraficosCpu(resposta) {
             Swal.fire({
                 position: "top-center",
                 icon: "warning",
-                title: "Limite ultrapassado de cpu",
+                title: "Limite ultrapassado de CPU",
                 showConfirmButton: false,
             });
-        } else {
-            // Se o gráfico já existir, apenas atualiza os dados
-            if (graficoCpu) {
-                graficoCpu.data.datasets[0].data = [];  // Limpa os dados anteriores
-                graficoCpu.data.labels = [];            // Limpa as labels anteriores
-                graficoCpu.update();  // Atualiza o gráfico sem recriar
-            } else {
-                // Se o gráfico não existir, cria o gráfico
-                graficoCpu = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: [],
-                        datasets: [{
-                            label: 'Uso de CPU',
-                            data: [],
-                            backgroundColor: '#e234d4',
-                            borderColor: '#e234d4',
-                            borderWidth: 1,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 10,
-                                    max: 100,
-                                    min: 0,
-                                    callback: function (value) {
-                                        return value + '%';
-                                    },
-                                    color: '#FFFF'
-                                },
-                                grid: {
-                                    color: '#6c6877af',
-                                },
-                                border: {
-                                    color: '#6c6877af',
-                                }
-                            },
-                            x: {
-                                ticks: {
-                                    display: false
-                                },
-                                grid: {
-                                    color: '#6c6877af'
-                                },
-                                border: {
-                                    color: '#6c6877af'
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                display: false,
-                                labels: {
-                                    color: '#FFFF'
-                                }
-                            },
-                            tooltip: {
-                                titleColor: '#FFFF',
-                                bodyColor: '#FFFF'
-                            },
-                            title: {
-                                display: true,
-                                text: 'Uso de CPU',
-                                color: '#FFFF',
-                                font: {
-                                    size: 25,
-                                    weight: 'bold'
-                                }
-                            }
-                        }
-                    }
-                });
-            }
         }
     }
 
-    // Função para atualizar o gráfico com os dados
-    const atualizarGrafico = () => {
-        if (it >= dados.length) {
-            clearInterval(intervalo);  // Quando terminar, limpa o intervalo
-            return;
-        }
-
-        graficoCpu.data.datasets[0].data.push(dados[it]);
-        graficoCpu.data.labels.push(labels[it % labels.length]);
-        graficoCpu.update();  // Atualiza o gráfico com os novos dados
-        it++;  // Incrementa o índice para o próximo dado
-    };
-
-    // Inicia a atualização a cada 1 segundo (1000 ms)
     const intervalo = setInterval(atualizarGrafico, 1000);
 }
 
@@ -639,7 +644,7 @@ function plotarGraficosRam(resposta) {
         graficoRam.update();
 
         // Verifica se o valor ultrapassa o limite e gera alertas
-        if (consumoRamAlerta < dados[index]) {
+        if (Number(localStorage.getItem("consumoRamAlerta")) < dados[index]) {
             nAlertasRam++;
             n_AlertasRam.innerHTML = `${nAlertasRam}`;
 
@@ -792,7 +797,7 @@ function plotarGraficoSwap(resposta) {
             index++;
 
             // Alerta caso ultrapasse o limite
-            if (consumoSwapAlerta < dados[index]) {
+            if (Number(localStorage.getItem("consumoSwapAlerta")) < dados[i]) {
                 Swal.fire({
                     position: "top-center",
                     icon: "warning",
@@ -1162,7 +1167,7 @@ function plotarPerdaDePacote(resposta) {
 
         for (var i = 0; i <= dados.length; i++) {
 
-            if (perdaPacoteAlerta < dados[i]) {
+            if (Number(localStorage.getItem("perdaPacoteAlerta")) < dados[i]) {
                 nAlertasRede++;
                 alertaRede.innerHTML = `${nAlertasRede}`;
     
@@ -1592,9 +1597,3 @@ function buscarRiscoAlerta() {
             mensagem.textContent = "Erro ao buscar os dados. Tente novamente mais tarde.";
         });
 }
-
-
-
-
-
-
